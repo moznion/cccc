@@ -1,5 +1,5 @@
 [workspace]
-members = ["crates/cccc-core", "crates/cccc-typescript", "crates/cccc-cli"]
+members = ["crates/cccc-core", "crates/cccc-cli", "crates/cccc-es", "crates/cccc-es-cli"]
 resolver = "2"
 
 [workspace.package]
@@ -9,7 +9,8 @@ license = "MIT"
 
 [workspace.dependencies]
 cccc-core = { path = "crates/cccc-core" }
-cccc-typescript = { path = "crates/cccc-typescript" }
+cccc-cli = { path = "crates/cccc-cli" }
+cccc-es = { path = "crates/cccc-es" }
 serde = { version = "1", features = ["derive"] }
 
 [profile.release]

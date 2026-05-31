@@ -1,10 +1,29 @@
+//! Shared CLI machinery for `cccc` front-ends.
+//!
+//! Everything common to every language front-end lives here: argument parsing,
+//! file discovery, parallel analysis, the threshold/`--min`/`--top` logic, and
+//! output rendering. A language-specific binary (e.g. `cccc-es`) supplies only
+//! two things via [`run`]: how to analyze one file into a [`FileReport`], and the
+//! default set of file extensions. This keeps the per-language binaries tiny and
+//! the behaviour identical across languages.
+//!
+//! ## Exit codes
+//!
+//! [`run`] returns a process exit code with a consistent meaning:
+//! - `0` — success (including an existing input path that simply contains no
+//!   matching files: "nothing to analyze" is not an error).
+//! - `1` — a `--max-cognitive`/`--max-cyclomatic` threshold was exceeded
+//!   (the CI gate).
+//! - `2` — unable to proceed: a given path does not exist, or the worker pool
+//!   could not be created. (clap's own usage errors also exit `2`.)
+
 mod cli;
 mod output;
 mod walk;
 
 use std::path::Path;
 
-use clap::Parser;
+use clap::{CommandFactory, FromArgMatches};
 use rayon::prelude::*;
 
 use cccc_core::report::{self, FileReport, FunctionReport, Metric, Report};
@@ -13,27 +32,47 @@ use cli::Cli;
 /// Below this many files, sequential analysis beats paying for a rayon pool.
 const PARALLEL_THRESHOLD: usize = 16;
 
-fn main() {
-    std::process::exit(run());
-}
+/// Analyze one file's source into a [`FileReport`]. Implemented per language by
+/// the relevant adapter (e.g. `cccc_typescript::analyze_source`).
+pub type AnalyzeFn = fn(&Path, &str) -> FileReport;
 
-/// Read and analyze one file, reporting (but not failing on) read errors.
-fn analyze(path: &Path) -> Option<FileReport> {
-    match std::fs::read_to_string(path) {
-        Ok(src) => Some(cccc_typescript::analyze_source(path, &src)),
-        Err(e) => {
-            eprintln!("cccc: cannot read {}: {e}", path.display());
-            None
-        }
+/// Run the CLI end to end and return a process exit code.
+///
+/// `bin_name` is the front-end binary's name (e.g. `"cccc-es"`); it sets the
+/// program name shown in `--help`/`--version` and the version string, so the
+/// shared `Cli` definition doesn't bake in any one front-end's identity.
+/// `analyze` lowers+scores a single file; `default_exts` is the extension set
+/// used when `--ext` is not given (e.g. `&["ts", "tsx", "js", ...]`).
+pub fn run(
+    bin_name: &'static str,
+    version: &'static str,
+    analyze: AnalyzeFn,
+    default_exts: &[&str],
+) -> i32 {
+    let command = Cli::command()
+        .name(bin_name)
+        .bin_name(bin_name)
+        .version(version);
+    let cli = match Cli::from_arg_matches(&command.get_matches()) {
+        Ok(cli) => cli,
+        Err(e) => e.exit(),
+    };
+
+    // A path that doesn't exist is almost always a typo, so fail loudly rather
+    // than silently reporting "no files". (A path that exists but contains no
+    // matching files is still treated as an empty, successful run below.)
+    let mut any_missing = false;
+    for path in cli.paths.iter().filter(|p| !p.exists()) {
+        eprintln!("cccc: path does not exist: {}", path.display());
+        any_missing = true;
     }
-}
-
-fn run() -> i32 {
-    let cli = Cli::parse();
+    if any_missing {
+        return 2;
+    }
 
     let exts: Vec<String> = match &cli.ext {
         Some(e) => e.iter().map(|s| s.trim().to_string()).collect(),
-        None => walk::DEFAULT_EXTS.iter().map(|s| s.to_string()).collect(),
+        None => default_exts.iter().map(|s| s.to_string()).collect(),
     };
 
     let files = walk::collect_files(&cli.paths, &exts, cli.no_ignore);
@@ -53,7 +92,7 @@ fn run() -> i32 {
     // For a handful of files, spinning up a rayon pool costs more than it saves,
     // so analyze sequentially. Above the threshold, fan out across `jobs` workers.
     let mut reports: Vec<FileReport> = if jobs <= 1 || files.len() <= PARALLEL_THRESHOLD {
-        files.iter().filter_map(|p| analyze(p)).collect()
+        files.iter().filter_map(|p| read_and_analyze(analyze, p)).collect()
     } else {
         let pool = match rayon::ThreadPoolBuilder::new().num_threads(jobs).build() {
             Ok(pool) => pool,
@@ -62,7 +101,12 @@ fn run() -> i32 {
                 return 2;
             }
         };
-        pool.install(|| files.par_iter().filter_map(|p| analyze(p)).collect())
+        pool.install(|| {
+            files
+                .par_iter()
+                .filter_map(|p| read_and_analyze(analyze, p))
+                .collect()
+        })
     };
 
     reports.sort_by(|a, b| a.path.cmp(&b.path));
@@ -113,6 +157,17 @@ fn run() -> i32 {
     }
 
     i32::from(fail)
+}
+
+/// Read a file and analyze it, reporting (but not failing on) read errors.
+fn read_and_analyze(analyze: AnalyzeFn, path: &Path) -> Option<FileReport> {
+    match std::fs::read_to_string(path) {
+        Ok(src) => Some(analyze(path, &src)),
+        Err(e) => {
+            eprintln!("cccc: cannot read {}: {e}", path.display());
+            None
+        }
+    }
 }
 
 /// True if any function (at any depth) exceeds either threshold.

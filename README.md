@@ -14,12 +14,19 @@ library and extended to other languages:
 | Crate | Role |
 |-------|------|
 | [`cccc-core`](crates/cccc-core) | Language-agnostic engine: a normalized IR (`ir::Node`), the scoring rules (`engine::analyze`), and the result/aggregation types. Depends only on `serde`. |
-| [`cccc-typescript`](crates/cccc-typescript) | TS/JS adapter: parses with oxc and lowers the AST into `cccc-core`'s IR. |
-| [`cccc-cli`](crates/cccc-cli) | The `cccc` binary: file walking, parallelism, output rendering. |
+| [`cccc-cli`](crates/cccc-cli) | Shared CLI machinery (argument parsing, file walking, parallelism, output rendering) as a library. A front-end calls `cccc_cli::run(bin_name, version, analyze_fn, default_exts)`. |
+| [`cccc-es`](crates/cccc-es) | ECMAScript/TypeScript adapter **library**: lowers the oxc AST into `cccc-core`'s IR. Depends only on `cccc-core` + oxc — **no CLI dependencies**, so embedding it stays lightweight. |
+| [`cccc-es-cli`](crates/cccc-es-cli) | The **`cccc-es`** binary: a thin shell that wires the `cccc-es` adapter into the shared `cccc-cli` runner. |
 
-To support another language, write an adapter that lowers its AST into
-`cccc_core::ir::Node` and call `cccc_core::engine::analyze` — no need to
-reimplement the metrics.
+The adapter and the binary are separate crates so that a library consumer who
+only wants the metrics pulls in just `cccc-es` (+ `cccc-core` + oxc), never clap
+/ ignore / rayon.
+
+To support another language: (1) add an adapter crate that lowers its AST into
+`cccc_core::ir::Node` and calls `cccc_core::engine::analyze`, then (2) add a tiny
+binary crate whose `main` calls
+`cccc_cli::run(env!("CARGO_BIN_NAME"), env!("CARGO_PKG_VERSION"), analyze_source, DEFAULT_EXTS)`
+— no need to reimplement either the metrics or the CLI.
 
 ```rust
 use cccc_core::{engine::analyze, ir::Node};
@@ -36,13 +43,13 @@ assert_eq!(report.functions[0].cognitive, 1);  // one `if`
 
 ```sh
 cargo build --release
-# binary at ./target/release/cccc
+# binary at ./target/release/cccc-es
 ```
 
 ## Usage
 
 ```sh
-cccc <paths...> [options]
+cccc-es <paths...> [options]
 ```
 
 Output is **JSON by default**. Pass one or more files or directories;
@@ -72,19 +79,19 @@ per-file `files` array; each entry carries its own `path` and `line`. The
 
 ```sh
 # JSON for one file
-cccc src/app.ts
+cccc-es src/app.ts
 
 # Pretty table for a directory
-cccc --table src/
+cccc-es --table src/
 
 # CI gate: fail if any function exceeds cognitive complexity 15
-cccc --max-cognitive 15 src/
+cccc-es --max-cognitive 15 src/
 
 # The 10 most cognitively-complex functions across the project
-cccc --top-cognitive 10 src/
+cccc-es --top-cognitive 10 src/
 
 # Limit parallelism to 4 workers (default is the logical CPU count)
-cccc -j 4 src/
+cccc-es -j 4 src/
 ```
 
 Files are analyzed in parallel. The worker count defaults to the number of
@@ -133,7 +140,7 @@ the tail where refactoring candidates live. It is unaffected by `--min`.
 
 > Note: the top level is an object (`{ files, summary }`), so to post-process
 > the per-file array with `jq`, start from `.files` — e.g.
-> `cccc src/ | jq '.files | sort_by(-.cognitive)'`.
+> `cccc-es src/ | jq '.files | sort_by(-.cognitive)'`.
 
 ## Metric rules
 

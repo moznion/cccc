@@ -1,8 +1,43 @@
 use assert_cmd::Command;
 
 #[test]
+fn version_reports_binary_name() {
+    Command::cargo_bin("cccc-es")
+        .unwrap()
+        .arg("--version")
+        .assert()
+        .success()
+        .stdout(predicates::str::starts_with("cccc-es "));
+}
+
+#[test]
+fn nonexistent_path_is_an_error() {
+    Command::cargo_bin("cccc-es")
+        .unwrap()
+        .arg("/no/such/path-xyz")
+        .assert()
+        .failure()
+        .code(2);
+}
+
+#[test]
+fn existing_dir_with_no_matches_is_ok() {
+    // A real directory containing nothing analyzable is an empty, successful run
+    // — distinct from a path that doesn't exist.
+    let dir = std::env::temp_dir().join("cccc_es_empty_match_test");
+    std::fs::create_dir_all(&dir).unwrap();
+    std::fs::write(dir.join("readme.md"), "# not analyzed").unwrap();
+    Command::cargo_bin("cccc-es")
+        .unwrap()
+        .arg(&dir)
+        .assert()
+        .success();
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
 fn outputs_json_by_default() {
-    let out = Command::cargo_bin("cccc")
+    let out = Command::cargo_bin("cccc-es")
         .unwrap()
         .arg("tests/fixtures/sample.ts")
         .assert()
@@ -20,12 +55,12 @@ fn outputs_json_by_default() {
 #[test]
 fn jobs_option_produces_same_output() {
     // The result must be independent of the worker count.
-    let single = Command::cargo_bin("cccc")
+    let single = Command::cargo_bin("cccc-es")
         .unwrap()
         .args(["--jobs", "1", "tests/fixtures/sample.ts"])
         .assert()
         .success();
-    let many = Command::cargo_bin("cccc")
+    let many = Command::cargo_bin("cccc-es")
         .unwrap()
         .args(["-j", "4", "tests/fixtures/sample.ts"])
         .assert()
@@ -39,7 +74,7 @@ fn jobs_option_produces_same_output() {
 
 #[test]
 fn jobs_zero_is_rejected() {
-    Command::cargo_bin("cccc")
+    Command::cargo_bin("cccc-es")
         .unwrap()
         .args(["--jobs", "0", "tests/fixtures/sample.ts"])
         .assert()
@@ -48,7 +83,7 @@ fn jobs_zero_is_rejected() {
 
 #[test]
 fn includes_project_summary() {
-    let out = Command::cargo_bin("cccc")
+    let out = Command::cargo_bin("cccc-es")
         .unwrap()
         .arg("tests/fixtures/sample.ts")
         .assert()
@@ -67,7 +102,7 @@ fn includes_project_summary() {
 
 #[test]
 fn top_cognitive_returns_flat_ranking() {
-    let out = Command::cargo_bin("cccc")
+    let out = Command::cargo_bin("cccc-es")
         .unwrap()
         .args(["--top-cognitive", "2", "tests/fixtures/sample.ts"])
         .assert()
@@ -89,7 +124,7 @@ fn top_cognitive_returns_flat_ranking() {
 
 #[test]
 fn top_cyclomatic_orders_by_cyclomatic() {
-    let out = Command::cargo_bin("cccc")
+    let out = Command::cargo_bin("cccc-es")
         .unwrap()
         .args(["--top-cyclomatic", "1", "tests/fixtures/sample.ts"])
         .assert()
@@ -104,7 +139,7 @@ fn top_cyclomatic_orders_by_cyclomatic() {
 
 #[test]
 fn top_flags_are_mutually_exclusive() {
-    Command::cargo_bin("cccc")
+    Command::cargo_bin("cccc-es")
         .unwrap()
         .args([
             "--top-cognitive",
@@ -120,7 +155,7 @@ fn top_flags_are_mutually_exclusive() {
 #[test]
 fn max_cognitive_threshold_fails() {
     // sumOfPrimes has cognitive 7, so a max of 5 must fail (exit 1).
-    Command::cargo_bin("cccc")
+    Command::cargo_bin("cccc-es")
         .unwrap()
         .args(["--max-cognitive", "5", "tests/fixtures/sample.ts"])
         .assert()
@@ -130,7 +165,7 @@ fn max_cognitive_threshold_fails() {
 
 #[test]
 fn max_cognitive_threshold_passes_when_under() {
-    Command::cargo_bin("cccc")
+    Command::cargo_bin("cccc-es")
         .unwrap()
         .args(["--max-cognitive", "100", "tests/fixtures/sample.ts"])
         .assert()
@@ -139,7 +174,7 @@ fn max_cognitive_threshold_passes_when_under() {
 
 #[test]
 fn table_output_renders() {
-    Command::cargo_bin("cccc")
+    Command::cargo_bin("cccc-es")
         .unwrap()
         .args(["--table", "tests/fixtures/sample.ts"])
         .assert()

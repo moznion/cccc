@@ -4,9 +4,13 @@ use std::path::PathBuf;
 
 use clap::Parser;
 
-/// Measure Cognitive Complexity and Cyclomatic Complexity of TS/JS code.
+/// Measure Cognitive Complexity and Cyclomatic Complexity of source code.
+///
+/// The program name and version are injected by the front-end binary via
+/// [`crate::run`] (it overrides clap's `Command` name/version), so this shared
+/// definition stays language-neutral.
 #[derive(Debug, Parser)]
-#[command(name = "cccc", version, about)]
+#[command(about)]
 pub struct Cli {
     /// Files or directories to analyze.
     #[arg(required = true)]

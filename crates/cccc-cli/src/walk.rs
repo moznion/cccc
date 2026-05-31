@@ -5,9 +5,6 @@ use std::path::{Path, PathBuf};
 
 use ignore::WalkBuilder;
 
-/// Default extensions analyzed when `--ext` is not given.
-pub const DEFAULT_EXTS: &[&str] = &["ts", "tsx", "js", "jsx", "mts", "cts", "mjs", "cjs"];
-
 fn has_ext(path: &Path, exts: &[String]) -> bool {
     path.extension()
         .and_then(|e| e.to_str())

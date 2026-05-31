@@ -1,9 +1,9 @@
 [package]
-name = "cccc-typescript"
+name = "cccc-es"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
-description = "TypeScript/JavaScript (oxc) adapter that lowers source into the cccc-core complexity IR"
+description = "ECMAScript/TypeScript (oxc) adapter that lowers source into the cccc-core complexity IR"
 
 [dependencies]
 cccc-core = { workspace = true }

@@ -1,5 +1,11 @@
-//! TypeScript/JavaScript adapter: parses source with [oxc](https://oxc.rs) and
-//! lowers the AST into the language-agnostic [`cccc_core::ir`].
+//! ECMAScript (TypeScript/JavaScript) adapter: parses source with
+//! [oxc](https://oxc.rs) and lowers the AST into the language-agnostic
+//! [`cccc_core::ir`].
+//!
+//! This is a pure library — it depends only on `cccc-core` and oxc, with no CLI
+//! machinery, so embedders pay nothing for clap/ignore/rayon. The `cccc-es`
+//! binary lives in the separate `cccc-es-cli` crate, which combines
+//! [`analyze_source`]/[`DEFAULT_EXTS`] with the shared `cccc-cli` runner.
 //!
 //! This crate contains **no scoring logic** — it only recognizes the constructs
 //! the engine cares about (functions, branches, loops, switches, catches,
@@ -31,6 +37,10 @@ use oxc_parser::Parser;
 use oxc_span::SourceType;
 use oxc_syntax::operator::LogicalOperator;
 use oxc_syntax::scope::ScopeFlags;
+
+/// File extensions analyzed by default (when `--ext` is not given): TypeScript,
+/// JavaScript, and their module/CommonJS variants.
+pub const DEFAULT_EXTS: &[&str] = &["ts", "tsx", "js", "jsx", "mts", "cts", "mjs", "cjs"];
 
 /// Parse `source` (typed by `path`'s extension) and produce its [`FileReport`],
 /// scoring via the core engine. This is the convenience entry point used by the
