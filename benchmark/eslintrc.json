@@ -1,0 +1,10 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": { "ecmaVersion": 2022, "sourceType": "module" },
+  "plugins": ["sonarjs"],
+  "rules": {
+    "complexity": ["warn", 0],
+    "sonarjs/cognitive-complexity": ["warn", 0]
+  }
+}

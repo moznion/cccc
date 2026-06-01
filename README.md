@@ -146,6 +146,28 @@ the tail where refactoring candidates live. It is unaffected by `--min`.
 > the per-file array with `jq`, start from `.files` — e.g.
 > `cccc-es src/ | jq '.files | sort_by(-.cognitive)'`.
 
+## Benchmark
+
+On [zod](https://github.com/colinhacks/zod)'s `packages/zod/src` (286 `.ts`
+files, 68,357 LOC), median wall-clock and peak memory over 5 runs on an Apple
+M4 Pro:
+
+| Tool | Metrics | Time | Peak RSS |
+|------|---------|-----:|---------:|
+| **cccc** (`cccc-es`) | cognitive + cyclomatic, per-function, full AST | **15.5 ms** | **12.5 MB** |
+| ESLint + SonarJS | cognitive + cyclomatic, per-function, full AST | 1,807 ms (**117× slower**) | 604 MB (48× more) |
+| lizard | cyclomatic only, heuristic parser | 1,413 ms (91× slower) | 45.7 MB |
+| scc | coarse per-file keyword count, no AST | 8.3 ms (1.9× faster) | 13.9 MB |
+
+Among tools that do the same job — both metrics, per-function, over a real AST —
+cccc is **~117× faster than ESLint+SonarJS** (the only other tool that computes
+cognitive complexity) and uses ~48× less memory. `scc` is faster only because it
+never parses: it counts keywords per file, with no AST, no per-function data, and
+no cognitive complexity.
+
+See **[BENCHMARK.md](BENCHMARK.md)** for the full methodology, the verify-then-time
+harness, per-run numbers, function-count sanity checks, and caveats.
+
 ## Metric rules
 
 **Cyclomatic (McCabe):** base 1 per function; +1 for each `if`/`else if`,
