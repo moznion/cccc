@@ -1,0 +1,16 @@
+[package]
+name = "cccc-rs"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Rust (syn) adapter that lowers source into the cccc-core complexity IR"
+
+[dependencies]
+cccc-core = { workspace = true }
+syn = { version = "2", features = ["full", "visit"] }
+# span-locations lets `Span::start().line` resolve real line numbers when we
+# parse a file outside of a proc-macro (syn does not enable it by default).
+proc-macro2 = { version = "1", features = ["span-locations"] }

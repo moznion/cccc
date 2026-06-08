@@ -158,6 +158,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "cccc-rs"
+version = "0.1.0"
+dependencies = [
+ "cccc-core",
+ "proc-macro2",
+ "syn",
+]
+
+[[package]]
+name = "cccc-rs-cli"
+version = "0.1.0"
+dependencies = [
+ "assert_cmd",
+ "cccc-cli",
+ "cccc-rs",
+ "predicates",
+ "serde_json",
+]
+
+[[package]]
 name = "cfg-if"
 version = "1.0.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"

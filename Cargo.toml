@@ -1,5 +1,12 @@
 [workspace]
-members = ["crates/cccc-core", "crates/cccc-cli", "crates/cccc-es", "crates/cccc-es-cli"]
+members = [
+    "crates/cccc-core",
+    "crates/cccc-cli",
+    "crates/cccc-es",
+    "crates/cccc-es-cli",
+    "crates/cccc-rs",
+    "crates/cccc-rs-cli",
+]
 resolver = "2"
 
 [workspace.package]
@@ -14,6 +21,7 @@ homepage = "https://github.com/moznion/cccc"
 cccc-core = { path = "crates/cccc-core", version = "0.1.0" }
 cccc-cli = { path = "crates/cccc-cli", version = "0.1.0" }
 cccc-es = { path = "crates/cccc-es", version = "0.1.0" }
+cccc-rs = { path = "crates/cccc-rs", version = "0.1.0" }
 serde = { version = "1", features = ["derive"] }
 
 [profile.release]
