@@ -1,11 +1,12 @@
 # cccc - A tool/library for measurement of **C**ognitive **C**omplexity and **C**yclomatic **C**omplexity
 
 - A fast CLI that measures **Cognitive Complexity** (SonarSource / G. Ann Campbell)
-  and **Cyclomatic Complexity** (McCabe). Written in Rust; two language front-ends
-  ship today, both sharing the same engine, CLI, flags, and output format:
+  and **Cyclomatic Complexity** (McCabe). Written in Rust; three language front-ends
+  ship today, all sharing the same engine, CLI, flags, and output format:
   - **`cccc-es`** — TypeScript / JavaScript, via the [oxc](https://oxc.rs) parser.
     Supports `.ts`, `.tsx`, `.js`, `.jsx`, `.mts`, `.cts`, `.mjs`, `.cjs`.
   - **`cccc-rs`** — Rust, via the [syn](https://docs.rs/syn) parser. Supports `.rs`.
+  - **`cccc-go`** — Go, via the [gosyn](https://docs.rs/gosyn) parser. Supports `.go`.
 - A Rust library for calculating cognitive and cyclomatic complexity in a language-agnostic way
 
 ## Workspace layout
@@ -21,6 +22,8 @@ library and extended to other languages:
 | [`cccc-es-cli`](crates/cccc-es-cli) | The **`cccc-es`** binary: a thin shell that wires the `cccc-es` adapter into the shared `cccc-cli` runner. |
 | [`cccc-rs`](crates/cccc-rs) | Rust adapter **library**: lowers the [syn](https://docs.rs/syn) AST into `cccc-core`'s IR. Depends only on `cccc-core` + syn — **no CLI dependencies**. |
 | [`cccc-rs-cli`](crates/cccc-rs-cli) | The **`cccc-rs`** binary: a thin shell that wires the `cccc-rs` adapter into the shared `cccc-cli` runner. |
+| [`cccc-go`](crates/cccc-go) | Go adapter **library**: lowers the [gosyn](https://docs.rs/gosyn) AST into `cccc-core`'s IR. Depends only on `cccc-core` + gosyn — **no CLI dependencies**. |
+| [`cccc-go-cli`](crates/cccc-go-cli) | The **`cccc-go`** binary: a thin shell that wires the `cccc-go` adapter into the shared `cccc-cli` runner. |
 
 The adapter and the binary are separate crates so that a library consumer who
 only wants the metrics pulls in just `cccc-es` (+ `cccc-core` + oxc), never clap
@@ -30,8 +33,9 @@ To support another language: (1) add an adapter crate that lowers its AST into
 `cccc_core::ir::Node` and calls `cccc_core::engine::analyze`, then (2) add a tiny
 binary crate whose `main` calls
 `cccc_cli::run(env!("CARGO_BIN_NAME"), env!("CARGO_PKG_VERSION"), analyze_source, DEFAULT_EXTS)`
-— no need to reimplement either the metrics or the CLI. `cccc-es` (oxc) and
-`cccc-rs` (syn) are the two reference adapters: same shape, different parser.
+— no need to reimplement either the metrics or the CLI. `cccc-es` (oxc),
+`cccc-rs` (syn), and `cccc-go` (gosyn) are the reference adapters: same shape,
+different parser.
 
 **See [docs/ADDING_A_LANGUAGE.md](docs/ADDING_A_LANGUAGE.md) for the full
 step-by-step guide**, including the IR-node reference table, the
@@ -52,7 +56,7 @@ assert_eq!(report.functions[0].cognitive, 1);  // one `if`
 
 ```sh
 cargo build --release
-# binaries at ./target/release/cccc-es and ./target/release/cccc-rs
+# binaries at ./target/release/cccc-es, ./target/release/cccc-rs, and ./target/release/cccc-go
 ```
 
 ## Usage
@@ -60,10 +64,12 @@ cargo build --release
 ```sh
 cccc-es <paths...> [options]   # TypeScript / JavaScript
 cccc-rs <paths...> [options]   # Rust
+cccc-go <paths...> [options]   # Go
 ```
 
-Both front-ends take the **same flags and produce the same output format** — the
-examples below use `cccc-es`, but `cccc-rs` behaves identically on `.rs` files.
+All front-ends take the **same flags and produce the same output format** — the
+examples below use `cccc-es`, but `cccc-rs` and `cccc-go` behave identically on
+`.rs` and `.go` files respectively.
 
 Output is **JSON by default**. Pass one or more files or directories;
 directories are walked recursively (respecting `.gitignore`, always skipping
@@ -213,3 +219,10 @@ trait default methods / closures are the function-like units; `if`/`else if`/
 `for`/`while`/`loop`, labelled `break`/`continue`, and `&&`/`||` map to the
 corresponding nodes. Rust has no ternary (`if` is an expression) and no
 `try`/`catch` (errors flow through `?`), so those simply don't occur.
+
+For **Go** (`cccc-go`): top-level functions / methods / function literals
+(closures) are the function-like units; `if`/`else if`/`else`, `for` (including
+`for`-`range`), `switch`/type-`switch`/`select` (a `default` clause is the
+non-decision arm), labelled `break`/`continue`/`goto`, and `&&`/`||` map to the
+corresponding nodes. Go has no ternary and no `try`/`catch` (errors are returned
+values), so those simply don't occur.

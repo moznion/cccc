@@ -24,11 +24,13 @@ jobs:
       fail-fast: false
       matrix:
         # One asset per (binary × target). Each front-end binary (cccc-es from
-        # cccc-es-cli, cccc-rs from cccc-rs-cli) is built for every target; the
-        # `include` entries attach the runner OS to each target.
+        # cccc-es-cli, cccc-rs from cccc-rs-cli, cccc-go from cccc-go-cli) is
+        # built for every target; the `include` entries attach the runner OS to
+        # each target.
         bin:
           - cccc-es
           - cccc-rs
+          - cccc-go
         target:
           - x86_64-unknown-linux-musl
           - aarch64-unknown-linux-musl
@@ -51,7 +53,7 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - uses: taiki-e/upload-rust-binary-action@dd5bbe0528f32a483b749797277ab6ef83a29999
         with:
-          # The binary to build/upload for this matrix leg (cccc-es / cccc-rs).
+          # The binary to build/upload for this matrix leg (cccc-es / cccc-rs / cccc-go).
           bin: ${{ matrix.bin }}
           target: ${{ matrix.target }}
           # Archive name: cccc-es-<tag>-<target>.{tar.gz,zip}
