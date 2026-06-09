@@ -16,6 +16,6 @@ oxc_ast = "0.133"
 # default features pull in `serialize`, which switches the AST to a phantom
 # raw-transfer layout where struct fields are inaccessible. We only need the
 # Visit trait, so disable defaults.
-oxc_ast_visit = { version = "0.133", default-features = false }
+oxc_ast_visit = { version = "0.135", default-features = false }
 oxc_span = "0.133"
 oxc_syntax = "0.133"
