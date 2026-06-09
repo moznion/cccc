@@ -17,5 +17,5 @@ oxc_ast = "0.133"
 # raw-transfer layout where struct fields are inaccessible. We only need the
 # Visit trait, so disable defaults.
 oxc_ast_visit = { version = "0.133", default-features = false }
-oxc_span = "0.133"
+oxc_span = "0.135"
 oxc_syntax = "0.133"
