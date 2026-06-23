@@ -10,7 +10,7 @@ description = "ECMAScript/TypeScript (oxc) adapter that lowers source into the c
 
 [dependencies]
 cccc-core = { workspace = true }
-oxc_allocator = "0.136"
+oxc_allocator = "0.137"
 oxc_parser = "0.136"
 oxc_ast = "0.136"
 # default features pull in `serialize`, which switches the AST to a phantom
