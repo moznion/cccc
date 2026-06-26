@@ -462,6 +462,14 @@ impl Builder {
                 // Recurse into receiver + arguments (nested calls / closures).
                 let _ = walk_owned_expr(self, expr);
             }
+            // `new class { … }` lowers its members exactly like a named class:
+            // each method becomes its own `Function` unit rather than folding
+            // into the surrounding frame.
+            ExprKind::AnonymousClass(c) => {
+                self.lower_class(c);
+                // Still recurse into the `new`'s arguments for nested calls /
+                // closures, but skip the class body (already lowered above).
+            }
             ExprKind::Assign(a) => {
                 // `$x = fn() …` / `$x = function() …` labels the next closure.
                 if let ExprKind::Variable(name) = &a.target.kind
@@ -907,6 +915,34 @@ mod tests {
         "#;
         // foreach(+1) + if(+2) + plain break(0) = 3
         assert_eq!(cognitive_of(plain, "f"), 3);
+    }
+
+    #[test]
+    fn anonymous_class_methods_are_their_own_units() {
+        let src = r#"<?php
+            function host($cb) {
+                $obj = new class($cb, fn ($z) => $z && $z) {
+                    public function m($x) {
+                        if ($x) {
+                            return 1;
+                        }
+                        return 0;
+                    }
+                    public function n($y) {
+                        return $y ?? 0;
+                    }
+                };
+                return $obj;
+            }
+        "#;
+        // The anonymous class's methods must each be their own Function unit,
+        // not folded into `host`, which itself owns no structural complexity.
+        assert_eq!(cognitive_of(src, "host"), 0);
+        assert_eq!(cognitive_of(src, "m"), 1); // if
+        assert_eq!(cognitive_of(src, "n"), 1); // ??
+        assert_eq!(find(&analyze(src).functions, "m").unwrap().kind, "method");
+        // A closure passed as a constructor argument is still reached.
+        assert_eq!(cognitive_of(src, "<arrow>"), 1); // &&
     }
 
     #[test]
