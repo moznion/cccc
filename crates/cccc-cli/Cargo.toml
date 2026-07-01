@@ -18,6 +18,7 @@ cccc-es = { workspace = true }
 cccc-rs = { workspace = true }
 cccc-go = { workspace = true }
 cccc-php = { workspace = true }
+cccc-rb = { workspace = true }
 clap = { version = "4", features = ["derive"] }
 globset = "0.4"
 ignore = "0.4"

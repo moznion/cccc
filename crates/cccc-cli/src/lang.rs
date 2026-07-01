@@ -58,6 +58,12 @@ pub const LANGUAGES: &[Language] = &[
         exts: cccc_php::DEFAULT_EXTS,
         analyze: cccc_php::analyze_source,
     },
+    Language {
+        name: "ruby",
+        aliases: &["rb"],
+        exts: cccc_rb::DEFAULT_EXTS,
+        analyze: cccc_rb::analyze_source,
+    },
 ];
 
 /// Resolve the active languages from an `include` (`--lang`) and an `exclude`
@@ -203,7 +209,11 @@ mod tests {
 
     #[test]
     fn exclude_removes_from_all() {
-        let langs = resolve_languages(None, Some(&["go".to_string(), "php".to_string()])).unwrap();
+        let langs = resolve_languages(
+            None,
+            Some(&["go".to_string(), "php".to_string(), "ruby".to_string()]),
+        )
+        .unwrap();
         assert_eq!(names(&langs), vec!["es", "rust"]);
     }
 
@@ -238,7 +248,7 @@ mod tests {
     fn dispatch_covers_each_extension() {
         let all = resolve_languages(None, None).unwrap();
         let map = build_dispatch(&all, &BTreeMap::new());
-        for key in ["ts", "rs", "go", "php"] {
+        for key in ["ts", "rs", "go", "php", "rb"] {
             assert!(map.contains_key(key), "missing dispatch for .{key}");
         }
     }

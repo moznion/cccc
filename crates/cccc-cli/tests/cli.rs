@@ -242,14 +242,20 @@ fn analyzes_all_languages_in_one_run() {
     // The fixtures dir holds one file per language; a single run dispatches each
     // by extension and reports them all together.
     let v = json(&["tests/fixtures"]);
-    assert_eq!(v["summary"]["file_count"], 4);
+    assert_eq!(v["summary"]["file_count"], 5);
     let paths: Vec<String> = v["files"]
         .as_array()
         .unwrap()
         .iter()
         .map(|f| f["path"].as_str().unwrap().to_string())
         .collect();
-    for ext in ["sample.ts", "sample.rs", "sample.go", "sample.php"] {
+    for ext in [
+        "sample.ts",
+        "sample.rs",
+        "sample.go",
+        "sample.php",
+        "sample.rb",
+    ] {
         assert!(paths.iter().any(|p| p.ends_with(ext)), "missing {ext}");
     }
 }
@@ -281,8 +287,8 @@ fn unknown_lang_is_an_error() {
 
 #[test]
 fn exclude_lang_drops_a_language() {
-    // All languages minus Go and PHP leaves the .ts and .rs fixtures.
-    let v = json(&["--exclude-lang", "go,php", "tests/fixtures"]);
+    // All languages minus Go, PHP and Ruby leaves the .ts and .rs fixtures.
+    let v = json(&["--exclude-lang", "go,php,ruby", "tests/fixtures"]);
     let mut exts: Vec<String> = v["files"]
         .as_array()
         .unwrap()
@@ -324,7 +330,7 @@ fn exclude_lang_combines_with_lang() {
 fn excluding_every_language_is_an_error() {
     Command::cargo_bin("cccc")
         .unwrap()
-        .args(["--exclude-lang", "es,rust,go,php", "tests/fixtures"])
+        .args(["--exclude-lang", "es,rust,go,php,ruby", "tests/fixtures"])
         .assert()
         .failure()
         .code(2)

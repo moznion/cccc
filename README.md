@@ -3,7 +3,7 @@
 - A fast CLI — a **single `cccc` binary** — that measures **Cognitive Complexity**
   (SonarSource / G. Ann Campbell) and **Cyclomatic Complexity** (McCabe). Written
   in Rust. It routes each file to the right front-end by its extension, so one run
-  can analyze a mixed-language tree. Four languages ship today, all sharing the
+  can analyze a mixed-language tree. Five languages ship today, all sharing the
   same engine, flags, and output format:
   - **TypeScript / JavaScript** (`--lang es`), via the [oxc](https://oxc.rs)
     parser. Analyzes `.ts`, `.tsx`, `.js`, `.jsx`, `.mts`, `.cts`, `.mjs`, `.cjs`.
@@ -11,6 +11,8 @@
   - **Go** (`--lang go`), via the [gosyn](https://docs.rs/gosyn) parser. `.go`.
   - **PHP** (`--lang php`), via the [php-rs-parser](https://docs.rs/php-rs-parser)
     parser. `.php`.
+  - **Ruby** (`--lang ruby`), via the [ruby-prism](https://docs.rs/ruby-prism)
+    parser (Ruby's official Prism parser). `.rb`.
 - A Rust library for calculating cognitive and cyclomatic complexity in a language-agnostic way
 
 ## Workspace layout
@@ -26,6 +28,7 @@ library and extended to other languages:
 | [`cccc-rs`](crates/cccc-rs) | Rust adapter **library**: lowers the [syn](https://docs.rs/syn) AST into `cccc-core`'s IR. Depends only on `cccc-core` + syn — **no CLI dependencies**. |
 | [`cccc-go`](crates/cccc-go) | Go adapter **library**: lowers the [gosyn](https://docs.rs/gosyn) AST into `cccc-core`'s IR. Depends only on `cccc-core` + gosyn — **no CLI dependencies**. |
 | [`cccc-php`](crates/cccc-php) | PHP adapter **library**: lowers the [php-rs-parser](https://docs.rs/php-rs-parser) AST into `cccc-core`'s IR. Depends only on `cccc-core` + php-rs-parser / php-ast — **no CLI dependencies**. |
+| [`cccc-rb`](crates/cccc-rb) | Ruby adapter **library**: lowers the [ruby-prism](https://docs.rs/ruby-prism) AST into `cccc-core`'s IR. Depends only on `cccc-core` + ruby-prism — **no CLI dependencies**. Note: ruby-prism is an FFI binding to the vendored Prism C source, so building this crate (unlike the others) needs a C99 compiler and libclang. |
 
 Each adapter is a standalone library so that a consumer who only wants the
 metrics pulls in just that adapter (+ `cccc-core` + its parser), never clap /
@@ -36,8 +39,8 @@ To support another language: (1) add an adapter crate that lowers its AST into
 `cccc_core::ir::Node` and calls `cccc_core::engine::analyze`, then (2) register
 it with one entry in `cccc-cli`'s `lang::LANGUAGES` (and add the dependency) —
 no new binary, and no reimplementing the metrics or the CLI. `cccc-es` (oxc),
-`cccc-rs` (syn), `cccc-go` (gosyn), and `cccc-php` (php-rs-parser) are the
-reference adapters: same shape, different parser.
+`cccc-rs` (syn), `cccc-go` (gosyn), `cccc-php` (php-rs-parser), and `cccc-rb`
+(ruby-prism) are the reference adapters: same shape, different parser.
 
 **See [docs/ADDING_A_LANGUAGE.md](docs/ADDING_A_LANGUAGE.md) for the full
 step-by-step guide**, including the IR-node reference table, the

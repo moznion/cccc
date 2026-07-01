@@ -49,3 +49,8 @@ fn go_fixture_dispatches() {
 fn php_fixture_dispatches() {
     assert_sum_of_primes("sample.php", "sumOfPrimes");
 }
+
+#[test]
+fn ruby_fixture_dispatches() {
+    assert_sum_of_primes("sample.rb", "sum_of_primes");
+}

@@ -1,0 +1,18 @@
+[package]
+name = "cccc-rb"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Ruby (ruby-prism) adapter that lowers source into the cccc-core complexity IR"
+
+[dependencies]
+cccc-core = { workspace = true }
+# Ruby's official parser (Prism). Unlike the other adapters this is an FFI
+# binding to the vendored Prism C source (built statically via `cc`, with
+# `bindgen` generating the bindings), so building this crate requires a C99
+# compiler and libclang. `ruby-prism` provides the `Visit` full-traversal trait
+# we drive lowering from.
+ruby-prism = "1.9.0"
