@@ -197,7 +197,7 @@ dependencies = [
 
 [[package]]
 name = "cccc-cli"
-version = "1.0.0"
+version = "1.1.0"
 dependencies = [
  "assert_cmd",
  "cccc-core",
@@ -218,14 +218,14 @@ dependencies = [
 
 [[package]]
 name = "cccc-core"
-version = "1.0.0"
+version = "1.1.0"
 dependencies = [
  "serde",
 ]
 
 [[package]]
 name = "cccc-es"
-version = "1.0.0"
+version = "1.1.0"
 dependencies = [
  "cccc-core",
  "oxc_allocator",
@@ -238,7 +238,7 @@ dependencies = [
 
 [[package]]
 name = "cccc-go"
-version = "1.0.0"
+version = "1.1.0"
 dependencies = [
  "cccc-core",
  "gosyn",
@@ -246,7 +246,7 @@ dependencies = [
 
 [[package]]
 name = "cccc-php"
-version = "1.0.0"
+version = "1.1.0"
 dependencies = [
  "cccc-core",
  "php-ast",
@@ -255,7 +255,7 @@ dependencies = [
 
 [[package]]
 name = "cccc-rb"
-version = "1.0.0"
+version = "1.1.0"
 dependencies = [
  "cccc-core",
  "ruby-prism",
@@ -263,7 +263,7 @@ dependencies = [
 
 [[package]]
 name = "cccc-rs"
-version = "1.0.0"
+version = "1.1.0"
 dependencies = [
  "cccc-core",
  "proc-macro2",
