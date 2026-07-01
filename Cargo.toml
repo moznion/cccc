@@ -3,13 +3,9 @@ members = [
     "crates/cccc-core",
     "crates/cccc-cli",
     "crates/cccc-es",
-    "crates/cccc-es-cli",
     "crates/cccc-rs",
-    "crates/cccc-rs-cli",
     "crates/cccc-go",
-    "crates/cccc-go-cli",
     "crates/cccc-php",
-    "crates/cccc-php-cli",
 ]
 resolver = "2"
 
@@ -23,7 +19,6 @@ homepage = "https://github.com/moznion/cccc"
 
 [workspace.dependencies]
 cccc-core = { path = "crates/cccc-core", version = "0.4.0" }
-cccc-cli = { path = "crates/cccc-cli", version = "0.4.0" }
 cccc-es = { path = "crates/cccc-es", version = "0.4.0" }
 cccc-rs = { path = "crates/cccc-rs", version = "0.4.0" }
 cccc-go = { path = "crates/cccc-go", version = "0.4.0" }

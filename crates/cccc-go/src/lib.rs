@@ -3,9 +3,9 @@
 //!
 //! This is a pure library — it depends only on `cccc-core` and `gosyn` (itself a
 //! pure-Rust Go parser, so there is no C toolchain and cross-compilation stays
-//! clean), with no CLI machinery. The `cccc-go` binary lives in the separate
-//! `cccc-go-cli` crate, which combines [`analyze_source`]/[`DEFAULT_EXTS`] with
-//! the shared `cccc-cli` runner.
+//! clean), with no CLI machinery. The unified `cccc` binary (the `cccc-cli`
+//! crate) registers this adapter's [`analyze_source`]/[`DEFAULT_EXTS`] in its
+//! language registry and dispatches `.go` files to it.
 //!
 //! This crate contains **no scoring logic** — it only recognizes the constructs
 //! the engine cares about (functions/methods/closures, `if`/`else`, `switch`/

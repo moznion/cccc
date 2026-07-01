@@ -3,9 +3,10 @@
 //! [`cccc_core::ir`].
 //!
 //! This is a pure library — it depends only on `cccc-core` and oxc, with no CLI
-//! machinery, so embedders pay nothing for clap/ignore/rayon. The `cccc-es`
-//! binary lives in the separate `cccc-es-cli` crate, which combines
-//! [`analyze_source`]/[`DEFAULT_EXTS`] with the shared `cccc-cli` runner.
+//! machinery, so embedders pay nothing for clap/ignore/rayon. The unified
+//! `cccc` binary (the `cccc-cli` crate) registers this adapter's
+//! [`analyze_source`]/[`DEFAULT_EXTS`] in its language registry and dispatches
+//! ECMAScript files to it.
 //!
 //! This crate contains **no scoring logic** — it only recognizes the constructs
 //! the engine cares about (functions, branches, loops, switches, catches,

@@ -1,14 +1,16 @@
 # cccc - A tool/library for measurement of **C**ognitive **C**omplexity and **C**yclomatic **C**omplexity
 
-- A fast CLI that measures **Cognitive Complexity** (SonarSource / G. Ann Campbell)
-  and **Cyclomatic Complexity** (McCabe). Written in Rust; four language front-ends
-  ship today, all sharing the same engine, CLI, flags, and output format:
-  - **`cccc-es`** — TypeScript / JavaScript, via the [oxc](https://oxc.rs) parser.
-    Supports `.ts`, `.tsx`, `.js`, `.jsx`, `.mts`, `.cts`, `.mjs`, `.cjs`.
-  - **`cccc-rs`** — Rust, via the [syn](https://docs.rs/syn) parser. Supports `.rs`.
-  - **`cccc-go`** — Go, via the [gosyn](https://docs.rs/gosyn) parser. Supports `.go`.
-  - **`cccc-php`** — PHP, via the [php-rs-parser](https://docs.rs/php-rs-parser)
-    parser. Supports `.php`.
+- A fast CLI — a **single `cccc` binary** — that measures **Cognitive Complexity**
+  (SonarSource / G. Ann Campbell) and **Cyclomatic Complexity** (McCabe). Written
+  in Rust. It routes each file to the right front-end by its extension, so one run
+  can analyze a mixed-language tree. Four languages ship today, all sharing the
+  same engine, flags, and output format:
+  - **TypeScript / JavaScript** (`--lang es`), via the [oxc](https://oxc.rs)
+    parser. Analyzes `.ts`, `.tsx`, `.js`, `.jsx`, `.mts`, `.cts`, `.mjs`, `.cjs`.
+  - **Rust** (`--lang rust`), via the [syn](https://docs.rs/syn) parser. `.rs`.
+  - **Go** (`--lang go`), via the [gosyn](https://docs.rs/gosyn) parser. `.go`.
+  - **PHP** (`--lang php`), via the [php-rs-parser](https://docs.rs/php-rs-parser)
+    parser. `.php`.
 - A Rust library for calculating cognitive and cyclomatic complexity in a language-agnostic way
 
 ## Workspace layout
@@ -19,25 +21,21 @@ library and extended to other languages:
 | Crate | Role |
 |-------|------|
 | [`cccc-core`](crates/cccc-core) | Language-agnostic engine: a normalized IR (`ir::Node`), the scoring rules (`engine::analyze`), and the result/aggregation types. Depends only on `serde`. |
-| [`cccc-cli`](crates/cccc-cli) | Shared CLI machinery (argument parsing, file walking, parallelism, output rendering) as a library. A front-end calls `cccc_cli::run(bin_name, version, analyze_fn, default_exts)`. |
+| [`cccc-cli`](crates/cccc-cli) | The unified **`cccc` binary**. Owns argument parsing, config-file handling, file walking, parallelism, and output rendering, and holds the registry of bundled languages (`lang::LANGUAGES`) that routes each file to its adapter. |
 | [`cccc-es`](crates/cccc-es) | ECMAScript/TypeScript adapter **library**: lowers the oxc AST into `cccc-core`'s IR. Depends only on `cccc-core` + oxc — **no CLI dependencies**, so embedding it stays lightweight. |
-| [`cccc-es-cli`](crates/cccc-es-cli) | The **`cccc-es`** binary: a thin shell that wires the `cccc-es` adapter into the shared `cccc-cli` runner. |
 | [`cccc-rs`](crates/cccc-rs) | Rust adapter **library**: lowers the [syn](https://docs.rs/syn) AST into `cccc-core`'s IR. Depends only on `cccc-core` + syn — **no CLI dependencies**. |
-| [`cccc-rs-cli`](crates/cccc-rs-cli) | The **`cccc-rs`** binary: a thin shell that wires the `cccc-rs` adapter into the shared `cccc-cli` runner. |
 | [`cccc-go`](crates/cccc-go) | Go adapter **library**: lowers the [gosyn](https://docs.rs/gosyn) AST into `cccc-core`'s IR. Depends only on `cccc-core` + gosyn — **no CLI dependencies**. |
-| [`cccc-go-cli`](crates/cccc-go-cli) | The **`cccc-go`** binary: a thin shell that wires the `cccc-go` adapter into the shared `cccc-cli` runner. |
 | [`cccc-php`](crates/cccc-php) | PHP adapter **library**: lowers the [php-rs-parser](https://docs.rs/php-rs-parser) AST into `cccc-core`'s IR. Depends only on `cccc-core` + php-rs-parser / php-ast — **no CLI dependencies**. |
-| [`cccc-php-cli`](crates/cccc-php-cli) | The **`cccc-php`** binary: a thin shell that wires the `cccc-php` adapter into the shared `cccc-cli` runner. |
 
-The adapter and the binary are separate crates so that a library consumer who
-only wants the metrics pulls in just `cccc-es` (+ `cccc-core` + oxc), never clap
-/ ignore / rayon.
+Each adapter is a standalone library so that a consumer who only wants the
+metrics pulls in just that adapter (+ `cccc-core` + its parser), never clap /
+ignore / rayon. The `cccc` binary depends on all of them and dispatches by
+extension.
 
 To support another language: (1) add an adapter crate that lowers its AST into
-`cccc_core::ir::Node` and calls `cccc_core::engine::analyze`, then (2) add a tiny
-binary crate whose `main` calls
-`cccc_cli::run(env!("CARGO_BIN_NAME"), env!("CARGO_PKG_VERSION"), analyze_source, DEFAULT_EXTS)`
-— no need to reimplement either the metrics or the CLI. `cccc-es` (oxc),
+`cccc_core::ir::Node` and calls `cccc_core::engine::analyze`, then (2) register
+it with one entry in `cccc-cli`'s `lang::LANGUAGES` (and add the dependency) —
+no new binary, and no reimplementing the metrics or the CLI. `cccc-es` (oxc),
 `cccc-rs` (syn), `cccc-go` (gosyn), and `cccc-php` (php-rs-parser) are the
 reference adapters: same shape, different parser.
 
@@ -60,32 +58,33 @@ assert_eq!(report.functions[0].cognitive, 1);  // one `if`
 
 ```sh
 cargo build --release
-# binaries at ./target/release/cccc-es, ./target/release/cccc-rs, ./target/release/cccc-go, and ./target/release/cccc-php
+# single binary at ./target/release/cccc
 ```
 
 ## Usage
 
 ```sh
-cccc-es <paths...> [options]   # TypeScript / JavaScript
-cccc-rs <paths...> [options]   # Rust
-cccc-go <paths...> [options]   # Go
-cccc-php <paths...> [options]  # PHP
+cccc <paths...> [options]
 ```
 
-All front-ends take the **same flags and produce the same output format** — the
-examples below use `cccc-es`, but `cccc-rs`, `cccc-go`, and `cccc-php` behave
-identically on `.rs`, `.go`, and `.php` files respectively.
-
-Output is **JSON by default**. Pass one or more files or directories;
+One binary handles every language. Pass one or more files or directories;
 directories are walked recursively (respecting `.gitignore`, always skipping
-`node_modules`).
+`node_modules`). Each file is dispatched to the right front-end by its
+extension, so a directory mixing `.ts`, `.rs`, `.go`, and `.php` is analyzed in
+a single run. Restrict the languages with `--lang` (e.g. `--lang go,rust`).
+
+Output is **JSON by default**.
 
 ### Options
 
 | Flag | Description |
 |------|-------------|
+| `--lang LIST` | Restrict analysis to these languages (comma-separated; canonical names or aliases, e.g. `es`,`rust`/`rs`,`go`,`php`). Default: all |
+| `--exclude-lang LIST` | Exclude these languages (comma-separated). The inverse of `--lang`; applied to all languages, or to `--lang`'s set when both are given |
+| `--config PATH` | Use this config file instead of discovering one (must exist) |
+| `--no-config` | Do not look for or load a `cccc.toml` config file |
 | `--table` | Human-readable table instead of JSON |
-| `--ext ts,tsx,...` | Override the set of analyzed extensions |
+| `--ext EXTS \| LANG=EXTS` | Extensions to analyze. Global form `--ext ts,tsx` filters across all languages; per-language form `--ext es=ts,tsx` overrides that language's extensions and routes them to it. Repeatable |
 | `--exclude GLOB` | Exclude files matching a glob (repeatable) |
 | `--max-cognitive N` | Exit non-zero if any function's cognitive complexity exceeds N |
 | `--max-cyclomatic N` | Exit non-zero if any function's cyclomatic complexity exceeds N |
@@ -94,6 +93,44 @@ directories are walked recursively (respecting `.gitignore`, always skipping
 | `--top-cyclomatic N` | Show only the N most cyclomatically-complex functions, as a flat cross-file ranking |
 | `--no-ignore` | Do not respect `.gitignore` when walking directories |
 | `-j, --jobs N` | Number of files to analyze in parallel (default: logical CPU count) |
+
+### Configuration file
+
+Recurring options can be stored in a `cccc.toml` file so they don't have to be
+repeated on every run. By default `cccc` discovers one by walking up from the
+current directory, looking for `cccc.toml` (then `.cccc.toml`) in each ancestor;
+`--config PATH` selects an explicit file and `--no-config` disables discovery.
+
+Resolution precedence is **CLI flag > config file > built-in default**: anything
+passed on the command line always wins. Supported keys (all optional):
+
+```toml
+# cccc.toml
+languages         = ["es", "go"]        # same as --lang
+exclude-languages = ["php"]             # same as --exclude-lang
+exclude           = ["dist/**", "**/*.test.ts"]
+table         = false
+max-cognitive = 15
+max-cyclomatic = 10
+min           = 1
+no-ignore     = false
+jobs          = 8
+
+# Per-language extension overrides. Each entry replaces that language's default
+# extensions (and routes those extensions to it). Keyed by a language's name or
+# alias; languages without an entry keep their defaults.
+[ext]
+es = ["ts", "tsx"]      # analyze only .ts/.tsx as ECMAScript (not .js, .mjs, …)
+go = ["go", "tmpl"]     # also route a custom .tmpl extension to the Go front-end
+```
+
+The config-file `ext` is a **per-language table**: it both narrows/extends which
+extensions a language claims and determines how a custom extension is routed.
+The same per-language form is available on the command line as
+`--ext LANG=ext,ext` (which overrides the config's entry for that language),
+alongside the global filter form `--ext ext,ext`.
+
+(`--top-cognitive`/`--top-cyclomatic` and the input paths are command-line only.)
 
 `--top-cognitive` and `--top-cyclomatic` are mutually exclusive. In top mode the
 output is a ranking (`{ "metric", "top": [...], "summary" }`) instead of the
@@ -113,22 +150,31 @@ directory or named explicitly on the command line. An invalid pattern is an erro
 
 ```sh
 # JSON for one file
-cccc-es src/app.ts
+cccc src/app.ts
 
-# Pretty table for a directory
-cccc-es --table src/
+# Pretty table for a directory (any mix of supported languages)
+cccc --table src/
+
+# Only Go and Rust files under a mixed tree
+cccc --lang go,rust .
+
+# Everything except PHP
+cccc --exclude-lang php .
+
+# Analyze only .ts/.tsx as ECMAScript (not .js, .mjs, …)
+cccc --ext es=ts,tsx src/
 
 # CI gate: fail if any function exceeds cognitive complexity 15
-cccc-es --max-cognitive 15 src/
+cccc --max-cognitive 15 src/
 
 # The 10 most cognitively-complex functions across the project
-cccc-es --top-cognitive 10 src/
+cccc --top-cognitive 10 src/
 
 # Skip build output and test files
-cccc-es --exclude 'dist/**' --exclude '**/*.{test,spec}.ts' src/
+cccc --exclude 'dist/**' --exclude '**/*.{test,spec}.ts' src/
 
 # Limit parallelism to 4 workers (default is the logical CPU count)
-cccc-es -j 4 src/
+cccc -j 4 src/
 ```
 
 Files are analyzed in parallel. The worker count defaults to the number of
@@ -137,7 +183,8 @@ regardless of the worker count.
 
 ## GitHub Action
 
-A composite action to install and run cccc-es in CI lives in its own repository:
+A composite action to install and run cccc against ECMAScript/TypeScript in CI
+lives in its own repository:
 [moznion/cccc-es-action](https://github.com/moznion/cccc-es-action).
 
 ```yaml
@@ -189,7 +236,7 @@ the tail where refactoring candidates live. It is unaffected by `--min`.
 
 > Note: the top level is an object (`{ files, summary }`), so to post-process
 > the per-file array with `jq`, start from `.files` — e.g.
-> `cccc-es src/ | jq '.files | sort_by(-.cognitive)'`.
+> `cccc src/ | jq '.files | sort_by(-.cognitive)'`.
 
 ## Benchmark
 
@@ -199,7 +246,7 @@ M4 Pro:
 
 | Tool | Metrics | Time | Peak RSS |
 |------|---------|-----:|---------:|
-| **cccc** (`cccc-es`) | cognitive + cyclomatic, per-function, full AST | **15.5 ms** | **12.5 MB** |
+| **cccc** (ECMAScript) | cognitive + cyclomatic, per-function, full AST | **15.5 ms** | **12.5 MB** |
 | ESLint + SonarJS | cognitive + cyclomatic, per-function, full AST | 1,807 ms (**117× slower**) | 604 MB (48× more) |
 | lizard | cyclomatic only, heuristic parser | 1,413 ms (91× slower) | 45.7 MB |
 | scc | coarse per-file keyword count, no AST | 8.3 ms (1.9× faster) | 13.9 MB |
@@ -231,21 +278,21 @@ function boundary); nested functions are reported as children rather than
 inflating the parent's own score.
 
 The rules above are stated in TypeScript/JavaScript terms; each adapter maps its
-language onto the same IR. For **Rust** (`cccc-rs`): `fn` / `impl` methods /
+language onto the same IR. For **Rust** (`--lang rust`): `fn` / `impl` methods /
 trait default methods / closures are the function-like units; `if`/`else if`/
 `else`, `match` (a `_` or bare-binding arm is the non-decision `default`),
 `for`/`while`/`loop`, labelled `break`/`continue`, and `&&`/`||` map to the
 corresponding nodes. Rust has no ternary (`if` is an expression) and no
 `try`/`catch` (errors flow through `?`), so those simply don't occur.
 
-For **Go** (`cccc-go`): top-level functions / methods / function literals
+For **Go** (`--lang go`): top-level functions / methods / function literals
 (closures) are the function-like units; `if`/`else if`/`else`, `for` (including
 `for`-`range`), `switch`/type-`switch`/`select` (a `default` clause is the
 non-decision arm), labelled `break`/`continue`/`goto`, and `&&`/`||` map to the
 corresponding nodes. Go has no ternary and no `try`/`catch` (errors are returned
 values), so those simply don't occur.
 
-For **PHP** (`cccc-php`): functions / methods / closures / `fn` arrow functions /
+For **PHP** (`--lang php`): functions / methods / closures / `fn` arrow functions /
 property hooks are the function-like units; `if`/`elseif`/`else`, `while`/
 `do`-`while`/`for`/`foreach`, `switch` and the `match` expression (a `default`
 arm is the non-decision case), `catch` clauses, multi-level `break N`/

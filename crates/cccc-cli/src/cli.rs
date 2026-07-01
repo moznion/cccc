@@ -6,9 +6,9 @@ use clap::Parser;
 
 /// Measure Cognitive Complexity and Cyclomatic Complexity of source code.
 ///
-/// The program name and version are injected by the front-end binary via
-/// [`crate::run`] (it overrides clap's `Command` name/version), so this shared
-/// definition stays language-neutral.
+/// One binary analyzes every bundled language; each file is dispatched to the
+/// right front-end by its extension. Restrict the set with `--lang`, and bake in
+/// recurring options with a `cccc.toml` file.
 #[derive(Debug, Parser)]
 #[command(about)]
 pub struct Cli {
@@ -16,12 +16,35 @@ pub struct Cli {
     #[arg(required = true)]
     pub paths: Vec<PathBuf>,
 
+    /// Restrict analysis to these languages (comma-separated; e.g.
+    /// `es,go`). Accepts canonical names and aliases (e.g. `rust`/`rs`,
+    /// `typescript`/`ts`). Defaults to every supported language.
+    #[arg(long, value_delimiter = ',', value_name = "LIST")]
+    pub lang: Option<Vec<String>>,
+
+    /// Exclude these languages from analysis (comma-separated). The inverse of
+    /// `--lang`: applied to all languages, or to `--lang`'s set if also given.
+    #[arg(long, value_delimiter = ',', value_name = "LIST")]
+    pub exclude_lang: Option<Vec<String>>,
+
+    /// Use this config file instead of discovering one. The file must exist.
+    #[arg(long, value_name = "PATH")]
+    pub config: Option<PathBuf>,
+
+    /// Do not look for or load a `cccc.toml` config file.
+    #[arg(long)]
+    pub no_config: bool,
+
     /// Print a human-readable table instead of JSON.
     #[arg(long)]
     pub table: bool,
 
-    /// Comma-separated file extensions to include (overrides the default set).
-    #[arg(long, value_delimiter = ',')]
+    /// File extensions to analyze. Two forms, and repeatable: a global
+    /// comma-separated list (`--ext ts,tsx`) restricts which extensions are
+    /// scanned across all languages; a per-language override (`--ext
+    /// es=ts,tsx`) replaces that language's default extensions and routes those
+    /// extensions to it (overriding the config file's `[ext]`).
+    #[arg(long, value_name = "EXTS | LANG=EXTS")]
     pub ext: Option<Vec<String>>,
 
     /// Glob pattern of files to exclude from analysis. May be given multiple

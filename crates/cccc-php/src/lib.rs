@@ -3,9 +3,9 @@
 //!
 //! This is a pure library — it depends only on `cccc-core` and the pure-Rust
 //! `php-rs-parser` / `php-ast` crates (no C toolchain, so cross-compilation stays
-//! clean), with no CLI machinery. The `cccc-php` binary lives in the separate
-//! `cccc-php-cli` crate, which combines [`analyze_source`]/[`DEFAULT_EXTS`] with
-//! the shared `cccc-cli` runner.
+//! clean), with no CLI machinery. The unified `cccc` binary (the `cccc-cli`
+//! crate) registers this adapter's [`analyze_source`]/[`DEFAULT_EXTS`] in its
+//! language registry and dispatches `.php` files to it.
 //!
 //! This crate contains **no scoring logic** — it only recognizes the constructs
 //! the engine cares about (functions/methods/closures/arrows/property-hooks,

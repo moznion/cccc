@@ -2,9 +2,10 @@
 //! AST into the language-agnostic [`cccc_core::ir`].
 //!
 //! This is a pure library — it depends only on `cccc-core` and `syn`, with no
-//! CLI machinery, so embedders pay nothing for clap/ignore/rayon. The `cccc-rs`
-//! binary lives in the separate `cccc-rs-cli` crate, which combines
-//! [`analyze_source`]/[`DEFAULT_EXTS`] with the shared `cccc-cli` runner.
+//! CLI machinery, so embedders pay nothing for clap/ignore/rayon. The unified
+//! `cccc` binary (the `cccc-cli` crate) registers this adapter's
+//! [`analyze_source`]/[`DEFAULT_EXTS`] in its language registry and dispatches
+//! `.rs` files to it.
 //!
 //! This crate contains **no scoring logic** — it only recognizes the constructs
 //! the engine cares about (functions/methods/closures, `if`/`else`, `match`,

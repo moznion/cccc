@@ -5,16 +5,15 @@ completely language-agnostic. Supporting a new language means writing a thin
 **adapter** that lowers that language's AST into the shared IR
 ([`cccc_core::ir::Node`]) — you never touch the metrics or the CLI.
 
-This guide walks through it end to end, using a hypothetical Python front-end
-(`cccc-py` / `cccc-py-cli`) as the running example. The existing ECMaScript
-front-end (`cccc-es` + `cccc-es-cli`) is the reference implementation — read it
-alongside this guide.
+This guide walks through it end to end, using a hypothetical Python adapter
+(`cccc-py`) as the running example. The existing ECMAScript adapter (`cccc-es`)
+is the reference implementation — read it alongside this guide.
 
 - [The big picture](#the-big-picture)
 - [Step 1 — create the adapter crate](#step-1--create-the-adapter-crate)
 - [Step 2 — lower the AST to IR](#step-2--lower-the-ast-to-ir)
-- [Step 3 — create the binary crate](#step-3--create-the-binary-crate)
-- [Step 4 — register both crates in the workspace](#step-4--register-both-crates-in-the-workspace)
+- [Step 3 — register the language in the `cccc` binary](#step-3--register-the-language-in-the-cccc-binary)
+- [Step 4 — register the crate in the workspace](#step-4--register-the-crate-in-the-workspace)
 - [Step 5 — test it](#step-5--test-it)
 - [The IR contract (reference)](#the-ir-contract-reference)
 - [Checklist](#checklist)
@@ -25,20 +24,21 @@ alongside this guide.
 your-parser ──▶ cccc-<lang>  ──(Vec<ir::Node>)──▶ cccc-core::engine ──▶ FileReport
  (AST)          (adapter lib)                      (scoring, shared)      (JSON/table)
                      ▲                                                        ▲
-                     └──────────── cccc-<lang>-cli (binary) ─────────────────┘
-                                   wires adapter + cccc-cli::run
+                     └──── registered in cccc-cli's lang::LANGUAGES ──────────┘
+                           (the single `cccc` binary dispatches by extension)
 ```
 
-Two new crates per language:
+One new crate per language, plus a one-line registry entry:
 
-| Crate | Kind | Depends on | Responsibility |
+| Piece | Kind | Depends on | Responsibility |
 |-------|------|-----------|----------------|
-| `cccc-<lang>` | library | `cccc-core` + your parser | Parse source, lower AST → `Vec<ir::Node>`. **No scoring, no CLI deps.** |
-| `cccc-<lang>-cli` | binary (`cccc-<lang>`) | `cccc-cli` + `cccc-<lang>` | A few lines of `main` wiring the adapter into the shared runner. |
+| `cccc-<lang>` | library crate | `cccc-core` + your parser | Parse source, lower AST → `Vec<ir::Node>`. **No scoring, no CLI deps.** |
+| `lang::LANGUAGES` entry | one line in `cccc-cli` | — | Maps the adapter's `analyze_source`/`DEFAULT_EXTS` to a `--lang` name. |
 
-Keeping the adapter and binary in **separate crates** is deliberate: a library
-consumer who only wants the metrics depends on `cccc-<lang>` (+ `cccc-core` +
-your parser) and never pulls in `clap` / `ignore` / `rayon`.
+Keeping the adapter as a **standalone library** is deliberate: a consumer who
+only wants the metrics depends on `cccc-<lang>` (+ `cccc-core` + your parser) and
+never pulls in `clap` / `ignore` / `rayon`. The unified `cccc` binary depends on
+every adapter and routes each file to the right one by its extension.
 
 ## Step 1 — create the adapter crate
 
@@ -154,61 +154,45 @@ fn visit_while(&mut self, node: &WhileStmt) {
 }
 ```
 
-## Step 3 — create the binary crate
+## Step 3 — register the language in the `cccc` binary
 
-```
-crates/cccc-py-cli/
-├── Cargo.toml
-└── src/
-    └── main.rs
-```
+There is no per-language binary anymore. Instead, add one entry to the registry
+in [`crates/cccc-cli/src/lang.rs`](../crates/cccc-cli/src/lang.rs) and add the
+adapter as a dependency of `cccc-cli`.
 
-`crates/cccc-py-cli/Cargo.toml` — note `[[bin]] name` is the user-facing command:
-
-```toml
-[package]
-name = "cccc-py-cli"
-version.workspace = true
-edition.workspace = true
-license.workspace = true
-description = "The cccc-py binary: Python complexity CLI"
-
-[[bin]]
-name = "cccc-py"
-path = "src/main.rs"
-
-[dependencies]
-cccc-cli = { workspace = true }
-cccc-py = { workspace = true }
-
-[dev-dependencies]
-assert_cmd = "2"
-predicates = "3"
-serde_json = "1"
-```
-
-`crates/cccc-py-cli/src/main.rs` — the whole binary:
+In `lang.rs`, append to the `LANGUAGES` array:
 
 ```rust
-fn main() {
-    std::process::exit(cccc_cli::run(
-        env!("CARGO_BIN_NAME"),        // → program name in --help / --version
-        env!("CARGO_PKG_VERSION"),     // → version string
-        cccc_py::analyze_source,       // the AnalyzeFn from Step 1
-        cccc_py::DEFAULT_EXTS,
-    ));
-}
+Language {
+    name: "python",                       // canonical --lang name
+    aliases: &["py"],                     // extra accepted spellings
+    exts: cccc_py::DEFAULT_EXTS,          // from Step 1
+    analyze: cccc_py::analyze_source,     // the AnalyzeFn from Step 1
+},
 ```
 
-`cccc_cli::run` provides, for free and identically across languages: argument
-parsing (`--table`, `--ext`, `--max-*`, `--min`, `--top-*`, `--no-ignore`,
-`-j/--jobs`), `.gitignore`-aware file discovery, parallel analysis, summary /
-ranking, JSON & table rendering, and the exit-code convention
+In `crates/cccc-cli/Cargo.toml`, add the dependency:
+
+```toml
+[dependencies]
+cccc-py = { workspace = true }
+```
+
+That's it — the `cccc` binary now discovers `.py`/`.pyi` files, routes them to
+your adapter, and accepts `--lang python`. The shared CLI already provides, for
+free and identically across languages: argument parsing (`--lang`, `--config`,
+`--table`, `--ext`, `--max-*`, `--min`, `--top-*`, `--no-ignore`, `-j/--jobs`),
+config-file handling, `.gitignore`-aware file discovery, parallel analysis,
+summary / ranking, JSON & table rendering, and the exit-code convention
 (`0` ok / `1` threshold exceeded / `2` cannot proceed).
 
-## Step 4 — register both crates in the workspace
+> Extensions must be **disjoint** across languages, since dispatch is by
+> extension. If two languages would claim the same extension, the one registered
+> first in `LANGUAGES` wins.
 
-Add the two crates to the root `Cargo.toml`:
+## Step 4 — register the crate in the workspace
+
+Add the adapter crate to the root `Cargo.toml`:
 
 ```toml
 [workspace]
@@ -216,16 +200,13 @@ members = [
     "crates/cccc-core",
     "crates/cccc-cli",
     "crates/cccc-es",
-    "crates/cccc-es-cli",
     "crates/cccc-py",       # new
-    "crates/cccc-py-cli",   # new
 ]
 
 [workspace.dependencies]
 cccc-core = { path = "crates/cccc-core" }
-cccc-cli  = { path = "crates/cccc-cli" }
 cccc-es   = { path = "crates/cccc-es" }
-cccc-py   = { path = "crates/cccc-py" }   # new — lets cccc-py-cli use `workspace = true`
+cccc-py   = { path = "crates/cccc-py" }   # new — lets cccc-cli use `workspace = true`
 ```
 
 ## Step 5 — test it
@@ -249,9 +230,11 @@ Test the two concerns **separately** — this is the payoff of the IR seam:
    }
    ```
 
-3. **CLI behaviour** is already covered generically; copy
-   `crates/cccc-es-cli/tests/cli.rs` and adjust `cargo_bin("cccc-py")` plus a
-   fixture if you want a smoke test of the wired binary.
+3. **CLI behaviour** is already covered generically in
+   `crates/cccc-cli/tests/cli.rs`. To smoke-test that your language is wired into
+   the unified binary, drop a fixture in `crates/cccc-cli/tests/fixtures/` and
+   add a case to `crates/cccc-cli/tests/lang_smoke.rs` (it dispatches each
+   fixture by extension through `cargo_bin("cccc")`).
 
 Then:
 
@@ -259,7 +242,7 @@ Then:
 cargo build
 cargo clippy --all-targets   # expect zero warnings
 cargo test                   # core + your adapter + cli tests
-cargo run -p cccc-py-cli -- --table path/to/some/code
+cargo run -p cccc-cli -- --lang python --table path/to/some/code
 ```
 
 ## The IR contract (reference)
@@ -303,9 +286,9 @@ Rules to respect when lowering:
 
 - [ ] `crates/cccc-<lang>/` adapter lib: `analyze_source` (`fn(&Path,&str)->FileReport`) + `DEFAULT_EXTS`; depends only on `cccc-core` + your parser.
 - [ ] AST → IR lowering driven by a full-traversal visitor; like-logical-operators folded into single `Logical` nodes.
-- [ ] `crates/cccc-<lang>-cli/` binary: `[[bin]] name = "cccc-<lang>"`, `main` calls `cccc_cli::run(env!("CARGO_BIN_NAME"), env!("CARGO_PKG_VERSION"), analyze_source, DEFAULT_EXTS)`.
-- [ ] Both crates added to root `[workspace] members`; adapter added to `[workspace.dependencies]`.
-- [ ] Adapter tests assert scores on real source (anchor on SonarSource examples).
+- [ ] New entry in `cccc-cli`'s `lang::LANGUAGES` (name + aliases + `DEFAULT_EXTS` + `analyze_source`); adapter added as a `cccc-cli` dependency. Extensions disjoint from existing languages.
+- [ ] Adapter crate added to root `[workspace] members` and `[workspace.dependencies]`.
+- [ ] Adapter tests assert scores on real source (anchor on SonarSource examples); a fixture + `lang_smoke.rs` case for the unified binary.
 - [ ] `cargo build` / `cargo clippy --all-targets` / `cargo test` all green.
 
 [`cccc_core::ir::Node`]: ../crates/cccc-core/src/ir.rs
