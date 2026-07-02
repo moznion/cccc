@@ -206,6 +206,7 @@ dependencies = [
  "cccc-php",
  "cccc-rb",
  "cccc-rs",
+ "cccc-scheme",
  "clap",
  "globset",
  "ignore",
@@ -268,6 +269,14 @@ dependencies = [
  "cccc-core",
  "proc-macro2",
  "syn",
+]
+
+[[package]]
+name = "cccc-scheme"
+version = "1.1.0"
+dependencies = [
+ "cccc-core",
+ "lispexp",
 ]
 
 [[package]]
@@ -568,6 +577,12 @@ name = "linux-raw-sys"
 version = "0.12.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "32a66949e030da00e8c7d4434b251670a91556f4144941d37452769c25d58a53"
+
+[[package]]
+name = "lispexp"
+version = "0.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c2a4945ff541a2ee3a5e1662c8b686c5b7a99aa6676efe0f3c7295753d14a5fe"
 
 [[package]]
 name = "log"

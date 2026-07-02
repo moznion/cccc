@@ -54,3 +54,8 @@ fn php_fixture_dispatches() {
 fn ruby_fixture_dispatches() {
     assert_sum_of_primes("sample.rb", "sum_of_primes");
 }
+
+#[test]
+fn scheme_fixture_dispatches() {
+    assert_sum_of_primes("sample.scm", "sum-of-primes");
+}
