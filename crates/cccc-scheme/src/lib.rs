@@ -14,11 +14,19 @@
 //!
 //! ## Lowering strategy
 //!
-//! `lispexp` produces a faithful, position-annotated, **code-vs-data-aware** datum
-//! tree: quoting is kept as [`lispexp::Prefix`] wrappers, so we can skip quoted
-//! *data* (`'(if x y)` is a literal list, not an `if`) while still descending
-//! into the *code* under `unquote`. We walk that tree with a stack of "collector"
-//! vectors (see [`Builder::collect`]) and dispatch each list on its head symbol.
+//! `lispexp` produces a faithful, position-annotated datum tree. The
+//! code-vs-data judgment — skip quoted *data* (`'(if x y)` is a literal list,
+//! not an `if`) while still descending into the *code* under `unquote` — is
+//! not reimplemented here: [`Builder::lower_datum`] delegates it to
+//! [`lispexp::walk_regions`] (ADR-0026), lispexp's own pruning visitor, so
+//! this adapter automatically tracks lispexp's considered ruling (including
+//! cases beyond plain quote/quasiquote, like a `HashLiteral`'s contents)
+//! instead of maintaining a parallel, potentially-diverging judgment. Its
+//! three-way [`lispexp::Region`] (lispexp 0.4) also makes a subtlety that
+//! bit an earlier version of this adapter impossible to get wrong by
+//! construction — see `lower_datum`'s doc comment. We assemble the IR with a
+//! stack of "collector" vectors (see [`Builder::collect`]) and dispatch each
+//! `Region::Code` list on its head symbol.
 //!
 //! ## Scheme-to-IR mapping
 //!
@@ -38,13 +46,35 @@
 //!   are transparent (their bodies score at the surrounding level); macro
 //!   definitions (`define-syntax`, `syntax-rules`, …) and record definitions are
 //!   skipped.
+//!
+//! ## Beyond R7RS-small: tolerating common Scheme-superset extensions
+//!
+//! Real `.scm` files are often not *pure* R7RS-small — [Gauche], one of the
+//! most widely used implementations, extends the reader with forms like
+//! `#[...]` (a char-set literal, e.g. `#[\(\[\{]`) and `#/regexp/` (a regexp
+//! literal, e.g. `#/[\\\"]/`), whose payload contains raw delimiter bytes that
+//! trip up a strict R7RS reader and can lose sync — and legitimate, unrelated
+//! functions later in the same file — at the first one.
+//!
+//! We read every `.scm`/`.ss`/`.sld` file with [`Options::scheme_superset()`]
+//! rather than the exact [`Options::scheme()`]. The superset is `lispexp`'s
+//! own strict widening (ADR-0027 in the `lispexp` repository): R7RS-small
+//! input reads identically either way, while Gauche/Mosh/Gambit's reader
+//! extensions become opaque leaves instead of sync-losing errors. An audit
+//! against a real Gauche checkout — recorded in the `lispexp` repository's
+//! `docs/cccc/scheme-dialect-triage.md` — found this cascading failure,
+//! motivated the fix, and confirmed the result: parse errors on that checkout
+//! drop from 288 (40 files) to 3 (1 file, an unrelated `__DATA__`-after-
+//! `(exit 0)` idiom no static reader can model).
+//!
+//! [Gauche]: https://practical-scheme.net/gauche/
 
 use std::path::Path;
 
 use cccc_core::engine;
 use cccc_core::ir::{LogicalOp, Node, SwitchCase};
 use cccc_core::report::FileReport;
-use lispexp::{Datum, DatumKind, Options, Prefix, parse};
+use lispexp::{Datum, DatumKind, Options, Region, Walk, parse, walk_regions};
 
 /// File extensions analyzed by default (when `--ext` is not given).
 pub const DEFAULT_EXTS: &[&str] = &["scm", "ss", "sld"];
@@ -61,15 +91,21 @@ pub fn analyze_source(path: &Path, source: &str) -> FileReport {
 /// nodes plus any reader diagnostics. `lispexp` is fault-tolerant: it always yields
 /// a (possibly partial) tree, so we lower whatever it recovered and surface the
 /// diagnostics alongside.
+///
+/// Reads with [`Options::scheme_superset()`] rather than the exact-R7RS
+/// [`Options::scheme()`]: real `.scm` files are frequently Gauche/Mosh/Gambit-
+/// flavored rather than strict R7RS-small, and the superset is a strict
+/// widening — R7RS-small input reads identically either way — that resyncs a
+/// reader which would otherwise lose sync (and legitimate, unrelated
+/// functions later in the file) on Gauche's `#[...]` char-set and
+/// `#/regexp/` literals. See the `lispexp` repository's
+/// `docs/cccc/scheme-dialect-triage.md` for the audit that motivated this,
+/// and lispexp's own ADR-0027 for the reader-level fix.
 pub fn to_ir(_path: &Path, source: &str) -> (Vec<Node>, Vec<String>) {
-    let parsed = parse(source, &Options::scheme());
+    let parsed = parse(source, &Options::scheme_superset());
     let mut builder = Builder::new();
     builder.lower_seq(&parsed.data);
-    let errors = parsed
-        .errors
-        .iter()
-        .map(|e| format!("{} (line {})", e.message, e.line))
-        .collect();
+    let errors = parsed.errors.iter().map(ToString::to_string).collect();
     (builder.finish(), errors)
 }
 
@@ -128,49 +164,40 @@ impl Builder {
         }
     }
 
+    /// Lower `d` if it sits in code position. Delegates the code-vs-data
+    /// judgment entirely to [`lispexp::walk_regions`] (ADR-0026) rather than
+    /// hand-rolling quote/quasiquote/unquote nesting rules: it finds every
+    /// `Region::Code` list within `d` (skipping quoted/quasiquoted data,
+    /// `HashLiteral`s, discards, … per lispexp's own ruling table, and
+    /// re-entering code at `unquote`/`unquote-splicing`, however deep) and
+    /// hands each one to [`Builder::lower_list`], which does its own targeted
+    /// recursion into that special form's sub-expressions (also through
+    /// `lower_datum`, so the same judgment applies at every nesting level).
+    ///
+    /// `Region` (lispexp 0.4) makes the one subtlety that matters here
+    /// impossible to get wrong by construction: a plain `Class::Data` can't
+    /// tell "safe to skip" (`Region::SealedData` — a hard `quote`, a
+    /// `HashLiteral`, discarded content) apart from "data *here*, but a
+    /// nested `unquote` can flip it back to code" (`Region::PorousData` — a
+    /// quasiquote template). Only `Region::SealedData` is `is_prunable()`; a
+    /// `Code` list we've handed to `lower_list` also returns `Walk::Skip`
+    /// (it already did its own targeted recursion, so `walk_regions` must not
+    /// *also* auto-descend into the same elements — that would double-count
+    /// them); everything else — `PorousData`, or a `Code` non-list — returns
+    /// `Walk::Descend`.
     fn lower_datum(&mut self, d: &Datum) {
-        match &d.kind {
-            DatumKind::List { items, tail, .. } => self.lower_list(d, items, tail.as_deref()),
-            DatumKind::Prefixed { prefix, inner, .. } => self.lower_prefixed(*prefix, inner),
-            // Atoms and `#`-literals / labels carry no complexity, and quoted
-            // data never reaches here as code.
-            _ => {}
-        }
-    }
-
-    /// A reader-macro prefix. Quoted data is skipped; `unquote` re-enters code.
-    fn lower_prefixed(&mut self, prefix: Prefix, inner: &Datum) {
-        match prefix {
-            // Pure data — do not descend.
-            Prefix::Quote | Prefix::Discard => {}
-            // Quasiquoted data is skipped *except* the code under `unquote`.
-            Prefix::Quasiquote => self.lower_quasi(inner),
-            // Anything else wraps an expression we still want to measure.
-            _ => self.lower_datum(inner),
-        }
-    }
-
-    /// Within a quasiquote, the template is data; descend only into the code
-    /// carried by `unquote` / `unquote-splicing`.
-    fn lower_quasi(&mut self, d: &Datum) {
-        match &d.kind {
-            DatumKind::Prefixed { prefix, inner, .. } => match prefix {
-                Prefix::Unquote | Prefix::UnquoteSplicing => self.lower_datum(inner),
-                _ => self.lower_quasi(inner),
-            },
-            DatumKind::List { items, tail, .. } => {
-                for it in items {
-                    self.lower_quasi(it);
-                }
-                if let Some(t) = tail {
-                    self.lower_quasi(t);
-                }
+        walk_regions(std::slice::from_ref(d), |dd, region| {
+            if region == Region::Code
+                && let DatumKind::List { items, tail, .. } = &dd.kind
+            {
+                self.lower_list(dd, items, tail.as_deref());
+                return Walk::Skip;
             }
-            DatumKind::HashLiteral {
-                inner: Some(inner), ..
-            } => self.lower_quasi(inner),
-            _ => {}
-        }
+            if region.is_prunable() {
+                return Walk::Skip;
+            }
+            Walk::Descend
+        });
     }
 
     fn lower_list(&mut self, d: &Datum, items: &[Datum], tail: Option<&Datum>) {
@@ -208,13 +235,16 @@ impl Builder {
             // Transparent grouping forms: bodies score at the surrounding level.
             Some("begin") | Some("parameterize") | Some("dynamic-wind") | Some("delay")
             | Some("delay-force") | Some("fluid-let") => self.lower_seq(&items[1..]),
-            // Pure data / compile-time only: nothing to measure.
-            Some("quote") => {}
-            Some("quasiquote") => {
-                if let Some(i) = items.get(1) {
-                    self.lower_quasi(i);
-                }
-            }
+            // Pure data / compile-time only: nothing to measure. In practice
+            // lispexp always folds the longhand `(quote x)`/`(quasiquote x)`
+            // into a shorthand `Prefixed` datum for Scheme dialects (ADR-0002),
+            // so `lower_datum`'s `walk`-based dispatch (see below) already
+            // handles both; these two arms are the defensive fallback if a
+            // future reader config ever leaves them unfolded. Treating an
+            // unfolded `quasiquote` as inert too (rather than falling through
+            // to `lower_call`, which would wrongly score its template as code)
+            // keeps that fallback safe either way.
+            Some("quote") | Some("quasiquote") => {}
             Some("define-syntax")
             | Some("define-syntax-rule")
             | Some("let-syntax")
@@ -734,6 +764,29 @@ mod tests {
     }
 
     #[test]
+    fn nested_quasiquote_needs_matching_unquote_depth_to_reach_code() {
+        // A single unquote inside a *doubly*-nested quasiquote steps back only
+        // one level — it's still data at the outer quasiquote's level, not
+        // code — so the `if` here must not be scored (it's an inert template
+        // fragment, never evaluated as a branch). This is the depth-tracked
+        // rule `lispexp::walk` implements (ADR-0026); a naive "any unquote
+        // means code" recursion (what this adapter used to hand-roll) gets it
+        // wrong and would count it.
+        let one_unquote = r#"
+            (define (g)
+              `(a `(b ,(if x 1 2))))
+        "#;
+        assert_eq!(cognitive_of(one_unquote, "g"), 0);
+
+        // A *second*, stacked unquote (`,,`) does escape all the way to code.
+        let two_unquotes = r#"
+            (define (h)
+              `(a `(b ,,(if x 1 2))))
+        "#;
+        assert_eq!(cognitive_of(two_unquotes, "h"), 1);
+    }
+
+    #[test]
     fn nested_define_is_its_own_unit_with_its_own_line() {
         let src = "(define (outer x)\n  (define (inner y) (if y 1 0))\n  (inner x))";
         assert_eq!(cognitive_of(src, "outer"), 0);
@@ -769,5 +822,51 @@ mod tests {
         // lispexp is fault-tolerant: it yields a partial tree and a diagnostic.
         let (_nodes, errors) = to_ir(Path::new("bad.scm"), "(define (f x");
         assert!(!errors.is_empty());
+    }
+
+    // ---- Gauche `#[...]` / `#/regexp/` tolerance (via `scheme_superset()`) ---
+    //
+    // These reproduce the exact shapes an audit against a real Gauche
+    // checkout found breaking the plain R7RS-small reader (see the lispexp
+    // repository's docs/cccc/scheme-dialect-triage.md) and confirm *this
+    // adapter's* wiring — that `to_ir` actually reads with
+    // `Options::scheme_superset()` and correctly lowers what it returns. The
+    // reader's own lexical handling of these forms (string/comment
+    // containment, `#\[` disambiguation, POSIX classes, unterminated
+    // literals, …) is `lispexp`'s concern and covered by its own test suite,
+    // not duplicated here.
+
+    #[test]
+    fn gauche_charset_literal_does_not_break_the_rest_of_the_file() {
+        let src = r#"
+            (define begin-list
+              ($seq0 ($. #[\(\[\{]) ws))
+            (define (after x) (if x 1 2))
+        "#;
+        // The charset-bearing `define` isn't itself scored (it's a plain
+        // application chain, no branches), but the *following* define must
+        // still be found and correctly scored — proof the reader resynced.
+        assert_eq!(cognitive_of(src, "after"), 1);
+    }
+
+    #[test]
+    fn gauche_regexp_literal_does_not_break_the_rest_of_the_file() {
+        let src = r#"
+            (define (escape line)
+              (regexp-replace-all #/[\\\"]/ line "\\\\\\0"))
+            (define (after x) (if x 1 2))
+        "#;
+        assert_eq!(cognitive_of(src, "after"), 1);
+    }
+
+    #[test]
+    fn gauche_extensions_preserve_line_numbers() {
+        let src = "(define (a) #[\\(\\[\\{])\n(define (b)\n  #/x+/\n  (if #t 1 2))\n";
+        let report = analyze(src);
+        let f = find(&report.functions, "b").expect("b found");
+        assert_eq!(
+            f.line, 2,
+            "line of `b` must be unaffected by the superset reader"
+        );
     }
 }

@@ -11,4 +11,4 @@ description = "Scheme (R7RS-small) adapter that lowers S-expressions into the cc
 [dependencies]
 cccc-core = { workspace = true }
 # Pure-Rust, position-annotated, code-vs-data-aware S-expression reader.
-lispexp = "0.1"
+lispexp = "0.5"
