@@ -203,6 +203,7 @@ dependencies = [
  "cccc-core",
  "cccc-es",
  "cccc-go",
+ "cccc-kt",
  "cccc-php",
  "cccc-rb",
  "cccc-rs",
@@ -243,6 +244,15 @@ version = "1.1.0"
 dependencies = [
  "cccc-core",
  "gosyn",
+]
+
+[[package]]
+name = "cccc-kt"
+version = "1.1.0"
+dependencies = [
+ "cccc-core",
+ "tree-sitter",
+ "tree-sitter-kotlin",
 ]
 
 [[package]]
@@ -1243,6 +1253,7 @@ version = "1.0.150"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e8014e44b4736ed0538adeecded0fce2a272f22dc9578a7eb6b2d9993c74cfb9"
 dependencies = [
+ "indexmap",
  "itoa",
  "memchr",
  "serde",
@@ -1288,6 +1299,12 @@ name = "static_assertions"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a2eb9349b6444b326872e140eb1cf5e7c522154d69e7a0ffb0fb81c06b37543f"
+
+[[package]]
+name = "streaming-iterator"
+version = "0.1.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2b2231b7c3057d5e4ad0156fb3dc807d900806020c5ffa3ee6ff2c8c76fb8520"
 
 [[package]]
 name = "strsim"
@@ -1435,6 +1452,35 @@ name = "toml_write"
 version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5d99f8c9a7727884afe522e9bd5edbfc91a3312b36a77b5fb8926e4c31a41801"
+
+[[package]]
+name = "tree-sitter"
+version = "0.26.10"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3c343ed63e3f5c64d1acdecb5d2c13d4e169cb5fde0052106ebaa6c6f27f9e55"
+dependencies = [
+ "cc",
+ "regex",
+ "regex-syntax",
+ "serde_json",
+ "streaming-iterator",
+ "tree-sitter-language",
+]
+
+[[package]]
+name = "tree-sitter-kotlin"
+version = "0.4.0"
+source = "git+https://github.com/exoego/tree-sitter-kotlin?rev=97ab2826bf686723ca7dcc34d55f758d9c41a59d#97ab2826bf686723ca7dcc34d55f758d9c41a59d"
+dependencies = [
+ "cc",
+ "tree-sitter-language",
+]
+
+[[package]]
+name = "tree-sitter-language"
+version = "0.1.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "009994f150cc0cd50ff54917d5bc8bffe8cad10ca10d81c34da2ec421ae61782"
 
 [[package]]
 name = "unic-char-property"

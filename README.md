@@ -15,6 +15,10 @@
     parser (Ruby's official Prism parser). `.rb`.
   - **Scheme** (`--lang scheme`), R7RS-small, via the
     [lispexp](https://docs.rs/lispexp) S-expression reader. `.scm`, `.ss`, `.sld`.
+  - **Kotlin** (`--lang kotlin`), via the
+    [exoego/tree-sitter-kotlin](https://github.com/exoego/tree-sitter-kotlin)
+    grammar (a fork of the fwcd tree-sitter Kotlin grammar with fixes for
+    modern-Kotlin constructs). Analyzes `.kt`, `.kts`.
 - A Rust library for calculating cognitive and cyclomatic complexity in a language-agnostic way
 
 ## Workspace layout
@@ -32,6 +36,7 @@ library and extended to other languages:
 | [`cccc-php`](crates/cccc-php) | PHP adapter **library**: lowers the [php-rs-parser](https://docs.rs/php-rs-parser) AST into `cccc-core`'s IR. Depends only on `cccc-core` + php-rs-parser / php-ast — **no CLI dependencies**. |
 | [`cccc-rb`](crates/cccc-rb) | Ruby adapter **library**: lowers the [ruby-prism](https://docs.rs/ruby-prism) AST into `cccc-core`'s IR. Depends only on `cccc-core` + ruby-prism — **no CLI dependencies**. Note: ruby-prism is an FFI binding to the vendored Prism C source, so building this crate (unlike the others) needs a C99 compiler and libclang. |
 | [`cccc-scheme`](crates/cccc-scheme) | Scheme (R7RS-small) adapter **library**: lowers the [lispexp](https://docs.rs/lispexp) S-expression tree into `cccc-core`'s IR. Depends only on `cccc-core` + lispexp (pure Rust) — **no CLI dependencies**. |
+| [`cccc-kt`](crates/cccc-kt) | Kotlin adapter **library**: lowers the [exoego/tree-sitter-kotlin](https://github.com/exoego/tree-sitter-kotlin) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Kotlin grammar — **no CLI dependencies**. Note: the grammar ships C source compiled by `cc`, so building this crate needs a C compiler (but not libclang, unlike `cccc-rb`). |
 
 Each adapter is a standalone library so that a consumer who only wants the
 metrics pulls in just that adapter (+ `cccc-core` + its parser), never clap /
@@ -43,8 +48,8 @@ To support another language: (1) add an adapter crate that lowers its AST into
 it with one entry in `cccc-cli`'s `lang::LANGUAGES` (and add the dependency) —
 no new binary, and no reimplementing the metrics or the CLI. `cccc-es` (oxc),
 `cccc-rs` (syn), `cccc-go` (gosyn), `cccc-php` (php-rs-parser), `cccc-rb`
-(ruby-prism), and `cccc-scheme` (lispexp) are the reference adapters: same
-shape, different parser.
+(ruby-prism), `cccc-scheme` (lispexp) and `cccc-kt` (tree-sitter) are the
+reference adapters: same shape, different parser.
 
 **See [docs/ADDING_A_LANGUAGE.md](docs/ADDING_A_LANGUAGE.md) for the full
 step-by-step guide**, including the IR-node reference table, the
@@ -304,3 +309,13 @@ arm is the non-decision case), `catch` clauses, multi-level `break N`/
 `continue N` and `goto`, the ternary `?:`, and `&&`/`and`/`||`/`or`/`??` map to
 the corresponding nodes. `&&` and `and` (likewise `||` and `or`) are the same
 normalized operator; `??` folds as a coalescing run.
+
+For **Kotlin** (`--lang kotlin`): `fun` declarations / methods / local
+functions / `fun` anonymous functions / lambdas / property `get`/`set`
+accessors are the function-like units; the `if` expression (`else if` — an `if`
+nested in the `else` body — chains flat), the `when` expression with or without
+a subject (its `else` entry is the non-decision `default` arm), `for`/`while`/
+`do`-`while`, `catch` clauses, labelled `break@`/`continue@`, and `&&`/`||` map
+to the corresponding nodes. The elvis operator `?:` folds as a coalescing run
+(like PHP's `??`). Kotlin has no C-style ternary — `if` is already an
+expression.
