@@ -1,0 +1,14 @@
+[package]
+name = "cccc-clojure"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Clojure adapter that lowers S-expressions into the cccc-core complexity IR"
+
+[dependencies]
+cccc-core = { workspace = true }
+# Pure-Rust, position-annotated, code-vs-data-aware S-expression reader.
+lispexp = "0.5"

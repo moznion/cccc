@@ -69,3 +69,8 @@ fn commonlisp_fixture_dispatches() {
 fn emacslisp_fixture_dispatches() {
     assert_sum_of_primes("sample.el", "sum-of-primes");
 }
+
+#[test]
+fn clojure_fixture_dispatches() {
+    assert_sum_of_primes("sample.clj", "sum-of-primes");
+}

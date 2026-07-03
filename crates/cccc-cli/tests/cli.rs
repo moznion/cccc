@@ -242,7 +242,7 @@ fn analyzes_all_languages_in_one_run() {
     // The fixtures dir holds one file per language; a single run dispatches each
     // by extension and reports them all together.
     let v = json(&["tests/fixtures"]);
-    assert_eq!(v["summary"]["file_count"], 8);
+    assert_eq!(v["summary"]["file_count"], 9);
     let paths: Vec<String> = v["files"]
         .as_array()
         .unwrap()
@@ -258,6 +258,7 @@ fn analyzes_all_languages_in_one_run() {
         "sample.scm",
         "sample.lisp",
         "sample.el",
+        "sample.clj",
     ] {
         assert!(paths.iter().any(|p| p.ends_with(ext)), "missing {ext}");
     }
@@ -290,11 +291,11 @@ fn unknown_lang_is_an_error() {
 
 #[test]
 fn exclude_lang_drops_a_language() {
-    // All languages minus Go, PHP, Ruby, Scheme, Common Lisp and Emacs Lisp leaves the
+    // All languages minus Go, PHP, Ruby, Scheme, Common Lisp, Emacs Lisp and Clojure leaves the
     // .ts and .rs fixtures.
     let v = json(&[
         "--exclude-lang",
-        "go,php,ruby,scheme,commonlisp,emacslisp",
+        "go,php,ruby,scheme,commonlisp,emacslisp,clojure",
         "tests/fixtures",
     ]);
     let mut exts: Vec<String> = v["files"]
@@ -340,7 +341,7 @@ fn excluding_every_language_is_an_error() {
         .unwrap()
         .args([
             "--exclude-lang",
-            "es,rust,go,php,ruby,scheme,commonlisp,emacslisp",
+            "es,rust,go,php,ruby,scheme,commonlisp,emacslisp,clojure",
             "tests/fixtures",
         ])
         .assert()
