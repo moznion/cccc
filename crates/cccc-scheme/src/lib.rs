@@ -21,9 +21,11 @@
 //!   `<case-lambda>`). A **named `let`** is idiomatic iteration → [`Node::Loop`].
 //! - `if` → [`Node::Conditional`] (Scheme's `if` is a ternary expression, one
 //!   decision); `when` / `unless` → [`Node::Branch`]; `cond` → a flat `Branch`
-//!   chain (each clause after the first scores like `else if`); `case` →
-//!   [`Node::Switch`].
-//! - `do` and named `let` → [`Node::Loop`].
+//!   chain (each clause after the first scores like `else if`); `case` and
+//!   `match` → [`Node::Switch`] (each `match` clause is a decision; a `_` or
+//!   bare-identifier pattern is the catch-all default).
+//! - `do`, named `let`, and the Racket `for` comprehension family
+//!   (`for`/`for*`/`for/list`/`for/fold`/…) → [`Node::Loop`].
 //! - `and` / `or` → folded [`Node::Logical`]; `guard` → [`Node::Catch`].
 //! - a plain application `(f …)` → [`Node::Call`] (recursion detection).
 //! - `quote`/`quasiquote` data is skipped; `begin`/`let`/`let*`/… are
@@ -49,7 +51,13 @@ use cccc_lisp_kit::{
 };
 
 /// File extensions analyzed by default (when `--ext` is not given).
-pub const DEFAULT_EXTS: &[&str] = &["scm", "ss", "sld"];
+///
+/// Covers R7RS Scheme (`.scm`/`.ss`/`.sld`) and its child dialect
+/// [Racket](https://racket-lang.org) (`.rkt`/`.rktl`/`.rktd`), which the tolerant
+/// [`Options::scheme_superset`] reader already accepts (`#lang`, `[]`/`{}` lists,
+/// `#:` keywords). Racket's own special forms — `match` and the `for`
+/// comprehension family — are scored alongside the shared R7RS ones.
+pub const DEFAULT_EXTS: &[&str] = &["scm", "ss", "sld", "rkt", "rktl", "rktd"];
 
 /// Parse `source` and produce its [`FileReport`], scoring via the core engine.
 pub fn analyze_source(path: &Path, source: &str) -> FileReport {
@@ -101,6 +109,8 @@ fn lower_list(b: &mut Builder, d: &Datum, _delim: Delim, items: &[Datum], tail: 
             }
         }
         Some("case") => lower_case(b, items),
+        // Racket / SRFI pattern matching: each clause is a decision, like `case`.
+        Some("match") | Some("match*") => lower_match(b, items),
         Some("and") => b.lower_logical(LogicalOp::And, &items[1..]),
         Some("or") => b.lower_logical(LogicalOp::Or, &items[1..]),
         Some("do") => lower_do(b, items),
@@ -121,9 +131,17 @@ fn lower_list(b: &mut Builder, d: &Datum, _delim: Delim, items: &[Datum], tail: 
         | Some("letrec-syntax")
         | Some("syntax-rules")
         | Some("define-record-type") => {}
+        // Racket comprehension loops: `for`, `for*`, `for/list`, `for/fold`, …
+        Some(h) if is_for_form(h) => lower_for(b, items),
         // A plain application.
         _ => lower_call(b, items, tail),
     }
+}
+
+/// Whether a head symbol names a Racket `for` comprehension (`for`, `for*`,
+/// `for/list`, `for/sum`, `for/fold`, `for*/hash`, …).
+fn is_for_form(head: &str) -> bool {
+    head == "for" || head == "for*" || head.starts_with("for/") || head.starts_with("for*/")
 }
 
 // ---- functions --------------------------------------------------------
@@ -285,6 +303,26 @@ fn lower_case(b: &mut Builder, items: &[Datum]) {
     b.emit(Node::Switch { cases });
 }
 
+/// `(match key clause…)` — each clause `(pattern body…)` is one decision, like
+/// `case`. A clause whose pattern is `_` or a bare identifier always matches, so
+/// it counts as the default. Patterns are data (not scored); clause bodies and
+/// any `#:when`/`#:unless` guard expressions are lowered inside the clause.
+fn lower_match(b: &mut Builder, items: &[Datum]) {
+    // The key runs at the switch's own level, before the clauses.
+    if let Some(k) = items.get(1) {
+        b.lower_datum(k);
+    }
+    let mut cases = Vec::new();
+    for cl in items.get(2..).unwrap_or(&[]) {
+        if let DatumKind::List { items: ci, .. } = &cl.kind {
+            let is_default = matches!(ci.first().map(|d| &d.kind), Some(DatumKind::Symbol(_)));
+            let body = b.collect(|b| b.lower_seq(ci.get(1..).unwrap_or(&[])));
+            cases.push(SwitchCase { is_default, body });
+        }
+    }
+    b.emit(Node::Switch { cases });
+}
+
 // ---- loops ------------------------------------------------------------
 
 fn lower_do(b: &mut Builder, items: &[Datum]) {
@@ -298,6 +336,14 @@ fn lower_do(b: &mut Builder, items: &[Datum]) {
         }
         b.lower_seq(items_owned.get(3..).unwrap_or(&[]));
     });
+    b.emit(Node::Loop { body });
+}
+
+/// A Racket `for` comprehension → [`Node::Loop`]. The iteration clauses
+/// (sequence expressions, `#:when`/`#:unless` guards) and the body all run
+/// inside the loop, so their nested complexity is scored at loop depth.
+fn lower_for(b: &mut Builder, items: &[Datum]) {
+    let body = b.collect(|b| b.lower_seq(&items[1..]));
     b.emit(Node::Loop { body });
 }
 
@@ -434,6 +480,35 @@ mod tests {
         assert_eq!(cognitive_of(src, "name"), 1);
         // base 1 + 2 non-default clauses = 3
         assert_eq!(cyclomatic_of(src, "name"), 3);
+    }
+
+    #[test]
+    fn match_scores_like_a_switch() {
+        let src = r#"
+            (define (classify x)
+              (match x
+                ((list a b) 'pair)
+                ((? number?) 'num)
+                (_ 'other)))
+        "#;
+        // Like `case`: a `_`/bare-identifier pattern is the default; the two
+        // structured patterns are decisions. Patterns are data (the inline
+        // `number?` predicate is not scored as a call).
+        assert_eq!(cognitive_of(src, "classify"), 1);
+        // base 1 + 2 non-default clauses = 3
+        assert_eq!(cyclomatic_of(src, "classify"), 3);
+    }
+
+    #[test]
+    fn for_comprehension_is_a_loop() {
+        let src = r#"
+            (define (sum-evens lst)
+              (for/sum ((n (in-list lst)) #:when (even? n))
+                n))
+        "#;
+        // `for/sum` → Loop; nothing branches inside → cognitive 1, cyclomatic 2.
+        assert_eq!(cognitive_of(src, "sum-evens"), 1);
+        assert_eq!(cyclomatic_of(src, "sum-evens"), 2);
     }
 
     #[test]

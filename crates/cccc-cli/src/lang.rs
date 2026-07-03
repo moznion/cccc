@@ -66,7 +66,7 @@ pub const LANGUAGES: &[Language] = &[
     },
     Language {
         name: "scheme",
-        aliases: &["scm", "r7rs"],
+        aliases: &["scm", "r7rs", "racket", "rkt"],
         exts: cccc_scheme::DEFAULT_EXTS,
         analyze: cccc_scheme::analyze_source,
     },
