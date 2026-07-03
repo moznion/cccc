@@ -1,14 +1,13 @@
 [package]
-name = "cccc-emacslisp"
+name = "cccc-lisp-kit"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
 homepage.workspace = true
-description = "Emacs Lisp adapter that lowers S-expressions into the cccc-core complexity IR"
+description = "Shared lowering kit for the cccc Lisp-family adapters (Scheme, Clojure, Common Lisp, Emacs Lisp, ...)"
 
 [dependencies]
 cccc-core = { workspace = true }
-# Pure-Rust, position-annotated, code-vs-data-aware S-expression reader.
 lispexp = "0.5"

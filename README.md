@@ -38,8 +38,8 @@ library and extended to other languages:
 | [`cccc-php`](crates/cccc-php) | PHP adapter **library**: lowers the [php-rs-parser](https://docs.rs/php-rs-parser) AST into `cccc-core`'s IR. Depends only on `cccc-core` + php-rs-parser / php-ast — **no CLI dependencies**. |
 | [`cccc-rb`](crates/cccc-rb) | Ruby adapter **library**: lowers the [ruby-prism](https://docs.rs/ruby-prism) AST into `cccc-core`'s IR. Depends only on `cccc-core` + ruby-prism — **no CLI dependencies**. Note: ruby-prism is an FFI binding to the vendored Prism C source, so building this crate (unlike the others) needs a C99 compiler and libclang. |
 | [`cccc-scheme`](crates/cccc-scheme) | Scheme (R7RS-small) adapter **library**: lowers the [lispexp](https://docs.rs/lispexp) S-expression tree into `cccc-core`'s IR. Depends only on `cccc-core` + lispexp (pure Rust) — **no CLI dependencies**. |
-| [`cccc-commonlisp`](crates/cccc-commonlisp) | Common Lisp adapter **library**: lowers the [lispexp](https://docs.rs/lispexp) S-expression tree into `cccc-core`'s IR. Depends only on `cccc-core` + lispexp (pure Rust) — **no CLI dependencies**. |
-| [`cccc-emacslisp`](crates/cccc-emacslisp) | Emacs Lisp adapter **library**: lowers the [lispexp](https://docs.rs/lispexp) S-expression tree into `cccc-core`'s IR. Depends only on `cccc-core` + lispexp (pure Rust) — **no CLI dependencies**. |
+| [`cccc-lisp-kit`](crates/cccc-lisp-kit) | Shared **lowering kit** for the Lisp-family adapters: the collector stack, the `walk_regions` code-vs-data traversal, and logical folding. A dialect adapter supplies just a reader preset + a head-symbol dispatch table. Re-exports `cccc-core`'s IR and the pure-Rust lispexp reader. |
+| [`cccc-lisp`](crates/cccc-lisp) | Lisp-family adapter **library** (Common Lisp, Emacs Lisp, …) built on `cccc-lisp-kit`. Its `Dialect` API also analyzes Scheme/Clojure by delegating to `cccc-scheme`/`cccc-clojure` (no duplicated lowering). **No CLI dependencies.** |
 | [`cccc-clojure`](crates/cccc-clojure) | Clojure adapter **library**: lowers the [lispexp](https://docs.rs/lispexp) S-expression tree into `cccc-core`'s IR. Depends only on `cccc-core` + lispexp (pure Rust) — **no CLI dependencies**. |
 
 Each adapter is a standalone library so that a consumer who only wants the
@@ -52,9 +52,10 @@ To support another language: (1) add an adapter crate that lowers its AST into
 it with one entry in `cccc-cli`'s `lang::LANGUAGES` (and add the dependency) —
 no new binary, and no reimplementing the metrics or the CLI. `cccc-es` (oxc),
 `cccc-rs` (syn), `cccc-go` (gosyn), `cccc-php` (php-rs-parser), `cccc-rb`
-(ruby-prism), `cccc-scheme` (lispexp), `cccc-commonlisp` (lispexp), `cccc-emacslisp`
-(lispexp), and `cccc-clojure` (lispexp) are the reference adapters: same shape,
-different parser.
+(ruby-prism), `cccc-scheme` (lispexp), `cccc-clojure` (lispexp), and `cccc-lisp`
+(lispexp, Common Lisp / Emacs Lisp / …) are the reference adapters: same shape,
+different parser. The Lisp-family adapters share their lowering skeleton via
+`cccc-lisp-kit`.
 
 **See [docs/ADDING_A_LANGUAGE.md](docs/ADDING_A_LANGUAGE.md) for the full
 step-by-step guide**, including the IR-node reference table, the

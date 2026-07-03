@@ -73,14 +73,14 @@ pub const LANGUAGES: &[Language] = &[
     Language {
         name: "commonlisp",
         aliases: &["cl", "common-lisp", "lisp"],
-        exts: cccc_commonlisp::DEFAULT_EXTS,
-        analyze: cccc_commonlisp::analyze_source,
+        exts: cccc_lisp::commonlisp::DEFAULT_EXTS,
+        analyze: cccc_lisp::commonlisp::analyze_source,
     },
     Language {
         name: "emacslisp",
         aliases: &["elisp", "emacs-lisp", "el"],
-        exts: cccc_emacslisp::DEFAULT_EXTS,
-        analyze: cccc_emacslisp::analyze_source,
+        exts: cccc_lisp::emacslisp::DEFAULT_EXTS,
+        analyze: cccc_lisp::emacslisp::analyze_source,
     },
     Language {
         name: "clojure",
