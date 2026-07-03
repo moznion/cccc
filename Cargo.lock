@@ -200,6 +200,7 @@ name = "cccc-cli"
 version = "1.1.0"
 dependencies = [
  "assert_cmd",
+ "cccc-commonlisp",
  "cccc-core",
  "cccc-es",
  "cccc-go",
@@ -215,6 +216,14 @@ dependencies = [
  "serde",
  "serde_json",
  "toml",
+]
+
+[[package]]
+name = "cccc-commonlisp"
+version = "1.1.0"
+dependencies = [
+ "cccc-core",
+ "lispexp",
 ]
 
 [[package]]
