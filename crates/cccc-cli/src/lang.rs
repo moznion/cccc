@@ -76,6 +76,12 @@ pub const LANGUAGES: &[Language] = &[
         exts: cccc_commonlisp::DEFAULT_EXTS,
         analyze: cccc_commonlisp::analyze_source,
     },
+    Language {
+        name: "emacslisp",
+        aliases: &["elisp", "emacs-lisp", "el"],
+        exts: cccc_emacslisp::DEFAULT_EXTS,
+        analyze: cccc_emacslisp::analyze_source,
+    },
 ];
 
 /// Resolve the active languages from an `include` (`--lang`) and an `exclude`
@@ -229,6 +235,7 @@ mod tests {
                 "ruby".to_string(),
                 "scheme".to_string(),
                 "commonlisp".to_string(),
+                "emacslisp".to_string(),
             ]),
         )
         .unwrap();
@@ -266,7 +273,7 @@ mod tests {
     fn dispatch_covers_each_extension() {
         let all = resolve_languages(None, None).unwrap();
         let map = build_dispatch(&all, &BTreeMap::new());
-        for key in ["ts", "rs", "go", "php", "rb", "scm", "lisp"] {
+        for key in ["ts", "rs", "go", "php", "rb", "scm", "lisp", "el"] {
             assert!(map.contains_key(key), "missing dispatch for .{key}");
         }
     }

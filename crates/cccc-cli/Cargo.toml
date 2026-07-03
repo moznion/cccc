@@ -21,6 +21,7 @@ cccc-php = { workspace = true }
 cccc-rb = { workspace = true }
 cccc-scheme = { workspace = true }
 cccc-commonlisp = { workspace = true }
+cccc-emacslisp = { workspace = true }
 clap = { version = "4", features = ["derive"] }
 globset = "0.4"
 ignore = "0.4"

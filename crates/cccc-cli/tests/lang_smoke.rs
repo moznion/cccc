@@ -64,3 +64,8 @@ fn scheme_fixture_dispatches() {
 fn commonlisp_fixture_dispatches() {
     assert_sum_of_primes("sample.lisp", "sum-of-primes");
 }
+
+#[test]
+fn emacslisp_fixture_dispatches() {
+    assert_sum_of_primes("sample.el", "sum-of-primes");
+}

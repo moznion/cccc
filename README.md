@@ -17,6 +17,8 @@
     [lispexp](https://docs.rs/lispexp) S-expression reader. `.scm`, `.ss`, `.sld`.
   - **Common Lisp** (`--lang commonlisp`), via the
     [lispexp](https://docs.rs/lispexp) S-expression reader. `.lisp`, `.lsp`, `.cl`.
+  - **Emacs Lisp** (`--lang emacslisp`), via the
+    [lispexp](https://docs.rs/lispexp) S-expression reader. `.el`.
 - A Rust library for calculating cognitive and cyclomatic complexity in a language-agnostic way
 
 ## Workspace layout
@@ -35,6 +37,7 @@ library and extended to other languages:
 | [`cccc-rb`](crates/cccc-rb) | Ruby adapter **library**: lowers the [ruby-prism](https://docs.rs/ruby-prism) AST into `cccc-core`'s IR. Depends only on `cccc-core` + ruby-prism — **no CLI dependencies**. Note: ruby-prism is an FFI binding to the vendored Prism C source, so building this crate (unlike the others) needs a C99 compiler and libclang. |
 | [`cccc-scheme`](crates/cccc-scheme) | Scheme (R7RS-small) adapter **library**: lowers the [lispexp](https://docs.rs/lispexp) S-expression tree into `cccc-core`'s IR. Depends only on `cccc-core` + lispexp (pure Rust) — **no CLI dependencies**. |
 | [`cccc-commonlisp`](crates/cccc-commonlisp) | Common Lisp adapter **library**: lowers the [lispexp](https://docs.rs/lispexp) S-expression tree into `cccc-core`'s IR. Depends only on `cccc-core` + lispexp (pure Rust) — **no CLI dependencies**. |
+| [`cccc-emacslisp`](crates/cccc-emacslisp) | Emacs Lisp adapter **library**: lowers the [lispexp](https://docs.rs/lispexp) S-expression tree into `cccc-core`'s IR. Depends only on `cccc-core` + lispexp (pure Rust) — **no CLI dependencies**. |
 
 Each adapter is a standalone library so that a consumer who only wants the
 metrics pulls in just that adapter (+ `cccc-core` + its parser), never clap /
@@ -46,8 +49,8 @@ To support another language: (1) add an adapter crate that lowers its AST into
 it with one entry in `cccc-cli`'s `lang::LANGUAGES` (and add the dependency) —
 no new binary, and no reimplementing the metrics or the CLI. `cccc-es` (oxc),
 `cccc-rs` (syn), `cccc-go` (gosyn), `cccc-php` (php-rs-parser), `cccc-rb`
-(ruby-prism), `cccc-scheme` (lispexp), and `cccc-commonlisp` (lispexp) are the
-reference adapters: same shape, different parser.
+(ruby-prism), `cccc-scheme` (lispexp), `cccc-commonlisp` (lispexp), and `cccc-emacslisp`
+(lispexp) are the reference adapters: same shape, different parser.
 
 **See [docs/ADDING_A_LANGUAGE.md](docs/ADDING_A_LANGUAGE.md) for the full
 step-by-step guide**, including the IR-node reference table, the

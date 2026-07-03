@@ -9,6 +9,7 @@ members = [
     "crates/cccc-rb",
     "crates/cccc-scheme",
     "crates/cccc-commonlisp",
+    "crates/cccc-emacslisp",
 ]
 resolver = "2"
 
@@ -29,6 +30,7 @@ cccc-php = { path = "crates/cccc-php", version = "1.1.0" }
 cccc-rb = { path = "crates/cccc-rb", version = "1.1.0" }
 cccc-scheme = { path = "crates/cccc-scheme", version = "1.1.0" }
 cccc-commonlisp = { path = "crates/cccc-commonlisp", version = "1.1.0" }
+cccc-emacslisp = { path = "crates/cccc-emacslisp", version = "1.1.0" }
 serde = { version = "1", features = ["derive"] }
 
 [profile.release]
