@@ -242,7 +242,7 @@ fn analyzes_all_languages_in_one_run() {
     // The fixtures dir holds one file per language; a single run dispatches each
     // by extension and reports them all together.
     let v = json(&["tests/fixtures"]);
-    assert_eq!(v["summary"]["file_count"], 6);
+    assert_eq!(v["summary"]["file_count"], 7);
     let paths: Vec<String> = v["files"]
         .as_array()
         .unwrap()
