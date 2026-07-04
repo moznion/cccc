@@ -24,6 +24,10 @@
     [lispexp](https://docs.rs/lispexp) S-expression reader. `.el`.
   - **Clojure** (`--lang clojure`), via the
     [lispexp](https://docs.rs/lispexp) S-expression reader. `.clj`, `.cljs`, `.cljc`.
+  - **Kotlin** (`--lang kotlin`), via the
+    [exoego/tree-sitter-kotlin](https://github.com/exoego/tree-sitter-kotlin)
+    grammar (a fork of the fwcd tree-sitter Kotlin grammar with fixes for
+    modern-Kotlin constructs). Analyzes `.kt`, `.kts`.
 - A Rust library for calculating cognitive and cyclomatic complexity in a language-agnostic way
 
 ## Workspace layout
@@ -44,6 +48,8 @@ library and extended to other languages:
 | [`cccc-lisp-kit`](crates/cccc-lisp-kit) | Shared **lowering kit** for the Lisp-family adapters: the collector stack, the `walk_regions` code-vs-data traversal, and logical folding. A dialect adapter supplies just a reader preset + a head-symbol dispatch table. Re-exports `cccc-core`'s IR and the pure-Rust lispexp reader. |
 | [`cccc-lisp`](crates/cccc-lisp) | Lisp-family adapter **library** (Common Lisp, Emacs Lisp, …) built on `cccc-lisp-kit`. Its `Dialect` API also analyzes Scheme/Clojure by delegating to `cccc-scheme`/`cccc-clojure` (no duplicated lowering). **No CLI dependencies.** |
 | [`cccc-clojure`](crates/cccc-clojure) | Clojure adapter **library**: lowers the [lispexp](https://docs.rs/lispexp) S-expression tree into `cccc-core`'s IR. Depends only on `cccc-core` + lispexp (pure Rust) — **no CLI dependencies**. |
+| [`cccc-scheme`](crates/cccc-scheme) | Scheme (R7RS-small) adapter **library**: lowers the [lispexp](https://docs.rs/lispexp) S-expression tree into `cccc-core`'s IR. Depends only on `cccc-core` + lispexp (pure Rust) — **no CLI dependencies**. |
+| [`cccc-kt`](crates/cccc-kt) | Kotlin adapter **library**: lowers the [exoego/tree-sitter-kotlin](https://github.com/exoego/tree-sitter-kotlin) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Kotlin grammar — **no CLI dependencies**. Note: the grammar ships C source compiled by `cc`, so building this crate needs a C compiler (but not libclang, unlike `cccc-rb`). |
 
 Each adapter is a standalone library so that a consumer who only wants the
 metrics pulls in just that adapter (+ `cccc-core` + its parser), never clap /
@@ -55,10 +61,10 @@ To support another language: (1) add an adapter crate that lowers its AST into
 it with one entry in `cccc-cli`'s `lang::LANGUAGES` (and add the dependency) —
 no new binary, and no reimplementing the metrics or the CLI. `cccc-es` (oxc),
 `cccc-rs` (syn), `cccc-go` (gosyn), `cccc-php` (php-rs-parser), `cccc-rb`
-(ruby-prism), `cccc-scheme` (lispexp), `cccc-clojure` (lispexp), and `cccc-lisp`
-(lispexp, Common Lisp / Emacs Lisp / …) are the reference adapters: same shape,
-different parser. The Lisp-family adapters share their lowering skeleton via
-`cccc-lisp-kit`.
+(ruby-prism), `cccc-kt` (tree-sitter), `cccc-scheme` (lispexp), `cccc-clojure`
+(lispexp), and `cccc-lisp` (lispexp, Common Lisp / Emacs Lisp / …) are the
+reference adapters: same shape, different parser. The Lisp-family adapters share
+their lowering skeleton via `cccc-lisp-kit`.
 
 **See [docs/ADDING_A_LANGUAGE.md](docs/ADDING_A_LANGUAGE.md) for the full
 step-by-step guide**, including the IR-node reference table, the
@@ -318,3 +324,13 @@ arm is the non-decision case), `catch` clauses, multi-level `break N`/
 `continue N` and `goto`, the ternary `?:`, and `&&`/`and`/`||`/`or`/`??` map to
 the corresponding nodes. `&&` and `and` (likewise `||` and `or`) are the same
 normalized operator; `??` folds as a coalescing run.
+
+For **Kotlin** (`--lang kotlin`): `fun` declarations / methods / local
+functions / `fun` anonymous functions / lambdas / property `get`/`set`
+accessors are the function-like units; the `if` expression (`else if` — an `if`
+nested in the `else` body — chains flat), the `when` expression with or without
+a subject (its `else` entry is the non-decision `default` arm), `for`/`while`/
+`do`-`while`, `catch` clauses, labelled `break@`/`continue@`, and `&&`/`||` map
+to the corresponding nodes. The elvis operator `?:` folds as a coalescing run
+(like PHP's `??`). Kotlin has no C-style ternary — `if` is already an
+expression.

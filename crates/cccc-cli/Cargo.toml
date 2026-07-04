@@ -6,7 +6,7 @@ rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
 homepage.workspace = true
-description = "The unified cccc binary: one CLI that measures cognitive/cyclomatic complexity across every bundled language (ECMAScript/TypeScript, Rust, Go, PHP)"
+description = "The unified cccc binary: one CLI that measures cognitive/cyclomatic complexity across every bundled language (ECMAScript/TypeScript, Rust, Go, PHP, Ruby, Kotlin)"
 
 [[bin]]
 name = "cccc"
@@ -22,6 +22,7 @@ cccc-rb = { workspace = true }
 cccc-scheme = { workspace = true }
 cccc-lisp = { workspace = true }
 cccc-clojure = { workspace = true }
+cccc-kt = { workspace = true }
 clap = { version = "4", features = ["derive"] }
 globset = "0.4"
 ignore = "0.4"

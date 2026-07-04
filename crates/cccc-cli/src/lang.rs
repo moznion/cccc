@@ -88,6 +88,12 @@ pub const LANGUAGES: &[Language] = &[
         exts: cccc_clojure::DEFAULT_EXTS,
         analyze: cccc_clojure::analyze_source,
     },
+    Language {
+        name: "kotlin",
+        aliases: &["kt"],
+        exts: cccc_kt::DEFAULT_EXTS,
+        analyze: cccc_kt::analyze_source,
+    },
 ];
 
 /// Resolve the active languages from an `include` (`--lang`) and an `exclude`
@@ -243,6 +249,7 @@ mod tests {
                 "commonlisp".to_string(),
                 "emacslisp".to_string(),
                 "clojure".to_string(),
+                "kotlin".to_string(),
             ]),
         )
         .unwrap();
@@ -280,7 +287,7 @@ mod tests {
     fn dispatch_covers_each_extension() {
         let all = resolve_languages(None, None).unwrap();
         let map = build_dispatch(&all, &BTreeMap::new());
-        for key in ["ts", "rs", "go", "php", "rb", "scm", "lisp", "el", "clj"] {
+        for key in ["ts", "rs", "go", "php", "rb", "scm", "lisp", "el", "clj", "kt", "kts"] {
             assert!(map.contains_key(key), "missing dispatch for .{key}");
         }
     }

@@ -74,3 +74,8 @@ fn emacslisp_fixture_dispatches() {
 fn clojure_fixture_dispatches() {
     assert_sum_of_primes("sample.clj", "sum-of-primes");
 }
+
+#[test]
+fn kotlin_fixture_dispatches() {
+    assert_sum_of_primes("sample.kt", "sumOfPrimes");
+}
