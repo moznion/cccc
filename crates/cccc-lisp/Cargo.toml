@@ -9,9 +9,7 @@ homepage.workspace = true
 description = "Lisp-family adapter: Common Lisp, Emacs Lisp, and other Lisp dialects lowered into the cccc-core complexity IR"
 
 [dependencies]
-# The shared lowering kit (re-exports cccc-core IR + the lispexp reader).
-cccc-lisp-kit = { workspace = true }
-# Scheme and Clojure have their own standalone crates; cccc-lisp delegates to
-# them for those dialects (via `Dialect`), so their lowering lives in one place.
-cccc-scheme = { workspace = true }
-cccc-clojure = { workspace = true }
+# Thin façade: Common Lisp / Emacs Lisp lowering lives in cccc-lisp-core. This
+# crate also exposes a `Dialect` entry point covering Scheme/Clojure, so it
+# enables all four dialect features (no separate cccc-scheme/cccc-clojure dep).
+cccc-lisp-core = { workspace = true, features = ["scheme", "clojure", "commonlisp", "emacslisp"] }

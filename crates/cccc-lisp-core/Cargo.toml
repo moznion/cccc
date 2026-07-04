@@ -1,0 +1,22 @@
+[package]
+name = "cccc-lisp-core"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Lowering core for the cccc Lisp-family adapters: shared plumbing plus per-dialect tables (Scheme, Clojure, Common Lisp, Emacs Lisp), each behind a feature"
+
+[features]
+# All dialect tables on by default; the thin façade crates depend with
+# `default-features = false` and enable only the dialect(s) they expose.
+default = ["scheme", "clojure", "commonlisp", "emacslisp"]
+scheme = []
+clojure = []
+commonlisp = []
+emacslisp = []
+
+[dependencies]
+cccc-core = { workspace = true }
+lispexp = "0.5"

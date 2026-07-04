@@ -9,5 +9,6 @@ homepage.workspace = true
 description = "Clojure adapter that lowers S-expressions into the cccc-core complexity IR"
 
 [dependencies]
-# The shared Lisp-family lowering kit (re-exports cccc-core IR + the lispexp reader).
-cccc-lisp-kit = { workspace = true }
+# Thin façade: the lowering lives in cccc-lisp-core's `clojure` module. Enable
+# only that dialect so consumers pull in just Clojure's code.
+cccc-lisp-core = { workspace = true, features = ["clojure"] }

@@ -1,10 +1,8 @@
-//! Shared lowering kit for the cccc **Lisp-family** adapters.
+//! Lowering **core** for the cccc **Lisp-family** adapters — the shared
+//! machinery *and* every dialect's lowering table, in one crate.
 //!
-//! Every Lisp adapter — [`cccc-scheme`](https://docs.rs/cccc-scheme),
-//! [`cccc-clojure`](https://docs.rs/cccc-clojure), and the dialects bundled in
-//! [`cccc-lisp`](https://docs.rs/cccc-lisp) (Common Lisp, Emacs Lisp, …) —
-//! shares the same shape: read the source with [`lispexp`] into a datum tree,
-//! then walk it emitting [`cccc_core::ir`] nodes, using
+//! Every Lisp dialect shares the same shape: read the source with [`lispexp`]
+//! into a datum tree, then walk it emitting [`cccc_core::ir`] nodes, using
 //! [`lispexp::walk_regions`] (ADR-0026) to skip quoted *data* while descending
 //! into the *code* carried by `unquote`. Only the **reader preset** and the
 //! **special-form dispatch** differ per dialect.
@@ -19,11 +17,33 @@
 //!
 //! ```ignore
 //! pub fn analyze_source(path: &Path, source: &str) -> FileReport {
-//!     cccc_lisp_kit::analyze(&Options::scheme(), lower_list, logical_op, path, source)
+//!     cccc_lisp_core::analyze(&Options::scheme(), lower_list, logical_op, path, source)
 //! }
 //! ```
+//!
+//! # Dialect modules and thin façades
+//!
+//! Each dialect's lowering table lives here as a `pub` module gated behind a
+//! Cargo feature — [`scheme`], [`clojure`], [`commonlisp`], [`emacslisp`] (all
+//! on by default). The published adapter crates are **thin façades** that just
+//! re-export the matching module while enabling only its feature, so a consumer
+//! who wants a single dialect still pulls in only that dialect's code:
+//!
+//! - [`cccc-scheme`](https://docs.rs/cccc-scheme) → [`scheme`] (+ Racket)
+//! - [`cccc-clojure`](https://docs.rs/cccc-clojure) → [`clojure`]
+//! - [`cccc-lisp`](https://docs.rs/cccc-lisp) → [`commonlisp`] + [`emacslisp`],
+//!   plus a `Dialect` entry point that dispatches to any of the four.
 
 use std::path::Path;
+
+#[cfg(feature = "clojure")]
+pub mod clojure;
+#[cfg(feature = "commonlisp")]
+pub mod commonlisp;
+#[cfg(feature = "emacslisp")]
+pub mod emacslisp;
+#[cfg(feature = "scheme")]
+pub mod scheme;
 
 use cccc_core::engine;
 pub use cccc_core::ir::{LogicalOp, Node, SwitchCase};

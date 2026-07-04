@@ -287,7 +287,9 @@ mod tests {
     fn dispatch_covers_each_extension() {
         let all = resolve_languages(None, None).unwrap();
         let map = build_dispatch(&all, &BTreeMap::new());
-        for key in ["ts", "rs", "go", "php", "rb", "scm", "lisp", "el", "clj", "kt", "kts"] {
+        for key in [
+            "ts", "rs", "go", "php", "rb", "scm", "lisp", "el", "clj", "kt", "kts",
+        ] {
             assert!(map.contains_key(key), "missing dispatch for .{key}");
         }
     }

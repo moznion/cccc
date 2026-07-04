@@ -204,8 +204,8 @@ dependencies = [
  "cccc-core",
  "cccc-es",
  "cccc-go",
- "cccc-lisp",
  "cccc-kt",
+ "cccc-lisp",
  "cccc-php",
  "cccc-rb",
  "cccc-rs",
@@ -224,7 +224,7 @@ dependencies = [
 name = "cccc-clojure"
 version = "1.1.0"
 dependencies = [
- "cccc-lisp-kit",
+ "cccc-lisp-core",
 ]
 
 [[package]]
@@ -256,29 +256,27 @@ dependencies = [
 ]
 
 [[package]]
-name = "cccc-lisp"
-version = "1.1.0"
-dependencies = [
- "cccc-clojure",
- "cccc-lisp-kit",
- "cccc-scheme",
-]
-
-[[package]]
-name = "cccc-lisp-kit"
-version = "1.1.0"
-dependencies = [
- "cccc-core",
- "lispexp",
-]
-
-[[package]]
 name = "cccc-kt"
 version = "1.1.0"
 dependencies = [
  "cccc-core",
  "tree-sitter",
  "tree-sitter-kotlin",
+]
+
+[[package]]
+name = "cccc-lisp"
+version = "1.1.0"
+dependencies = [
+ "cccc-lisp-core",
+]
+
+[[package]]
+name = "cccc-lisp-core"
+version = "1.1.0"
+dependencies = [
+ "cccc-core",
+ "lispexp",
 ]
 
 [[package]]
@@ -311,7 +309,7 @@ dependencies = [
 name = "cccc-scheme"
 version = "1.1.0"
 dependencies = [
- "cccc-lisp-kit",
+ "cccc-lisp-core",
 ]
 
 [[package]]

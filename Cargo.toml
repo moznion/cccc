@@ -9,7 +9,7 @@ members = [
     "crates/cccc-rb",
     "crates/cccc-scheme",
     "crates/cccc-clojure",
-    "crates/cccc-lisp-kit",
+    "crates/cccc-lisp-core",
     "crates/cccc-lisp",
     "crates/cccc-kt",
 ]
@@ -32,7 +32,9 @@ cccc-php = { path = "crates/cccc-php", version = "1.1.0" }
 cccc-rb = { path = "crates/cccc-rb", version = "1.1.0" }
 cccc-scheme = { path = "crates/cccc-scheme", version = "1.1.0" }
 cccc-clojure = { path = "crates/cccc-clojure", version = "1.1.0" }
-cccc-lisp-kit = { path = "crates/cccc-lisp-kit", version = "1.1.0" }
+# Façade crates opt into only the dialect features they expose, so this is
+# default-features = false at the workspace level (each member adds `features`).
+cccc-lisp-core = { path = "crates/cccc-lisp-core", version = "1.1.0", default-features = false }
 cccc-lisp = { path = "crates/cccc-lisp", version = "1.1.0" }
 cccc-kt = { path = "crates/cccc-kt", version = "1.1.0" }
 serde = { version = "1", features = ["derive"] }
