@@ -1,0 +1,14 @@
+[package]
+name = "cccc-kt"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Kotlin (tree-sitter) adapter that lowers source into the cccc-core complexity IR"
+
+[dependencies]
+cccc-core = { workspace = true }
+tree-sitter = "0.26"
+tree-sitter-kotlin = { git = "https://github.com/exoego/tree-sitter-kotlin", rev = "97ab2826bf686723ca7dcc34d55f758d9c41a59d" }

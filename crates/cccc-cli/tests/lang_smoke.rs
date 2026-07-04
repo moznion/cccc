@@ -59,3 +59,8 @@ fn ruby_fixture_dispatches() {
 fn scheme_fixture_dispatches() {
     assert_sum_of_primes("sample.scm", "sum-of-primes");
 }
+
+#[test]
+fn kotlin_fixture_dispatches() {
+    assert_sum_of_primes("sample.kt", "sumOfPrimes");
+}
