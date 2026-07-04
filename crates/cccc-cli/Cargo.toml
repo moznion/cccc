@@ -20,6 +20,8 @@ cccc-go = { workspace = true }
 cccc-php = { workspace = true }
 cccc-rb = { workspace = true }
 cccc-scheme = { workspace = true }
+cccc-lisp = { workspace = true }
+cccc-clojure = { workspace = true }
 cccc-kt = { workspace = true }
 clap = { version = "4", features = ["derive"] }
 globset = "0.4"

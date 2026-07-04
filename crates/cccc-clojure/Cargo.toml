@@ -1,12 +1,12 @@
 [package]
-name = "cccc-scheme"
+name = "cccc-clojure"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
 homepage.workspace = true
-description = "Scheme (R7RS-small) adapter that lowers S-expressions into the cccc-core complexity IR"
+description = "Clojure adapter that lowers S-expressions into the cccc-core complexity IR"
 
 [dependencies]
 # The shared Lisp-family lowering kit (re-exports cccc-core IR + the lispexp reader).

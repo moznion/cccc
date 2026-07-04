@@ -66,9 +66,27 @@ pub const LANGUAGES: &[Language] = &[
     },
     Language {
         name: "scheme",
-        aliases: &["scm", "r7rs"],
+        aliases: &["scm", "r7rs", "racket", "rkt"],
         exts: cccc_scheme::DEFAULT_EXTS,
         analyze: cccc_scheme::analyze_source,
+    },
+    Language {
+        name: "commonlisp",
+        aliases: &["cl", "common-lisp", "lisp"],
+        exts: cccc_lisp::commonlisp::DEFAULT_EXTS,
+        analyze: cccc_lisp::commonlisp::analyze_source,
+    },
+    Language {
+        name: "emacslisp",
+        aliases: &["elisp", "emacs-lisp", "el"],
+        exts: cccc_lisp::emacslisp::DEFAULT_EXTS,
+        analyze: cccc_lisp::emacslisp::analyze_source,
+    },
+    Language {
+        name: "clojure",
+        aliases: &["clj", "cljs", "cljc"],
+        exts: cccc_clojure::DEFAULT_EXTS,
+        analyze: cccc_clojure::analyze_source,
     },
     Language {
         name: "kotlin",
@@ -228,6 +246,9 @@ mod tests {
                 "php".to_string(),
                 "ruby".to_string(),
                 "scheme".to_string(),
+                "commonlisp".to_string(),
+                "emacslisp".to_string(),
+                "clojure".to_string(),
                 "kotlin".to_string(),
             ]),
         )
@@ -266,7 +287,7 @@ mod tests {
     fn dispatch_covers_each_extension() {
         let all = resolve_languages(None, None).unwrap();
         let map = build_dispatch(&all, &BTreeMap::new());
-        for key in ["ts", "rs", "go", "php", "rb", "scm", "kt", "kts"] {
+        for key in ["ts", "rs", "go", "php", "rb", "scm", "lisp", "el", "clj", "kt", "kts"] {
             assert!(map.contains_key(key), "missing dispatch for .{key}");
         }
     }

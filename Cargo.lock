@@ -200,9 +200,11 @@ name = "cccc-cli"
 version = "1.1.0"
 dependencies = [
  "assert_cmd",
+ "cccc-clojure",
  "cccc-core",
  "cccc-es",
  "cccc-go",
+ "cccc-lisp",
  "cccc-kt",
  "cccc-php",
  "cccc-rb",
@@ -216,6 +218,13 @@ dependencies = [
  "serde",
  "serde_json",
  "toml",
+]
+
+[[package]]
+name = "cccc-clojure"
+version = "1.1.0"
+dependencies = [
+ "cccc-lisp-kit",
 ]
 
 [[package]]
@@ -244,6 +253,23 @@ version = "1.1.0"
 dependencies = [
  "cccc-core",
  "gosyn",
+]
+
+[[package]]
+name = "cccc-lisp"
+version = "1.1.0"
+dependencies = [
+ "cccc-clojure",
+ "cccc-lisp-kit",
+ "cccc-scheme",
+]
+
+[[package]]
+name = "cccc-lisp-kit"
+version = "1.1.0"
+dependencies = [
+ "cccc-core",
+ "lispexp",
 ]
 
 [[package]]
@@ -285,8 +311,7 @@ dependencies = [
 name = "cccc-scheme"
 version = "1.1.0"
 dependencies = [
- "cccc-core",
- "lispexp",
+ "cccc-lisp-kit",
 ]
 
 [[package]]
