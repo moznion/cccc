@@ -10,4 +10,4 @@ description = "Shared lowering kit for the cccc Lisp-family adapters (Scheme, Cl
 
 [dependencies]
 cccc-core = { workspace = true }
-lispexp = "0.5"
+lispexp = "0.7"
