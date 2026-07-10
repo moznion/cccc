@@ -204,8 +204,8 @@ dependencies = [
  "cccc-core",
  "cccc-es",
  "cccc-go",
- "cccc-lisp",
  "cccc-kt",
+ "cccc-lisp",
  "cccc-php",
  "cccc-rb",
  "cccc-rs",
@@ -256,6 +256,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "cccc-kt"
+version = "1.1.0"
+dependencies = [
+ "cccc-core",
+ "tree-sitter",
+ "tree-sitter-kotlin",
+]
+
+[[package]]
 name = "cccc-lisp"
 version = "1.1.0"
 dependencies = [
@@ -270,15 +279,6 @@ version = "1.1.0"
 dependencies = [
  "cccc-core",
  "lispexp",
-]
-
-[[package]]
-name = "cccc-kt"
-version = "1.1.0"
-dependencies = [
- "cccc-core",
- "tree-sitter",
- "tree-sitter-kotlin",
 ]
 
 [[package]]
@@ -1020,9 +1020,9 @@ dependencies = [
 
 [[package]]
 name = "php-ast"
-version = "0.18.1"
+version = "0.18.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "abe285cbc896a2078199f16cd30698d50e15f7693c466877fbea5b8b3b959752"
+checksum = "eac0c65d2ef871f0751d929a50a5d403d5e9beebfd370dcae8383d72ab97d212"
 dependencies = [
  "bumpalo",
  "serde",
