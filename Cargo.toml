@@ -17,7 +17,7 @@ members = [
 resolver = "2"
 
 [workspace.package]
-version = "1.1.0"
+version = "1.2.0"
 edition = "2024"
 rust-version = "1.95.0"
 license = "MIT"
@@ -25,18 +25,18 @@ repository = "https://github.com/moznion/cccc"
 homepage = "https://github.com/moznion/cccc"
 
 [workspace.dependencies]
-cccc-core = { path = "crates/cccc-core", version = "1.1.0" }
-cccc-es = { path = "crates/cccc-es", version = "1.1.0" }
-cccc-rs = { path = "crates/cccc-rs", version = "1.1.0" }
-cccc-go = { path = "crates/cccc-go", version = "1.1.0" }
-cccc-php = { path = "crates/cccc-php", version = "1.1.0" }
-cccc-rb = { path = "crates/cccc-rb", version = "1.1.0" }
-cccc-scheme = { path = "crates/cccc-scheme", version = "1.1.0" }
-cccc-clojure = { path = "crates/cccc-clojure", version = "1.1.0" }
-cccc-lisp-kit = { path = "crates/cccc-lisp-kit", version = "1.1.0" }
-cccc-lisp = { path = "crates/cccc-lisp", version = "1.1.0" }
-cccc-kt = { path = "crates/cccc-kt", version = "1.1.0" }
-cccc-py = { path = "crates/cccc-py", version = "1.1.0" }
+cccc-core = { path = "crates/cccc-core", version = "1.2.0" }
+cccc-es = { path = "crates/cccc-es", version = "1.2.0" }
+cccc-rs = { path = "crates/cccc-rs", version = "1.2.0" }
+cccc-go = { path = "crates/cccc-go", version = "1.2.0" }
+cccc-php = { path = "crates/cccc-php", version = "1.2.0" }
+cccc-rb = { path = "crates/cccc-rb", version = "1.2.0" }
+cccc-scheme = { path = "crates/cccc-scheme", version = "1.2.0" }
+cccc-clojure = { path = "crates/cccc-clojure", version = "1.2.0" }
+cccc-lisp-kit = { path = "crates/cccc-lisp-kit", version = "1.2.0" }
+cccc-lisp = { path = "crates/cccc-lisp", version = "1.2.0" }
+cccc-kt = { path = "crates/cccc-kt", version = "1.2.0" }
+cccc-py = { path = "crates/cccc-py", version = "1.2.0" }
 serde = { version = "1", features = ["derive"] }
 
 [profile.release]
