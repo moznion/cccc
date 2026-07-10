@@ -28,6 +28,9 @@
     [exoego/tree-sitter-kotlin](https://github.com/exoego/tree-sitter-kotlin)
     grammar (a fork of the fwcd tree-sitter Kotlin grammar with fixes for
     modern-Kotlin constructs). Analyzes `.kt`, `.kts`.
+  - **Python** (`--lang python`), via the official
+    [tree-sitter-python](https://github.com/tree-sitter/tree-sitter-python)
+    grammar. Analyzes `.py`, `.pyi`.
 - A Rust library for calculating cognitive and cyclomatic complexity in a language-agnostic way
 
 ## Workspace layout
@@ -50,6 +53,7 @@ library and extended to other languages:
 | [`cccc-clojure`](crates/cccc-clojure) | Clojure adapter **library**: lowers the [lispexp](https://docs.rs/lispexp) S-expression tree into `cccc-core`'s IR. Depends only on `cccc-core` + lispexp (pure Rust) — **no CLI dependencies**. |
 | [`cccc-scheme`](crates/cccc-scheme) | Scheme (R7RS-small) adapter **library**: lowers the [lispexp](https://docs.rs/lispexp) S-expression tree into `cccc-core`'s IR. Depends only on `cccc-core` + lispexp (pure Rust) — **no CLI dependencies**. |
 | [`cccc-kt`](crates/cccc-kt) | Kotlin adapter **library**: lowers the [exoego/tree-sitter-kotlin](https://github.com/exoego/tree-sitter-kotlin) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Kotlin grammar — **no CLI dependencies**. Note: the grammar ships C source compiled by `cc`, so building this crate needs a C compiler (but not libclang, unlike `cccc-rb`). |
+| [`cccc-py`](crates/cccc-py) | Python adapter **library**: lowers the official [tree-sitter-python](https://github.com/tree-sitter/tree-sitter-python) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Python grammar — **no CLI dependencies**. Like `cccc-kt`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 
 Each adapter is a standalone library so that a consumer who only wants the
 metrics pulls in just that adapter (+ `cccc-core` + its parser), never clap /
@@ -61,7 +65,7 @@ To support another language: (1) add an adapter crate that lowers its AST into
 it with one entry in `cccc-cli`'s `lang::LANGUAGES` (and add the dependency) —
 no new binary, and no reimplementing the metrics or the CLI. `cccc-es` (oxc),
 `cccc-rs` (syn), `cccc-go` (gosyn), `cccc-php` (php-rs-parser), `cccc-rb`
-(ruby-prism), `cccc-kt` (tree-sitter), `cccc-scheme` (lispexp), `cccc-clojure`
+(ruby-prism), `cccc-kt` / `cccc-py` (tree-sitter), `cccc-scheme` (lispexp), `cccc-clojure`
 (lispexp), and `cccc-lisp` (lispexp, Common Lisp / Emacs Lisp / …) are the
 reference adapters: same shape, different parser. The Lisp-family adapters share
 their lowering skeleton via `cccc-lisp-kit`.
@@ -334,3 +338,15 @@ a subject (its `else` entry is the non-decision `default` arm), `for`/`while`/
 to the corresponding nodes. The elvis operator `?:` folds as a coalescing run
 (like PHP's `??`). Kotlin has no C-style ternary — `if` is already an
 expression.
+
+For **Python** (`--lang python`): `def` (incl. `async def` and decorated
+definitions) / methods / `lambda` are the function-like units;
+`if`/`elif`/`else` (`elif` chains flat), the conditional expression
+`a if b else c` (a ternary — its `else` arm is not a second increment),
+`for`/`while` (incl. `async for`; a loop's `else` clause runs at the
+surrounding level), `match` (a bare `case _:` is the non-decision `default`
+arm), `except`/`except*` clauses, and `and`/`or` map to the corresponding
+nodes. Comprehensions and generator expressions score like the written-out
+loop: each `for` clause is a loop and each `if` clause a branch, nested
+left-to-right. Python has no labelled `break`/`continue` and no `??`; `not`
+adds nothing.

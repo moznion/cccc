@@ -1,0 +1,14 @@
+[package]
+name = "cccc-py"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Python (tree-sitter) adapter that lowers source into the cccc-core complexity IR"
+
+[dependencies]
+cccc-core = { workspace = true }
+tree-sitter = "0.26"
+tree-sitter-python = "0.25"

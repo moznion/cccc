@@ -12,6 +12,7 @@ members = [
     "crates/cccc-lisp-kit",
     "crates/cccc-lisp",
     "crates/cccc-kt",
+    "crates/cccc-py",
 ]
 resolver = "2"
 
@@ -35,6 +36,7 @@ cccc-clojure = { path = "crates/cccc-clojure", version = "1.1.0" }
 cccc-lisp-kit = { path = "crates/cccc-lisp-kit", version = "1.1.0" }
 cccc-lisp = { path = "crates/cccc-lisp", version = "1.1.0" }
 cccc-kt = { path = "crates/cccc-kt", version = "1.1.0" }
+cccc-py = { path = "crates/cccc-py", version = "1.1.0" }
 serde = { version = "1", features = ["derive"] }
 
 [profile.release]
