@@ -615,9 +615,9 @@ checksum = "32a66949e030da00e8c7d4434b251670a91556f4144941d37452769c25d58a53"
 
 [[package]]
 name = "lispexp"
-version = "0.5.0"
+version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c2a4945ff541a2ee3a5e1662c8b686c5b7a99aa6676efe0f3c7295753d14a5fe"
+checksum = "c45be82f752a221ada54fbd2ba0fc1774ae0f6a6280f0b9b8cf0e0110d14bb3e"
 
 [[package]]
 name = "log"
