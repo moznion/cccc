@@ -31,6 +31,8 @@
   - **Python** (`--lang python`), via the official
     [tree-sitter-python](https://github.com/tree-sitter/tree-sitter-python)
     grammar. Analyzes `.py`, `.pyi`.
+  - **Zig** (`--lang zig`), via the pure-Rust
+    [zigsyn](https://docs.rs/zigsyn) parser. Analyzes `.zig`.
 - A Rust library for calculating cognitive and cyclomatic complexity in a language-agnostic way
 
 ## Workspace layout
@@ -54,6 +56,7 @@ library and extended to other languages:
 | [`cccc-scheme`](crates/cccc-scheme) | Scheme (R7RS-small) adapter **library**: lowers the [lispexp](https://docs.rs/lispexp) S-expression tree into `cccc-core`'s IR. Depends only on `cccc-core` + lispexp (pure Rust) — **no CLI dependencies**. |
 | [`cccc-kt`](crates/cccc-kt) | Kotlin adapter **library**: lowers the [exoego/tree-sitter-kotlin](https://github.com/exoego/tree-sitter-kotlin) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Kotlin grammar — **no CLI dependencies**. Note: the grammar ships C source compiled by `cc`, so building this crate needs a C compiler (but not libclang, unlike `cccc-rb`). |
 | [`cccc-py`](crates/cccc-py) | Python adapter **library**: lowers the official [tree-sitter-python](https://github.com/tree-sitter/tree-sitter-python) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Python grammar — **no CLI dependencies**. Like `cccc-kt`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
+| [`cccc-zig`](crates/cccc-zig) | Zig adapter **library**: lowers the pure-Rust [zigsyn](https://docs.rs/zigsyn) AST into `cccc-core`'s IR. Depends only on `cccc-core` + zigsyn — **no CLI dependencies or C toolchain**. |
 
 Each adapter is a standalone library so that a consumer who only wants the
 metrics pulls in just that adapter (+ `cccc-core` + its parser), never clap /
@@ -66,9 +69,9 @@ it with one entry in `cccc-cli`'s `lang::LANGUAGES` (and add the dependency) —
 no new binary, and no reimplementing the metrics or the CLI. `cccc-es` (oxc),
 `cccc-rs` (syn), `cccc-go` (gosyn), `cccc-php` (php-rs-parser), `cccc-rb`
 (ruby-prism), `cccc-kt` / `cccc-py` (tree-sitter), `cccc-scheme` (lispexp), `cccc-clojure`
-(lispexp), and `cccc-lisp` (lispexp, Common Lisp / Emacs Lisp / …) are the
-reference adapters: same shape, different parser. The Lisp-family adapters share
-their lowering skeleton via `cccc-lisp-kit`.
+(lispexp), `cccc-lisp` (lispexp, Common Lisp / Emacs Lisp / …), and `cccc-zig`
+(zigsyn) are the reference adapters: same shape, different parser. The
+Lisp-family adapters share their lowering skeleton via `cccc-lisp-kit`.
 
 **See [docs/ADDING_A_LANGUAGE.md](docs/ADDING_A_LANGUAGE.md) for the full
 step-by-step guide**, including the IR-node reference table, the
@@ -350,3 +353,10 @@ nodes. Comprehensions and generator expressions score like the written-out
 loop: each `for` clause is a loop and each `if` clause a branch, nested
 left-to-right. Python has no labelled `break`/`continue` and no `??`; `not`
 adds nothing.
+
+For **Zig** (`--lang zig`): named `fn` declarations and `test` blocks are the
+function-like units; `if`/`else if`/`else`, `while`/`for` (a loop's `else`
+branch runs at the surrounding level), `switch` (an `else` prong is the
+non-decision `default` arm), `catch` handlers, labelled `break`/`continue`, and
+`and`/`or` map to the corresponding nodes. `orelse` folds as a coalescing run.
+Zig has no ternary expression; `if` is already an expression.
