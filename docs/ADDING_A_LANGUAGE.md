@@ -5,9 +5,10 @@ completely language-agnostic. Supporting a new language means writing a thin
 **adapter** that lowers that language's AST into the shared IR
 ([`cccc_core::ir::Node`]) — you never touch the metrics or the CLI.
 
-This guide walks through it end to end, using a hypothetical Python adapter
-(`cccc-py`) as the running example. The existing ECMAScript adapter (`cccc-es`)
-is the reference implementation — read it alongside this guide.
+This guide walks through it end to end, using the Python adapter (`cccc-py`)
+as the running example — it now ships in-tree, so you can read the real thing
+at [`crates/cccc-py`](../crates/cccc-py). The ECMAScript adapter (`cccc-es`)
+is the original reference implementation — read it alongside this guide.
 
 - [The big picture](#the-big-picture)
 - [Step 1 — create the adapter crate](#step-1--create-the-adapter-crate)
@@ -61,8 +62,9 @@ description = "Python adapter that lowers source into the cccc-core complexity I
 
 [dependencies]
 cccc-core = { workspace = true }
-# your Python parser crate(s) here, e.g.:
-rustpython-parser = "0.4"
+# your parser crate(s) here — the real cccc-py uses the official grammar:
+tree-sitter = "0.26"
+tree-sitter-python = "0.25"
 ```
 
 The adapter must expose exactly two public items, because that is the contract

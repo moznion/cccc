@@ -94,6 +94,12 @@ pub const LANGUAGES: &[Language] = &[
         exts: cccc_kt::DEFAULT_EXTS,
         analyze: cccc_kt::analyze_source,
     },
+    Language {
+        name: "python",
+        aliases: &["py"],
+        exts: cccc_py::DEFAULT_EXTS,
+        analyze: cccc_py::analyze_source,
+    },
 ];
 
 /// Resolve the active languages from an `include` (`--lang`) and an `exclude`
@@ -250,6 +256,7 @@ mod tests {
                 "emacslisp".to_string(),
                 "clojure".to_string(),
                 "kotlin".to_string(),
+                "python".to_string(),
             ]),
         )
         .unwrap();
@@ -288,7 +295,7 @@ mod tests {
         let all = resolve_languages(None, None).unwrap();
         let map = build_dispatch(&all, &BTreeMap::new());
         for key in [
-            "ts", "rs", "go", "php", "rb", "scm", "lisp", "el", "clj", "kt", "kts",
+            "ts", "rs", "go", "php", "rb", "scm", "lisp", "el", "clj", "kt", "kts", "py", "pyi",
         ] {
             assert!(map.contains_key(key), "missing dispatch for .{key}");
         }
