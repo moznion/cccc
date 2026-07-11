@@ -33,6 +33,9 @@
     grammar. Analyzes `.py`, `.pyi`.
   - **Zig** (`--lang zig`), via the pure-Rust
     [zigsyn](https://docs.rs/zigsyn) parser. Analyzes `.zig`.
+  - **C** (`--lang c`), via the official
+    [tree-sitter-c](https://github.com/tree-sitter/tree-sitter-c) grammar.
+    Analyzes `.c`, `.h`.
 - A Rust library for calculating cognitive and cyclomatic complexity in a language-agnostic way
 
 ## Workspace layout
@@ -57,6 +60,7 @@ library and extended to other languages:
 | [`cccc-kt`](crates/cccc-kt) | Kotlin adapter **library**: lowers the [exoego/tree-sitter-kotlin](https://github.com/exoego/tree-sitter-kotlin) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Kotlin grammar — **no CLI dependencies**. Note: the grammar ships C source compiled by `cc`, so building this crate needs a C compiler (but not libclang, unlike `cccc-rb`). |
 | [`cccc-py`](crates/cccc-py) | Python adapter **library**: lowers the official [tree-sitter-python](https://github.com/tree-sitter/tree-sitter-python) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Python grammar — **no CLI dependencies**. Like `cccc-kt`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 | [`cccc-zig`](crates/cccc-zig) | Zig adapter **library**: lowers the pure-Rust [zigsyn](https://docs.rs/zigsyn) AST into `cccc-core`'s IR. Depends only on `cccc-core` + zigsyn — **no CLI dependencies or C toolchain**. |
+| [`cccc-c`](crates/cccc-c) | C adapter **library**: lowers the official [tree-sitter-c](https://github.com/tree-sitter/tree-sitter-c) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the C grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 
 Each adapter is a standalone library so that a consumer who only wants the
 metrics pulls in just that adapter (+ `cccc-core` + its parser), never clap /
@@ -68,7 +72,7 @@ To support another language: (1) add an adapter crate that lowers its AST into
 it with one entry in `cccc-cli`'s `lang::LANGUAGES` (and add the dependency) —
 no new binary, and no reimplementing the metrics or the CLI. `cccc-es` (oxc),
 `cccc-rs` (syn), `cccc-go` (gosyn), `cccc-php` (php-rs-parser), `cccc-rb`
-(ruby-prism), `cccc-kt` / `cccc-py` (tree-sitter), `cccc-scheme` (lispexp), `cccc-clojure`
+(ruby-prism), `cccc-kt` / `cccc-py` / `cccc-c` (tree-sitter), `cccc-scheme` (lispexp), `cccc-clojure`
 (lispexp), `cccc-lisp` (lispexp, Common Lisp / Emacs Lisp / …), and `cccc-zig`
 (zigsyn) are the reference adapters: same shape, different parser. The
 Lisp-family adapters share their lowering skeleton via `cccc-lisp-kit`.
@@ -402,3 +406,17 @@ branch runs at the surrounding level), `switch` (an `else` prong is the
 non-decision `default` arm), `catch` handlers, labelled `break`/`continue`, and
 `and`/`or` map to the corresponding nodes. `orelse` folds as a coalescing run.
 Zig has no ternary expression; `if` is already an expression.
+
+For **C** (`--lang c`): function definitions (including K&R-style definitions
+and GNU nested functions) are the function-like units; `if`/`else if`/`else`,
+the ternary `?:` (GNU's elided-middle `a ?: b` included), `for`/`while`/
+`do`-`while`, `switch` (the `default:` label is the non-decision arm; each
+fall-through `case` label is its own cyclomatic point), `goto` (one flat
+cognitive point, like a labelled jump), and `&&`/`||` map to the corresponding
+nodes. Preprocessor conditionals (`#if`/`#ifdef`/`#ifndef`, chained via
+`#elif`/`#else`) score as branches, mirroring the SonarSource C/C++ analyzers.
+C has no exceptions and no `??`; `#define` bodies are opaque to the grammar, so
+code inside a macro body is not scored. One known wart of preprocessor-unaware
+parsing: the standard `extern "C" {` guard splits its braces across two
+`#ifdef __cplusplus` blocks, which surfaces as a parse warning — the rest of
+the header still parses and scores.

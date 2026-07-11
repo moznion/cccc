@@ -1,0 +1,14 @@
+[package]
+name = "cccc-c"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "C (tree-sitter) adapter that lowers source into the cccc-core complexity IR"
+
+[dependencies]
+cccc-core = { workspace = true }
+tree-sitter = "0.26"
+tree-sitter-c = "0.24"

@@ -89,3 +89,8 @@ fn python_fixture_dispatches() {
 fn zig_fixture_dispatches() {
     assert_sum_of_primes("sample.zig", "sumOfPrimes");
 }
+
+#[test]
+fn c_fixture_dispatches() {
+    assert_sum_of_primes("sample.c", "sum_of_primes");
+}
