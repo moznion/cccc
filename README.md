@@ -223,6 +223,8 @@ A composite action to install and run `cccc`  in CI lives in its own repository:
     path: src/           # analyze this; thresholds come from cccc.toml
 ```
 
+An example GitHub Actions workflow for continuously measuring complexity with [k1LoW/octocov](https://github.com/k1LoW/octocov) is available at [.github/workflows/complexity.yml](./.github/workflows/complexity.yml).
+
 ## Output shape (JSON)
 
 An object with `files` (per-file reports) and `summary` (a whole-project
