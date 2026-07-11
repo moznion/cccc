@@ -1,0 +1,73 @@
+name: Code Complexity
+
+# This action measures Cognitive and Cyclomatic Complexity with cccc
+# and tracks them as Custom Metrics in k1LoW/octocov.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  complexity:
+    name: Measure & track complexity
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write # to comment on a pull request using octocov
+      contents: write # to store the reports in octocov-complexity-reports using octocov
+      actions: read
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+
+      - name: Measure complexity (cccc)
+        uses: moznion/cccc-action@8fa5a4b13bf907676709cece09147a047b7be7b0 # v1.0.0
+        with:
+          path: crates
+          output-file: cccc.json
+          config: cccc.toml
+
+      # Transform the cccc summary into octocov Custom Metrics JSON.
+      # https://github.com/k1LoW/octocov#custom-metrics
+      - name: Build octocov custom metrics
+        run: |
+          jq '{
+            key: "code_complexity",
+            name: "Code Complexity (src)",
+            metrics: [
+              { key: "function_count",   name: "Function count",      value: .summary.function_count },
+              { key: "cognitive_sum",    name: "Cognitive: total",    value: .summary.cognitive.sum },
+              { key: "cognitive_max",    name: "Cognitive: max",      value: .summary.cognitive.max },
+              { key: "cognitive_median", name: "Cognitive: median",   value: .summary.cognitive.median },
+              { key: "cognitive_p90",    name: "Cognitive: p90",      value: .summary.cognitive.p90 },
+              { key: "cyclomatic_sum",   name: "Cyclomatic: total",   value: .summary.cyclomatic.sum },
+              { key: "cyclomatic_max",   name: "Cyclomatic: max",     value: .summary.cyclomatic.max },
+              { key: "cyclomatic_median",name: "Cyclomatic: median",  value: .summary.cyclomatic.median },
+              { key: "cyclomatic_p90",   name: "Cyclomatic: p90",     value: .summary.cyclomatic.p90 }
+            ]
+          }' cccc.json > custom_metrics_complexity.json
+          echo "::group::custom_metrics_complexity.json"
+          cat custom_metrics_complexity.json
+          echo "::endgroup::"
+
+      # ref: Outputs the top 20 functions ranked by Cognitive Complexity to the job summary.
+      - name: Append top complex functions to job summary
+        run: |
+          {
+            echo "## Top 20 functions by Cognitive Complexity"
+            echo ""
+            echo "| Cognitive | Cyclomatic | Function | File:Line |"
+            echo "| --- | --- | --- | --- |"
+            jq -r '
+              [ .files[] | .path as $p | .functions[] | recurse(.children[]?)
+                | { path: $p, name: .name, line: .line, cognitive: .cognitive, cyclomatic: .cyclomatic } ]
+              | sort_by(-.cognitive) | .[:20][]
+              | "| \(.cognitive) | \(.cyclomatic) | `\(.name)` | \(.path):\(.line) |"
+            ' cccc.json
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # Passes Custom Metrics to octocov so it can comment on pull requests and store the metrics.
+      - name: Run octocov
+        uses: k1LoW/octocov-action@b3b6ee60482a667950f87553abf1df63217235d9 # v1.5.1
+        with:
+          config: .octocov.complexity.yml
+        env:
+          OCTOCOV_CUSTOM_METRICS_COMPLEXITY: custom_metrics_complexity.json
