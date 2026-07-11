@@ -104,3 +104,8 @@ fn perl_fixture_dispatches() {
 fn swift_fixture_dispatches() {
     assert_sum_of_primes("sample.swift", "sumOfPrimes");
 }
+
+#[test]
+fn java_fixture_dispatches() {
+    assert_sum_of_primes("sample.java", "sumOfPrimes");
+}
