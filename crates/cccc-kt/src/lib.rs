@@ -830,4 +830,12 @@ mod tests {
         assert_eq!(f.kind, "method");
         assert_eq!(f.cognitive, 1);
     }
+
+    #[test]
+    fn parse_error_is_reported() {
+        // tree-sitter is fault-tolerant: it still yields a (partial) tree but
+        // surfaces the error location for the broken input.
+        let errors = parse_errors("fun ok(a: Int): Int { return a }\nfun bad( {\n");
+        assert!(!errors.is_empty());
+    }
 }

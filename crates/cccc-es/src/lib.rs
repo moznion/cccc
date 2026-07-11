@@ -574,4 +574,13 @@ mod tests {
         assert_eq!(outer.children.len(), 1);
         assert_eq!(outer.children[0].name, "inner");
     }
+
+    #[test]
+    fn parse_error_is_reported() {
+        // A hard syntax error makes oxc bail on the whole file (empty program),
+        // so nothing is measured — but the diagnostic must still be surfaced.
+        let (nodes, errors) = to_ir(Path::new("bad.ts"), "function ok() {}\nfunction bad( {\n");
+        assert!(nodes.is_empty());
+        assert!(!errors.is_empty());
+    }
 }
