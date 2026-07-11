@@ -15,6 +15,7 @@ members = [
     "crates/cccc-py",
     "crates/cccc-zig",
     "crates/cccc-c",
+    "crates/cccc-pl",
 ]
 resolver = "2"
 
@@ -41,6 +42,7 @@ cccc-kt = { path = "crates/cccc-kt", version = "1.2.0" }
 cccc-py = { path = "crates/cccc-py", version = "1.2.0" }
 cccc-zig = { path = "crates/cccc-zig", version = "1.2.0" }
 cccc-c = { path = "crates/cccc-c", version = "1.2.0" }
+cccc-pl = { path = "crates/cccc-pl", version = "1.2.0" }
 serde = { version = "1", features = ["derive"] }
 
 [profile.release]

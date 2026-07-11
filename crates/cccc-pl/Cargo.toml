@@ -1,0 +1,19 @@
+[package]
+name = "cccc-pl"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Perl adapter that lowers source into the cccc-core complexity IR"
+
+[dependencies]
+cccc-core = { workspace = true }
+# Community-maintained tree-sitter grammar for Perl (the tree-sitter-perl org),
+# published as `ts-parser-perl`. Like `cccc-py`/`cccc-kt` the grammar's C source
+# is compiled by `cc`, so there is no `libclang`/bindgen requirement. Perl is
+# not fully statically parseable in general ("only perl can parse Perl"), but
+# the grammar is fault-tolerant and covers the constructs complexity cares
+# about.
+tree-sitter = "0.26"
+ts-parser-perl = "1.2"

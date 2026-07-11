@@ -94,3 +94,8 @@ fn zig_fixture_dispatches() {
 fn c_fixture_dispatches() {
     assert_sum_of_primes("sample.c", "sum_of_primes");
 }
+
+#[test]
+fn perl_fixture_dispatches() {
+    assert_sum_of_primes("sample.pl", "sum_of_primes");
+}

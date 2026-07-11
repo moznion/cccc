@@ -36,6 +36,9 @@
   - **C** (`--lang c`), via the official
     [tree-sitter-c](https://github.com/tree-sitter/tree-sitter-c) grammar.
     Analyzes `.c`, `.h`.
+  - **Perl** (`--lang perl`), via the community-maintained
+    [tree-sitter-perl](https://github.com/tree-sitter-perl/tree-sitter-perl)
+    grammar. Analyzes `.pl`, `.pm`, `.t`.
 - A Rust library for calculating cognitive and cyclomatic complexity in a language-agnostic way
 
 ## Workspace layout
@@ -61,6 +64,7 @@ library and extended to other languages:
 | [`cccc-py`](crates/cccc-py) | Python adapter **library**: lowers the official [tree-sitter-python](https://github.com/tree-sitter/tree-sitter-python) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Python grammar — **no CLI dependencies**. Like `cccc-kt`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 | [`cccc-zig`](crates/cccc-zig) | Zig adapter **library**: lowers the pure-Rust [zigsyn](https://docs.rs/zigsyn) AST into `cccc-core`'s IR. Depends only on `cccc-core` + zigsyn — **no CLI dependencies or C toolchain**. |
 | [`cccc-c`](crates/cccc-c) | C adapter **library**: lowers the official [tree-sitter-c](https://github.com/tree-sitter/tree-sitter-c) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the C grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
+| [`cccc-pl`](crates/cccc-pl) | Perl adapter **library**: lowers the [tree-sitter-perl](https://github.com/tree-sitter-perl/tree-sitter-perl) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Perl grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 
 Each adapter is a standalone library so that a consumer who only wants the
 metrics pulls in just that adapter (+ `cccc-core` + its parser), never clap /
@@ -72,10 +76,10 @@ To support another language: (1) add an adapter crate that lowers its AST into
 it with one entry in `cccc-cli`'s `lang::LANGUAGES` (and add the dependency) —
 no new binary, and no reimplementing the metrics or the CLI. `cccc-es` (oxc),
 `cccc-rs` (syn), `cccc-go` (gosyn), `cccc-php` (php-rs-parser), `cccc-rb`
-(ruby-prism), `cccc-kt` / `cccc-py` / `cccc-c` (tree-sitter), `cccc-scheme` (lispexp), `cccc-clojure`
-(lispexp), `cccc-lisp` (lispexp, Common Lisp / Emacs Lisp / …), and `cccc-zig`
-(zigsyn) are the reference adapters: same shape, different parser. The
-Lisp-family adapters share their lowering skeleton via `cccc-lisp-kit`.
+(ruby-prism), `cccc-kt` / `cccc-py` / `cccc-pl` (tree-sitter), `cccc-c` (tree-sitter),
+`cccc-scheme` (lispexp), `cccc-clojure` (lispexp), `cccc-lisp` (lispexp, Common Lisp / Emacs Lisp / …),
+and `cccc-zig` (zigsyn) are the reference adapters: same shape, different parser.
+The Lisp-family adapters share their lowering skeleton via `cccc-lisp-kit`.
 
 **See [docs/ADDING_A_LANGUAGE.md](docs/ADDING_A_LANGUAGE.md) for the full
 step-by-step guide**, including the IR-node reference table, the
@@ -420,3 +424,17 @@ code inside a macro body is not scored. One known wart of preprocessor-unaware
 parsing: the standard `extern "C" {` guard splits its braces across two
 `#ifdef __cplusplus` blocks, which surfaces as a parse warning — the rest of
 the header still parses and scores.
+
+For **Perl** (`--lang perl`): named `sub`s / `method` declarations (feature
+`class`, Perl 5.38+) / anonymous `sub`s are the function-like units, and a
+block callback passed to `grep`/`map`/`sort` is its own anonymous unit (like a
+Ruby block); `if`/`elsif`/`else` (`elsif` chains flat) and `unless`, the
+statement modifiers `EXPR if/unless COND` (a branch) and
+`EXPR while/until/for COND` (a loop, incl. `do { } while`), the ternary `?:`,
+`while`/`until`/C-style `for`/`foreach`, `try`/`catch` (feature `try`, Perl
+5.34+ — `finally` runs at the surrounding level), labelled `next`/`last`/
+`redo`, and `&&`/`and`/`||`/`or`/`//` map to the corresponding nodes. `&&` and
+`and` (likewise `||` and `or`) are the same normalized operator; `//` folds as
+a coalescing run. A classic `eval { }` is transparent (the `if ($@)` after it
+is the decision point), `xor`/`not`/`!` add nothing, and `given`/`when` (long
+deprecated) is not scored.

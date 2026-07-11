@@ -112,6 +112,12 @@ pub const LANGUAGES: &[Language] = &[
         exts: cccc_c::DEFAULT_EXTS,
         analyze: cccc_c::analyze_source,
     },
+    Language {
+        name: "perl",
+        aliases: &["pl"],
+        exts: cccc_pl::DEFAULT_EXTS,
+        analyze: cccc_pl::analyze_source,
+    },
 ];
 
 /// Resolve the active languages from an `include` (`--lang`) and an `exclude`
@@ -271,6 +277,7 @@ mod tests {
                 "python".to_string(),
                 "zig".to_string(),
                 "c".to_string(),
+                "perl".to_string(),
             ]),
         )
         .unwrap();
@@ -310,7 +317,7 @@ mod tests {
         let map = build_dispatch(&all, &BTreeMap::new());
         for key in [
             "ts", "rs", "go", "php", "rb", "scm", "lisp", "el", "clj", "kt", "kts", "py", "pyi",
-            "zig", "c", "h",
+            "zig", "c", "h", "pl", "pm", "t",
         ] {
             assert!(map.contains_key(key), "missing dispatch for .{key}");
         }
