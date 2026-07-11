@@ -39,6 +39,9 @@
   - **Perl** (`--lang perl`), via the community-maintained
     [tree-sitter-perl](https://github.com/tree-sitter-perl/tree-sitter-perl)
     grammar. Analyzes `.pl`, `.pm`, `.t`.
+  - **Swift** (`--lang swift`), via the
+    [alex-pinkus/tree-sitter-swift](https://github.com/alex-pinkus/tree-sitter-swift)
+    grammar. Analyzes `.swift`.
 - A Rust library for calculating cognitive and cyclomatic complexity in a language-agnostic way
 
 ## Workspace layout
@@ -65,6 +68,7 @@ library and extended to other languages:
 | [`cccc-zig`](crates/cccc-zig) | Zig adapter **library**: lowers the pure-Rust [zigsyn](https://docs.rs/zigsyn) AST into `cccc-core`'s IR. Depends only on `cccc-core` + zigsyn — **no CLI dependencies or C toolchain**. |
 | [`cccc-c`](crates/cccc-c) | C adapter **library**: lowers the official [tree-sitter-c](https://github.com/tree-sitter/tree-sitter-c) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the C grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 | [`cccc-pl`](crates/cccc-pl) | Perl adapter **library**: lowers the [tree-sitter-perl](https://github.com/tree-sitter-perl/tree-sitter-perl) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Perl grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
+| [`cccc-swift`](crates/cccc-swift) | Swift adapter **library**: lowers the [alex-pinkus/tree-sitter-swift](https://github.com/alex-pinkus/tree-sitter-swift) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Swift grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 
 Each adapter is a standalone library so that a consumer who only wants the
 metrics pulls in just that adapter (+ `cccc-core` + its parser), never clap /
@@ -76,7 +80,7 @@ To support another language: (1) add an adapter crate that lowers its AST into
 it with one entry in `cccc-cli`'s `lang::LANGUAGES` (and add the dependency) —
 no new binary, and no reimplementing the metrics or the CLI. `cccc-es` (oxc),
 `cccc-rs` (syn), `cccc-go` (gosyn), `cccc-php` (php-rs-parser), `cccc-rb`
-(ruby-prism), `cccc-kt` / `cccc-py` / `cccc-pl` (tree-sitter), `cccc-c` (tree-sitter),
+(ruby-prism), `cccc-kt` / `cccc-py` / `cccc-pl` (tree-sitter), `cccc-swift` (tree-sitter), `cccc-c` (tree-sitter),
 `cccc-scheme` (lispexp), `cccc-clojure` (lispexp), `cccc-lisp` (lispexp, Common Lisp / Emacs Lisp / …),
 and `cccc-zig` (zigsyn) are the reference adapters: same shape, different parser.
 The Lisp-family adapters share their lowering skeleton via `cccc-lisp-kit`.
@@ -438,3 +442,16 @@ statement modifiers `EXPR if/unless COND` (a branch) and
 a coalescing run. A classic `eval { }` is transparent (the `if ($@)` after it
 is the decision point), `xor`/`not`/`!` add nothing, and `given`/`when` (long
 deprecated) is not scored.
+
+For **Swift** (`--lang swift`): `func` declarations / methods / local
+functions / closures / `init` / `deinit` / `subscript` / computed-property
+`get`/`set` accessors (including the implicit getter-only form) / `willSet`/
+`didSet` observers are the function-like units; `if`/`else if`/`else` (with
+`if let` / `if case` variants), `guard` … `else` (scored exactly like an `if`),
+`switch` (its `default` entry is the non-decision arm; `case a, b:` is one
+arm), `for`-`in` (its `where` clause adds nothing by itself), `while`/
+`repeat`-`while`, `catch` blocks, labelled `break`/`continue`, the ternary
+`a ? b : c`, and `&&`/`||` map to the corresponding nodes. Nil-coalescing `??`
+folds as a coalescing run (like PHP's `??`). `#if` compilation directives are
+transparent — every branch's code scores where it stands; `try`/`try?`/`await`
+add nothing.

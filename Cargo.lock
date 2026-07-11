@@ -222,6 +222,7 @@ dependencies = [
  "cccc-rb",
  "cccc-rs",
  "cccc-scheme",
+ "cccc-swift",
  "cccc-zig",
  "clap",
  "globset",
@@ -343,6 +344,15 @@ name = "cccc-scheme"
 version = "1.2.0"
 dependencies = [
  "cccc-lisp-kit",
+]
+
+[[package]]
+name = "cccc-swift"
+version = "1.2.0"
+dependencies = [
+ "cccc-core",
+ "tree-sitter",
+ "tree-sitter-swift",
 ]
 
 [[package]]
@@ -1569,6 +1579,16 @@ name = "tree-sitter-python"
 version = "0.25.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6bf85fd39652e740bf60f46f4cda9492c3a9ad75880575bf14960f775cb74a1c"
+dependencies = [
+ "cc",
+ "tree-sitter-language",
+]
+
+[[package]]
+name = "tree-sitter-swift"
+version = "0.7.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fe36052155b9dd69ca82b3b8f1b4ccfb2d867125ac1a4db1dd7331829242668c"
 dependencies = [
  "cc",
  "tree-sitter-language",
