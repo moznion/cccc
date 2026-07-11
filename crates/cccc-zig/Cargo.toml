@@ -1,0 +1,13 @@
+[package]
+name = "cccc-zig"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Zig (zigsyn) adapter that lowers source into the cccc-core complexity IR"
+
+[dependencies]
+cccc-core = { workspace = true }
+zigsyn = "0.1"

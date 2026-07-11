@@ -100,6 +100,12 @@ pub const LANGUAGES: &[Language] = &[
         exts: cccc_py::DEFAULT_EXTS,
         analyze: cccc_py::analyze_source,
     },
+    Language {
+        name: "zig",
+        aliases: &[],
+        exts: cccc_zig::DEFAULT_EXTS,
+        analyze: cccc_zig::analyze_source,
+    },
 ];
 
 /// Resolve the active languages from an `include` (`--lang`) and an `exclude`
@@ -257,6 +263,7 @@ mod tests {
                 "clojure".to_string(),
                 "kotlin".to_string(),
                 "python".to_string(),
+                "zig".to_string(),
             ]),
         )
         .unwrap();
@@ -296,6 +303,7 @@ mod tests {
         let map = build_dispatch(&all, &BTreeMap::new());
         for key in [
             "ts", "rs", "go", "php", "rb", "scm", "lisp", "el", "clj", "kt", "kts", "py", "pyi",
+            "zig",
         ] {
             assert!(map.contains_key(key), "missing dispatch for .{key}");
         }

@@ -211,6 +211,7 @@ dependencies = [
  "cccc-rb",
  "cccc-rs",
  "cccc-scheme",
+ "cccc-zig",
  "clap",
  "globset",
  "ignore",
@@ -322,6 +323,14 @@ name = "cccc-scheme"
 version = "1.2.0"
 dependencies = [
  "cccc-lisp-kit",
+]
+
+[[package]]
+name = "cccc-zig"
+version = "1.2.0"
+dependencies = [
+ "cccc-core",
+ "zigsyn",
 ]
 
 [[package]]
@@ -1667,6 +1676,17 @@ name = "winnow"
 version = "1.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0592e1c9d151f854e6fd382574c3a0855250e1d9b2f99d9281c6e6391af352f1"
+
+[[package]]
+name = "zigsyn"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "18c2e53e0acf479814aa8b9e94ccfe0cce54151f1354df4537b318a344d38bcb"
+dependencies = [
+ "anyhow",
+ "strum",
+ "thiserror",
+]
 
 [[package]]
 name = "zmij"
