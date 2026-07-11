@@ -42,6 +42,9 @@
   - **Swift** (`--lang swift`), via the
     [alex-pinkus/tree-sitter-swift](https://github.com/alex-pinkus/tree-sitter-swift)
     grammar. Analyzes `.swift`.
+  - **Java** (`--lang java`), via the official
+    [tree-sitter-java](https://github.com/tree-sitter/tree-sitter-java)
+    grammar. Analyzes `.java`.
 - A Rust library for calculating cognitive and cyclomatic complexity in a language-agnostic way
 
 ## Workspace layout
@@ -69,6 +72,7 @@ library and extended to other languages:
 | [`cccc-c`](crates/cccc-c) | C adapter **library**: lowers the official [tree-sitter-c](https://github.com/tree-sitter/tree-sitter-c) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the C grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 | [`cccc-pl`](crates/cccc-pl) | Perl adapter **library**: lowers the [tree-sitter-perl](https://github.com/tree-sitter-perl/tree-sitter-perl) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Perl grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 | [`cccc-swift`](crates/cccc-swift) | Swift adapter **library**: lowers the [alex-pinkus/tree-sitter-swift](https://github.com/alex-pinkus/tree-sitter-swift) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Swift grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
+| [`cccc-java`](crates/cccc-java) | Java adapter **library**: lowers the official [tree-sitter-java](https://github.com/tree-sitter/tree-sitter-java) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Java grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 
 Each adapter is a standalone library so that a consumer who only wants the
 metrics pulls in just that adapter (+ `cccc-core` + its parser), never clap /
@@ -81,7 +85,7 @@ it with one entry in `cccc-cli`'s `lang::LANGUAGES` (and add the dependency) —
 no new binary, and no reimplementing the metrics or the CLI. `cccc-es` (oxc),
 `cccc-rs` (syn), `cccc-go` (gosyn), `cccc-php` (php-rs-parser), `cccc-rb`
 (ruby-prism), `cccc-kt` / `cccc-py` / `cccc-pl` (tree-sitter), `cccc-swift` (tree-sitter), `cccc-c` (tree-sitter),
-`cccc-scheme` (lispexp), `cccc-clojure` (lispexp), `cccc-lisp` (lispexp, Common Lisp / Emacs Lisp / …),
+`cccc-java` (tree-sitter), `cccc-scheme` (lispexp), `cccc-clojure` (lispexp), `cccc-lisp` (lispexp, Common Lisp / Emacs Lisp / …),
 and `cccc-zig` (zigsyn) are the reference adapters: same shape, different parser.
 The Lisp-family adapters share their lowering skeleton via `cccc-lisp-kit`.
 
@@ -455,3 +459,15 @@ arm), `for`-`in` (its `where` clause adds nothing by itself), `while`/
 folds as a coalescing run (like PHP's `??`). `#if` compilation directives are
 transparent — every branch's code scores where it stands; `try`/`try?`/`await`
 add nothing.
+
+For **Java** (`--lang java`): methods (incl. ones in anonymous classes and
+interface `default` methods) / constructors / record compact constructors /
+lambdas are the function-like units (static and instance initializer blocks
+run at the surrounding level); `if`/`else if`/`else` (`else if` chains flat),
+the ternary `?:`, `switch` statements and expressions alike — both colon-style
+`case:` groups and arrow-style `case ->` rules, with pattern matching and
+guards supported (a `default` or `case null, default` arm is the non-decision
+case), `for`/enhanced `for`/`while`/`do`-`while`, `catch` clauses (a
+multi-catch `catch (A | B e)` is one clause; `try`-with-resources bodies are
+transparent), labelled `break L`/`continue L`, and `&&`/`||` map to the
+corresponding nodes. Java has no `??`-style coalescing operator.
