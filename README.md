@@ -262,10 +262,50 @@ the tail where refactoring candidates live. It is unaffected by `--min`.
   "summary": {
     "file_count": 1,
     "function_count": 3,
+    "parse_error_count": 0,
+    "parse_error_file_count": 0,
     "cognitive":  { "sum": 10, "max": 7, "median": 2, "p90": 7, "p95": 7 },
     "cyclomatic": { "sum": 10, "max": 4, "median": 3, "p90": 4, "p95": 4 }
   }
 }
+```
+
+### Parse errors
+
+A file that fails to parse cleanly is still measured from whatever the parser
+recovered, and its `parse_errors` (an array of messages, omitted when empty)
+appears on that file's entry. The `summary` aggregates them — `parse_error_count`
+(total errors), `parse_error_file_count` (affected files), and
+`parse_error_files` (the affected paths, omitted when empty) — so a partial
+parse can't go unnoticed without inspecting every file entry, even in `--top-*`
+mode where per-file entries aren't emitted at all:
+
+```json
+{
+  "files": [
+    {
+      "path": "src/broken.py",
+      "parse_errors": ["syntax error at line 6"],
+      ...
+    }
+  ],
+  "summary": {
+    "parse_error_count": 1,
+    "parse_error_file_count": 1,
+    "parse_error_files": ["src/broken.py"],
+    ...
+  }
+}
+```
+
+In `--table` mode the aggregate count is printed in the summary block, and a
+warning listing each affected file (with its error count) goes to stderr so it
+isn't lost in a long table:
+
+```console
+$ cccc --table src/ >/dev/null
+cccc: warning: 1 parse error(s) in 1 file(s); results for those files may be incomplete:
+cccc:   src/broken.py (1)
 ```
 
 > Note: the top level is an object (`{ files, summary }`), so to post-process

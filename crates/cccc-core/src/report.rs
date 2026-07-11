@@ -52,6 +52,17 @@ pub struct MetricSummary {
 pub struct Summary {
     pub file_count: usize,
     pub function_count: usize,
+    /// Total parse errors across all files. Parsers are fault-tolerant where
+    /// possible, so a non-zero count means some code was measured from a
+    /// partial parse (or, for non-recovering parsers, skipped entirely).
+    pub parse_error_count: usize,
+    /// Number of files that had at least one parse error.
+    pub parse_error_file_count: usize,
+    /// Paths of the files that had parse errors, in report order. Lets a
+    /// consumer locate the affected files without scanning every entry in
+    /// `files` (which the `--top-*` output doesn't even include).
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub parse_error_files: Vec<String>,
     pub cognitive: MetricSummary,
     pub cyclomatic: MetricSummary,
 }
@@ -181,15 +192,24 @@ fn metric_summary(mut values: Vec<u32>) -> MetricSummary {
 pub fn compute_summary(reports: &[FileReport]) -> Summary {
     let mut cog = Vec::new();
     let mut cyc = Vec::new();
+    let mut parse_error_count = 0;
+    let mut parse_error_files = Vec::new();
     for r in reports {
         for_each_function(&r.functions, &mut |f| {
             cog.push(f.cognitive);
             cyc.push(f.cyclomatic);
         });
+        if !r.parse_errors.is_empty() {
+            parse_error_count += r.parse_errors.len();
+            parse_error_files.push(r.path.clone());
+        }
     }
     Summary {
         file_count: reports.len(),
         function_count: cog.len(),
+        parse_error_count,
+        parse_error_file_count: parse_error_files.len(),
+        parse_error_files,
         cognitive: metric_summary(cog),
         cyclomatic: metric_summary(cyc),
     }
@@ -211,5 +231,39 @@ mod tests {
     #[test]
     fn percentile_empty_is_zero() {
         assert_eq!(percentile(&[], 50.0), 0);
+    }
+
+    #[test]
+    fn summary_aggregates_parse_errors() {
+        let file = |path: &str, errors: Vec<String>| FileReport {
+            path: path.to_string(),
+            cognitive: 0,
+            cyclomatic: 0,
+            functions: Vec::new(),
+            parse_errors: errors,
+        };
+        let reports = vec![
+            file("clean", Vec::new()),
+            file("one", vec!["syntax error at line 1".to_string()]),
+            file(
+                "two",
+                vec![
+                    "syntax error at line 3".to_string(),
+                    "syntax error at line 9".to_string(),
+                ],
+            ),
+        ];
+        let s = compute_summary(&reports);
+        assert_eq!(s.parse_error_count, 3);
+        assert_eq!(s.parse_error_file_count, 2);
+        assert_eq!(s.parse_error_files, vec!["one", "two"]);
+    }
+
+    #[test]
+    fn summary_without_parse_errors_is_zero() {
+        let s = compute_summary(&[]);
+        assert_eq!(s.parse_error_count, 0);
+        assert_eq!(s.parse_error_file_count, 0);
+        assert!(s.parse_error_files.is_empty());
     }
 }

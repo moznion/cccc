@@ -91,6 +91,15 @@ pub fn analyze_source(path: &Path, source: &str) -> FileReport {
 Optionally also expose `to_ir(path, source) -> (Vec<Node>, Vec<String>)` (the IR
 plus parser-error strings) for embedders who want the raw IR — `cccc-es` does.
 
+Populate the parse-error strings whenever the parse was not clean — one entry
+per error, e.g. `"syntax error at line 42"`. If your parser is fault-tolerant
+(tree-sitter grammars, oxc, Prism, …), still lower whatever parsed and report
+the error locations alongside; the engine attaches them to the file's
+`parse_errors` and the CLI aggregates them into the summary
+(`parse_error_count` / `parse_error_file_count` / `parse_error_files`) and
+warns on stderr — listing the affected files — in `--table` mode, so partial
+parses are surfaced without any adapter-side work.
+
 ## Step 2 — lower the AST to IR
 
 This is the only real work. You walk your parser's AST and emit
