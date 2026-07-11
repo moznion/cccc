@@ -27,17 +27,32 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write # to comment on a pull request using octocov
+      contents: write # to store the reports in the octocov-reports branch using octocov
+      actions: read
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - uses: dtolnay/rust-toolchain@fa04a1451ff1842e2626ccb99004d0195b455a88
         with:
           toolchain: stable
+          components: llvm-tools-preview # required by cargo-llvm-cov
       - uses: Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32 # v2
+      - uses: taiki-e/install-action@2ca9b94c269419b7b0c711c09d0b21c4e1d51145 # v2.83.1
+        with:
+          tool: cargo-llvm-cov
       # cccc-rb builds Ruby's Prism from vendored C via bindgen, which needs libclang.
       - name: Install libclang (for the ruby-prism / bindgen build)
         run: sudo apt-get update && sudo apt-get install -y libclang-dev
-      - name: Run tests
-        run: cargo test --workspace --all-targets --all-features
+      # Runs the workspace tests and emits an LCOV report for octocov in one pass.
+      - name: Run tests & measure coverage (cargo-llvm-cov -> LCOV)
+        run: cargo llvm-cov --workspace --all-targets --all-features --lcov --output-path coverage.lcov
+      # Passes the LCOV report to octocov so it can comment on pull requests and
+      # store the coverage report in the octocov-reports datastore branch.
+      - name: Run octocov
+        uses: k1LoW/octocov-action@b3b6ee60482a667950f87553abf1df63217235d9 # v1.5.1
+        with:
+          config: .octocov.yml
 
   clippy:
     runs-on: ubuntu-latest
