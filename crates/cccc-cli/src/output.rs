@@ -2,10 +2,32 @@
 //! views. The report *data* and aggregation live in `cccc_core::report`; this
 //! module only formats them.
 
-use std::io::Write;
+use std::io::{IsTerminal, Write};
 
 use cccc_core::report::{FunctionReport, MetricSummary, Report, Summary, TopReport};
 use serde::Serialize;
+
+/// True when ANSI color should be used on `stream`: it is a real terminal and
+/// the user hasn't opted out via `NO_COLOR` (<https://no-color.org>). Piped or
+/// redirected output stays plain so logs and CI captures aren't polluted with
+/// escape codes.
+fn use_color(stream: &impl IsTerminal) -> bool {
+    std::env::var_os("NO_COLOR").is_none() && stream.is_terminal()
+}
+
+/// Wrap `msg` in ANSI yellow when `enabled`.
+fn yellow(msg: &str, enabled: bool) -> std::borrow::Cow<'_, str> {
+    if enabled {
+        format!("\x1b[33m{msg}\x1b[0m").into()
+    } else {
+        msg.into()
+    }
+}
+
+/// Print a warning line to stderr, in yellow when stderr is a terminal.
+pub fn warn(msg: &str) {
+    eprintln!("{}", yellow(msg, use_color(&std::io::stderr())));
+}
 
 /// Print any serializable value as pretty JSON to stdout.
 ///
@@ -32,6 +54,7 @@ pub fn print_json<T: Serialize>(value: &T) {
 /// `BufWriter` never fails for stdout in practice, so write errors (e.g. a
 /// closed pipe) are reported once at the end rather than per line.
 pub fn print_table(report: &Report) {
+    let color = use_color(&std::io::stdout());
     with_stdout(|out| {
         for file in &report.files {
             writeln!(out, "{}", file.path)?;
@@ -49,16 +72,17 @@ pub fn print_table(report: &Report) {
                 file.cognitive, file.cyclomatic
             )?;
             for e in &file.parse_errors {
-                writeln!(out, "  parse warning: {e}")?;
+                writeln!(out, "{}", yellow(&format!("  parse warning: {e}"), color))?;
             }
             writeln!(out)?;
         }
-        write_summary(out, &report.summary)
+        write_summary(out, &report.summary, color)
     });
 }
 
 /// Print a flat ranking as a human-readable table, followed by the summary.
 pub fn print_top_table(report: &TopReport) {
+    let color = use_color(&std::io::stdout());
     with_stdout(|out| {
         writeln!(out, "top {} by {}", report.top.len(), report.metric)?;
         writeln!(out, "  {:>9}  {:>10}  Function", "Cognitive", "Cyclomatic")?;
@@ -73,7 +97,7 @@ pub fn print_top_table(report: &TopReport) {
             )?;
         }
         writeln!(out, "  {}", "-".repeat(48))?;
-        write_summary(out, &report.summary)
+        write_summary(out, &report.summary, color)
     });
 }
 
@@ -90,7 +114,7 @@ where
     }
 }
 
-fn write_summary(out: &mut dyn Write, s: &Summary) -> std::io::Result<()> {
+fn write_summary(out: &mut dyn Write, s: &Summary, color: bool) -> std::io::Result<()> {
     writeln!(
         out,
         "summary ({} files, {} functions)",
@@ -102,7 +126,15 @@ fn write_summary(out: &mut dyn Write, s: &Summary) -> std::io::Result<()> {
         "", "sum", "max", "median", "p90", "p95"
     )?;
     write_metric_row(out, "cognitive", &s.cognitive)?;
-    write_metric_row(out, "cyclomatic", &s.cyclomatic)
+    write_metric_row(out, "cyclomatic", &s.cyclomatic)?;
+    if s.parse_error_count > 0 {
+        let line = format!(
+            "  parse errors: {} in {} file(s)",
+            s.parse_error_count, s.parse_error_file_count
+        );
+        writeln!(out, "{}", yellow(&line, color))?;
+    }
+    Ok(())
 }
 
 fn write_metric_row(out: &mut dyn Write, label: &str, m: &MetricSummary) -> std::io::Result<()> {

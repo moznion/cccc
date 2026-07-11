@@ -140,9 +140,9 @@ pub fn run() -> i32 {
     } else {
         for ext in &global_ext {
             if !dispatch.contains_key(ext) {
-                eprintln!(
+                output::warn(&format!(
                     "cccc: warning: no active language analyzes .{ext} files; they will be skipped"
-                );
+                ));
             }
         }
         global_ext
@@ -207,6 +207,19 @@ pub fn run() -> i32 {
     // Compute the summary over the full population, before `--min`/`--top` change
     // what is displayed, so the distribution always reflects all code.
     let summary = report::compute_summary(&reports);
+
+    // Parse errors mean the scores may be computed from a partial parse. JSON
+    // consumers see this in `summary`; for the human-readable views, warn on
+    // stderr — with the affected paths — so it isn't lost in a long table.
+    if table && summary.parse_error_count > 0 {
+        output::warn(&format!(
+            "cccc: warning: {} parse error(s) in {} file(s); results for those files may be incomplete:",
+            summary.parse_error_count, summary.parse_error_file_count
+        ));
+        for r in reports.iter().filter(|r| !r.parse_errors.is_empty()) {
+            output::warn(&format!("cccc:   {} ({})", r.path, r.parse_errors.len()));
+        }
+    }
 
     // `--top-*` is a distinct, flat ranking view that replaces the per-file
     // output. The two top flags are mutually exclusive (enforced by clap).

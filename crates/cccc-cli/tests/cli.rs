@@ -235,6 +235,73 @@ fn table_output_renders() {
         .stdout(predicates::str::contains("summary"));
 }
 
+// ----- parse-error reporting --------------------------------------------------
+
+/// Create `broken.py` (one valid function, one syntax error) in a fresh temp
+/// dir. Python goes through tree-sitter, which recovers from the error, so the
+/// valid function is still measured and the error is reported alongside.
+fn write_broken_py(dir_name: &str) -> (std::path::PathBuf, std::path::PathBuf) {
+    let dir = std::env::temp_dir().join(dir_name);
+    std::fs::create_dir_all(&dir).unwrap();
+    let path = dir.join("broken.py");
+    std::fs::write(
+        &path,
+        "def ok(a):\n    if a:\n        return 1\n    return 0\n\ndef broken(:\n    pass\n",
+    )
+    .unwrap();
+    (dir, path)
+}
+
+#[test]
+fn json_summary_counts_parse_errors() {
+    let (dir, path) = write_broken_py("cccc_parse_error_json_test");
+    let v = json(&[path.to_str().unwrap()]);
+    let s = &v["summary"];
+    assert!(s["parse_error_count"].as_u64().unwrap() >= 1);
+    assert_eq!(s["parse_error_file_count"], 1);
+    let error_files = s["parse_error_files"].as_array().unwrap();
+    assert_eq!(error_files.len(), 1);
+    assert!(error_files[0].as_str().unwrap().ends_with("broken.py"));
+    let file = &v["files"][0];
+    assert!(!file["parse_errors"].as_array().unwrap().is_empty());
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
+fn json_summary_reports_zero_parse_errors_for_clean_input() {
+    let v = json(&["tests/fixtures/sample.ts"]);
+    assert_eq!(v["summary"]["parse_error_count"], 0);
+    assert_eq!(v["summary"]["parse_error_file_count"], 0);
+    assert!(v["summary"].get("parse_error_files").is_none());
+}
+
+#[test]
+fn table_mode_warns_about_parse_errors_on_stderr() {
+    let (dir, path) = write_broken_py("cccc_parse_error_table_test");
+    Command::cargo_bin("cccc")
+        .unwrap()
+        .args(["--table", path.to_str().unwrap()])
+        .assert()
+        .success()
+        .stderr(predicates::str::contains("cccc: warning:"))
+        .stderr(predicates::str::contains("parse error"))
+        .stderr(predicates::str::contains("broken.py"))
+        .stdout(predicates::str::contains("parse errors:"));
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
+fn json_mode_reports_parse_errors_in_output_not_stderr() {
+    let (dir, path) = write_broken_py("cccc_parse_error_json_stderr_test");
+    Command::cargo_bin("cccc")
+        .unwrap()
+        .arg(path.to_str().unwrap())
+        .assert()
+        .success()
+        .stderr(predicates::str::is_empty());
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
 // ----- multi-language dispatch & --lang -------------------------------------
 
 #[test]
