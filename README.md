@@ -45,6 +45,9 @@
   - **Java** (`--lang java`), via the official
     [tree-sitter-java](https://github.com/tree-sitter/tree-sitter-java)
     grammar. Analyzes `.java`.
+  - **Dart** (`--lang dart`), via the
+    [nielsenko/tree-sitter-dart](https://github.com/nielsenko/tree-sitter-dart)
+    grammar. Analyzes `.dart`.
 - A Rust library for calculating cognitive and cyclomatic complexity in a language-agnostic way
 
 ## Workspace layout
@@ -73,6 +76,7 @@ library and extended to other languages:
 | [`cccc-pl`](crates/cccc-pl) | Perl adapter **library**: lowers the [tree-sitter-perl](https://github.com/tree-sitter-perl/tree-sitter-perl) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Perl grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 | [`cccc-swift`](crates/cccc-swift) | Swift adapter **library**: lowers the [alex-pinkus/tree-sitter-swift](https://github.com/alex-pinkus/tree-sitter-swift) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Swift grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 | [`cccc-java`](crates/cccc-java) | Java adapter **library**: lowers the official [tree-sitter-java](https://github.com/tree-sitter/tree-sitter-java) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Java grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
+| [`cccc-dart`](crates/cccc-dart) | Dart adapter **library**: lowers the [nielsenko/tree-sitter-dart](https://github.com/nielsenko/tree-sitter-dart) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Dart grammar — **no CLI dependencies**. The grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 
 Each adapter is a standalone library so that a consumer who only wants the
 metrics pulls in just that adapter (+ `cccc-core` + its parser), never clap /
@@ -85,7 +89,7 @@ it with one entry in `cccc-cli`'s `lang::LANGUAGES` (and add the dependency) —
 no new binary, and no reimplementing the metrics or the CLI. `cccc-es` (oxc),
 `cccc-rs` (syn), `cccc-go` (gosyn), `cccc-php` (php-rs-parser), `cccc-rb`
 (ruby-prism), `cccc-kt` / `cccc-py` / `cccc-pl` (tree-sitter), `cccc-swift` (tree-sitter), `cccc-c` (tree-sitter),
-`cccc-java` (tree-sitter), `cccc-scheme` (lispexp), `cccc-clojure` (lispexp), `cccc-lisp` (lispexp, Common Lisp / Emacs Lisp / …),
+`cccc-java` (tree-sitter), `cccc-dart` (tree-sitter), `cccc-scheme` (lispexp), `cccc-clojure` (lispexp), `cccc-lisp` (lispexp, Common Lisp / Emacs Lisp / …),
 and `cccc-zig` (zigsyn) are the reference adapters: same shape, different parser.
 The Lisp-family adapters share their lowering skeleton via `cccc-lisp-kit`.
 
@@ -480,3 +484,16 @@ case), `for`/enhanced `for`/`while`/`do`-`while`, `catch` clauses (a
 multi-catch `catch (A | B e)` is one clause; `try`-with-resources bodies are
 transparent), labelled `break L`/`continue L`, and `&&`/`||` map to the
 corresponding nodes. Java has no `??`-style coalescing operator.
+
+For **Dart** (`--lang dart`): top-level and local functions, methods, getters,
+setters, constructors, factory constructors, operators, and anonymous function
+expressions are function-like units; `if`/`else if`/`else`, the ternary `?:`,
+`for` (including `await for`)/`while`/`do`-`while`, switch statements and switch
+expressions (a `default` or wildcard arm is the non-decision case), `catch` and
+`on` handlers, labelled `break`/`continue`, and `&&`/`||` map to the
+corresponding nodes. Pattern `&&`/`||` use the same logical-sequence rules, and
+collection `if`/`for` lower to nested branches/loops. `??` and `??=` map to
+coalescing logical nodes. Null-aware access (`?.`, `?[]`, `?..`), null-aware
+spread (`...?`), collection elements (`?value`), and map keys/values each add
+one cyclomatic path without adding cognitive complexity. External, native, and
+otherwise bodyless declarations are not reported as functions.

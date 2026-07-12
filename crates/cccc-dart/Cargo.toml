@@ -1,0 +1,14 @@
+[package]
+name = "cccc-dart"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Dart (tree-sitter) adapter that lowers source into the cccc-core complexity IR"
+
+[dependencies]
+cccc-core = { workspace = true }
+tree-sitter = "0.26"
+tree-sitter-dart = "0.2"

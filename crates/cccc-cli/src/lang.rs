@@ -130,6 +130,12 @@ pub const LANGUAGES: &[Language] = &[
         exts: cccc_java::DEFAULT_EXTS,
         analyze: cccc_java::analyze_source,
     },
+    Language {
+        name: "dart",
+        aliases: &[],
+        exts: cccc_dart::DEFAULT_EXTS,
+        analyze: cccc_dart::analyze_source,
+    },
 ];
 
 /// Resolve the active languages from an `include` (`--lang`) and an `exclude`
@@ -292,6 +298,7 @@ mod tests {
                 "perl".to_string(),
                 "swift".to_string(),
                 "java".to_string(),
+                "dart".to_string(),
             ]),
         )
         .unwrap();
@@ -331,7 +338,7 @@ mod tests {
         let map = build_dispatch(&all, &BTreeMap::new());
         for key in [
             "ts", "rs", "go", "php", "rb", "scm", "lisp", "el", "clj", "kt", "kts", "py", "pyi",
-            "zig", "c", "h", "pl", "pm", "t", "swift", "java",
+            "zig", "c", "h", "pl", "pm", "t", "swift", "java", "dart",
         ] {
             assert!(map.contains_key(key), "missing dispatch for .{key}");
         }
