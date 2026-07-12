@@ -10,8 +10,9 @@
 //!
 //! This crate contains **no scoring logic** — it only recognizes the constructs
 //! the engine cares about (functions, branches, loops, switches, catches,
-//! labelled jumps, logical-operator sequences, calls) and emits the matching IR
-//! nodes. All complexity rules live in [`cccc_core::engine`].
+//! labelled jumps, logical-operator sequences, optional-chain guards, calls) and
+//! emits the matching IR nodes. All complexity rules live in
+//! [`cccc_core::engine`].
 //!
 //! ## Why a `Visit`-driven builder
 //!
@@ -348,11 +349,46 @@ impl<'a> Visit<'a> for Builder {
         });
     }
 
+    fn visit_computed_member_expression(&mut self, it: &ComputedMemberExpression<'a>) {
+        if it.optional {
+            let body = self.collect(|s| walk::walk_computed_member_expression(s, it));
+            self.emit(Node::NullGuard { body });
+        } else {
+            walk::walk_computed_member_expression(self, it);
+        }
+    }
+
+    fn visit_static_member_expression(&mut self, it: &StaticMemberExpression<'a>) {
+        if it.optional {
+            let body = self.collect(|s| walk::walk_static_member_expression(s, it));
+            self.emit(Node::NullGuard { body });
+        } else {
+            walk::walk_static_member_expression(self, it);
+        }
+    }
+
+    fn visit_private_field_expression(&mut self, it: &PrivateFieldExpression<'a>) {
+        if it.optional {
+            let body = self.collect(|s| walk::walk_private_field_expression(s, it));
+            self.emit(Node::NullGuard { body });
+        } else {
+            walk::walk_private_field_expression(self, it);
+        }
+    }
+
     fn visit_call_expression(&mut self, it: &CallExpression<'a>) {
-        self.emit(Node::Call {
-            callee: callee_name(&it.callee),
-        });
-        walk::walk_call_expression(self, it);
+        let lower = |s: &mut Self| {
+            s.emit(Node::Call {
+                callee: callee_name(&it.callee),
+            });
+            walk::walk_call_expression(s, it);
+        };
+        if it.optional {
+            let body = self.collect(lower);
+            self.emit(Node::NullGuard { body });
+        } else {
+            lower(self);
+        }
     }
 }
 
@@ -420,6 +456,12 @@ mod tests {
         find(&analyze(src).functions, name)
             .unwrap_or_else(|| panic!("function {name} not found"))
             .cognitive
+    }
+
+    fn cyclomatic_of(src: &str, name: &str) -> u32 {
+        find(&analyze(src).functions, name)
+            .unwrap_or_else(|| panic!("function {name} not found"))
+            .cyclomatic
     }
 
     #[test]
@@ -493,6 +535,20 @@ mod tests {
             }
         "#;
         assert_eq!(cognitive_of(src, "f"), 3);
+    }
+
+    #[test]
+    fn optional_chain_guards_add_only_cyclomatic_paths() {
+        let src = r#"
+            function f(value, key, callback) {
+                value?.member;
+                value?.[key];
+                callback?.();
+                value?.method?.();
+            }
+        "#;
+        assert_eq!(cognitive_of(src, "f"), 0);
+        assert_eq!(cyclomatic_of(src, "f"), 6); // base + five explicit `?.`
     }
 
     #[test]

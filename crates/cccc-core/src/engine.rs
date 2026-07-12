@@ -13,8 +13,8 @@
 //! ## Cyclomatic Complexity (McCabe)
 //!
 //! Base 1 per function; +1 for each branch (`if`/`else if`), ternary, loop,
-//! non-default `case`, `catch`, and each logical operator (one per extra operand
-//! in a [`Node::Logical`]).
+//! non-default `case`, `catch`, explicit null guard, and each logical
+//! operator (one per extra operand in a [`Node::Logical`]).
 //!
 //! ## Cognitive Complexity (SonarSource)
 //!
@@ -156,6 +156,10 @@ impl Engine {
                 }
             }
             Node::Logical { operands, .. } => self.visit_logical(operands),
+            Node::NullGuard { body } => {
+                self.add_cyclomatic();
+                self.walk(body);
+            }
             Node::Call { callee } => self.visit_call(callee.as_deref()),
             Node::Group(children) => self.walk(children),
         }
@@ -410,6 +414,16 @@ mod tests {
         assert_eq!(cog(&r, "f"), 3);
         // cyc: base1 + if1 + (&& has 3 operands => +2) + (|| has 2 => +1) = 5
         assert_eq!(cyc(&r, "f"), 5);
+    }
+
+    #[test]
+    fn null_guard_adds_only_a_cyclomatic_path() {
+        let null_guard = Node::NullGuard {
+            body: vec![Node::Call { callee: None }],
+        };
+        let r = analyze("t", &[func("f", "function", vec![null_guard])], vec![]);
+        assert_eq!(cog(&r, "f"), 0);
+        assert_eq!(cyc(&r, "f"), 2); // base 1 + optional path 1
     }
 
     #[test]

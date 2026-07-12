@@ -45,6 +45,8 @@
 //! - ternary `a ? b : c` → [`Node::Conditional`].
 //! - `&&` / `||` runs → folded [`Node::Logical`]; nil-coalescing `??` folds as a
 //!   `Coalesce` run (mirroring how `cccc-php` treats `??`).
+//! - optional chaining for member access, subscripts, and calls → one
+//!   [`Node::NullGuard`] per explicit `?` guard.
 //! - calls (`f(..)`, `obj.m(..)`) → [`Node::Call`] for recursion detection.
 //! - `#if` compilation directives are transparent: every branch's code parses as
 //!   ordinary statements and is scored where it stands.
@@ -224,6 +226,18 @@ impl<'a> Builder<'a> {
             "conjunction_expression" => self.visit_logical(node, LogicalOp::And),
             "disjunction_expression" => self.visit_logical(node, LogicalOp::Or),
             "nil_coalescing_expression" => self.visit_logical(node, LogicalOp::Coalesce),
+
+            "navigation_expression" if has_direct_child(node, "?") => {
+                let body = self.collect(|b| b.visit_named_children(node));
+                self.emit(Node::NullGuard { body });
+            }
+
+            // Optional subscripts (`values?[0]`) and optional function calls
+            // (`callback?()`) are call expressions with a direct `?` child.
+            "call_expression" if has_direct_child(node, "?") => {
+                let body = self.collect(|b| b.visit_call(node));
+                self.emit(Node::NullGuard { body });
+            }
 
             "call_expression" => self.visit_call(node),
 
@@ -481,6 +495,11 @@ fn named_children(node: TsNode) -> Vec<TsNode> {
         .collect()
 }
 
+fn has_direct_child(node: TsNode, kind: &str) -> bool {
+    let mut cursor = node.walk();
+    node.children(&mut cursor).any(|child| child.kind() == kind)
+}
+
 /// The normalized logical operator a node represents, if any.
 fn logical_op_of(node: TsNode) -> Option<LogicalOp> {
     match node.kind() {
@@ -705,6 +724,24 @@ mod tests {
         assert_eq!(cognitive_of(src, "f"), 1);
         // base 1 + (?? has 3 operands => +2) = 3
         assert_eq!(cyclomatic_of(src, "f"), 3);
+    }
+
+    #[test]
+    fn optional_chain_guards_add_only_cyclomatic_paths() {
+        let src = r#"
+            func f(
+                value: Value?,
+                values: [Int]?,
+                callback: (() -> Void)?
+            ) {
+                _ = value?.property
+                _ = value?.child?.run()
+                _ = values?[0]
+                callback?()
+            }
+        "#;
+        assert_eq!(cognitive_of(src, "f"), 0);
+        assert_eq!(cyclomatic_of(src, "f"), 6); // base + five explicit `?` guards
     }
 
     #[test]

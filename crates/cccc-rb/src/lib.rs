@@ -11,8 +11,8 @@
 //! This crate contains **no scoring logic** — it only recognizes the constructs
 //! the engine cares about (`def`/blocks/lambdas, `if`/`elsif`/`else`/`unless`,
 //! ternary, `while`/`until`/`for`, `case`/`when` and `case`/`in`, `rescue`,
-//! `&&`/`and`/`||`/`or`, calls) and emits the matching IR nodes. All complexity
-//! rules live in [`cccc_core::engine`].
+//! `&&`/`and`/`||`/`or`, safe-navigation guards, calls) and emits the matching
+//! IR nodes. All complexity rules live in [`cccc_core::engine`].
 //!
 //! ## Lowering strategy
 //!
@@ -47,6 +47,7 @@
 //!   `or`/`||`). Ruby has no `??`.
 //! - calls → [`Node::Call`] for recursion detection (`m()`, `obj.m()`,
 //!   `self.m()` all yield `Some("m")`).
+//! - safe navigation (`&.`) → one [`Node::NullGuard`] per explicit guard.
 //!
 //! Ruby has no labelled `break`/`next`, so those never produce a cognitive point
 //! and are left to the default walk. Method-based iteration (`loop { }`,
@@ -192,6 +193,40 @@ impl Builder {
         } else {
             // Defensive: any other tail shape scores as a flat `else`.
             Some(Box::new(Node::Group(self.collect(|b| b.visit(&node)))))
+        }
+    }
+
+    // ---- calls ------------------------------------------------------------
+
+    /// Manually walk the children so we can turn a `{ }` / `do…end` block into
+    /// its own `Function` unit (and not double-visit it via the default walk).
+    fn visit_call_children<'pr>(&mut self, node: &CallNode<'pr>) {
+        if let Some(recv) = node.receiver() {
+            self.visit(&recv);
+        }
+        if let Some(args) = node.arguments() {
+            for argument in &args.arguments() {
+                self.visit(&argument);
+            }
+        }
+        if let Some(block) = node.block() {
+            if let Some(block) = block.as_block_node() {
+                let line = self.line(block.location().start_offset());
+                let body = block.body();
+                // A block is anonymous (like an ES/PHP callback): name it
+                // `<block>`, not after the method it is passed to. Borrowing the
+                // method name would make a DSL block that contains sibling calls
+                // to the same method (nested `describe`/`context`, Rails
+                // `namespace`, …) look self-recursive and inflate its score.
+                self.emit_function("<block>".to_string(), "block", line, |b| {
+                    if let Some(body) = &body {
+                        b.visit(body);
+                    }
+                });
+            } else {
+                // A `&blk` block argument: just an expression to recurse into.
+                self.visit(&block);
+            }
         }
     }
 }
@@ -409,37 +444,16 @@ impl<'pr> Visit<'pr> for Builder {
 
     fn visit_call_node(&mut self, node: &CallNode<'pr>) {
         let name = constant_name(node.name().as_slice(), "<call>");
-        // Safe-navigation (`a&.b`) is still a call for recursion purposes.
-        self.emit(Node::Call { callee: Some(name) });
-
-        // Manually walk the children so we can turn a `{ }` / `do…end` block into
-        // its own `Function` unit (and not double-visit it via the default walk).
-        if let Some(recv) = node.receiver() {
-            self.visit(&recv);
-        }
-        if let Some(args) = node.arguments() {
-            for a in &args.arguments() {
-                self.visit(&a);
-            }
-        }
-        if let Some(block) = node.block() {
-            if let Some(block) = block.as_block_node() {
-                let line = self.line(block.location().start_offset());
-                let body = block.body();
-                // A block is anonymous (like an ES/PHP callback): name it
-                // `<block>`, not after the method it is passed to. Borrowing the
-                // method name would make a DSL block that contains sibling calls
-                // to the same method (nested `describe`/`context`, Rails
-                // `namespace`, …) look self-recursive and inflate its score.
-                self.emit_function("<block>".to_string(), "block", line, |b| {
-                    if let Some(body) = &body {
-                        b.visit(body);
-                    }
-                });
-            } else {
-                // A `&blk` block argument: just an expression to recurse into.
-                self.visit(&block);
-            }
+        let lower = |b: &mut Self| {
+            // Safe-navigation (`a&.b`) is still a call for recursion purposes.
+            b.emit(Node::Call { callee: Some(name) });
+            b.visit_call_children(node);
+        };
+        if node.is_safe_navigation() {
+            let body = self.collect(lower);
+            self.emit(Node::NullGuard { body });
+        } else {
+            lower(self);
         }
     }
 }
@@ -733,6 +747,18 @@ mod tests {
             end
         "#;
         assert_eq!(cognitive_of(src, "f"), 1);
+    }
+
+    #[test]
+    fn safe_navigation_guards_add_only_cyclomatic_paths() {
+        let src = r#"
+            def f(value)
+              value&.property
+              value&.child&.run
+            end
+        "#;
+        assert_eq!(cognitive_of(src, "f"), 0);
+        assert_eq!(cyclomatic_of(src, "f"), 4); // base + three explicit `&.`
     }
 
     #[test]

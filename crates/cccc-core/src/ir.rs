@@ -84,6 +84,15 @@ pub enum Node {
     /// adapter folds `a && b && c` into a single node with three operands.
     Logical { op: LogicalOp, operands: Vec<Node> },
 
+    /// An implicit null-dependent control-flow split.
+    ///
+    /// The guarded continuation or collection contribution proceeds only when
+    /// the source-language value is present (non-null, non-nil, or non-nullish).
+    /// Each explicit source-level guard adds one cyclomatic path without adding
+    /// cognitive complexity or nesting. Null coalescing remains a
+    /// [`Node::Logical`] with [`LogicalOp::Coalesce`].
+    NullGuard { body: Vec<Node> },
+
     /// A function call. If `callee` names the nearest enclosing function, the
     /// engine counts it as recursion (one cognitive point).
     Call { callee: Option<String> },
