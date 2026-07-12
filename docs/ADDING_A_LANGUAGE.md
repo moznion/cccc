@@ -120,10 +120,11 @@ and which scoring it triggers. The mapping for a typical language:
 | `catch` / `except` | `Node::Catch { body }` |
 | labelled `break` / `continue` | `Node::Jump { labeled: true }` (unlabelled → `false`, or just omit) |
 | `&&` / `||` / `??` chains | `Node::Logical { op, operands }` — **fold like operators** (see below) |
+| null-guarded execution / null-aware access | `Node::NullGuard { body }` |
 | function call | `Node::Call { callee: Some(name) }` (for recursion detection) |
 | anything else with children | `Node::Group(children)` |
 
-### Two subtleties to get right
+### Three subtleties to get right
 
 **1. Logical-operator folding (the only lowering logic the adapter owns).**
 A run of *like* operators is **one** `Logical` node: `a && b && c` →
@@ -134,7 +135,13 @@ The engine counts one cognitive point per `Logical` node and one cyclomatic
 point per *extra* operand, so the folding is what makes the SonarSource
 like-operator rule come out right.
 
-**2. Use your parser's full-traversal visitor, not a hand-written recursion.**
+**2. Emit one `NullGuard` per explicit source-level guard.** Optional chaining
+such as `a?.b?.c` has two guards, even if the parser wraps the whole chain in a
+single container. Conversely, do not emit `NullGuard` for nullable types,
+unwraps, ordinary null comparisons, or coalescing operators (`??`, elvis,
+`orelse`); those either carry no score or remain `Logical::Coalesce`.
+
+**3. Use your parser's full-traversal visitor, not a hand-written recursion.**
 If your parser offers a visitor with default "walk every child" methods (oxc's
 `Visit`, `syn::visit`, tree-sitter cursors, …), **use it** and override only the
 nodes that produce IR. Hand-rolling a recursive `match` that enumerates node
@@ -273,6 +280,7 @@ toward the file totals but are not reported as a function).
 | `Catch { body }` | Exception handler. | +1 +nesting | +1 |
 | `Jump { labeled }` | `break`/`continue`. | +1 if `labeled`, else 0 | — |
 | `Logical { op, operands }` | One folded run of like operators. | +1 per node | +1 per *extra* operand (`operands.len() - 1`) |
+| `NullGuard { body }` | A continuation or collection contribution skipped when its input is null. Emit one node per explicit null guard; coalescing remains `Logical`. | 0 | +1 |
 | `Call { callee }` | A call. | +1 if `callee` == nearest enclosing function's `name` (recursion) | — |
 | `Group(children)` | Transparent container; recurse only. | 0 | 0 |
 

@@ -354,7 +354,9 @@ harness, per-run numbers, function-count sanity checks, and caveats.
 
 **Cyclomatic (McCabe):** base 1 per function; +1 for each `if`/`else if`,
 ternary, `for`/`for-in`/`for-of`/`while`/`do-while`, `case` (excluding
-`default`), `catch`, and each `&&`/`||`/`??`.
+`default`), `catch`, each `&&`/`||`/`??`, and each explicit null guard such as
+an optional-chain segment. Null guards do not add cognitive complexity or
+nesting.
 
 **Cognitive (SonarSource):**
 - +1 plus a nesting bonus for `if`, ternary, `switch`, loops, `catch`.
@@ -389,6 +391,12 @@ arm is the non-decision case), `catch` clauses, multi-level `break N`/
 `continue N` and `goto`, the ternary `?:`, and `&&`/`and`/`||`/`or`/`??` map to
 the corresponding nodes. `&&` and `and` (likewise `||` and `or`) are the same
 normalized operator; `??` folds as a coalescing run.
+Each null-safe property or method access (`?->`) adds one cyclomatic path.
+
+For **Ruby** (`--lang ruby`): methods, blocks, and lambdas are function-like
+units; branches, loops, `case`/`when` and `case`/`in`, rescue clauses, ternary
+expressions, and logical operators map to the corresponding nodes. Each safe
+navigation operator (`&.`) adds one cyclomatic path.
 
 For **Kotlin** (`--lang kotlin`): `fun` declarations / methods / local
 functions / `fun` anonymous functions / lambdas / property `get`/`set`
@@ -398,7 +406,7 @@ a subject (its `else` entry is the non-decision `default` arm), `for`/`while`/
 `do`-`while`, `catch` clauses, labelled `break@`/`continue@`, and `&&`/`||` map
 to the corresponding nodes. The elvis operator `?:` folds as a coalescing run
 (like PHP's `??`). Kotlin has no C-style ternary — `if` is already an
-expression.
+expression. Each safe-navigation operator (`?.`) adds one cyclomatic path.
 
 For **Python** (`--lang python`): `def` (incl. `async def` and decorated
 definitions) / methods / `lambda` are the function-like units;
@@ -458,7 +466,8 @@ arm), `for`-`in` (its `where` clause adds nothing by itself), `while`/
 `a ? b : c`, and `&&`/`||` map to the corresponding nodes. Nil-coalescing `??`
 folds as a coalescing run (like PHP's `??`). `#if` compilation directives are
 transparent — every branch's code scores where it stands; `try`/`try?`/`await`
-add nothing.
+add nothing. Each optional-chaining guard on a member access, subscript, or call
+adds one cyclomatic path.
 
 For **Java** (`--lang java`): methods (incl. ones in anonymous classes and
 interface `default` methods) / constructors / record compact constructors /

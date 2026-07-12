@@ -10,8 +10,8 @@
 //! This crate contains **no scoring logic** — it only recognizes the constructs
 //! the engine cares about (functions/methods/closures/arrows/property-hooks,
 //! `if`/`elseif`/`else`, `switch`/`match`, loops, `try`/`catch`, multi-level
-//! `break`/`continue`/`goto`, `&&`/`||`/`and`/`or`/`??` sequences, calls) and
-//! emits the matching IR nodes. All complexity rules live in
+//! `break`/`continue`/`goto`, `&&`/`||`/`and`/`or`/`??` sequences, null-safe
+//! guards, calls) and emits the matching IR nodes. All complexity rules live in
 //! [`cccc_core::engine`].
 //!
 //! ## Lowering strategy
@@ -44,6 +44,8 @@
 //!   [`Node::Jump`]; plain `break` / `continue` score flat.
 //! - `&&` / `and` / `||` / `or` / `??` runs → folded [`Node::Logical`] (one node
 //!   per like-operator run).
+//! - null-safe property/method access (`?->`) → one [`Node::NullGuard`] per
+//!   explicit guard.
 //! - calls (`f(..)`, `$o->m(..)`, `C::m(..)`) → [`Node::Call`] for recursion
 //!   detection.
 
@@ -456,9 +458,23 @@ impl Builder {
                 self.collect_logical_side(right, op, &mut operands);
                 self.emit(Node::Logical { op, operands });
             }
+            ExprKind::NullsafePropertyAccess(_) => {
+                let body = self.collect(|b| {
+                    let _ = walk_owned_expr(b, expr);
+                });
+                self.emit(Node::NullGuard { body });
+            }
+            ExprKind::NullsafeMethodCall(_) => {
+                let body = self.collect(|b| {
+                    b.emit(Node::Call {
+                        callee: callee_name(&expr.kind),
+                    });
+                    let _ = walk_owned_expr(b, expr);
+                });
+                self.emit(Node::NullGuard { body });
+            }
             ExprKind::FunctionCall(_)
             | ExprKind::MethodCall(_)
-            | ExprKind::NullsafeMethodCall(_)
             | ExprKind::StaticMethodCall(_)
             | ExprKind::StaticDynMethodCall(_) => {
                 self.emit(Node::Call {
@@ -759,6 +775,19 @@ mod tests {
         "#;
         // a single folded `??` run = +1
         assert_eq!(cognitive_of(src, "f"), 1);
+    }
+
+    #[test]
+    fn nullsafe_guards_add_only_cyclomatic_paths() {
+        let src = r#"<?php
+            function f($value) {
+                $value?->property;
+                $value?->method();
+                $value?->child?->run();
+            }
+        "#;
+        assert_eq!(cognitive_of(src, "f"), 0);
+        assert_eq!(cyclomatic_of(src, "f"), 5); // base + four explicit `?->`
     }
 
     #[test]

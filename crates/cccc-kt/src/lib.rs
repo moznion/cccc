@@ -40,6 +40,7 @@
 //!   `break` / `continue` score flat. `return` / `throw` are transparent.
 //! - `&&` / `||` runs → folded [`Node::Logical`]; the elvis operator `?:` folds
 //!   as a `Coalesce` run (mirroring how `cccc-php` treats `??`).
+//! - safe navigation (`?.`) → one [`Node::NullGuard`] per explicit guard.
 //! - calls (`f(..)`, `obj.m(..)`) → [`Node::Call`] for recursion detection.
 
 use std::path::Path;
@@ -231,6 +232,11 @@ impl<'a> Builder<'a> {
             "disjunction_expression" => self.visit_logical(node, LogicalOp::Or),
             "elvis_expression" => self.visit_logical(node, LogicalOp::Coalesce),
 
+            "navigation_suffix" if has_direct_child(node, "?.") => {
+                let body = self.collect(|b| b.visit_named_children(node));
+                self.emit(Node::NullGuard { body });
+            }
+
             "call_expression" => self.visit_call(node),
 
             // Everything else is transparent: recurse into every named child so
@@ -412,6 +418,11 @@ fn named_children(node: TsNode) -> Vec<TsNode> {
         .collect()
 }
 
+fn has_direct_child(node: TsNode, kind: &str) -> bool {
+    let mut cursor = node.walk();
+    node.children(&mut cursor).any(|child| child.kind() == kind)
+}
+
 /// The normalized logical operator a node represents, if any.
 fn logical_op_of(node: TsNode) -> Option<LogicalOp> {
     match node.kind() {
@@ -558,6 +569,18 @@ mod tests {
         assert_eq!(cognitive_of(src, "f"), 1);
         // base 1 + (elvis has 3 operands => +2) = 3
         assert_eq!(cyclomatic_of(src, "f"), 3);
+    }
+
+    #[test]
+    fn safe_navigation_guards_add_only_cyclomatic_paths() {
+        let src = r#"
+            fun f(value: Value?) {
+                value?.property
+                value?.child?.run()
+            }
+        "#;
+        assert_eq!(cognitive_of(src, "f"), 0);
+        assert_eq!(cyclomatic_of(src, "f"), 4); // base + three explicit `?.`
     }
 
     #[test]
