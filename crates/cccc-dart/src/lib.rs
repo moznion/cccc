@@ -211,7 +211,45 @@ impl<'a> Builder<'a> {
     }
 
     fn visit_anonymous_function(&mut self, node: TsNode) {
-        self.emit_function_node(node, "<anonymous>".to_string(), "anonymous");
+        let name = self
+            .binding_name_for_function_expression(node)
+            .unwrap_or_else(|| "<anonymous>".to_string());
+        self.emit_function_node(node, name, "anonymous");
+    }
+
+    /// A function expression has no intrinsic name in Dart, but a direct
+    /// variable initializer gives it a useful report label (`final callback =
+    /// () { ... }`).  Resolve only the binding that owns this expression;
+    /// calls, returns, collection elements, and other non-binding positions
+    /// remain `<anonymous>`.
+    fn binding_name_for_function_expression(&self, node: TsNode) -> Option<String> {
+        let mut value = node;
+        let mut parent = value.parent();
+        while let Some(candidate) = parent {
+            if candidate.kind() == "parenthesized_expression"
+                && named_children(candidate).as_slice() == [value]
+            {
+                value = candidate;
+                parent = value.parent();
+                continue;
+            }
+
+            let is_direct_initializer = matches!(
+                candidate.kind(),
+                "initialized_variable_definition"
+                    | "initialized_identifier"
+                    | "static_final_declaration"
+            ) && candidate
+                .child_by_field_name("value")
+                .is_some_and(|initializer| initializer.id() == value.id());
+            if !is_direct_initializer {
+                return None;
+            }
+            return candidate
+                .child_by_field_name("name")
+                .map(|name| self.text(name).to_string());
+        }
+        None
     }
 
     fn emit_function_node(&mut self, node: TsNode, name: String, kind: &'static str) {
@@ -780,7 +818,7 @@ mod tests {
             ("value", "getter"),
             ("+", "operator"),
             ("method", "method"),
-            ("<anonymous>", "anonymous"),
+            ("callback", "anonymous"),
         ] {
             let found = find(&report.functions, name)
                 .unwrap_or_else(|| panic!("{name} not found in {:#?}", report.functions));
@@ -810,7 +848,7 @@ mod tests {
         assert_eq!(host.children.len(), 1);
 
         let callback = &host.children[0];
-        assert_eq!(callback.name, "<anonymous>");
+        assert_eq!(callback.name, "callback");
         assert_eq!(callback.kind, "anonymous");
         assert_eq!(callback.cognitive, 2); // if + &&
         assert_eq!(callback.cyclomatic, 3); // base + if + &&
@@ -818,6 +856,47 @@ mod tests {
         // File totals include both the enclosing function and its closure.
         assert_eq!(report.cognitive, 2);
         assert_eq!(report.cyclomatic, 4);
+    }
+
+    #[test]
+    fn bound_anonymous_functions_use_binding_names() {
+        let report = analyze(
+            r#"
+                final topCallback = () {};
+                class C {
+                  final fieldCallback = () {};
+                }
+                void host() {
+                  final callback = ((bool value) {
+                    if (value) {}
+                  });
+                  use(() { if (true) {} });
+                }
+                void use(Function callback) {}
+            "#,
+        );
+        assert!(report.parse_errors.is_empty(), "{:?}", report.parse_errors);
+
+        for name in ["topCallback", "fieldCallback", "callback"] {
+            let function = find(&report.functions, name)
+                .unwrap_or_else(|| panic!("{name} not found in {:#?}", report.functions));
+            assert_eq!(function.kind, "anonymous", "{name}");
+        }
+
+        let anonymous = find(&report.functions, "<anonymous>").expect("unbound closure");
+        assert_eq!(anonymous.kind, "anonymous");
+        assert_eq!(anonymous.cognitive, 1); // if
+    }
+
+    #[test]
+    fn bound_anonymous_function_recursion_uses_binding_name() {
+        let report = function(
+            "void host() { late final callback = () { callback(); }; }",
+            "callback",
+        );
+        assert_eq!(report.kind, "anonymous");
+        assert_eq!(report.cognitive, 1); // callback() is recursive
+        assert_eq!(report.cyclomatic, 1);
     }
 
     #[test]
