@@ -38,7 +38,7 @@ jobs:
           toolchain: stable
           components: llvm-tools-preview # required by cargo-llvm-cov
       - uses: Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32 # v2
-      - uses: taiki-e/install-action@2ca9b94c269419b7b0c711c09d0b21c4e1d51145 # v2.83.1
+      - uses: taiki-e/install-action@43aecc8d72668fbcfe75c31400bc4f890f1c5853 # v2.83.2
         with:
           tool: cargo-llvm-cov
       # cccc-rb builds Ruby's Prism from vendored C via bindgen, which needs libclang.
