@@ -582,9 +582,9 @@ dependencies = [
 
 [[package]]
 name = "gosyn"
-version = "0.2.11"
+version = "0.2.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fed1657682b1c3f63ece1fe5b60fc6c5f5923612a20d19f6af38ce79eaf361e3"
+checksum = "938fc2d49f0620e342cf316c6775a1c6722124755cbaab3211cd3dcdce6157c6"
 dependencies = [
  "anyhow",
  "strum",
