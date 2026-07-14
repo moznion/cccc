@@ -1100,9 +1100,9 @@ dependencies = [
 
 [[package]]
 name = "php-lexer"
-version = "0.18.1"
+version = "0.18.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4531e03c81c0e29096a9476d329d16877e75641acfab52a5e90b5d0e5aa27b4c"
+checksum = "c7a56c316c092338f0c56cdf8389a196231b8188e64e7b442b8b41c52aa2e9c9"
 dependencies = [
  "memchr",
  "php-ast",
@@ -1110,9 +1110,9 @@ dependencies = [
 
 [[package]]
 name = "php-rs-parser"
-version = "0.18.1"
+version = "0.18.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0433a922a1faf30b47f5c8450480caeeef766baa76ce856d09f4dd53c2a8ea10"
+checksum = "fea28e08c487585fe0ca8ed467c2acec2855dedd996d9552fd9a32fff9195718"
 dependencies = [
  "bumpalo",
  "memchr",
@@ -1125,9 +1125,9 @@ dependencies = [
 
 [[package]]
 name = "phpdoc-parser"
-version = "0.18.1"
+version = "0.18.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6d3342540d6d5dfa2b652788f70a3b8840ae12653b15ef07261c4c70de4b27f9"
+checksum = "c4cebe14125ad0e9d588f822b82fac5f450406e7c5d12c37f029f4cfe132828a"
 dependencies = [
  "serde",
 ]
