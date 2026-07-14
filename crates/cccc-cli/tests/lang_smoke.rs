@@ -109,3 +109,8 @@ fn swift_fixture_dispatches() {
 fn java_fixture_dispatches() {
     assert_sum_of_primes("sample.java", "sumOfPrimes");
 }
+
+#[test]
+fn dart_fixture_dispatches() {
+    assert_sum_of_primes("sample.dart", "sumOfPrimes");
+}
