@@ -81,9 +81,10 @@ eslint `1806.7 1786.0 1788.2 1807.4 1838.0`.
 ## Why cccc is fast
 
 Native Rust binary over the oxc parser (one of the fastest JS/TS parsers); a
-single AST pass computes both metrics together; files are analyzed across cores
-(rayon, with a small-corpus sequential fast path); output is streamed through a
-buffered writer; negligible startup vs Node/Python interpreter boot.
+single AST pass computes both metrics together; file discovery fans out across
+cores (the same parallel walker ripgrep uses) and so does analysis (rayon, with
+a small-corpus sequential fast path); output is streamed through a buffered
+writer; negligible startup vs Node/Python interpreter boot.
 
 ## Why cccc is (a bit) slower than scc
 
@@ -105,6 +106,33 @@ Profiling the remaining cost found two things worth noting:
   through a single buffered, locked writer instead of a `println!` per row
   (~6,000 rows), cutting `--table` on the zod corpus from ~17 ms to ~14 ms. JSON
   is serialized straight into the buffered writer (no intermediate `String`).
+
+## Update (2026-07-18): parallel file discovery
+
+File discovery used to walk the tree on one thread and pay two avoidable
+syscalls per file: a `canonicalize` (only needed to dedup overlapping roots)
+and a second `stat` to confirm the entry is a file. The walk now fans out
+across the `--jobs` worker count using `ignore`'s parallel walker (the one
+ripgrep uses), the file-type check reuses what the walker already knows, and
+canonicalization runs only when multiple roots could actually overlap. Output
+is byte-identical: reports are sorted by path before rendering, so the
+nondeterministic walk order never reaches the user.
+
+Measured on the same machine (Apple M4 Pro, 12 cores), median of 5 runs after
+1 warmup, default flags:
+
+| corpus | files | before | after | speedup |
+|--------|------:|-------:|------:|--------:|
+| zod `packages/zod/src` (TS) | 286 | 15.5 ms | **12.6 ms** | 1.2× |
+| VS Code (TS/JS, ~0.7M LOC) | 2,976 | 216 ms | **108 ms** | 2.0× |
+| Kubernetes (Go, ~5.2M LOC) | 17,518 | 1,711 ms | **914 ms** | 1.9× |
+| PostgreSQL (C, ~1.8M LOC) | 2,953 | 777 ms | **547 ms** | 1.4× |
+
+The gain grows with tree size because discovery is a fixed cost paid before
+any parsing starts: on Kubernetes the walk alone dropped from ~453 ms to
+~109 ms. The four-tool comparison tables above still show the original
+15.5 ms figure — those numbers come from one internally consistent run of the
+comparison harness, and only cccc has been re-measured here.
 
 ## Caveats
 

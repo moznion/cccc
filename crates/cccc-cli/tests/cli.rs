@@ -185,6 +185,39 @@ fn exclude_glob_prunes_a_directory_subtree() {
 }
 
 #[test]
+fn report_files_are_sorted_by_path_despite_parallel_walk() {
+    let dir = std::env::temp_dir().join("cccc_sorted_output_test");
+    let _ = std::fs::remove_dir_all(&dir);
+    // Enough files spread over subdirectories that an unsorted parallel walk
+    // would almost surely surface out of order.
+    for sub in ["a", "b", "c", "d", "e"] {
+        std::fs::create_dir_all(dir.join(sub)).unwrap();
+        for name in ["m.ts", "n.ts", "o.ts", "p.ts"] {
+            std::fs::write(dir.join(sub).join(name), "function f() { return 1; }").unwrap();
+        }
+    }
+
+    let out = Command::cargo_bin("cccc")
+        .unwrap()
+        .arg(&dir)
+        .assert()
+        .success();
+    let stdout = String::from_utf8(out.get_output().stdout.clone()).unwrap();
+    let v: serde_json::Value = serde_json::from_str(&stdout).expect("valid JSON");
+    let paths: Vec<&str> = v["files"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|f| f["path"].as_str().unwrap())
+        .collect();
+    assert_eq!(paths.len(), 20);
+    let mut sorted = paths.clone();
+    sorted.sort_unstable();
+    assert_eq!(paths, sorted, "files must be ordered by path");
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
 fn exclude_applies_to_explicit_file_argument() {
     Command::cargo_bin("cccc")
         .unwrap()
