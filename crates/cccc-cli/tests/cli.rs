@@ -735,6 +735,79 @@ fn cli_unknown_language_in_ext_is_an_error() {
         .stderr(predicates::str::contains("unknown language"));
 }
 
+// ----- results cache ---------------------------------------------------------
+
+#[test]
+fn cache_reuses_unchanged_files_and_reanalyzes_edits() {
+    let dir = std::env::temp_dir().join("cccc_cache_cli_test");
+    let _ = std::fs::remove_dir_all(&dir);
+    std::fs::create_dir_all(&dir).unwrap();
+    let src = dir.join("sample.ts");
+    std::fs::copy("tests/fixtures/sample.ts", &src).unwrap();
+    let cache = dir.join("cache.bin");
+
+    let run = || {
+        let out = Command::cargo_bin("cccc")
+            .unwrap()
+            .args(["--no-config", "--cache-file"])
+            .arg(&cache)
+            .arg(&dir)
+            .assert()
+            .success();
+        String::from_utf8(out.get_output().stdout.clone()).unwrap()
+    };
+
+    let cold = run();
+    assert!(cache.is_file(), "cache file is created");
+    let warm = run();
+    assert_eq!(cold, warm, "an all-hit run must not change the output");
+
+    // Editing the file must invalidate its entry.
+    let orig = std::fs::read_to_string(&src).unwrap();
+    std::fs::write(
+        &src,
+        format!("{orig}\nfunction extraFn(x: number) {{ return x ? 1 : 2; }}\n"),
+    )
+    .unwrap();
+    let edited = run();
+    assert!(edited.contains("extraFn"), "changed file is re-analyzed");
+
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
+fn no_cache_flag_disables_config_enabled_cache() {
+    let dir = std::env::temp_dir().join("cccc_no_cache_cli_test");
+    let _ = std::fs::remove_dir_all(&dir);
+    std::fs::create_dir_all(&dir).unwrap();
+    std::fs::copy("tests/fixtures/sample.ts", dir.join("sample.ts")).unwrap();
+    std::fs::write(dir.join("cccc.toml"), "cache = true\n").unwrap();
+
+    Command::cargo_bin("cccc")
+        .unwrap()
+        .current_dir(&dir)
+        .args(["--no-cache", "."])
+        .assert()
+        .success();
+    assert!(
+        !dir.join(".cccc.cache").exists(),
+        "--no-cache must not write a cache file"
+    );
+
+    Command::cargo_bin("cccc")
+        .unwrap()
+        .current_dir(&dir)
+        .arg(".")
+        .assert()
+        .success();
+    assert!(
+        dir.join(".cccc.cache").is_file(),
+        "config-enabled cache defaults to .cccc.cache beside the config"
+    );
+
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
 // ----- JSON formatting -------------------------------------------------------
 
 #[test]

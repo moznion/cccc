@@ -211,7 +211,9 @@ fn unknown_language_error(name: &str, context: &str) -> String {
     )
 }
 
-/// Build an extension → analyzer map for the given languages.
+/// Build an extension → language map for the given languages (the language
+/// carries both its analyzer and its canonical name, which the results cache
+/// records per entry).
 ///
 /// Each language contributes its [`Language::exts`], unless `ext_overrides`
 /// supplies a replacement list keyed by that language's name or an alias (e.g.
@@ -221,7 +223,7 @@ fn unknown_language_error(name: &str, context: &str) -> String {
 pub fn build_dispatch(
     langs: &[&'static Language],
     ext_overrides: &BTreeMap<String, Vec<String>>,
-) -> HashMap<String, AnalyzeFn> {
+) -> HashMap<String, &'static Language> {
     let mut map = HashMap::new();
     for lang in langs {
         let exts: Vec<String> = match override_for(lang, ext_overrides) {
@@ -229,7 +231,7 @@ pub fn build_dispatch(
             None => lang.exts.iter().map(|s| s.to_ascii_lowercase()).collect(),
         };
         for ext in exts {
-            map.entry(ext).or_insert(lang.analyze);
+            map.entry(ext).or_insert(*lang);
         }
     }
     map
