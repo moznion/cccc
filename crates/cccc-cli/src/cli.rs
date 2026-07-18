@@ -81,6 +81,10 @@ pub struct Cli {
     #[arg(long)]
     pub no_ignore: bool,
 
+    /// Pretty-print the JSON output (the default is compact, one line).
+    #[arg(long)]
+    pub pretty: bool,
+
     /// Number of files to analyze in parallel. Defaults to the number of
     /// available logical CPUs.
     #[arg(short = 'j', long, value_name = "N", value_parser = clap::value_parser!(u32).range(1..))]

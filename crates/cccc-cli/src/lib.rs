@@ -87,6 +87,11 @@ pub fn run() -> i32 {
     } else {
         config.exclude.clone().unwrap_or_default()
     };
+    let pretty = if was_set("pretty") {
+        cli.pretty
+    } else {
+        config.pretty.unwrap_or(false)
+    };
     let max_cognitive = cli.max_cognitive.or(config.max_cognitive);
     let max_cyclomatic = cli.max_cyclomatic.or(config.max_cyclomatic);
     let min = cli.min.or(config.min);
@@ -234,7 +239,7 @@ pub fn run() -> i32 {
         if table {
             output::print_top_table(&top);
         } else {
-            output::print_json(&top);
+            output::print_json(&top, pretty);
         }
         return i32::from(fail);
     }
@@ -253,7 +258,7 @@ pub fn run() -> i32 {
     if table {
         output::print_table(&report);
     } else {
-        output::print_json(&report);
+        output::print_json(&report, pretty);
     }
 
     i32::from(fail)

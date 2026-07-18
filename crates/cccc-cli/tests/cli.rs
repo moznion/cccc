@@ -734,3 +734,28 @@ fn cli_unknown_language_in_ext_is_an_error() {
         .code(2)
         .stderr(predicates::str::contains("unknown language"));
 }
+
+// ----- JSON formatting -------------------------------------------------------
+
+#[test]
+fn default_json_is_compact_and_pretty_expands_it() {
+    let compact_out = Command::cargo_bin("cccc")
+        .unwrap()
+        .arg("tests/fixtures/sample.ts")
+        .assert()
+        .success();
+    let compact = String::from_utf8(compact_out.get_output().stdout.clone()).unwrap();
+    assert_eq!(compact.trim_end().lines().count(), 1, "one line of JSON");
+
+    let pretty_out = Command::cargo_bin("cccc")
+        .unwrap()
+        .args(["--pretty", "tests/fixtures/sample.ts"])
+        .assert()
+        .success();
+    let pretty = String::from_utf8(pretty_out.get_output().stdout.clone()).unwrap();
+    assert!(pretty.trim_end().lines().count() > 1, "indented JSON");
+
+    let a: serde_json::Value = serde_json::from_str(&compact).expect("valid JSON");
+    let b: serde_json::Value = serde_json::from_str(&pretty).expect("valid JSON");
+    assert_eq!(a, b, "--pretty must not change the content");
+}

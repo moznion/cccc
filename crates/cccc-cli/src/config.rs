@@ -50,6 +50,8 @@ pub struct Config {
     pub no_ignore: Option<bool>,
     /// Number of files to analyze in parallel.
     pub jobs: Option<u32>,
+    /// Pretty-print the JSON output (the default is compact, one line).
+    pub pretty: Option<bool>,
 }
 
 impl Config {
