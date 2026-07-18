@@ -158,19 +158,20 @@ pub fn run() -> i32 {
         }
     };
 
-    let files = walk::collect_files(&cli.paths, &exts, no_ignore, exclude.as_ref());
-    if files.is_empty() {
-        eprintln!("cccc: no matching files found");
-        return 0;
-    }
-
     // `--jobs` caps the worker count; without it we fall back to the number of
-    // logical CPUs (1 if that can't be determined).
+    // logical CPUs (1 if that can't be determined). Resolved before discovery
+    // because the directory walk fans out across the same worker count.
     let jobs = jobs_opt.map(|j| j as usize).unwrap_or_else(|| {
         std::thread::available_parallelism()
             .map(|n| n.get())
             .unwrap_or(1)
     });
+
+    let files = walk::collect_files(&cli.paths, &exts, no_ignore, exclude.as_ref(), jobs);
+    if files.is_empty() {
+        eprintln!("cccc: no matching files found");
+        return 0;
+    }
 
     // For a handful of files, spinning up a rayon pool costs more than it saves,
     // so analyze sequentially. Above the threshold, fan out across `jobs` workers.
