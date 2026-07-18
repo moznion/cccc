@@ -147,6 +147,9 @@ or an artifact store; `--pretty` prints the same document indented.
 | `--top-cognitive N` | Show only the N most cognitively-complex functions, as a flat cross-file ranking |
 | `--top-cyclomatic N` | Show only the N most cyclomatically-complex functions, as a flat cross-file ranking |
 | `--no-ignore` | Do not respect `.gitignore` when walking directories |
+| `--cache` | Cache results and reuse them for files unchanged since the last run |
+| `--cache-file PATH` | Where to keep the results cache (implies `--cache`). Default: `.cccc.cache` next to the config file, or in the current directory |
+| `--no-cache` | Do not use the results cache, even if the config file enables it |
 | `--pretty` | Pretty-print the JSON output (default is compact, one line) |
 | `-j, --jobs N` | Number of files to analyze in parallel (default: logical CPU count) |
 
@@ -172,6 +175,8 @@ min           = 1
 no-ignore     = false
 jobs          = 8
 pretty        = false               # indented JSON instead of the compact default
+cache         = false               # reuse results for unchanged files
+cache-file    = ".cccc.cache"       # cache location (does not enable by itself)
 
 # Per-language extension overrides. Each entry replaces that language's default
 # extensions (and routes those extensions to it). Keyed by a language's name or
@@ -203,6 +208,23 @@ use `**` to span directories. Brace alternation is supported, e.g.
 directory or named explicitly on the command line. An invalid pattern is an error
 (exit code 2). This is independent of `--no-ignore` and `.gitignore` handling.
 
+### Results cache
+
+For continuous measurement — watch loops, pre-commit hooks, editor
+integrations — `--cache` (or `cache = true` in `cccc.toml`) makes repeat runs
+reuse the previous results for files that haven't changed, re-analyzing only
+what did. On large monorepos this cuts warm runs by ~2.7× (TS/JS) to ~18×
+(tree-sitter languages such as C) — measured numbers are in
+[BENCHMARK.md](BENCHMARK.md) — and the output is byte-for-byte identical to an
+uncached run.
+
+An entry is reused only if the file's size and mtime are unchanged, the same
+language still claims its extension, and the cache was written by the same
+`cccc` version — anything else (including a missing or corrupt cache file) just
+means that file is analyzed fresh. The cache lives in `.cccc.cache` next to the
+config file (so runs from any subdirectory share it), or where `--cache-file`
+points; add it to `.gitignore`.
+
 ### Examples
 
 ```sh
@@ -232,6 +254,9 @@ cccc --exclude 'dist/**' --exclude '**/*.{test,spec}.ts' src/
 
 # Limit parallelism to 4 workers (default is the logical CPU count)
 cccc -j 4 src/
+
+# Recurring runs: reuse results for files unchanged since the last run
+cccc --cache src/
 ```
 
 Files are analyzed in parallel. The worker count defaults to the number of

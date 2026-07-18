@@ -81,6 +81,20 @@ pub struct Cli {
     #[arg(long)]
     pub no_ignore: bool,
 
+    /// Cache results and reuse them for files unchanged since the last run.
+    /// The cache lives in `.cccc.cache` next to the config file (or in the
+    /// current directory without one) unless `--cache-file` says otherwise.
+    #[arg(long)]
+    pub cache: bool,
+
+    /// Where to keep the results cache (implies `--cache`).
+    #[arg(long, value_name = "PATH")]
+    pub cache_file: Option<PathBuf>,
+
+    /// Do not use the results cache, even if the config file enables it.
+    #[arg(long, conflicts_with_all = ["cache", "cache_file"])]
+    pub no_cache: bool,
+
     /// Pretty-print the JSON output (the default is compact, one line).
     #[arg(long)]
     pub pretty: bool,

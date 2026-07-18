@@ -152,3 +152,82 @@ verify-then-time script). Build cccc with `cargo build --release`; install scc
 (`brew install scc`), lizard (`pip install lizard`), and the Node tools
 (`npm install eslint@8 @typescript-eslint/parser eslint-plugin-sonarjs`). Run
 `python3 timeit.py`.
+
+---
+
+# Benchmark: the results cache (`--cache`)
+
+The results cache reuses the previous run's per-file scores for files whose
+size/mtime are unchanged (still validated per entry against the analyzing
+language and the cccc version), re-analyzing only what changed. These numbers
+size what that buys on real monorepos, per language front-end.
+
+## Corpora
+
+Shallow clones, analyzed at the repository root:
+
+| Corpus | Front-end | Files | Functions |
+|--------|-----------|------:|----------:|
+| [microsoft/vscode](https://github.com/microsoft/vscode) (TS/JS) | oxc | 2,976 | 49,087 |
+| [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) (Go) | gosyn | 17,518 | 214,354 |
+| [postgres/postgres](https://github.com/postgres/postgres) (C) | tree-sitter | 2,953 | 27,299 |
+
+## Method
+
+Same machine as above (Apple M4 Pro, 12 cores; release build). Each cell is the
+median of 5 runs after 1 warmup, stdout to `/dev/null`. Scenarios:
+
+- **cold** — no cache (`cccc <repo>`).
+- **warm, all hits** — a populated cache, nothing changed.
+- **warm + `--pretty`** — same, with pretty-printed instead of the default
+  single-line JSON.
+- **1% changed** — before every run, 1% of the files (26 / 175 / 25) are
+  appended to, so each run re-analyzes those and reuses the rest.
+
+Cached output was verified byte-for-byte identical to a cold run on all three
+corpora before timing.
+
+## Results — wall clock, median ms
+
+| Corpus | cold | warm (all hits) | warm + `--pretty` | 1% changed | warm vs cold |
+|--------|-----:|----------------:|------------------:|-----------:|-------------:|
+| vscode (TS/JS) | 101.0 | 37.2 | 43.1 | 44.7 | **2.7×** |
+| kubernetes (Go) | 868.2 | 168.6 | 187.3 | 212.0 | **5.1×** |
+| postgres (C) | 549.3 | 31.1 | 33.3 | 67.5 | **17.7×** |
+
+Cache file sizes: vscode 3.9 MB, kubernetes 20 MB, postgres 3.1 MB.
+
+## Reading the results
+
+- **The win scales with per-file parse cost.** tree-sitter front-ends (C here;
+  also Java, Kotlin, Python, Swift, Dart, Perl) parse ~5× slower per line than
+  oxc, so they gain the most (~18×). oxc is fast enough that TS/JS gains only
+  ~2.7× — the remaining time isn't analysis at all.
+- **Warm runs are floored by discovery + output, not by the cache.** Phase
+  timing on the kubernetes warm run put the gitignore-aware directory walk at
+  ~100 ms and JSON rendering at ~28 ms (~50 ms with `--pretty`), while all
+  cache work combined — loading the index, 17.5k stats, decoding hit entries —
+  is ~26 ms. The cache's own format matters little at this point: only the
+  index is decoded on load, and each hit decodes just its own entry, in
+  parallel.
+- **The realistic steady state is "a few files changed".** That scenario stays
+  well below the cold cost on every corpus (1.2–2.2× the all-hit floor):
+  invalidation is stat-only, and re-analysis is proportional to what changed
+  (plus one cache rewrite).
+- **When not to bother:** small trees (a cold zod-sized run is already ~15 ms)
+  and one-shot CI runs where restoring/saving a 4–20 MB cache artifact costs
+  more than the 0.1–0.7 s it saves. The cache is off by default for a reason;
+  it pays off for repeated local runs — watch loops, pre-commit hooks, editor
+  integrations — on large trees.
+
+## Reproduce
+
+```sh
+cargo build --release
+git clone --depth 1 https://github.com/kubernetes/kubernetes /tmp/k8s
+# cold
+target/release/cccc --no-config /tmp/k8s > /dev/null
+# populate, then warm
+target/release/cccc --no-config --cache-file /tmp/k8s.cache /tmp/k8s > /dev/null
+target/release/cccc --no-config --cache-file /tmp/k8s.cache /tmp/k8s > /dev/null
+```

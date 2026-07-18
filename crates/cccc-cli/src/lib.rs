@@ -7,9 +7,10 @@
 //! [`config`]); CLI flags always take precedence over it.
 //!
 //! Everything common to the languages lives here: argument parsing, config
-//! resolution, file discovery, parallel analysis, the threshold/`--min`/`--top`
-//! logic, and output rendering. Each language supplies only how to analyze one
-//! file and its default extensions, via the [`lang::LANGUAGES`] registry.
+//! resolution, file discovery, the results cache (see [`cache`]), parallel
+//! analysis, the threshold/`--min`/`--top` logic, and output rendering. Each
+//! language supplies only how to analyze one file and its default extensions,
+//! via the [`lang::LANGUAGES`] registry.
 //!
 //! ## Exit codes
 //!
@@ -22,6 +23,7 @@
 //!   value was invalid, or the worker pool could not be created. (clap's own
 //!   usage errors also exit `2`.)
 
+mod cache;
 mod cli;
 pub mod config;
 pub mod lang;
@@ -92,6 +94,27 @@ pub fn run() -> i32 {
     } else {
         config.pretty.unwrap_or(false)
     };
+    // The cache is on when the user says so (`--cache`, an explicit
+    // `--cache-file`, or `cache = true` in the config) and `--no-cache` doesn't
+    // veto it. The file defaults to `.cccc.cache` beside the config file, so a
+    // project-enabled cache lands in the same place from any subdirectory.
+    let cache_enabled = if cli.no_cache {
+        false
+    } else {
+        cli.cache || cli.cache_file.is_some() || config.cache.unwrap_or(false)
+    };
+    let cache_path: Option<std::path::PathBuf> = cache_enabled.then(|| {
+        cli.cache_file
+            .clone()
+            .or_else(|| config.cache_file.clone())
+            .unwrap_or_else(|| {
+                config
+                    .source_dir
+                    .as_deref()
+                    .unwrap_or(Path::new(""))
+                    .join(".cccc.cache")
+            })
+    });
     let max_cognitive = cli.max_cognitive.or(config.max_cognitive);
     let max_cyclomatic = cli.max_cyclomatic.or(config.max_cyclomatic);
     let min = cli.min.or(config.min);
@@ -178,28 +201,81 @@ pub fn run() -> i32 {
         return 0;
     }
 
-    // For a handful of files, spinning up a rayon pool costs more than it saves,
-    // so analyze sequentially. Above the threshold, fan out across `jobs` workers.
-    let mut reports: Vec<FileReport> = if jobs <= 1 || files.len() <= PARALLEL_THRESHOLD {
-        files
-            .iter()
-            .filter_map(|p| read_and_analyze(&dispatch, p))
-            .collect()
+    // For a handful of files, spinning up a rayon pool costs more than it
+    // saves, so run sequentially. Above the threshold one pool drives every
+    // parallel phase (cache validation, analysis, cache write-back), keeping
+    // `--jobs` an honest bound on worker count.
+    let pool = if jobs <= 1 || files.len() <= PARALLEL_THRESHOLD {
+        None
     } else {
-        let pool = match rayon::ThreadPoolBuilder::new().num_threads(jobs).build() {
-            Ok(pool) => pool,
+        match rayon::ThreadPoolBuilder::new().num_threads(jobs).build() {
+            Ok(pool) => Some(pool),
             Err(e) => {
                 eprintln!("cccc: failed to start thread pool: {e}");
                 return 2;
             }
-        };
-        pool.install(|| {
-            files
+        }
+    };
+
+    // Split the files into cache hits (report ready) and misses (to analyze).
+    // Without a usable cache everything is a miss.
+    let cache = cache_path.as_deref().and_then(cache::load);
+    let (cached_reports, to_analyze): (Vec<FileReport>, Vec<&std::path::PathBuf>) = match &cache {
+        Some(c) => {
+            let checked: Vec<Result<FileReport, &std::path::PathBuf>> = match &pool {
+                Some(pool) => pool.install(|| {
+                    files
+                        .par_iter()
+                        .map(|p| check_cached(c, &dispatch, p))
+                        .collect()
+                }),
+                None => files
+                    .iter()
+                    .map(|p| check_cached(c, &dispatch, p))
+                    .collect(),
+            };
+            let mut hits = Vec::new();
+            let mut misses = Vec::new();
+            for entry in checked {
+                match entry {
+                    Ok(report) => hits.push(report),
+                    Err(p) => misses.push(p),
+                }
+            }
+            (hits, misses)
+        }
+        None => (Vec::new(), files.iter().collect()),
+    };
+
+    let mut reports: Vec<FileReport> = match &pool {
+        Some(pool) => pool.install(|| {
+            to_analyze
                 .par_iter()
                 .filter_map(|p| read_and_analyze(&dispatch, p))
                 .collect()
-        })
+        }),
+        None => to_analyze
+            .iter()
+            .filter_map(|p| read_and_analyze(&dispatch, p))
+            .collect(),
     };
+    reports.extend(cached_reports);
+
+    // Refresh the cache — unless every file was a hit, in which case it is
+    // already exactly what we would write.
+    if let Some(cache_file) = cache_path.as_deref()
+        && !(cache.is_some() && to_analyze.is_empty())
+    {
+        let store = || {
+            cache::store(cache_file, &reports, &|p| {
+                lang_for(&dispatch, p).map(|l| l.name)
+            })
+        };
+        match &pool {
+            Some(pool) => pool.install(store),
+            None => store(),
+        }
+    }
 
     reports.sort_by(|a, b| a.path.cmp(&b.path));
 
@@ -309,17 +385,40 @@ fn split_exts(s: &str) -> Vec<String> {
 /// Read a file and analyze it with the language matching its extension,
 /// reporting (but not failing on) read errors. A file whose extension no active
 /// language claims is skipped silently (it was only collected via `--ext`).
-fn read_and_analyze(dispatch: &HashMap<String, AnalyzeFn>, path: &Path) -> Option<FileReport> {
-    let analyze = path
-        .extension()
-        .and_then(|e| e.to_str())
-        .and_then(|e| dispatch.get(&e.to_ascii_lowercase()))?;
+fn read_and_analyze(
+    dispatch: &HashMap<String, &'static lang::Language>,
+    path: &Path,
+) -> Option<FileReport> {
+    let language = lang_for(dispatch, path)?;
     match std::fs::read_to_string(path) {
-        Ok(src) => Some(analyze(path, &src)),
+        Ok(src) => Some((language.analyze)(path, &src)),
         Err(e) => {
             eprintln!("cccc: cannot read {}: {e}", path.display());
             None
         }
+    }
+}
+
+/// The active language claiming `path`'s extension, if any does.
+fn lang_for(
+    dispatch: &HashMap<String, &'static lang::Language>,
+    path: &Path,
+) -> Option<&'static lang::Language> {
+    path.extension()
+        .and_then(|e| e.to_str())
+        .and_then(|e| dispatch.get(&e.to_ascii_lowercase()))
+        .copied()
+}
+
+/// The cached report for `path` — or `path` itself, as a miss to analyze.
+fn check_cached<'a>(
+    cache: &cache::Cache,
+    dispatch: &HashMap<String, &'static lang::Language>,
+    path: &'a std::path::PathBuf,
+) -> Result<FileReport, &'a std::path::PathBuf> {
+    match lang_for(dispatch, path).and_then(|l| cache.lookup(path, l.name)) {
+        Some(report) => Ok(report),
+        None => Err(path),
     }
 }
 

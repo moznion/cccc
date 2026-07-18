@@ -52,6 +52,15 @@ pub struct Config {
     pub jobs: Option<u32>,
     /// Pretty-print the JSON output (the default is compact, one line).
     pub pretty: Option<bool>,
+    /// Cache results and reuse them for files unchanged since the last run.
+    pub cache: Option<bool>,
+    /// Where to keep the results cache (default: `.cccc.cache` next to this
+    /// config file). Does not enable caching by itself.
+    pub cache_file: Option<PathBuf>,
+    /// Directory containing the loaded config file. Not a config key — filled
+    /// in at load time so the default cache location can sit beside the file.
+    #[serde(skip)]
+    pub source_dir: Option<PathBuf>,
 }
 
 impl Config {
@@ -99,7 +108,10 @@ fn find_config() -> Option<PathBuf> {
 fn load(path: &Path) -> Result<Config, String> {
     let text = std::fs::read_to_string(path)
         .map_err(|e| format!("cannot read config {}: {e}", path.display()))?;
-    toml::from_str(&text).map_err(|e| format!("invalid config {}: {e}", path.display()))
+    let mut config: Config =
+        toml::from_str(&text).map_err(|e| format!("invalid config {}: {e}", path.display()))?;
+    config.source_dir = path.parent().map(Path::to_path_buf);
+    Ok(config)
 }
 
 #[cfg(test)]
