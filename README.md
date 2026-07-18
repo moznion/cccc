@@ -127,7 +127,8 @@ directories are walked recursively (respecting `.gitignore`, always skipping
 extension, so a directory mixing `.ts`, `.rs`, `.go`, and `.php` is analyzed in
 a single run. Restrict the languages with `--lang` (e.g. `--lang go,rust`).
 
-Output is **JSON by default**.
+Output is **JSON by default** — compact, on one line, ready to pipe into `jq`
+or an artifact store; `--pretty` prints the same document indented.
 
 ### Options
 
@@ -146,6 +147,7 @@ Output is **JSON by default**.
 | `--top-cognitive N` | Show only the N most cognitively-complex functions, as a flat cross-file ranking |
 | `--top-cyclomatic N` | Show only the N most cyclomatically-complex functions, as a flat cross-file ranking |
 | `--no-ignore` | Do not respect `.gitignore` when walking directories |
+| `--pretty` | Pretty-print the JSON output (default is compact, one line) |
 | `-j, --jobs N` | Number of files to analyze in parallel (default: logical CPU count) |
 
 ### Configuration file
@@ -169,6 +171,7 @@ max-cyclomatic = 10
 min           = 1
 no-ignore     = false
 jobs          = 8
+pretty        = false               # indented JSON instead of the compact default
 
 # Per-language extension overrides. Each entry replaces that language's default
 # extensions (and routes those extensions to it). Keyed by a language's name or

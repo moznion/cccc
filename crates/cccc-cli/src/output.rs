@@ -29,15 +29,22 @@ pub fn warn(msg: &str) {
     eprintln!("{}", yellow(msg, use_color(&std::io::stderr())));
 }
 
-/// Print any serializable value as pretty JSON to stdout.
+/// Print any serializable value as JSON to stdout — compact (one line) by
+/// default, indented with `pretty` (which costs ~40% more bytes on large
+/// reports).
 ///
 /// Serializes straight into a buffered, locked stdout writer rather than
 /// building one big `String` first — for large reports (zod's corpus is ~1 MB
 /// of JSON) that avoids materializing the whole document in memory.
-pub fn print_json<T: Serialize>(value: &T) {
+pub fn print_json<T: Serialize>(value: &T, pretty: bool) {
     let stdout = std::io::stdout();
     let mut out = std::io::BufWriter::new(stdout.lock());
-    let result = serde_json::to_writer_pretty(&mut out, value)
+    let written = if pretty {
+        serde_json::to_writer_pretty(&mut out, value)
+    } else {
+        serde_json::to_writer(&mut out, value)
+    };
+    let result = written
         .map_err(std::io::Error::from)
         .and_then(|()| out.write_all(b"\n"))
         .and_then(|()| out.flush());
