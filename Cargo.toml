@@ -55,3 +55,5 @@ serde = { version = "1", features = ["derive"] }
 lto = true
 codegen-units = 1
 strip = true
+panic = "abort"
+opt-level = "s"
