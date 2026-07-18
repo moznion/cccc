@@ -2,11 +2,18 @@
 //!
 //! Analysis is a pure function of a file's content and the language front-end
 //! that handles it, so a cached [`FileReport`] can be reused as long as neither
-//! changed. An entry is validated by (size, mtime) — stat-level checks, no file
-//! read — plus the canonical name of the language that produced it (extension
-//! re-routing via `--ext`/`[ext]` must not resurface another language's scores).
-//! The whole cache is stamped with the cccc version, since counting rules can
-//! change between releases.
+//! changed. Validation is hybrid, the way git's index does it: an entry stores
+//! the file's size, mtime, and an xxh3-128 hash of its content. When size and
+//! mtime both match, the entry is trusted on the stat alone — no file read.
+//! When the mtime moved but the size didn't, the file is read and its hash
+//! compared: a match is still a hit (the content is what was analyzed), and the
+//! entry's mtime is refreshed so the next run stat-hits again. This keeps warm
+//! local runs at stat speed while surviving mtime churn — a fresh `git clone`
+//! in CI, a branch switch, a `touch` — at the cost of hashing only the churned
+//! files once. Each entry also records the canonical name of the language that
+//! produced it (extension re-routing via `--ext`/`[ext]` must not resurface
+//! another language's scores), and the whole cache is stamped with the cccc
+//! version, since counting rules can change between releases.
 //!
 //! ## File layout
 //!
@@ -26,6 +33,7 @@
 
 use std::collections::HashMap;
 use std::path::Path;
+use std::time::UNIX_EPOCH;
 
 use rayon::prelude::*;
 
@@ -34,13 +42,48 @@ use cccc_core::report::{FileReport, FunctionReport};
 /// Entries are only valid for the exact version that wrote them.
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 
+/// Validation signature for one file: stat facts for the cheap check, a
+/// content hash as ground truth when the mtime has moved.
+#[derive(Clone, Copy, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
+pub struct Sig {
+    size: u64,
+    mtime_ns: u128,
+    hash: u128,
+}
+
+/// The signature of content `bytes` observed at `mtime_ns`.
+pub fn sig_for(bytes: &[u8], mtime_ns: u128) -> Sig {
+    Sig {
+        size: bytes.len() as u64,
+        mtime_ns,
+        hash: xxhash_rust::xxh3::xxh3_128(bytes),
+    }
+}
+
+/// The mtime of `path` in nanoseconds since the epoch. Callers that go on to
+/// read the file should stat first: if the file changes in between, the stored
+/// mtime is then older than the analyzed content, and the staleness is caught
+/// by the next run's hash check instead of masking the newer content.
+pub fn mtime_ns(path: &Path) -> Option<u128> {
+    mtime_of(&std::fs::metadata(path).ok()?)
+}
+
+fn mtime_of(md: &std::fs::Metadata) -> Option<u128> {
+    Some(
+        md.modified()
+            .ok()?
+            .duration_since(UNIX_EPOCH)
+            .ok()?
+            .as_nanos(),
+    )
+}
+
 /// Validation signature plus blob location for one cached file.
 #[derive(serde::Serialize, serde::Deserialize)]
 struct IndexEntry {
     /// Canonical name of the language that analyzed the file.
     lang: String,
-    size: u64,
-    mtime_ns: u128,
+    sig: Sig,
     offset: u64,
     len: u64,
 }
@@ -64,6 +107,16 @@ struct CacheReport {
     cyclomatic: u32,
     functions: Vec<CacheFun>,
     parse_errors: Vec<String>,
+}
+
+/// A cache hit: the reusable report and the file's current signature.
+/// `refreshed` marks a hit that went through the content check — the stored
+/// mtime is stale, so the cache file should be rewritten with `sig` to make
+/// the next run stat-hit instead of hashing again.
+pub struct Hit {
+    pub report: FileReport,
+    pub sig: Sig,
+    pub refreshed: bool,
 }
 
 /// A loaded cache: the lookup index plus the raw, still-encoded entry blobs.
@@ -94,41 +147,63 @@ impl Cache {
     }
 
     /// The cached report for `path`, if the file still matches its recorded
-    /// signature and is still analyzed by `lang`.
-    pub fn lookup(&self, path: &Path, lang: &str) -> Option<FileReport> {
+    /// signature — by stat, or by content hash when only the mtime moved —
+    /// and is still analyzed by `lang`.
+    pub fn lookup(&self, path: &Path, lang: &str) -> Option<Hit> {
         let entry = self.index.get(&path.display().to_string())?;
-        if entry.lang != lang || file_sig(path)? != (entry.size, entry.mtime_ns) {
+        if entry.lang != lang {
             return None;
         }
+        let md = std::fs::metadata(path).ok()?;
+        if md.len() != entry.sig.size {
+            return None;
+        }
+        let mtime = mtime_of(&md)?;
+        let sig = if mtime == entry.sig.mtime_ns {
+            entry.sig
+        } else {
+            // The mtime moved (checkout, touch, rewrite-in-place); the hash
+            // decides. Size is re-checked from the bytes actually read, in
+            // case the file changed again between the stat and the read.
+            let sig = sig_for(&std::fs::read(path).ok()?, mtime);
+            if sig.size != entry.sig.size || sig.hash != entry.sig.hash {
+                return None;
+            }
+            sig
+        };
         let blob = self
             .blobs
             .get(entry.offset as usize..(entry.offset + entry.len) as usize)?;
         let report: CacheReport = bincode::deserialize(blob).ok()?;
-        Some(from_cache(report))
+        Some(Hit {
+            report: from_cache(report),
+            refreshed: sig.mtime_ns != entry.sig.mtime_ns,
+            sig,
+        })
     }
 }
 
-/// Write a fresh cache for `reports` to `path`, replacing any previous file.
-/// `lang_for` names the language that analyzed a path (entries it can't name
-/// are simply not cached). Encoding fans out on the current rayon pool; a
-/// failed write only costs the next run its warm start, so it warns rather
-/// than failing the process.
+/// Write a fresh cache for `entries` to `path`, replacing any previous file.
+/// Signatures come from the caller — hashed from bytes it already had in
+/// memory, never by re-reading here — and an entry without one (its read-time
+/// stat failed), or whose language `lang_for` can't name, is simply not
+/// cached. Encoding fans out on the current rayon pool; a failed write only
+/// costs the next run its warm start, so it warns rather than failing the
+/// process.
 pub fn store(
     path: &Path,
-    reports: &[FileReport],
+    entries: &[(FileReport, Option<Sig>)],
     lang_for: &(dyn Fn(&Path) -> Option<&'static str> + Sync),
 ) {
-    let encoded: Vec<(String, IndexEntry, Vec<u8>)> = reports
+    let encoded: Vec<(String, IndexEntry, Vec<u8>)> = entries
         .par_iter()
-        .filter_map(|r| {
-            let file = Path::new(&r.path);
-            let lang = lang_for(file)?;
-            let (size, mtime_ns) = file_sig(file)?;
+        .filter_map(|(r, sig)| {
+            let sig = (*sig)?;
+            let lang = lang_for(Path::new(&r.path))?;
             let blob = bincode::serialize(&to_cache(r)).ok()?;
             let entry = IndexEntry {
                 lang: lang.to_string(),
-                size,
-                mtime_ns,
+                sig,
                 offset: 0, // fixed up below, once concatenation order is known
                 len: blob.len() as u64,
             };
@@ -158,18 +233,6 @@ pub fn store(
             path.display()
         ));
     }
-}
-
-/// Stat `path` into its cache-validation signature.
-fn file_sig(path: &Path) -> Option<(u64, u128)> {
-    let md = std::fs::metadata(path).ok()?;
-    let mtime = md
-        .modified()
-        .ok()?
-        .duration_since(std::time::UNIX_EPOCH)
-        .ok()?
-        .as_nanos();
-    Some((md.len(), mtime))
 }
 
 fn to_cache_funs(fns: &[FunctionReport]) -> Vec<CacheFun> {
@@ -246,6 +309,16 @@ mod tests {
         }
     }
 
+    /// Store a one-entry cache for `src`, signed off its current content.
+    fn store_one(cache_file: &Path, src: &Path, lang: &'static str) {
+        let sig = sig_for(&std::fs::read(src).unwrap(), mtime_ns(src).unwrap());
+        store(
+            cache_file,
+            &[(sample_report(&src.display().to_string()), Some(sig))],
+            &move |_| Some(lang),
+        );
+    }
+
     #[test]
     fn roundtrip_hits_for_unchanged_file() {
         let dir = std::env::temp_dir().join("cccc_cache_unit_roundtrip");
@@ -254,14 +327,14 @@ mod tests {
         std::fs::write(&src, "function f() {}").unwrap();
         let cache_file = dir.join("cache.bin");
 
-        let report = sample_report(&src.display().to_string());
-        store(&cache_file, &[report], &|_| Some("es"));
+        store_one(&cache_file, &src, "es");
 
         let cache = load(&cache_file).expect("cache loads");
         let hit = cache.lookup(&src, "es").expect("unchanged file hits");
-        assert_eq!(hit.cognitive, 3);
-        assert_eq!(hit.functions[0].children[0].name, "g");
-        assert_eq!(hit.parse_errors, vec!["boom".to_string()]);
+        assert!(!hit.refreshed, "a stat hit needs no rewrite");
+        assert_eq!(hit.report.cognitive, 3);
+        assert_eq!(hit.report.functions[0].children[0].name, "g");
+        assert_eq!(hit.report.parse_errors, vec!["boom".to_string()]);
 
         let _ = std::fs::remove_dir_all(&dir);
     }
@@ -271,22 +344,58 @@ mod tests {
         let dir = std::env::temp_dir().join("cccc_cache_unit_invalidate");
         std::fs::create_dir_all(&dir).unwrap();
         let src = dir.join("a.ts");
-        std::fs::write(&src, "function f() {}").unwrap();
+        std::fs::write(&src, "function f() { return 1 }").unwrap();
         let cache_file = dir.join("cache.bin");
 
-        store(
-            &cache_file,
-            &[sample_report(&src.display().to_string())],
-            &|_| Some("es"),
-        );
+        store_one(&cache_file, &src, "es");
         let cache = load(&cache_file).unwrap();
         assert!(
             cache.lookup(&src, "rust").is_none(),
             "other language misses"
         );
 
-        std::fs::write(&src, "function f() { return 1 }").unwrap();
-        assert!(cache.lookup(&src, "es").is_none(), "changed file misses");
+        // Same size, different content: the stat check passes on size, the
+        // hash check must still reject it.
+        std::fs::write(&src, "function f() { return 2 }").unwrap();
+        assert!(
+            cache.lookup(&src, "es").is_none(),
+            "same-size edit misses via hash"
+        );
+
+        std::fs::write(&src, "function f() {}").unwrap();
+        assert!(cache.lookup(&src, "es").is_none(), "resized file misses");
+
+        let _ = std::fs::remove_dir_all(&dir);
+    }
+
+    #[test]
+    fn mtime_only_change_hits_via_hash_and_refreshes() {
+        let dir = std::env::temp_dir().join("cccc_cache_unit_touch");
+        std::fs::create_dir_all(&dir).unwrap();
+        let src = dir.join("a.ts");
+        std::fs::write(&src, "function f() {}").unwrap();
+        let cache_file = dir.join("cache.bin");
+
+        store_one(&cache_file, &src, "es");
+
+        // Same bytes, new mtime — what a fresh git checkout does to every file.
+        let bumped = std::time::SystemTime::now() + std::time::Duration::from_secs(10);
+        std::fs::File::options()
+            .write(true)
+            .open(&src)
+            .unwrap()
+            .set_modified(bumped)
+            .unwrap();
+
+        let cache = load(&cache_file).unwrap();
+        let hit = cache.lookup(&src, "es").expect("content match hits");
+        assert!(hit.refreshed, "a hash hit asks for a rewrite");
+        assert_eq!(hit.report.cognitive, 3);
+
+        // Re-storing with the refreshed signature turns it back into a stat hit.
+        store(&cache_file, &[(hit.report, Some(hit.sig))], &|_| Some("es"));
+        let hit = load(&cache_file).unwrap().lookup(&src, "es").unwrap();
+        assert!(!hit.refreshed, "refreshed mtime now stat-hits");
 
         let _ = std::fs::remove_dir_all(&dir);
     }

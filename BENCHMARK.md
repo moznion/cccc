@@ -157,10 +157,12 @@ verify-then-time script). Build cccc with `cargo build --release`; install scc
 
 # Benchmark: the results cache (`--cache`)
 
-The results cache reuses the previous run's per-file scores for files whose
-size/mtime are unchanged (still validated per entry against the analyzing
-language and the cccc version), re-analyzing only what changed. These numbers
-size what that buys on real monorepos, per language front-end.
+The results cache reuses the previous run's per-file scores for unchanged
+files (still validated per entry against the analyzing language and the cccc
+version), re-analyzing only what changed. As first shipped, "unchanged" meant
+size/mtime; see the update below for the hybrid mtime + content-hash
+validation that replaced it. These numbers size what the cache buys on real
+monorepos, per language front-end.
 
 ## Corpora
 
@@ -231,3 +233,52 @@ target/release/cccc --no-config /tmp/k8s > /dev/null
 target/release/cccc --no-config --cache-file /tmp/k8s.cache /tmp/k8s > /dev/null
 target/release/cccc --no-config --cache-file /tmp/k8s.cache /tmp/k8s > /dev/null
 ```
+
+## Update (2026-07-18): hybrid validation — mtime + content hash
+
+The size/mtime check above has a blind spot: anything that rewrites mtimes
+without changing content. The big one is CI — `git clone`/`actions/checkout`
+stamp every file with the checkout time, so a cache restored by
+`actions/cache` would never hit. Measured on the same corpora with every
+mtime bumped but no content changed (`touch` over the tree, simulating a
+fresh checkout), the mtime-only cache was **worse than no cache at all**: it
+re-analyzed everything *and* rewrote the whole cache file — vscode 127.5 ms
+vs 107.8 ms cold, postgres 576.6 ms vs 544.5 ms cold.
+
+Validation is now hybrid, the way git's index handles the same problem. Each
+entry stores size, mtime, and an xxh3-128 hash of the content. Size+mtime
+match → hit on the stat alone, no read (the local fast path, unchanged).
+Mtime moved but size didn't → read and hash the file; if the hash matches,
+it's still a hit, and the refreshed mtime is written back so the next run
+stat-hits again. Misses hash the bytes they were going to read anyway, so
+populating the cache costs no extra I/O.
+
+Same machine and method (median of 5 after 1 warmup, stdout to `/dev/null`);
+"CI steady state" bumps every mtime before each run — restore-cache → run →
+save-cache, where each run hash-validates the full tree and rewrites the
+cache; "post-touch" is the run after one bump has been absorbed:
+
+| Corpus | cold | warm (stat hits) | CI steady state | post-touch |
+|--------|-----:|-----------------:|----------------:|-----------:|
+| vscode (TS/JS) | 109.9 | 36.3 | 100.2 | 35.4 |
+| kubernetes (Go) | 1,048.3 | 163.8 | 534.2 | 277.0* |
+| postgres (C) | 649.5 | 43.5 | 81.8 | 33.4 |
+
+\* noisy samples (164–320 ms) from repeatedly touching 17.5k files between
+runs; the quiet runs sit at the warm floor.
+
+Reading it:
+
+- **Local runs don't pay for the hash.** The warm column matches the
+  mtime-only numbers (37.2 / 168.6 / 31.1 ms above) within noise — stat-hits
+  never read the file.
+- **CI goes from net-negative to a real win.** Where mtime-only validation
+  was slower than cold under mtime churn, hash validation keeps the hit and
+  costs only read+hash+rewrite: ~1.1× (vscode — oxc parses nearly as fast as
+  hashing), ~2× (kubernetes), ~8× (postgres) faster than cold. The earlier
+  "when not to bother: one-shot CI runs" caveat is now only about the
+  artifact restore/save transfer time, not correctness.
+- **All-hit outputs stay byte-identical to cold runs**, verified on all three
+  corpora before timing, and a touch-only change is absorbed after one run
+  (the rewrite persists refreshed mtimes; the following run takes the
+  skip-the-write fast path).

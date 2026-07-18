@@ -218,12 +218,22 @@ what did. On large monorepos this cuts warm runs by ~2.7× (TS/JS) to ~18×
 [BENCHMARK.md](BENCHMARK.md) — and the output is byte-for-byte identical to an
 uncached run.
 
-An entry is reused only if the file's size and mtime are unchanged, the same
-language still claims its extension, and the cache was written by the same
-`cccc` version — anything else (including a missing or corrupt cache file) just
-means that file is analyzed fresh. The cache lives in `.cccc.cache` next to the
-config file (so runs from any subdirectory share it), or where `--cache-file`
-points; add it to `.gitignore`.
+Validation is hybrid, the way git's index does it: an entry stores the file's
+size, mtime, and an xxh3-128 hash of its content. When size and mtime match,
+the entry is trusted on the stat alone — no file read. When the mtime moved
+but the content didn't — a fresh checkout in CI, a branch switch, a `touch` —
+the hash rescues the hit, and the refreshed mtime is written back so the next
+run is stat-fast again. An entry is only re-analyzed when its content really
+changed, another language claims its extension, or the cache was written by a
+different `cccc` version — anything else (including a missing or corrupt cache
+file) just means that file is analyzed fresh. The cache lives in `.cccc.cache`
+next to the config file (so runs from any subdirectory share it), or where
+`--cache-file` points; add it to `.gitignore`.
+
+Because of the hash fallback, the cache also works in CI, where checkouts
+reset every mtime: persist the cache file across runs (e.g. `actions/cache`)
+and each run hash-validates unchanged files instead of re-parsing them —
+measured 2–8× faster than a cold run (see BENCHMARK.md).
 
 ### Examples
 

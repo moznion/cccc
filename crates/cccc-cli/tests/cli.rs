@@ -818,6 +818,54 @@ fn cache_prunes_deleted_files() {
 }
 
 #[test]
+fn cache_survives_mtime_only_changes() {
+    let dir = std::env::temp_dir().join("cccc_cache_touch_cli_test");
+    let _ = std::fs::remove_dir_all(&dir);
+    std::fs::create_dir_all(&dir).unwrap();
+    let src = dir.join("sample.ts");
+    std::fs::copy("tests/fixtures/sample.ts", &src).unwrap();
+    let cache = dir.join("cache.bin");
+
+    let run = || {
+        let out = Command::cargo_bin("cccc")
+            .unwrap()
+            .args(["--no-config", "--cache-file"])
+            .arg(&cache)
+            .arg(&dir)
+            .assert()
+            .success();
+        String::from_utf8(out.get_output().stdout.clone()).unwrap()
+    };
+    // Same bytes, new mtime — what a fresh checkout does to every file in CI.
+    let touch = |offset: u64| {
+        std::fs::File::options()
+            .write(true)
+            .open(&src)
+            .unwrap()
+            .set_modified(std::time::SystemTime::now() + std::time::Duration::from_secs(offset))
+            .unwrap();
+    };
+
+    let cold = run();
+    touch(10);
+    assert_eq!(run(), cold, "an mtime-only change must still hit");
+
+    // That hit went through the content hash; the run must persist the
+    // refreshed mtime so the next run is back to stat-only validation…
+    let rewritten = std::fs::read(&cache).unwrap();
+    let stable = run();
+    assert_eq!(stable, cold);
+    // …and an untouched all-hit run must take the skip-the-write fast path.
+    assert_eq!(
+        std::fs::read(&cache).unwrap(),
+        rewritten,
+        "an all-stat-hit run must not rewrite the cache"
+    );
+
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
 fn no_cache_flag_disables_config_enabled_cache() {
     let dir = std::env::temp_dir().join("cccc_no_cache_cli_test");
     let _ = std::fs::remove_dir_all(&dir);
