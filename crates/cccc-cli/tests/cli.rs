@@ -776,6 +776,48 @@ fn cache_reuses_unchanged_files_and_reanalyzes_edits() {
 }
 
 #[test]
+fn cache_prunes_deleted_files() {
+    let dir = std::env::temp_dir().join("cccc_cache_delete_cli_test");
+    let _ = std::fs::remove_dir_all(&dir);
+    std::fs::create_dir_all(&dir).unwrap();
+    std::fs::write(dir.join("keep.ts"), "function keep() { return 1; }").unwrap();
+    std::fs::write(dir.join("gone.ts"), "function gone() { return 2; }").unwrap();
+    let cache = dir.join("cache.bin");
+
+    let run = || {
+        let out = Command::cargo_bin("cccc")
+            .unwrap()
+            .args(["--no-config", "--cache-file"])
+            .arg(&cache)
+            .arg(&dir)
+            .assert()
+            .success();
+        let v: serde_json::Value =
+            serde_json::from_slice(&out.get_output().stdout).expect("valid JSON");
+        analyzed_names(&v)
+    };
+
+    let mut cold = run();
+    cold.sort();
+    assert_eq!(cold, vec!["gone.ts", "keep.ts"]);
+
+    // Delete one file; nothing else changes, so every surviving file is a
+    // cache hit — the deleted file must vanish from the output anyway.
+    std::fs::remove_file(dir.join("gone.ts")).unwrap();
+    assert_eq!(run(), vec!["keep.ts"], "deleted file must not resurface");
+
+    // And its stale entry must be pruned from the cache file, not left behind
+    // by the "all hits, skip the write" fast path. (Cached paths are stored as
+    // plain strings, so a byte search is a valid containment check.)
+    let bytes = std::fs::read(&cache).unwrap();
+    let needle = b"gone.ts";
+    let contains = bytes.windows(needle.len()).any(|w| w == needle);
+    assert!(!contains, "cache must no longer reference the deleted file");
+
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
 fn no_cache_flag_disables_config_enabled_cache() {
     let dir = std::env::temp_dir().join("cccc_no_cache_cli_test");
     let _ = std::fs::remove_dir_all(&dir);

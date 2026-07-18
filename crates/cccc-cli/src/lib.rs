@@ -261,10 +261,15 @@ pub fn run() -> i32 {
     };
     reports.extend(cached_reports);
 
-    // Refresh the cache — unless every file was a hit, in which case it is
-    // already exactly what we would write.
+    // Refresh the cache — unless it is already exactly what we would write:
+    // every file was a hit AND the cache holds nothing else. The second check
+    // matters when files were deleted (or newly excluded) since the last run —
+    // all-hits alone would skip the write and leave their stale entries behind.
+    let cache_is_current = cache
+        .as_ref()
+        .is_some_and(|c| to_analyze.is_empty() && c.entry_count() == reports.len());
     if let Some(cache_file) = cache_path.as_deref()
-        && !(cache.is_some() && to_analyze.is_empty())
+        && !cache_is_current
     {
         let store = || {
             cache::store(cache_file, &reports, &|p| {
