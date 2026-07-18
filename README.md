@@ -223,17 +223,35 @@ size, mtime, and an xxh3-128 hash of its content. When size and mtime match,
 the entry is trusted on the stat alone — no file read. When the mtime moved
 but the content didn't — a fresh checkout in CI, a branch switch, a `touch` —
 the hash rescues the hit, and the refreshed mtime is written back so the next
-run is stat-fast again. An entry is only re-analyzed when its content really
-changed, another language claims its extension, or the cache was written by a
-different `cccc` version — anything else (including a missing or corrupt cache
-file) just means that file is analyzed fresh. The cache lives in `.cccc.cache`
-next to the config file (so runs from any subdirectory share it), or where
+run is stat-fast again. In a git worktree there is a shortcut past even that
+read: each entry also records its content's git blob SHA, and a moved-mtime
+file that git's own index calls clean is validated against the index's blob
+SHA — one `git ls-files`/`git status` for the whole tree instead of reading
+every churned file. git is only consulted when a stat check has already
+failed (a fully warm run never runs it), and only trusted content-to-content:
+dirty files, untracked files, and any git failure at all fall back to the
+hash. An entry is only re-analyzed when its content really changed, another
+language claims its extension, or the cache was written by a different `cccc`
+version — anything else (including a missing or corrupt cache file) just
+means that file is analyzed fresh. The cache lives in `.cccc.cache` next to
+the config file (so runs from any subdirectory share it), or where
 `--cache-file` points; add it to `.gitignore`.
 
-Because of the hash fallback, the cache also works in CI, where checkouts
-reset every mtime: persist the cache file across runs (e.g. `actions/cache`)
-and each run hash-validates unchanged files instead of re-parsing them —
-measured 2–8× faster than a cold run (see BENCHMARK.md).
+This is what makes the cache work in CI, where every checkout resets every
+mtime: persist the cache file across runs and each run validates unchanged
+files off git's index instead of re-parsing them — measured 1.6–9.6× faster
+than a cold run, roughly 2× faster than the hash fallback alone (see
+BENCHMARK.md). Under `CI=…` (GitHub Actions sets it) the git subprocesses
+start early so their latency hides behind file discovery. For example:
+
+```yaml
+- uses: actions/cache@v4
+  with:
+    path: .cccc.cache
+    key: cccc-${{ github.sha }}
+    restore-keys: cccc-
+- run: cccc --cache --max-cognitive 15 src/
+```
 
 ### Examples
 

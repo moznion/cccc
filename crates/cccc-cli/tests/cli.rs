@@ -866,6 +866,74 @@ fn cache_survives_mtime_only_changes() {
 }
 
 #[test]
+fn cache_git_index_skips_revalidation() {
+    let dir = std::env::temp_dir().join("cccc_cache_git_cli_test");
+    let _ = std::fs::remove_dir_all(&dir);
+    std::fs::create_dir_all(&dir).unwrap();
+    // git resolves symlinks in --show-toplevel (macOS /tmp); agree with it.
+    let dir = dir.canonicalize().unwrap();
+    let src = dir.join("sample.ts");
+    std::fs::copy("tests/fixtures/sample.ts", &src).unwrap();
+    let git = |args: &[&str]| {
+        assert!(
+            std::process::Command::new("git")
+                .arg("-C")
+                .arg(&dir)
+                .args(args)
+                .output()
+                .unwrap()
+                .status
+                .success()
+        );
+    };
+    git(&["init", "-q"]);
+    git(&["add", "sample.ts"]);
+    git(&[
+        "-c",
+        "user.name=t",
+        "-c",
+        "user.email=t@t",
+        "commit",
+        "-q",
+        "-m",
+        "x",
+    ]);
+    let cache = dir.join("cache.bin");
+
+    let run = || {
+        let out = Command::cargo_bin("cccc")
+            .unwrap()
+            .args(["--no-config", "--cache-file"])
+            .arg(&cache)
+            .arg(&dir)
+            .assert()
+            .success();
+        String::from_utf8(out.get_output().stdout.clone()).unwrap()
+    };
+
+    let cold = run();
+    // Same bytes, new mtime — a fresh checkout. With a clean git index the
+    // entry is validated off the index's blob SHA (no re-read), the fresh
+    // mtime is persisted, and the following run is back to pure stat hits.
+    std::fs::File::options()
+        .write(true)
+        .open(&src)
+        .unwrap()
+        .set_modified(std::time::SystemTime::now() + std::time::Duration::from_secs(10))
+        .unwrap();
+    assert_eq!(run(), cold, "a git-vouched file must still hit");
+    let converged = std::fs::read(&cache).unwrap();
+    assert_eq!(run(), cold);
+    assert_eq!(
+        std::fs::read(&cache).unwrap(),
+        converged,
+        "once the mtime is persisted, an all-stat-hit run must not rewrite"
+    );
+
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
 fn no_cache_flag_disables_config_enabled_cache() {
     let dir = std::env::temp_dir().join("cccc_no_cache_cli_test");
     let _ = std::fs::remove_dir_all(&dir);

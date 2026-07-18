@@ -195,6 +195,25 @@ pub fn run() -> i32 {
             .unwrap_or(1)
     });
 
+    // Let cache validation ask git which files are clean and what their blob
+    // SHAs are, so it can skip reading files whose mtime moved but whose
+    // content didn't — the CI fast path: a fresh checkout resets every mtime
+    // but writes a stat-clean index. Consulted (and under CI, started) only
+    // when needed — see [`cache::LazyGitIndex`] — and only prepared at all
+    // when there is an existing cache to validate against.
+    let git_index = cache_path.as_ref().filter(|p| p.exists()).map(|_| {
+        let root = match cli.paths.first() {
+            Some(p) if p.is_dir() => p.clone(),
+            Some(p) => p
+                .parent()
+                .filter(|d| !d.as_os_str().is_empty())
+                .unwrap_or(Path::new("."))
+                .to_path_buf(),
+            None => std::path::PathBuf::from("."),
+        };
+        cache::LazyGitIndex::new(root)
+    });
+
     let files = walk::collect_files(&cli.paths, &exts, no_ignore, exclude.as_ref(), jobs);
     if files.is_empty() {
         eprintln!("cccc: no matching files found");
@@ -226,16 +245,17 @@ pub fn run() -> i32 {
         Vec<&std::path::PathBuf>,
     ) = match &cache {
         Some(c) => {
+            let git = git_index.as_ref();
             let checked: Vec<Result<cache::Hit, &std::path::PathBuf>> = match &pool {
                 Some(pool) => pool.install(|| {
                     files
                         .par_iter()
-                        .map(|p| check_cached(c, &dispatch, p))
+                        .map(|p| check_cached(c, &dispatch, p, git))
                         .collect()
                 }),
                 None => files
                     .iter()
-                    .map(|p| check_cached(c, &dispatch, p))
+                    .map(|p| check_cached(c, &dispatch, p, git))
                     .collect(),
             };
             let mut hits = Vec::new();
@@ -449,8 +469,9 @@ fn check_cached<'a>(
     cache: &cache::Cache,
     dispatch: &HashMap<String, &'static lang::Language>,
     path: &'a std::path::PathBuf,
+    git: Option<&cache::LazyGitIndex>,
 ) -> Result<cache::Hit, &'a std::path::PathBuf> {
-    match lang_for(dispatch, path).and_then(|l| cache.lookup(path, l.name)) {
+    match lang_for(dispatch, path).and_then(|l| cache.lookup(path, l.name, git)) {
         Some(hit) => Ok(hit),
         None => Err(path),
     }

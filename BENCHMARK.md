@@ -282,3 +282,51 @@ Reading it:
   corpora before timing, and a touch-only change is absorbed after one run
   (the rewrite persists refreshed mtimes; the following run takes the
   skip-the-write fast path).
+
+## Update (2026-07-18): the git-index fast path
+
+After hybrid validation, the one remaining CI cost was the content-hash pass
+itself: a fresh checkout moves every mtime, so every file is read and hashed
+even though nothing changed. But the checkout that reset those mtimes also
+wrote git's index, which already names every file's blob — asking git is one
+subprocess for the whole tree instead of one read per file.
+
+Each cache entry now also records its content's git blob SHA-1, computed by
+cccc from the bytes it analyzed (never taken on faith from git, so a match is
+content-to-content and works regardless of which commit the cache came from).
+On lookup, a file whose mtime moved but which `git status` calls clean is
+validated against `git ls-files -s` — no read — and its refreshed mtime is
+persisted so the next run stat-hits. Everything else — dirty files, untracked
+files, no repository, no git binary, a SHA-256 repo — falls back to the
+content hash. git is consulted lazily, only after some stat check has failed;
+under `CI=…` (set by every major CI service) the subprocesses instead start
+eagerly, ahead of file discovery, hiding their latency entirely.
+
+Corpora as above, except vscode: fixing this machine's partial LFS checkout
+grew that tree to its true size, 12,301 analyzed files (earlier sections
+measured the 2,976-file subset; their numbers remain internally consistent).
+Method unchanged. "CI churn" bumps every mtime and re-syncs git's stat cache
+before each run — the state `actions/checkout` leaves — with `CI=true`;
+"local churn" is the same file state without `CI` (a branch switch, with git
+started on demand).
+
+| Corpus | cold | warm (stat) | CI churn, git | CI churn, hash only | local churn, git |
+|--------|-----:|------------:|--------------:|--------------------:|-----------------:|
+| vscode (TS/JS, 12,301) | 343.9 | 132.3 | **210.5** | 386.6 | 242.8 |
+| kubernetes (Go, 17,518) | 1,157.0 | 162.7 | **290.5** | 568.2 | 351.8 |
+| postgres (C, 2,954) | 541.3 | 31.7 | **56.3** | 87.0 | 73.0 |
+
+Reading it:
+
+- **CI validation is now ~2× the hash fallback** (1.5–2.0×) and 1.6–9.6×
+  faster than cold. The gap to the warm floor is git's own `status` stat pass
+  plus one cache rewrite (persisting the refreshed mtimes).
+- **A fully warm local run pays exactly nothing**: git is never consulted —
+  not even spawned — on an all-stat-hit run (warm-git vs warm-nogit measured
+  equal within noise; an earlier eager-spawn draft cost 15–30 ms of
+  subprocess contention, which is why the lazy design exists).
+- **Local mtime churn benefits too**: a branch switch validates via git on
+  demand and still beats hashing the tree (243/352/73 ms vs 387/568/87 ms).
+- Outputs stay byte-identical to cold runs in every scenario, and churn
+  converges: the run after the rewrite is back to pure stat hits with no
+  cache write at all.
