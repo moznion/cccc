@@ -1,12 +1,12 @@
 {
   "repository": "moznion/cccc",
   "ref": "refs/heads/main",
-  "commit": "655f1f2327c699f62911cb2cbe82f6da97b82b21",
+  "commit": "3ee5e0a2938f7c2de03b23f45cabc73eadfb1530",
   "coverage": {
     "type": "loc",
     "format": "LCOV",
-    "total": 11633,
-    "covered": 10900,
+    "total": 11639,
+    "covered": 10906,
     "files": [
       {
         "type": "loc",
@@ -6061,31 +6061,31 @@
             "type": "loc",
             "start_line": 74,
             "end_line": 74,
-            "count": 78
+            "count": 82
           },
           {
             "type": "loc",
             "start_line": 75,
             "end_line": 75,
-            "count": 78
+            "count": 82
           },
           {
             "type": "loc",
             "start_line": 76,
             "end_line": 76,
-            "count": 15
+            "count": 16
           },
           {
             "type": "loc",
             "start_line": 77,
             "end_line": 77,
-            "count": 63
+            "count": 66
           },
           {
             "type": "loc",
             "start_line": 78,
             "end_line": 78,
-            "count": 63
+            "count": 66
           },
           {
             "type": "loc",
@@ -6115,19 +6115,19 @@
             "type": "loc",
             "start_line": 83,
             "end_line": 83,
-            "count": 60
+            "count": 63
           },
           {
             "type": "loc",
             "start_line": 84,
             "end_line": 84,
-            "count": 60
+            "count": 63
           },
           {
             "type": "loc",
             "start_line": 85,
             "end_line": 85,
-            "count": 60
+            "count": 63
           },
           {
             "type": "loc",
@@ -6139,49 +6139,49 @@
             "type": "loc",
             "start_line": 88,
             "end_line": 88,
-            "count": 78
+            "count": 82
           },
           {
             "type": "loc",
             "start_line": 94,
             "end_line": 94,
-            "count": 60
+            "count": 63
           },
           {
             "type": "loc",
             "start_line": 95,
             "end_line": 95,
-            "count": 60
+            "count": 63
           },
           {
             "type": "loc",
             "start_line": 96,
             "end_line": 96,
-            "count": 162
+            "count": 165
           },
           {
             "type": "loc",
             "start_line": 97,
             "end_line": 97,
-            "count": 264
+            "count": 267
           },
           {
             "type": "loc",
             "start_line": 98,
             "end_line": 98,
-            "count": 264
+            "count": 267
           },
           {
             "type": "loc",
             "start_line": 99,
             "end_line": 99,
-            "count": 264
+            "count": 267
           },
           {
             "type": "loc",
             "start_line": 100,
             "end_line": 100,
-            "count": 60
+            "count": 63
           },
           {
             "type": "loc",
@@ -6199,55 +6199,55 @@
             "type": "loc",
             "start_line": 105,
             "end_line": 105,
-            "count": 60
+            "count": 63
           },
           {
             "type": "loc",
             "start_line": 108,
             "end_line": 108,
-            "count": 61
+            "count": 64
           },
           {
             "type": "loc",
             "start_line": 109,
             "end_line": 109,
-            "count": 61
+            "count": 64
           },
           {
             "type": "loc",
             "start_line": 110,
             "end_line": 110,
-            "count": 61
+            "count": 64
           },
           {
             "type": "loc",
             "start_line": 111,
             "end_line": 111,
-            "count": 60
+            "count": 63
           },
           {
             "type": "loc",
             "start_line": 112,
             "end_line": 112,
-            "count": 61
+            "count": 64
           },
           {
             "type": "loc",
             "start_line": 113,
             "end_line": 113,
-            "count": 60
+            "count": 63
           },
           {
             "type": "loc",
             "start_line": 114,
             "end_line": 114,
-            "count": 60
+            "count": 63
           },
           {
             "type": "loc",
             "start_line": 115,
             "end_line": 115,
-            "count": 61
+            "count": 64
           },
           {
             "type": "loc",
@@ -7524,56 +7524,56 @@
         "type": "loc",
         "file": "/home/runner/work/cccc/cccc/crates/cccc-cli/src/lib.rs",
         "normalized_path": "crates/cccc-cli/src/lib.rs",
-        "total": 292,
-        "covered": 256,
+        "total": 298,
+        "covered": 262,
         "blocks": [
           {
             "type": "loc",
             "start_line": 52,
             "end_line": 52,
-            "count": 79
+            "count": 83
           },
           {
             "type": "loc",
             "start_line": 53,
             "end_line": 53,
-            "count": 79
+            "count": 83
           },
           {
             "type": "loc",
             "start_line": 54,
             "end_line": 54,
-            "count": 79
+            "count": 83
           },
           {
             "type": "loc",
             "start_line": 55,
             "end_line": 55,
-            "count": 79
+            "count": 83
           },
           {
             "type": "loc",
             "start_line": 56,
             "end_line": 56,
-            "count": 79
+            "count": 83
           },
           {
             "type": "loc",
             "start_line": 57,
             "end_line": 57,
-            "count": 79
+            "count": 83
           },
           {
             "type": "loc",
             "start_line": 58,
             "end_line": 58,
-            "count": 79
+            "count": 83
           },
           {
             "type": "loc",
             "start_line": 59,
             "end_line": 59,
-            "count": 76
+            "count": 80
           },
           {
             "type": "loc",
@@ -7585,13 +7585,13 @@
             "type": "loc",
             "start_line": 65,
             "end_line": 65,
-            "count": 76
+            "count": 80
           },
           {
             "type": "loc",
             "start_line": 66,
             "end_line": 66,
-            "count": 74
+            "count": 78
           },
           {
             "type": "loc",
@@ -7615,13 +7615,13 @@
             "type": "loc",
             "start_line": 76,
             "end_line": 76,
-            "count": 296
+            "count": 312
           },
           {
             "type": "loc",
             "start_line": 77,
             "end_line": 77,
-            "count": 74
+            "count": 78
           },
           {
             "type": "loc",
@@ -7633,13 +7633,13 @@
             "type": "loc",
             "start_line": 80,
             "end_line": 80,
-            "count": 72
+            "count": 76
           },
           {
             "type": "loc",
             "start_line": 82,
             "end_line": 82,
-            "count": 74
+            "count": 78
           },
           {
             "type": "loc",
@@ -7651,13 +7651,13 @@
             "type": "loc",
             "start_line": 85,
             "end_line": 85,
-            "count": 74
+            "count": 78
           },
           {
             "type": "loc",
             "start_line": 87,
             "end_line": 87,
-            "count": 74
+            "count": 78
           },
           {
             "type": "loc",
@@ -7669,13 +7669,13 @@
             "type": "loc",
             "start_line": 90,
             "end_line": 90,
-            "count": 70
+            "count": 74
           },
           {
             "type": "loc",
             "start_line": 92,
             "end_line": 92,
-            "count": 74
+            "count": 78
           },
           {
             "type": "loc",
@@ -7687,150 +7687,150 @@
             "type": "loc",
             "start_line": 95,
             "end_line": 95,
-            "count": 73
+            "count": 77
           },
           {
             "type": "loc",
             "start_line": 101,
             "end_line": 101,
-            "count": 74
+            "count": 78
           },
           {
             "type": "loc",
             "start_line": 102,
             "end_line": 102,
-            "count": 1
+            "count": 2
           },
           {
             "type": "loc",
             "start_line": 104,
             "end_line": 104,
-            "count": 73
+            "count": 76
           },
           {
             "type": "loc",
             "start_line": 106,
             "end_line": 106,
-            "count": 74
+            "count": 78
           },
           {
             "type": "loc",
             "start_line": 107,
             "end_line": 107,
-            "count": 14
+            "count": 16
           },
           {
             "type": "loc",
             "start_line": 108,
             "end_line": 108,
-            "count": 14
+            "count": 16
           },
           {
             "type": "loc",
             "start_line": 109,
             "end_line": 109,
-            "count": 14
+            "count": 16
           },
           {
             "type": "loc",
             "start_line": 110,
             "end_line": 110,
-            "count": 14
+            "count": 16
           },
           {
             "type": "loc",
             "start_line": 111,
             "end_line": 111,
-            "count": 1
+            "count": 2
           },
           {
             "type": "loc",
             "start_line": 112,
             "end_line": 112,
-            "count": 1
+            "count": 2
           },
           {
             "type": "loc",
             "start_line": 113,
             "end_line": 113,
-            "count": 1
+            "count": 2
           },
           {
             "type": "loc",
             "start_line": 114,
             "end_line": 114,
-            "count": 1
+            "count": 2
           },
           {
             "type": "loc",
             "start_line": 115,
             "end_line": 115,
-            "count": 1
+            "count": 2
           },
           {
             "type": "loc",
             "start_line": 116,
             "end_line": 116,
-            "count": 1
+            "count": 2
           },
           {
             "type": "loc",
             "start_line": 117,
             "end_line": 117,
-            "count": 14
-          },
-          {
-            "type": "loc",
-            "start_line": 118,
-            "end_line": 118,
-            "count": 74
-          },
-          {
-            "type": "loc",
-            "start_line": 119,
-            "end_line": 119,
-            "count": 74
-          },
-          {
-            "type": "loc",
-            "start_line": 120,
-            "end_line": 120,
-            "count": 74
+            "count": 16
           },
           {
             "type": "loc",
             "start_line": 121,
             "end_line": 121,
-            "count": 74
+            "count": 78
           },
           {
             "type": "loc",
             "start_line": 122,
             "end_line": 122,
-            "count": 74
+            "count": 4
           },
           {
             "type": "loc",
             "start_line": 123,
             "end_line": 123,
-            "count": 74
+            "count": 2
           },
           {
             "type": "loc",
             "start_line": 124,
             "end_line": 124,
-            "count": 74
+            "count": 2
           },
           {
             "type": "loc",
             "start_line": 125,
             "end_line": 125,
-            "count": 74
+            "count": 4
           },
           {
             "type": "loc",
             "start_line": 126,
             "end_line": 126,
+            "count": 74
+          },
+          {
+            "type": "loc",
+            "start_line": 128,
+            "end_line": 128,
+            "count": 74
+          },
+          {
+            "type": "loc",
+            "start_line": 129,
+            "end_line": 129,
+            "count": 74
+          },
+          {
+            "type": "loc",
+            "start_line": 130,
+            "end_line": 130,
             "count": 74
           },
           {
@@ -7843,25 +7843,37 @@
             "type": "loc",
             "start_line": 132,
             "end_line": 132,
-            "count": 72
+            "count": 74
           },
           {
             "type": "loc",
             "start_line": 133,
             "end_line": 133,
-            "count": 2
+            "count": 74
           },
           {
             "type": "loc",
             "start_line": 134,
             "end_line": 134,
-            "count": 2
+            "count": 74
           },
           {
             "type": "loc",
             "start_line": 135,
             "end_line": 135,
-            "count": 2
+            "count": 74
+          },
+          {
+            "type": "loc",
+            "start_line": 136,
+            "end_line": 136,
+            "count": 74
+          },
+          {
+            "type": "loc",
+            "start_line": 141,
+            "end_line": 141,
+            "count": 74
           },
           {
             "type": "loc",
@@ -7873,157 +7885,151 @@
             "type": "loc",
             "start_line": 143,
             "end_line": 143,
-            "count": 72
+            "count": 2
           },
           {
             "type": "loc",
             "start_line": 144,
             "end_line": 144,
-            "count": 1
+            "count": 2
           },
           {
             "type": "loc",
             "start_line": 145,
             "end_line": 145,
-            "count": 1
+            "count": 2
           },
           {
             "type": "loc",
-            "start_line": 146,
-            "end_line": 146,
-            "count": 1
-          },
-          {
-            "type": "loc",
-            "start_line": 147,
-            "end_line": 147,
+            "start_line": 152,
+            "end_line": 152,
             "count": 72
-          },
-          {
-            "type": "loc",
-            "start_line": 148,
-            "end_line": 148,
-            "count": 1
-          },
-          {
-            "type": "loc",
-            "start_line": 149,
-            "end_line": 149,
-            "count": 71
           },
           {
             "type": "loc",
             "start_line": 153,
             "end_line": 153,
-            "count": 68
+            "count": 72
           },
           {
             "type": "loc",
             "start_line": 154,
             "end_line": 154,
-            "count": 71
+            "count": 1
           },
           {
             "type": "loc",
             "start_line": 155,
             "end_line": 155,
-            "count": 68
+            "count": 1
           },
           {
             "type": "loc",
             "start_line": 156,
             "end_line": 156,
-            "count": 3
+            "count": 1
           },
           {
             "type": "loc",
             "start_line": 157,
             "end_line": 157,
-            "count": 3
+            "count": 72
           },
           {
             "type": "loc",
             "start_line": 158,
             "end_line": 158,
-            "count": 3
+            "count": 1
           },
           {
             "type": "loc",
-            "start_line": 161,
-            "end_line": 161,
+            "start_line": 159,
+            "end_line": 159,
+            "count": 71
+          },
+          {
+            "type": "loc",
+            "start_line": 163,
+            "end_line": 163,
+            "count": 68
+          },
+          {
+            "type": "loc",
+            "start_line": 164,
+            "end_line": 164,
+            "count": 71
+          },
+          {
+            "type": "loc",
+            "start_line": 165,
+            "end_line": 165,
             "count": 68
           },
           {
             "type": "loc",
             "start_line": 166,
             "end_line": 166,
-            "count": 68
+            "count": 3
           },
           {
             "type": "loc",
             "start_line": 167,
             "end_line": 167,
-            "count": 67
+            "count": 3
           },
           {
             "type": "loc",
-            "start_line": 169,
-            "end_line": 169,
-            "count": 1
-          },
-          {
-            "type": "loc",
-            "start_line": 170,
-            "end_line": 170,
-            "count": 1
+            "start_line": 168,
+            "end_line": 168,
+            "count": 3
           },
           {
             "type": "loc",
             "start_line": 171,
             "end_line": 171,
-            "count": 0
-          },
-          {
-            "type": "loc",
-            "start_line": 172,
-            "end_line": 172,
-            "count": 0
-          },
-          {
-            "type": "loc",
-            "start_line": 173,
-            "end_line": 173,
-            "count": 0
-          },
-          {
-            "type": "loc",
-            "start_line": 174,
-            "end_line": 174,
-            "count": 1
+            "count": 68
           },
           {
             "type": "loc",
             "start_line": 176,
             "end_line": 176,
+            "count": 68
+          },
+          {
+            "type": "loc",
+            "start_line": 177,
+            "end_line": 177,
+            "count": 67
+          },
+          {
+            "type": "loc",
+            "start_line": 179,
+            "end_line": 179,
+            "count": 1
+          },
+          {
+            "type": "loc",
+            "start_line": 180,
+            "end_line": 180,
             "count": 1
           },
           {
             "type": "loc",
             "start_line": 181,
             "end_line": 181,
-            "count": 68
+            "count": 0
           },
           {
             "type": "loc",
             "start_line": 182,
             "end_line": 182,
-            "count": 67
+            "count": 0
           },
           {
             "type": "loc",
             "start_line": 183,
             "end_line": 183,
-            "count": 1
+            "count": 0
           },
           {
             "type": "loc",
@@ -8033,9 +8039,15 @@
           },
           {
             "type": "loc",
-            "start_line": 185,
-            "end_line": 185,
+            "start_line": 186,
+            "end_line": 186,
             "count": 1
+          },
+          {
+            "type": "loc",
+            "start_line": 191,
+            "end_line": 191,
+            "count": 68
           },
           {
             "type": "loc",
@@ -8047,85 +8059,55 @@
             "type": "loc",
             "start_line": 193,
             "end_line": 193,
-            "count": 65
+            "count": 1
           },
           {
             "type": "loc",
             "start_line": 194,
             "end_line": 194,
-            "count": 65
+            "count": 1
           },
           {
             "type": "loc",
             "start_line": 195,
             "end_line": 195,
-            "count": 65
+            "count": 1
           },
           {
             "type": "loc",
-            "start_line": 196,
-            "end_line": 196,
+            "start_line": 202,
+            "end_line": 202,
+            "count": 67
+          },
+          {
+            "type": "loc",
+            "start_line": 203,
+            "end_line": 203,
             "count": 65
           },
           {
             "type": "loc",
             "start_line": 204,
             "end_line": 204,
-            "count": 67
+            "count": 65
           },
           {
             "type": "loc",
             "start_line": 205,
             "end_line": 205,
-            "count": 8
+            "count": 65
           },
           {
             "type": "loc",
             "start_line": 206,
             "end_line": 206,
-            "count": 8
-          },
-          {
-            "type": "loc",
-            "start_line": 207,
-            "end_line": 207,
-            "count": 0
-          },
-          {
-            "type": "loc",
-            "start_line": 208,
-            "end_line": 208,
-            "count": 0
-          },
-          {
-            "type": "loc",
-            "start_line": 209,
-            "end_line": 209,
-            "count": 0
-          },
-          {
-            "type": "loc",
-            "start_line": 210,
-            "end_line": 210,
-            "count": 0
-          },
-          {
-            "type": "loc",
-            "start_line": 211,
-            "end_line": 211,
-            "count": 0
-          },
-          {
-            "type": "loc",
-            "start_line": 212,
-            "end_line": 212,
-            "count": 0
+            "count": 65
           },
           {
             "type": "loc",
             "start_line": 214,
             "end_line": 214,
-            "count": 8
+            "count": 67
           },
           {
             "type": "loc",
@@ -8135,45 +8117,75 @@
           },
           {
             "type": "loc",
+            "start_line": 216,
+            "end_line": 216,
+            "count": 8
+          },
+          {
+            "type": "loc",
             "start_line": 217,
             "end_line": 217,
-            "count": 67
+            "count": 0
           },
           {
             "type": "loc",
             "start_line": 218,
             "end_line": 218,
-            "count": 67
+            "count": 0
           },
           {
             "type": "loc",
             "start_line": 219,
             "end_line": 219,
-            "count": 2
+            "count": 0
           },
           {
             "type": "loc",
             "start_line": 220,
             "end_line": 220,
-            "count": 2
+            "count": 0
           },
           {
             "type": "loc",
             "start_line": 221,
             "end_line": 221,
-            "count": 65
+            "count": 0
+          },
+          {
+            "type": "loc",
+            "start_line": 222,
+            "end_line": 222,
+            "count": 0
+          },
+          {
+            "type": "loc",
+            "start_line": 224,
+            "end_line": 224,
+            "count": 8
+          },
+          {
+            "type": "loc",
+            "start_line": 225,
+            "end_line": 225,
+            "count": 8
           },
           {
             "type": "loc",
             "start_line": 227,
             "end_line": 227,
-            "count": 65
+            "count": 67
           },
           {
             "type": "loc",
             "start_line": 228,
             "end_line": 228,
-            "count": 63
+            "count": 67
+          },
+          {
+            "type": "loc",
+            "start_line": 229,
+            "end_line": 229,
+            "count": 2
           },
           {
             "type": "loc",
@@ -8185,121 +8197,85 @@
             "type": "loc",
             "start_line": 231,
             "end_line": 231,
+            "count": 65
+          },
+          {
+            "type": "loc",
+            "start_line": 237,
+            "end_line": 237,
+            "count": 65
+          },
+          {
+            "type": "loc",
+            "start_line": 238,
+            "end_line": 238,
+            "count": 63
+          },
+          {
+            "type": "loc",
+            "start_line": 240,
+            "end_line": 240,
             "count": 2
-          },
-          {
-            "type": "loc",
-            "start_line": 232,
-            "end_line": 232,
-            "count": 0
-          },
-          {
-            "type": "loc",
-            "start_line": 233,
-            "end_line": 233,
-            "count": 0
-          },
-          {
-            "type": "loc",
-            "start_line": 234,
-            "end_line": 234,
-            "count": 0
           },
           {
             "type": "loc",
             "start_line": 241,
             "end_line": 241,
-            "count": 65
+            "count": 2
           },
           {
             "type": "loc",
             "start_line": 242,
             "end_line": 242,
-            "count": 65
+            "count": 0
           },
           {
             "type": "loc",
             "start_line": 243,
             "end_line": 243,
-            "count": 65
+            "count": 0
           },
           {
             "type": "loc",
             "start_line": 244,
             "end_line": 244,
-            "count": 65
-          },
-          {
-            "type": "loc",
-            "start_line": 245,
-            "end_line": 245,
-            "count": 65
-          },
-          {
-            "type": "loc",
-            "start_line": 246,
-            "end_line": 246,
-            "count": 65
-          },
-          {
-            "type": "loc",
-            "start_line": 247,
-            "end_line": 247,
-            "count": 8
-          },
-          {
-            "type": "loc",
-            "start_line": 248,
-            "end_line": 248,
-            "count": 8
-          },
-          {
-            "type": "loc",
-            "start_line": 249,
-            "end_line": 249,
-            "count": 8
-          },
-          {
-            "type": "loc",
-            "start_line": 250,
-            "end_line": 250,
             "count": 0
           },
           {
             "type": "loc",
             "start_line": 251,
             "end_line": 251,
-            "count": 0
+            "count": 65
           },
           {
             "type": "loc",
             "start_line": 252,
             "end_line": 252,
-            "count": 0
+            "count": 65
           },
           {
             "type": "loc",
             "start_line": 253,
             "end_line": 253,
-            "count": 0
+            "count": 65
           },
           {
             "type": "loc",
             "start_line": 254,
             "end_line": 254,
-            "count": 0
+            "count": 65
           },
           {
             "type": "loc",
             "start_line": 255,
             "end_line": 255,
-            "count": 0
+            "count": 65
           },
           {
             "type": "loc",
             "start_line": 256,
             "end_line": 256,
-            "count": 8
+            "count": 65
           },
           {
             "type": "loc",
@@ -8321,57 +8297,69 @@
           },
           {
             "type": "loc",
+            "start_line": 260,
+            "end_line": 260,
+            "count": 0
+          },
+          {
+            "type": "loc",
             "start_line": 261,
             "end_line": 261,
-            "count": 8
+            "count": 0
           },
           {
             "type": "loc",
             "start_line": 262,
             "end_line": 262,
-            "count": 8
+            "count": 0
           },
           {
             "type": "loc",
             "start_line": 263,
             "end_line": 263,
-            "count": 8
+            "count": 0
           },
           {
             "type": "loc",
             "start_line": 264,
             "end_line": 264,
-            "count": 8
+            "count": 0
           },
           {
             "type": "loc",
             "start_line": 265,
             "end_line": 265,
-            "count": 7
+            "count": 0
           },
           {
             "type": "loc",
             "start_line": 266,
             "end_line": 266,
-            "count": 7
+            "count": 8
           },
           {
             "type": "loc",
             "start_line": 267,
             "end_line": 267,
-            "count": 7
+            "count": 8
           },
           {
             "type": "loc",
             "start_line": 268,
             "end_line": 268,
-            "count": 7
+            "count": 8
           },
           {
             "type": "loc",
             "start_line": 269,
             "end_line": 269,
-            "count": 1
+            "count": 8
+          },
+          {
+            "type": "loc",
+            "start_line": 271,
+            "end_line": 271,
+            "count": 8
           },
           {
             "type": "loc",
@@ -8381,273 +8369,279 @@
           },
           {
             "type": "loc",
+            "start_line": 273,
+            "end_line": 273,
+            "count": 8
+          },
+          {
+            "type": "loc",
             "start_line": 274,
             "end_line": 274,
-            "count": 57
+            "count": 8
+          },
+          {
+            "type": "loc",
+            "start_line": 275,
+            "end_line": 275,
+            "count": 7
+          },
+          {
+            "type": "loc",
+            "start_line": 276,
+            "end_line": 276,
+            "count": 7
+          },
+          {
+            "type": "loc",
+            "start_line": 277,
+            "end_line": 277,
+            "count": 7
+          },
+          {
+            "type": "loc",
+            "start_line": 278,
+            "end_line": 278,
+            "count": 7
           },
           {
             "type": "loc",
             "start_line": 279,
             "end_line": 279,
-            "count": 65
-          },
-          {
-            "type": "loc",
-            "start_line": 280,
-            "end_line": 280,
-            "count": 65
-          },
-          {
-            "type": "loc",
-            "start_line": 281,
-            "end_line": 281,
-            "count": 2
+            "count": 1
           },
           {
             "type": "loc",
             "start_line": 282,
             "end_line": 282,
-            "count": 2
-          },
-          {
-            "type": "loc",
-            "start_line": 283,
-            "end_line": 283,
-            "count": 2
+            "count": 8
           },
           {
             "type": "loc",
             "start_line": 284,
             "end_line": 284,
-            "count": 37
-          },
-          {
-            "type": "loc",
-            "start_line": 285,
-            "end_line": 285,
-            "count": 2
-          },
-          {
-            "type": "loc",
-            "start_line": 286,
-            "end_line": 286,
-            "count": 2
-          },
-          {
-            "type": "loc",
-            "start_line": 287,
-            "end_line": 287,
-            "count": 63
-          },
-          {
-            "type": "loc",
-            "start_line": 288,
-            "end_line": 288,
-            "count": 63
+            "count": 57
           },
           {
             "type": "loc",
             "start_line": 289,
             "end_line": 289,
-            "count": 63
+            "count": 65
           },
           {
             "type": "loc",
             "start_line": 290,
             "end_line": 290,
-            "count": 63
+            "count": 65
+          },
+          {
+            "type": "loc",
+            "start_line": 291,
+            "end_line": 291,
+            "count": 2
           },
           {
             "type": "loc",
             "start_line": 292,
             "end_line": 292,
-            "count": 65
+            "count": 2
           },
           {
             "type": "loc",
-            "start_line": 301,
-            "end_line": 301,
-            "count": 65
+            "start_line": 293,
+            "end_line": 293,
+            "count": 2
+          },
+          {
+            "type": "loc",
+            "start_line": 294,
+            "end_line": 294,
+            "count": 37
+          },
+          {
+            "type": "loc",
+            "start_line": 295,
+            "end_line": 295,
+            "count": 2
+          },
+          {
+            "type": "loc",
+            "start_line": 296,
+            "end_line": 296,
+            "count": 2
+          },
+          {
+            "type": "loc",
+            "start_line": 297,
+            "end_line": 297,
+            "count": 63
+          },
+          {
+            "type": "loc",
+            "start_line": 298,
+            "end_line": 298,
+            "count": 63
+          },
+          {
+            "type": "loc",
+            "start_line": 299,
+            "end_line": 299,
+            "count": 63
+          },
+          {
+            "type": "loc",
+            "start_line": 300,
+            "end_line": 300,
+            "count": 63
           },
           {
             "type": "loc",
             "start_line": 302,
             "end_line": 302,
-            "count": 8
-          },
-          {
-            "type": "loc",
-            "start_line": 303,
-            "end_line": 303,
-            "count": 8
-          },
-          {
-            "type": "loc",
-            "start_line": 304,
-            "end_line": 304,
             "count": 65
-          },
-          {
-            "type": "loc",
-            "start_line": 305,
-            "end_line": 305,
-            "count": 14
-          },
-          {
-            "type": "loc",
-            "start_line": 307,
-            "end_line": 307,
-            "count": 11
-          },
-          {
-            "type": "loc",
-            "start_line": 308,
-            "end_line": 308,
-            "count": 12
-          },
-          {
-            "type": "loc",
-            "start_line": 309,
-            "end_line": 309,
-            "count": 12
-          },
-          {
-            "type": "loc",
-            "start_line": 310,
-            "end_line": 310,
-            "count": 12
           },
           {
             "type": "loc",
             "start_line": 311,
             "end_line": 311,
-            "count": 11
+            "count": 65
           },
           {
             "type": "loc",
             "start_line": 312,
             "end_line": 312,
-            "count": 11
+            "count": 8
           },
           {
             "type": "loc",
             "start_line": 313,
             "end_line": 313,
-            "count": 0
+            "count": 8
           },
           {
             "type": "loc",
             "start_line": 314,
             "end_line": 314,
-            "count": 11
+            "count": 65
           },
           {
             "type": "loc",
-            "start_line": 316,
-            "end_line": 316,
-            "count": 54
+            "start_line": 315,
+            "end_line": 315,
+            "count": 14
+          },
+          {
+            "type": "loc",
+            "start_line": 317,
+            "end_line": 317,
+            "count": 11
           },
           {
             "type": "loc",
             "start_line": 318,
             "end_line": 318,
-            "count": 65
+            "count": 12
           },
           {
             "type": "loc",
             "start_line": 319,
             "end_line": 319,
-            "count": 215
+            "count": 12
+          },
+          {
+            "type": "loc",
+            "start_line": 320,
+            "end_line": 320,
+            "count": 12
+          },
+          {
+            "type": "loc",
+            "start_line": 321,
+            "end_line": 321,
+            "count": 11
+          },
+          {
+            "type": "loc",
+            "start_line": 322,
+            "end_line": 322,
+            "count": 11
           },
           {
             "type": "loc",
             "start_line": 323,
             "end_line": 323,
-            "count": 65
+            "count": 0
           },
           {
             "type": "loc",
             "start_line": 324,
             "end_line": 324,
-            "count": 5
-          },
-          {
-            "type": "loc",
-            "start_line": 325,
-            "end_line": 325,
-            "count": 5
+            "count": 11
           },
           {
             "type": "loc",
             "start_line": 326,
             "end_line": 326,
-            "count": 5
+            "count": 54
           },
           {
             "type": "loc",
-            "start_line": 330,
-            "end_line": 330,
+            "start_line": 328,
+            "end_line": 328,
             "count": 65
+          },
+          {
+            "type": "loc",
+            "start_line": 329,
+            "end_line": 329,
+            "count": 195
+          },
+          {
+            "type": "loc",
+            "start_line": 333,
+            "end_line": 333,
+            "count": 65
+          },
+          {
+            "type": "loc",
+            "start_line": 334,
+            "end_line": 334,
+            "count": 5
           },
           {
             "type": "loc",
             "start_line": 335,
             "end_line": 335,
-            "count": 65
+            "count": 5
           },
           {
             "type": "loc",
             "start_line": 336,
             "end_line": 336,
-            "count": 1
-          },
-          {
-            "type": "loc",
-            "start_line": 337,
-            "end_line": 337,
-            "count": 1
-          },
-          {
-            "type": "loc",
-            "start_line": 338,
-            "end_line": 338,
-            "count": 1
-          },
-          {
-            "type": "loc",
-            "start_line": 339,
-            "end_line": 339,
-            "count": 1
+            "count": 5
           },
           {
             "type": "loc",
             "start_line": 340,
             "end_line": 340,
-            "count": 1
+            "count": 65
           },
           {
             "type": "loc",
-            "start_line": 341,
-            "end_line": 341,
-            "count": 1
+            "start_line": 345,
+            "end_line": 345,
+            "count": 65
           },
           {
             "type": "loc",
-            "start_line": 342,
-            "end_line": 342,
+            "start_line": 346,
+            "end_line": 346,
             "count": 1
-          },
-          {
-            "type": "loc",
-            "start_line": 343,
-            "end_line": 343,
-            "count": 64
           },
           {
             "type": "loc",
             "start_line": 347,
             "end_line": 347,
-            "count": 65
+            "count": 1
           },
           {
             "type": "loc",
@@ -8665,55 +8659,43 @@
             "type": "loc",
             "start_line": 350,
             "end_line": 350,
-            "count": 63
+            "count": 1
+          },
+          {
+            "type": "loc",
+            "start_line": 351,
+            "end_line": 351,
+            "count": 1
           },
           {
             "type": "loc",
             "start_line": 352,
             "end_line": 352,
-            "count": 65
+            "count": 1
           },
           {
             "type": "loc",
             "start_line": 353,
             "end_line": 353,
-            "count": 2
-          },
-          {
-            "type": "loc",
-            "start_line": 354,
-            "end_line": 354,
-            "count": 2
-          },
-          {
-            "type": "loc",
-            "start_line": 355,
-            "end_line": 355,
-            "count": 0
-          },
-          {
-            "type": "loc",
-            "start_line": 356,
-            "end_line": 356,
-            "count": 2
+            "count": 64
           },
           {
             "type": "loc",
             "start_line": 357,
             "end_line": 357,
-            "count": 2
+            "count": 65
           },
           {
             "type": "loc",
             "start_line": 358,
             "end_line": 358,
-            "count": 2
+            "count": 1
           },
           {
             "type": "loc",
             "start_line": 359,
             "end_line": 359,
-            "count": 2
+            "count": 1
           },
           {
             "type": "loc",
@@ -8725,19 +8707,19 @@
             "type": "loc",
             "start_line": 362,
             "end_line": 362,
-            "count": 63
+            "count": 65
           },
           {
             "type": "loc",
             "start_line": 363,
             "end_line": 363,
-            "count": 0
+            "count": 2
           },
           {
             "type": "loc",
             "start_line": 364,
             "end_line": 364,
-            "count": 0
+            "count": 2
           },
           {
             "type": "loc",
@@ -8749,19 +8731,25 @@
             "type": "loc",
             "start_line": 366,
             "end_line": 366,
-            "count": 63
+            "count": 2
+          },
+          {
+            "type": "loc",
+            "start_line": 367,
+            "end_line": 367,
+            "count": 2
           },
           {
             "type": "loc",
             "start_line": 368,
             "end_line": 368,
-            "count": 63
+            "count": 2
           },
           {
             "type": "loc",
             "start_line": 369,
             "end_line": 369,
-            "count": 63
+            "count": 2
           },
           {
             "type": "loc",
@@ -8771,39 +8759,39 @@
           },
           {
             "type": "loc",
-            "start_line": 371,
-            "end_line": 371,
+            "start_line": 372,
+            "end_line": 372,
             "count": 63
           },
           {
             "type": "loc",
             "start_line": 373,
             "end_line": 373,
-            "count": 63
+            "count": 0
           },
           {
             "type": "loc",
             "start_line": 374,
             "end_line": 374,
-            "count": 2
+            "count": 0
           },
           {
             "type": "loc",
             "start_line": 375,
             "end_line": 375,
-            "count": 61
+            "count": 0
           },
           {
             "type": "loc",
             "start_line": 376,
             "end_line": 376,
-            "count": 61
+            "count": 63
           },
           {
             "type": "loc",
-            "start_line": 377,
-            "end_line": 377,
-            "count": 61
+            "start_line": 378,
+            "end_line": 378,
+            "count": 63
           },
           {
             "type": "loc",
@@ -8815,121 +8803,139 @@
             "type": "loc",
             "start_line": 380,
             "end_line": 380,
-            "count": 76
+            "count": 63
           },
           {
             "type": "loc",
-            "start_line": 392,
-            "end_line": 392,
-            "count": 74
+            "start_line": 381,
+            "end_line": 381,
+            "count": 63
           },
           {
             "type": "loc",
-            "start_line": 393,
-            "end_line": 393,
-            "count": 74
+            "start_line": 383,
+            "end_line": 383,
+            "count": 63
           },
           {
             "type": "loc",
-            "start_line": 394,
-            "end_line": 394,
-            "count": 74
+            "start_line": 384,
+            "end_line": 384,
+            "count": 2
           },
           {
             "type": "loc",
-            "start_line": 395,
-            "end_line": 395,
-            "count": 74
+            "start_line": 385,
+            "end_line": 385,
+            "count": 61
           },
           {
             "type": "loc",
-            "start_line": 396,
-            "end_line": 396,
-            "count": 74
+            "start_line": 386,
+            "end_line": 386,
+            "count": 61
           },
           {
             "type": "loc",
-            "start_line": 397,
-            "end_line": 397,
-            "count": 74
+            "start_line": 387,
+            "end_line": 387,
+            "count": 61
           },
           {
             "type": "loc",
-            "start_line": 398,
-            "end_line": 398,
-            "count": 4
+            "start_line": 389,
+            "end_line": 389,
+            "count": 63
           },
           {
             "type": "loc",
-            "start_line": 399,
-            "end_line": 399,
-            "count": 4
-          },
-          {
-            "type": "loc",
-            "start_line": 400,
-            "end_line": 400,
-            "count": 3
+            "start_line": 390,
+            "end_line": 390,
+            "count": 80
           },
           {
             "type": "loc",
             "start_line": 402,
             "end_line": 402,
-            "count": 70
+            "count": 74
           },
           {
             "type": "loc",
             "start_line": 403,
             "end_line": 403,
-            "count": 73
+            "count": 74
           },
           {
             "type": "loc",
             "start_line": 404,
             "end_line": 404,
-            "count": 73
+            "count": 74
           },
           {
             "type": "loc",
             "start_line": 405,
             "end_line": 405,
-            "count": 5
+            "count": 74
           },
           {
             "type": "loc",
             "start_line": 406,
             "end_line": 406,
-            "count": 4
+            "count": 74
           },
           {
             "type": "loc",
             "start_line": 407,
             "end_line": 407,
-            "count": 4
+            "count": 74
           },
           {
             "type": "loc",
             "start_line": 408,
             "end_line": 408,
-            "count": 3
+            "count": 4
+          },
+          {
+            "type": "loc",
+            "start_line": 409,
+            "end_line": 409,
+            "count": 4
           },
           {
             "type": "loc",
             "start_line": 410,
             "end_line": 410,
-            "count": 1
+            "count": 3
+          },
+          {
+            "type": "loc",
+            "start_line": 412,
+            "end_line": 412,
+            "count": 70
           },
           {
             "type": "loc",
             "start_line": 413,
             "end_line": 413,
-            "count": 72
+            "count": 73
           },
           {
             "type": "loc",
             "start_line": 414,
             "end_line": 414,
-            "count": 74
+            "count": 73
+          },
+          {
+            "type": "loc",
+            "start_line": 415,
+            "end_line": 415,
+            "count": 5
+          },
+          {
+            "type": "loc",
+            "start_line": 416,
+            "end_line": 416,
+            "count": 4
           },
           {
             "type": "loc",
@@ -8941,85 +8947,67 @@
             "type": "loc",
             "start_line": 418,
             "end_line": 418,
-            "count": 4
-          },
-          {
-            "type": "loc",
-            "start_line": 419,
-            "end_line": 419,
-            "count": 5
+            "count": 3
           },
           {
             "type": "loc",
             "start_line": 420,
             "end_line": 420,
+            "count": 1
+          },
+          {
+            "type": "loc",
+            "start_line": 423,
+            "end_line": 423,
+            "count": 72
+          },
+          {
+            "type": "loc",
+            "start_line": 424,
+            "end_line": 424,
+            "count": 74
+          },
+          {
+            "type": "loc",
+            "start_line": 427,
+            "end_line": 427,
+            "count": 4
+          },
+          {
+            "type": "loc",
+            "start_line": 428,
+            "end_line": 428,
+            "count": 4
+          },
+          {
+            "type": "loc",
+            "start_line": 429,
+            "end_line": 429,
             "count": 5
           },
           {
             "type": "loc",
-            "start_line": 421,
-            "end_line": 421,
+            "start_line": 430,
+            "end_line": 430,
+            "count": 5
+          },
+          {
+            "type": "loc",
+            "start_line": 431,
+            "end_line": 431,
             "count": 4
           },
           {
             "type": "loc",
-            "start_line": 422,
-            "end_line": 422,
+            "start_line": 432,
+            "end_line": 432,
             "count": 4
           },
           {
             "type": "loc",
-            "start_line": 433,
-            "end_line": 433,
+            "start_line": 443,
+            "end_line": 443,
             "count": 98
-          },
-          {
-            "type": "loc",
-            "start_line": 434,
-            "end_line": 434,
-            "count": 98
-          },
-          {
-            "type": "loc",
-            "start_line": 435,
-            "end_line": 435,
-            "count": 98
-          },
-          {
-            "type": "loc",
-            "start_line": 436,
-            "end_line": 436,
-            "count": 98
-          },
-          {
-            "type": "loc",
-            "start_line": 437,
-            "end_line": 437,
-            "count": 98
-          },
-          {
-            "type": "loc",
-            "start_line": 438,
-            "end_line": 438,
-            "count": 98
-          },
-          {
-            "type": "loc",
-            "start_line": 439,
-            "end_line": 439,
-            "count": 98
-          },
-          {
-            "type": "loc",
-            "start_line": 440,
-            "end_line": 440,
-            "count": 8
-          },
-          {
-            "type": "loc",
-            "start_line": 442,
-            "end_line": 442,
-            "count": 90
           },
           {
             "type": "loc",
@@ -9047,21 +9035,27 @@
           },
           {
             "type": "loc",
+            "start_line": 448,
+            "end_line": 448,
+            "count": 98
+          },
+          {
+            "type": "loc",
             "start_line": 449,
             "end_line": 449,
-            "count": 0
+            "count": 98
           },
           {
             "type": "loc",
             "start_line": 450,
             "end_line": 450,
-            "count": 0
+            "count": 8
           },
           {
             "type": "loc",
-            "start_line": 451,
-            "end_line": 451,
-            "count": 0
+            "start_line": 452,
+            "end_line": 452,
+            "count": 90
           },
           {
             "type": "loc",
@@ -9071,111 +9065,99 @@
           },
           {
             "type": "loc",
-            "start_line": 457,
-            "end_line": 457,
-            "count": 118
+            "start_line": 455,
+            "end_line": 455,
+            "count": 98
           },
           {
             "type": "loc",
-            "start_line": 458,
-            "end_line": 458,
-            "count": 118
+            "start_line": 456,
+            "end_line": 456,
+            "count": 98
+          },
+          {
+            "type": "loc",
+            "start_line": 457,
+            "end_line": 457,
+            "count": 98
           },
           {
             "type": "loc",
             "start_line": 459,
             "end_line": 459,
-            "count": 118
+            "count": 0
           },
           {
             "type": "loc",
             "start_line": 460,
             "end_line": 460,
-            "count": 118
+            "count": 0
           },
           {
             "type": "loc",
             "start_line": 461,
             "end_line": 461,
-            "count": 118
-          },
-          {
-            "type": "loc",
-            "start_line": 462,
-            "end_line": 462,
-            "count": 118
-          },
-          {
-            "type": "loc",
-            "start_line": 463,
-            "end_line": 463,
-            "count": 118
+            "count": 0
           },
           {
             "type": "loc",
             "start_line": 464,
             "end_line": 464,
-            "count": 118
+            "count": 98
           },
           {
             "type": "loc",
-            "start_line": 465,
-            "end_line": 465,
+            "start_line": 467,
+            "end_line": 467,
             "count": 118
           },
           {
             "type": "loc",
             "start_line": 468,
             "end_line": 468,
-            "count": 8
+            "count": 118
           },
           {
             "type": "loc",
             "start_line": 469,
             "end_line": 469,
-            "count": 8
+            "count": 118
           },
           {
             "type": "loc",
             "start_line": 470,
             "end_line": 470,
-            "count": 8
+            "count": 118
           },
           {
             "type": "loc",
             "start_line": 471,
             "end_line": 471,
-            "count": 8
+            "count": 118
           },
           {
             "type": "loc",
             "start_line": 472,
             "end_line": 472,
-            "count": 8
+            "count": 118
           },
           {
             "type": "loc",
             "start_line": 473,
             "end_line": 473,
-            "count": 8
+            "count": 118
           },
           {
             "type": "loc",
             "start_line": 474,
             "end_line": 474,
-            "count": 8
+            "count": 118
           },
           {
             "type": "loc",
             "start_line": 475,
             "end_line": 475,
-            "count": 7
-          },
-          {
-            "type": "loc",
-            "start_line": 476,
-            "end_line": 476,
-            "count": 1
+            "count": 118
           },
           {
             "type": "loc",
@@ -9185,98 +9167,152 @@
           },
           {
             "type": "loc",
+            "start_line": 479,
+            "end_line": 479,
+            "count": 8
+          },
+          {
+            "type": "loc",
+            "start_line": 480,
+            "end_line": 480,
+            "count": 8
+          },
+          {
+            "type": "loc",
             "start_line": 481,
             "end_line": 481,
-            "count": 9
+            "count": 8
           },
           {
             "type": "loc",
             "start_line": 482,
             "end_line": 482,
-            "count": 9
+            "count": 8
           },
           {
             "type": "loc",
             "start_line": 483,
             "end_line": 483,
-            "count": 7
+            "count": 8
           },
           {
             "type": "loc",
             "start_line": 484,
             "end_line": 484,
-            "count": 4
+            "count": 8
           },
           {
             "type": "loc",
             "start_line": 485,
             "end_line": 485,
-            "count": 4
+            "count": 7
           },
           {
             "type": "loc",
             "start_line": 486,
             "end_line": 486,
-            "count": 7
+            "count": 1
           },
           {
             "type": "loc",
-            "start_line": 487,
-            "end_line": 487,
-            "count": 9
+            "start_line": 488,
+            "end_line": 488,
+            "count": 8
           },
           {
             "type": "loc",
             "start_line": 491,
             "end_line": 491,
-            "count": 0
+            "count": 9
           },
           {
             "type": "loc",
             "start_line": 492,
             "end_line": 492,
-            "count": 0
+            "count": 9
           },
           {
             "type": "loc",
             "start_line": 493,
             "end_line": 493,
-            "count": 0
+            "count": 7
           },
           {
             "type": "loc",
             "start_line": 494,
             "end_line": 494,
-            "count": 0
+            "count": 4
           },
           {
             "type": "loc",
             "start_line": 495,
             "end_line": 495,
-            "count": 0
+            "count": 4
           },
           {
             "type": "loc",
             "start_line": 496,
             "end_line": 496,
-            "count": 0
+            "count": 7
           },
           {
             "type": "loc",
             "start_line": 497,
             "end_line": 497,
+            "count": 9
+          },
+          {
+            "type": "loc",
+            "start_line": 501,
+            "end_line": 501,
             "count": 0
           },
           {
             "type": "loc",
-            "start_line": 498,
-            "end_line": 498,
+            "start_line": 502,
+            "end_line": 502,
             "count": 0
           },
           {
             "type": "loc",
-            "start_line": 499,
-            "end_line": 499,
+            "start_line": 503,
+            "end_line": 503,
+            "count": 0
+          },
+          {
+            "type": "loc",
+            "start_line": 504,
+            "end_line": 504,
+            "count": 0
+          },
+          {
+            "type": "loc",
+            "start_line": 505,
+            "end_line": 505,
+            "count": 0
+          },
+          {
+            "type": "loc",
+            "start_line": 506,
+            "end_line": 506,
+            "count": 0
+          },
+          {
+            "type": "loc",
+            "start_line": 507,
+            "end_line": 507,
+            "count": 0
+          },
+          {
+            "type": "loc",
+            "start_line": 508,
+            "end_line": 508,
+            "count": 0
+          },
+          {
+            "type": "loc",
+            "start_line": 509,
+            "end_line": 509,
             "count": 0
           }
         ]
@@ -9292,13 +9328,13 @@
             "type": "loc",
             "start_line": 7,
             "end_line": 7,
-            "count": 79
+            "count": 83
           },
           {
             "type": "loc",
             "start_line": 8,
             "end_line": 8,
-            "count": 79
+            "count": 83
           }
         ]
       },
@@ -9964,7 +10000,7 @@
             "type": "loc",
             "start_line": 13,
             "end_line": 13,
-            "count": 5227
+            "count": 4860
           },
           {
             "type": "loc",
@@ -70060,6 +70096,6 @@
       }
     ]
   },
-  "test_execution_time": 8000000000,
-  "timestamp": "2026-07-19T13:20:46.042232277Z"
+  "test_execution_time": 6000000000,
+  "timestamp": "2026-07-19T13:32:04.724029317Z"
 }
