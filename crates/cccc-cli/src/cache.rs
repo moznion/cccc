@@ -598,6 +598,51 @@ mod tests {
     }
 
     #[test]
+    fn git_blob_sha1_agrees_with_git_hash_object() {
+        // Differential check against the installed git, over content shapes
+        // the fixed vectors above don't cover: multibyte UTF-8, CRLF, NUL
+        // bytes, and a multi-KB buffer (exercises sha1 block handling).
+        let git_hash_object = |bytes: &[u8]| -> String {
+            use std::io::Write;
+            let mut child = std::process::Command::new("git")
+                .args(["hash-object", "--stdin"])
+                .stdin(std::process::Stdio::piped())
+                .stdout(std::process::Stdio::piped())
+                .spawn()
+                .unwrap();
+            child.stdin.take().unwrap().write_all(bytes).unwrap();
+            let out = child.wait_with_output().unwrap();
+            assert!(out.status.success(), "git hash-object failed");
+            String::from_utf8(out.stdout)
+                .unwrap()
+                .trim_end()
+                .to_string()
+        };
+        let hex = |sha: [u8; 20]| sha.iter().map(|b| format!("{b:02x}")).collect::<String>();
+
+        let mut big = Vec::with_capacity(8192);
+        for i in 0..8192u32 {
+            big.push((i.wrapping_mul(2654435761) >> 24) as u8);
+        }
+        let contents: Vec<&[u8]> = vec![
+            b"",
+            b"x",
+            "関数の複雑度 → スコア\n".as_bytes(),
+            b"line one\r\nline two\r\n",
+            b"nul\x00in the middle",
+            &big,
+        ];
+        for bytes in contents {
+            assert_eq!(
+                hex(git_blob_sha1(bytes)),
+                git_hash_object(bytes),
+                "blob SHA must match git's for {} bytes",
+                bytes.len()
+            );
+        }
+    }
+
+    #[test]
     fn git_index_vouches_for_clean_files_only() {
         let dir = std::env::temp_dir().join("cccc_cache_unit_gitindex");
         let _ = std::fs::remove_dir_all(&dir);
@@ -675,6 +720,84 @@ mod tests {
             cache.lookup(&src, "es", Some(&git)).is_none(),
             "dirty file must not hit via the stale index SHA"
         );
+
+        let _ = std::fs::remove_dir_all(&dir);
+    }
+
+    /// A file whose git blob differs from its worktree bytes (a `text`
+    /// attribute normalizes CRLF away on add) must never be vouched for by
+    /// the index: our signature hashes the raw bytes we analyzed, git's index
+    /// names the filtered blob, and the SHAs must disagree. Read permission
+    /// is dropped so the content-hash fallback can't mask a wrong git hit —
+    /// a lookup that succeeded here could only have come from the index.
+    #[cfg(unix)]
+    #[test]
+    fn filtered_file_is_never_vouched_by_the_index() {
+        use std::os::unix::fs::PermissionsExt;
+
+        let dir = std::env::temp_dir().join("cccc_cache_unit_gitfilter");
+        let _ = std::fs::remove_dir_all(&dir);
+        std::fs::create_dir_all(&dir).unwrap();
+        let dir = dir.canonicalize().unwrap();
+        let src = dir.join("a.ts");
+        std::fs::write(&src, "function f() {\r\n}\r\n").unwrap();
+        std::fs::write(dir.join(".gitattributes"), "*.ts text\n").unwrap();
+        let run_git = |args: &[&str]| {
+            assert!(
+                std::process::Command::new("git")
+                    .arg("-C")
+                    .arg(&dir)
+                    .args(["-c", "core.autocrlf=false"])
+                    .args(args)
+                    .output()
+                    .unwrap()
+                    .status
+                    .success()
+            );
+        };
+        run_git(&["init", "-q"]);
+        run_git(&["add", "."]);
+        run_git(&[
+            "-c",
+            "user.name=t",
+            "-c",
+            "user.email=t@t",
+            "commit",
+            "-q",
+            "-m",
+            "x",
+        ]);
+
+        let cache_file = dir.join("cache.bin");
+        store_one(&cache_file, &src, "es");
+        let cache = load(&cache_file).unwrap();
+
+        // The CI shape: mtime moved, content untouched, index stat-clean.
+        let bumped = std::time::SystemTime::now() - std::time::Duration::from_secs(3600);
+        std::fs::File::options()
+            .write(true)
+            .open(&src)
+            .unwrap()
+            .set_modified(bumped)
+            .unwrap();
+        run_git(&["update-index", "--refresh"]);
+        let perms = std::fs::metadata(&src).unwrap().permissions();
+        std::fs::set_permissions(&src, std::fs::Permissions::from_mode(0o000)).unwrap();
+
+        let git = LazyGitIndex::new(dir.clone());
+        assert!(
+            cache.lookup(&src, "es", Some(&git)).is_none(),
+            "the index's normalized blob SHA must not validate raw CRLF bytes"
+        );
+
+        // Positive control: with the file readable again, the content-hash
+        // fallback rescues the hit — filtered files are slower, never wrong.
+        std::fs::set_permissions(&src, perms).unwrap();
+        let git = LazyGitIndex::new(dir.clone());
+        let hit = cache
+            .lookup(&src, "es", Some(&git))
+            .expect("hash fallback still hits");
+        assert!(hit.refreshed);
 
         let _ = std::fs::remove_dir_all(&dir);
     }

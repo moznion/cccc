@@ -933,6 +933,83 @@ fn cache_git_index_skips_revalidation() {
     let _ = std::fs::remove_dir_all(&dir);
 }
 
+/// End-to-end pin of the git-index path: after an mtime-only change, the run
+/// must produce the cold output even when the source file is unreadable.
+/// Neither the content-hash fallback nor re-analysis can open the file, so a
+/// successful, identical run proves the entry was validated off git's blob
+/// SHA alone — i.e. cccc's own blob-SHA computation agrees with git's.
+#[cfg(unix)]
+#[test]
+fn cache_git_index_validates_unreadable_file() {
+    use std::os::unix::fs::PermissionsExt;
+
+    let dir = std::env::temp_dir().join("cccc_cache_git_unreadable_cli_test");
+    let _ = std::fs::remove_dir_all(&dir);
+    std::fs::create_dir_all(&dir).unwrap();
+    // git resolves symlinks in --show-toplevel (macOS /tmp); agree with it.
+    let dir = dir.canonicalize().unwrap();
+    let src = dir.join("sample.ts");
+    std::fs::copy("tests/fixtures/sample.ts", &src).unwrap();
+    let git = |args: &[&str]| {
+        assert!(
+            std::process::Command::new("git")
+                .arg("-C")
+                .arg(&dir)
+                .args(args)
+                .output()
+                .unwrap()
+                .status
+                .success()
+        );
+    };
+    git(&["init", "-q"]);
+    git(&["add", "sample.ts"]);
+    git(&[
+        "-c",
+        "user.name=t",
+        "-c",
+        "user.email=t@t",
+        "commit",
+        "-q",
+        "-m",
+        "x",
+    ]);
+    let cache = dir.join("cache.bin");
+
+    let run = || {
+        let out = Command::cargo_bin("cccc")
+            .unwrap()
+            .args(["--no-config", "--cache-file"])
+            .arg(&cache)
+            .arg(&dir)
+            .assert()
+            .success();
+        String::from_utf8(out.get_output().stdout.clone()).unwrap()
+    };
+
+    let cold = run();
+    // The CI shape: mtime moved (into the past — a future mtime trips git's
+    // racy-clean re-read), content untouched, index stat-clean.
+    std::fs::File::options()
+        .write(true)
+        .open(&src)
+        .unwrap()
+        .set_modified(std::time::SystemTime::now() - std::time::Duration::from_secs(3600))
+        .unwrap();
+    git(&["update-index", "--refresh"]);
+    let perms = std::fs::metadata(&src).unwrap().permissions();
+    std::fs::set_permissions(&src, std::fs::Permissions::from_mode(0o000)).unwrap();
+
+    assert_eq!(
+        run(),
+        cold,
+        "an unreadable, git-clean file must be served from the cache via the index"
+    );
+
+    std::fs::set_permissions(&src, perms).unwrap();
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
 #[test]
 fn no_cache_flag_disables_config_enabled_cache() {
     let dir = std::env::temp_dir().join("cccc_no_cache_cli_test");
