@@ -157,10 +157,12 @@ verify-then-time script). Build cccc with `cargo build --release`; install scc
 
 # Benchmark: the results cache (`--cache`)
 
-The results cache reuses the previous run's per-file scores for files whose
-size/mtime are unchanged (still validated per entry against the analyzing
-language and the cccc version), re-analyzing only what changed. These numbers
-size what that buys on real monorepos, per language front-end.
+The results cache reuses the previous run's per-file scores for unchanged
+files (still validated per entry against the analyzing language and the cccc
+version), re-analyzing only what changed. As first shipped, "unchanged" meant
+size/mtime alone; the update at the end of this file reworks validation to
+survive mtime churn (a fresh CI checkout, a branch switch). These numbers
+size what the cache buys on real monorepos, per language front-end.
 
 ## Corpora
 
@@ -230,4 +232,83 @@ target/release/cccc --no-config /tmp/k8s > /dev/null
 # populate, then warm
 target/release/cccc --no-config --cache-file /tmp/k8s.cache /tmp/k8s > /dev/null
 target/release/cccc --no-config --cache-file /tmp/k8s.cache /tmp/k8s > /dev/null
+```
+
+## Update (2026-07-19): validation reworked — stat, then git's index, then the blob SHA
+
+The size/mtime check above has a blind spot: anything that rewrites mtimes
+without changing content. The big one is CI — `git clone`/`actions/checkout`
+stamp every file with the checkout time, so a cache restored by
+`actions/cache` would never hit. Measured with every mtime bumped but no
+content changed, the mtime-only cache was **worse than no cache at all**: it
+re-analyzed everything *and* rewrote the whole cache file — vscode 127.5 ms
+vs 107.8 ms cold, postgres 576.6 ms vs 544.5 ms cold.
+
+Validation is now a cheapest-first chain (details in the README and
+`cache.rs`). Each entry stores size, mtime, and the SHA-1 git would name a
+blob of the content — computed by cccc from the bytes it analyzed, never
+taken on faith from git, so every check is content-to-content and it never
+matters which commit (or how stale a run) a restored cache came from:
+
+1. **stat** — size+mtime match: trusted with no read (the local fast path).
+2. **git's index** — mtime moved but git calls the file clean and the
+   index's blob SHA matches the stored one: still no read. One
+   `git ls-files -s`/`git status` pair answers for the whole tree. git is
+   consulted lazily, only after some stat check failed — an all-stat-hit
+   run doesn't even spawn it (an eager-spawn draft cost 15–30 ms of `git
+   status` contention on big trees) — except under `CI=…`, where it starts
+   ahead of file discovery to hide its latency.
+3. **blob SHA re-derived from the bytes** — the final authority, for
+   whatever git can't vouch: dirty/untracked files, non-git trees, filtered
+   (e.g. CRLF-normalized) files, any git failure at all.
+
+A hit via 2 or 3 persists the refreshed mtime, so churn converges to stat
+hits after one run. On the choice of hash: candidates were benchmarked at
+~48 GB/s (xxh3-128), ~12 GB/s (hw CRC32), and ~1.3 GB/s (SHA-1), but the
+re-derive path is I/O-bound — ~0.6–1.5 GB/s effective including opens — so
+even the slowest never reaches the wall clock, and the SHA-1 git already
+requires is the only candidate that also serves the index check. One
+content identity, one hash dependency (`sha1_smol`).
+
+### Results
+
+Corpora as above, except vscode: fixing this machine's partial LFS checkout
+grew that tree to its true size, **12,301 analyzed files** (earlier sections
+measured the 2,976-file subset; their numbers remain internally consistent).
+Same machine and method (median of 5 after 1 warmup, stdout to `/dev/null`).
+"CI churn" bumps every mtime and re-syncs git's stat cache before each run —
+the state `actions/checkout` leaves — with `CI=true`; "hash only" is the
+same churn with git made unavailable; "local churn" is a branch-switch-like
+state without `CI` (git started on demand):
+
+| Corpus | cold | warm (stat) | CI churn, git | CI churn, hash only | local churn, git |
+|--------|-----:|------------:|--------------:|--------------------:|-----------------:|
+| vscode (TS/JS, 12,301) | 345.0 | 149.1 | **225.3** | 399.9 | 259.6 |
+| kubernetes (Go, 17,518) | 992.7 | 181.7 | **307.2** | 651.6 | 364.2 |
+| postgres (C, 2,954) | 525.3 | 33.6 | **56.2** | 92.9 | 75.0 |
+
+Reading it:
+
+- **CI goes from net-negative to a real win**: 1.5× (vscode — oxc parses
+  nearly as fast as re-validating), 3.2× (kubernetes), 9.3× (postgres)
+  faster than cold, and 1.7–2.1× faster than re-hashing the tree.
+- **A fully warm local run pays exactly nothing for any of it**: stat hits
+  never read a file and never consult (or spawn) git — warm medians measure
+  equal with git present or absent.
+- **Local mtime churn benefits too**: a branch switch validates off git on
+  demand and still beats re-hashing the tree.
+- Outputs stay byte-for-byte identical to cold runs in every scenario
+  (verified on all three corpora before timing), and churn converges: the
+  run after the rewrite is back to pure stat hits with no cache write.
+
+### Reproduce
+
+```sh
+cargo build --release
+git clone --depth 1 https://github.com/kubernetes/kubernetes /tmp/k8s
+target/release/cccc --no-config --cache-file /tmp/k8s.cache /tmp/k8s > /dev/null  # populate
+# Emulate a fresh CI checkout: bump every mtime, re-sync git's stat cache.
+find /tmp/k8s -type f -not -path '*/.git/*' -print0 | xargs -0 touch
+git -C /tmp/k8s update-index --refresh -q
+CI=true target/release/cccc --no-config --cache-file /tmp/k8s.cache /tmp/k8s > /dev/null
 ```

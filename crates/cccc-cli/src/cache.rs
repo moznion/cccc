@@ -2,11 +2,21 @@
 //!
 //! Analysis is a pure function of a file's content and the language front-end
 //! that handles it, so a cached [`FileReport`] can be reused as long as neither
-//! changed. An entry is validated by (size, mtime) — stat-level checks, no file
-//! read — plus the canonical name of the language that produced it (extension
-//! re-routing via `--ext`/`[ext]` must not resurface another language's scores).
-//! The whole cache is stamped with the cccc version, since counting rules can
-//! change between releases.
+//! changed. Validation is hybrid, the way git's index does it: an entry stores
+//! the file's size, mtime, and the SHA-1 git would name a blob of its content.
+//! When size and mtime both match, the entry is trusted on the stat alone — no
+//! file read. When the mtime moved but the size didn't, that one content
+//! identity is checked by whichever route is cheapest: in a git worktree, a
+//! churned file that git's own index calls clean is validated against the
+//! index's blob SHA without reading it (see [`GitIndex`]); otherwise the file
+//! is read and its blob SHA re-derived. Either way a match is still a hit (the
+//! content is what was analyzed), and the entry's mtime is refreshed so the
+//! next run stat-hits again. This keeps warm local runs at stat speed while
+//! surviving mtime churn — a fresh `git clone` in CI, a branch switch, a
+//! `touch`. Each entry also records the canonical name of the language that
+//! produced it (extension re-routing via `--ext`/`[ext]` must not resurface
+//! another language's scores), and the whole cache is stamped with the cccc
+//! version, since counting rules can change between releases.
 //!
 //! ## File layout
 //!
@@ -25,7 +35,8 @@
 //! skipped field shifts every later byte of the stream).
 
 use std::collections::HashMap;
-use std::path::Path;
+use std::path::{Path, PathBuf};
+use std::time::UNIX_EPOCH;
 
 use rayon::prelude::*;
 
@@ -34,13 +45,224 @@ use cccc_core::report::{FileReport, FunctionReport};
 /// Entries are only valid for the exact version that wrote them.
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 
+/// Validation signature for one file: stat facts for the cheap check, and
+/// the content's git blob SHA as ground truth when the mtime has moved. One
+/// content identity serves both slow paths: the git index compares it
+/// without reading the file (see [`git_index`]), the fallback re-derives it
+/// from the bytes.
+#[derive(Clone, Copy, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
+pub struct Sig {
+    size: u64,
+    mtime_ns: u128,
+    blob_sha: [u8; 20],
+}
+
+/// The signature of content `bytes` observed at `mtime_ns`.
+pub fn sig_for(bytes: &[u8], mtime_ns: u128) -> Sig {
+    Sig {
+        size: bytes.len() as u64,
+        mtime_ns,
+        blob_sha: git_blob_sha1(bytes),
+    }
+}
+
+/// The SHA-1 git would name a blob holding `bytes` — computed here from the
+/// bytes themselves, so a stored signature never depends on git having been
+/// right about a file at store time.
+fn git_blob_sha1(bytes: &[u8]) -> [u8; 20] {
+    let mut h = sha1_smol::Sha1::new();
+    h.update(format!("blob {}\0", bytes.len()).as_bytes());
+    h.update(bytes);
+    h.digest().bytes()
+}
+
+/// Blob SHAs of the clean tracked files under one git worktree: what each
+/// file's content is, answered from git's own index without reading the file.
+///
+/// A fresh CI checkout resets every mtime, which would push the whole tree
+/// onto the content-hash fallback. But that checkout also wrote git's index,
+/// which already names each file's blob — and `git status` confirms, by stat,
+/// which files still match it. A lookup whose stat check failed on the mtime
+/// alone and whose stored blob SHA matches the index's is a hit without
+/// reading the file.
+///
+/// Trust runs content-to-content: stored SHAs are computed by cccc from the
+/// analyzed bytes (see [`sig_for`]), and the index vouches for the checked-out
+/// bytes, so a match never assumes the cache and the checkout describe the
+/// same commit. Files git reports dirty are dropped from the map, and any git
+/// failure — no repository, no git binary, a SHA-256 repository — yields
+/// `None`; both just fall back to stat/hash validation.
+pub struct GitIndex {
+    shas: HashMap<PathBuf, [u8; 20]>,
+}
+
+impl GitIndex {
+    /// The index's blob SHA for `path`, if it is a clean tracked file.
+    fn sha_of(&self, path: &Path) -> Option<[u8; 20]> {
+        self.shas.get(&std::path::absolute(path).ok()?).copied()
+    }
+}
+
+/// A [`GitIndex`] materialized only if a lookup actually needs it.
+/// Stat-validated hits never consult git, so a fully warm local run pays
+/// nothing — not even the subprocesses, whose `git status` is a stat pass
+/// over the whole tree that would contend with our own.
+///
+/// Under `CI=…` (every major CI service sets it) the subprocesses instead
+/// start eagerly on a background thread: there the checkout has reset every
+/// mtime, git is needed with near-certainty, and starting it before file
+/// discovery hides its latency entirely. Either way, the first lookup that
+/// sees a moved mtime waits for the answer — its alternative was reading and
+/// hashing the file, strictly more work than the wait once amortized over
+/// every churned file.
+pub struct LazyGitIndex {
+    index: std::sync::OnceLock<Option<GitIndex>>,
+    source: std::sync::Mutex<Option<GitIndexSource>>,
+}
+
+enum GitIndexSource {
+    /// Not started; the worktree root to read if anyone asks.
+    Pending(PathBuf),
+    /// Already reading on a background thread (the CI path).
+    Running(std::thread::JoinHandle<Option<GitIndex>>),
+}
+
+impl LazyGitIndex {
+    /// Prepare to read the git index of the worktree containing `root`.
+    pub fn new(root: PathBuf) -> Self {
+        let source = if std::env::var("CI").is_ok_and(|v| !v.is_empty() && v != "false") {
+            GitIndexSource::Running(std::thread::spawn(move || git_index(&root)))
+        } else {
+            GitIndexSource::Pending(root)
+        };
+        Self {
+            index: std::sync::OnceLock::new(),
+            source: std::sync::Mutex::new(Some(source)),
+        }
+    }
+
+    fn get(&self) -> Option<&GitIndex> {
+        self.index
+            .get_or_init(
+                || match self.source.lock().ok().and_then(|mut s| s.take())? {
+                    GitIndexSource::Pending(root) => git_index(&root),
+                    GitIndexSource::Running(handle) => handle.join().ok().flatten(),
+                },
+            )
+            .as_ref()
+    }
+}
+
+impl Drop for LazyGitIndex {
+    /// Reap an eagerly-started thread nobody awaited. Letting it run into
+    /// process exit is observable: under coverage instrumentation the
+    /// profile dump races the thread's counter updates, producing corrupt
+    /// (negative) counts that break LCOV consumers.
+    fn drop(&mut self) {
+        if let Ok(mut source) = self.source.lock()
+            && let Some(GitIndexSource::Running(handle)) = source.take()
+        {
+            let _ = handle.join();
+        }
+    }
+}
+
+/// Read the git index of the worktree containing `root`.
+pub fn git_index(root: &Path) -> Option<GitIndex> {
+    let toplevel = PathBuf::from(git(root, &["rev-parse", "--show-toplevel"])?.trim_end());
+    // `ls-files -s`: "<mode> <sha> <stage>\t<path>", NUL-terminated. Keep
+    // regular blobs at stage 0: gitlinks and symlinks aren't analyzable files,
+    // a nonzero stage is an unmerged path, and a SHA that isn't 40 hex digits
+    // means a SHA-256 repository, whose blob names can never match ours.
+    let mut shas = HashMap::new();
+    for entry in git(root, &["ls-files", "-s", "-z"])?
+        .split('\0')
+        .filter(|e| !e.is_empty())
+    {
+        let Some((meta, path)) = entry.split_once('\t') else {
+            continue;
+        };
+        let mut fields = meta.split(' ');
+        let (Some(mode), Some(sha), Some("0")) = (fields.next(), fields.next(), fields.next())
+        else {
+            continue;
+        };
+        if !mode.starts_with("100") {
+            continue;
+        }
+        let Some(sha) = decode_sha1(sha) else {
+            continue;
+        };
+        shas.insert(toplevel.join(path), sha);
+    }
+    // `status --porcelain -z`: "XY <path>", NUL-terminated. Anything listed is
+    // not clean; whatever the reason, its index SHA can't be trusted.
+    for entry in git(
+        root,
+        &["status", "--porcelain", "-z", "-uno", "--no-renames"],
+    )?
+    .split('\0')
+    .filter(|e| !e.is_empty())
+    {
+        let Some(path) = entry.get(3..) else { continue };
+        shas.remove(&toplevel.join(path));
+    }
+    Some(GitIndex { shas })
+}
+
+/// Run git in `dir` and return its stdout, `None` on any failure.
+fn git(dir: &Path, args: &[&str]) -> Option<String> {
+    let out = std::process::Command::new("git")
+        .arg("-C")
+        .arg(dir)
+        .args(args)
+        .stderr(std::process::Stdio::null())
+        .output()
+        .ok()?;
+    if !out.status.success() {
+        return None;
+    }
+    String::from_utf8(out.stdout).ok()
+}
+
+fn decode_sha1(hex: &str) -> Option<[u8; 20]> {
+    let hex = hex.as_bytes();
+    if hex.len() != 40 {
+        return None;
+    }
+    let mut out = [0u8; 20];
+    for (i, b) in out.iter_mut().enumerate() {
+        let hi = (hex[2 * i] as char).to_digit(16)?;
+        let lo = (hex[2 * i + 1] as char).to_digit(16)?;
+        *b = (hi * 16 + lo) as u8;
+    }
+    Some(out)
+}
+
+/// The mtime of `path` in nanoseconds since the epoch. Callers that go on to
+/// read the file should stat first: if the file changes in between, the stored
+/// mtime is then older than the analyzed content, and the staleness is caught
+/// by the next run's hash check instead of masking the newer content.
+pub fn mtime_ns(path: &Path) -> Option<u128> {
+    mtime_of(&std::fs::metadata(path).ok()?)
+}
+
+fn mtime_of(md: &std::fs::Metadata) -> Option<u128> {
+    Some(
+        md.modified()
+            .ok()?
+            .duration_since(UNIX_EPOCH)
+            .ok()?
+            .as_nanos(),
+    )
+}
+
 /// Validation signature plus blob location for one cached file.
 #[derive(serde::Serialize, serde::Deserialize)]
 struct IndexEntry {
     /// Canonical name of the language that analyzed the file.
     lang: String,
-    size: u64,
-    mtime_ns: u128,
+    sig: Sig,
     offset: u64,
     len: u64,
 }
@@ -64,6 +286,16 @@ struct CacheReport {
     cyclomatic: u32,
     functions: Vec<CacheFun>,
     parse_errors: Vec<String>,
+}
+
+/// A cache hit: the reusable report and the file's current signature.
+/// `refreshed` marks a hit that went through the content check — the stored
+/// mtime is stale, so the cache file should be rewritten with `sig` to make
+/// the next run stat-hit instead of hashing again.
+pub struct Hit {
+    pub report: FileReport,
+    pub sig: Sig,
+    pub refreshed: bool,
 }
 
 /// A loaded cache: the lookup index plus the raw, still-encoded entry blobs.
@@ -94,12 +326,50 @@ impl Cache {
     }
 
     /// The cached report for `path`, if the file still matches its recorded
-    /// signature and is still analyzed by `lang`.
-    pub fn lookup(&self, path: &Path, lang: &str) -> Option<FileReport> {
+    /// signature — by stat, by git's index, or by re-hashing the content
+    /// when only the mtime moved — and is still analyzed by `lang`.
+    pub fn lookup(&self, path: &Path, lang: &str, git: Option<&LazyGitIndex>) -> Option<Hit> {
         let entry = self.index.get(&path.display().to_string())?;
-        if entry.lang != lang || file_sig(path)? != (entry.size, entry.mtime_ns) {
+        if entry.lang != lang {
             return None;
         }
+        let md = std::fs::metadata(path).ok()?;
+        if md.len() != entry.sig.size {
+            return None;
+        }
+        let mtime = mtime_of(&md)?;
+        let sig = if mtime == entry.sig.mtime_ns {
+            entry.sig
+        } else if git.and_then(|g| g.get()).and_then(|g| g.sha_of(path)) == Some(entry.sig.blob_sha)
+        {
+            // The mtime moved but git's index vouches that the file still
+            // holds the very blob we analyzed — no read needed. (Only now is
+            // the git subprocess awaited: an all-stat-hit run never blocks
+            // on it.)
+            Sig {
+                mtime_ns: mtime,
+                ..entry.sig
+            }
+        } else {
+            // The mtime moved (checkout, touch, rewrite-in-place) and git has
+            // nothing to say; re-derive the blob SHA from the bytes. Size is
+            // re-checked from those bytes too, in case the file changed again
+            // between the stat and the read.
+            let sig = sig_for(&std::fs::read(path).ok()?, mtime);
+            if sig.size != entry.sig.size || sig.blob_sha != entry.sig.blob_sha {
+                return None;
+            }
+            sig
+        };
+        Some(Hit {
+            report: self.decode(entry)?,
+            refreshed: sig.mtime_ns != entry.sig.mtime_ns,
+            sig,
+        })
+    }
+
+    /// Decode `entry`'s blob into its report.
+    fn decode(&self, entry: &IndexEntry) -> Option<FileReport> {
         let blob = self
             .blobs
             .get(entry.offset as usize..(entry.offset + entry.len) as usize)?;
@@ -108,27 +378,27 @@ impl Cache {
     }
 }
 
-/// Write a fresh cache for `reports` to `path`, replacing any previous file.
-/// `lang_for` names the language that analyzed a path (entries it can't name
-/// are simply not cached). Encoding fans out on the current rayon pool; a
-/// failed write only costs the next run its warm start, so it warns rather
-/// than failing the process.
+/// Write a fresh cache for `entries` to `path`, replacing any previous file.
+/// Signatures come from the caller — hashed from bytes it already had in
+/// memory, never by re-reading here — and an entry without one (its read-time
+/// stat failed), or whose language `lang_for` can't name, is simply not
+/// cached. Encoding fans out on the current rayon pool; a failed write only
+/// costs the next run its warm start, so it warns rather than failing the
+/// process.
 pub fn store(
     path: &Path,
-    reports: &[FileReport],
+    entries: &[(FileReport, Option<Sig>)],
     lang_for: &(dyn Fn(&Path) -> Option<&'static str> + Sync),
 ) {
-    let encoded: Vec<(String, IndexEntry, Vec<u8>)> = reports
+    let encoded: Vec<(String, IndexEntry, Vec<u8>)> = entries
         .par_iter()
-        .filter_map(|r| {
-            let file = Path::new(&r.path);
-            let lang = lang_for(file)?;
-            let (size, mtime_ns) = file_sig(file)?;
+        .filter_map(|(r, sig)| {
+            let sig = (*sig)?;
+            let lang = lang_for(Path::new(&r.path))?;
             let blob = bincode::serialize(&to_cache(r)).ok()?;
             let entry = IndexEntry {
                 lang: lang.to_string(),
-                size,
-                mtime_ns,
+                sig,
                 offset: 0, // fixed up below, once concatenation order is known
                 len: blob.len() as u64,
             };
@@ -158,18 +428,6 @@ pub fn store(
             path.display()
         ));
     }
-}
-
-/// Stat `path` into its cache-validation signature.
-fn file_sig(path: &Path) -> Option<(u64, u128)> {
-    let md = std::fs::metadata(path).ok()?;
-    let mtime = md
-        .modified()
-        .ok()?
-        .duration_since(std::time::UNIX_EPOCH)
-        .ok()?
-        .as_nanos();
-    Some((md.len(), mtime))
 }
 
 fn to_cache_funs(fns: &[FunctionReport]) -> Vec<CacheFun> {
@@ -246,6 +504,16 @@ mod tests {
         }
     }
 
+    /// Store a one-entry cache for `src`, signed off its current content.
+    fn store_one(cache_file: &Path, src: &Path, lang: &'static str) {
+        let sig = sig_for(&std::fs::read(src).unwrap(), mtime_ns(src).unwrap());
+        store(
+            cache_file,
+            &[(sample_report(&src.display().to_string()), Some(sig))],
+            &move |_| Some(lang),
+        );
+    }
+
     #[test]
     fn roundtrip_hits_for_unchanged_file() {
         let dir = std::env::temp_dir().join("cccc_cache_unit_roundtrip");
@@ -254,14 +522,14 @@ mod tests {
         std::fs::write(&src, "function f() {}").unwrap();
         let cache_file = dir.join("cache.bin");
 
-        let report = sample_report(&src.display().to_string());
-        store(&cache_file, &[report], &|_| Some("es"));
+        store_one(&cache_file, &src, "es");
 
         let cache = load(&cache_file).expect("cache loads");
-        let hit = cache.lookup(&src, "es").expect("unchanged file hits");
-        assert_eq!(hit.cognitive, 3);
-        assert_eq!(hit.functions[0].children[0].name, "g");
-        assert_eq!(hit.parse_errors, vec!["boom".to_string()]);
+        let hit = cache.lookup(&src, "es", None).expect("unchanged file hits");
+        assert!(!hit.refreshed, "a stat hit needs no rewrite");
+        assert_eq!(hit.report.cognitive, 3);
+        assert_eq!(hit.report.functions[0].children[0].name, "g");
+        assert_eq!(hit.report.parse_errors, vec!["boom".to_string()]);
 
         let _ = std::fs::remove_dir_all(&dir);
     }
@@ -271,22 +539,280 @@ mod tests {
         let dir = std::env::temp_dir().join("cccc_cache_unit_invalidate");
         std::fs::create_dir_all(&dir).unwrap();
         let src = dir.join("a.ts");
-        std::fs::write(&src, "function f() {}").unwrap();
+        std::fs::write(&src, "function f() { return 1 }").unwrap();
         let cache_file = dir.join("cache.bin");
 
-        store(
-            &cache_file,
-            &[sample_report(&src.display().to_string())],
-            &|_| Some("es"),
-        );
+        store_one(&cache_file, &src, "es");
         let cache = load(&cache_file).unwrap();
         assert!(
-            cache.lookup(&src, "rust").is_none(),
+            cache.lookup(&src, "rust", None).is_none(),
             "other language misses"
         );
 
-        std::fs::write(&src, "function f() { return 1 }").unwrap();
-        assert!(cache.lookup(&src, "es").is_none(), "changed file misses");
+        // Same size, different content: the stat check passes on size, the
+        // hash check must still reject it.
+        std::fs::write(&src, "function f() { return 2 }").unwrap();
+        assert!(
+            cache.lookup(&src, "es", None).is_none(),
+            "same-size edit misses via hash"
+        );
+
+        std::fs::write(&src, "function f() {}").unwrap();
+        assert!(
+            cache.lookup(&src, "es", None).is_none(),
+            "resized file misses"
+        );
+
+        let _ = std::fs::remove_dir_all(&dir);
+    }
+
+    #[test]
+    fn mtime_only_change_hits_via_hash_and_refreshes() {
+        let dir = std::env::temp_dir().join("cccc_cache_unit_touch");
+        std::fs::create_dir_all(&dir).unwrap();
+        let src = dir.join("a.ts");
+        std::fs::write(&src, "function f() {}").unwrap();
+        let cache_file = dir.join("cache.bin");
+
+        store_one(&cache_file, &src, "es");
+
+        // Same bytes, new mtime — what a fresh git checkout does to every file.
+        let bumped = std::time::SystemTime::now() + std::time::Duration::from_secs(10);
+        std::fs::File::options()
+            .write(true)
+            .open(&src)
+            .unwrap()
+            .set_modified(bumped)
+            .unwrap();
+
+        let cache = load(&cache_file).unwrap();
+        let hit = cache.lookup(&src, "es", None).expect("content match hits");
+        assert!(hit.refreshed, "a hash hit asks for a rewrite");
+        assert_eq!(hit.report.cognitive, 3);
+
+        // Re-storing with the refreshed signature turns it back into a stat hit.
+        store(&cache_file, &[(hit.report, Some(hit.sig))], &|_| Some("es"));
+        let hit = load(&cache_file).unwrap().lookup(&src, "es", None).unwrap();
+        assert!(!hit.refreshed, "refreshed mtime now stat-hits");
+
+        let _ = std::fs::remove_dir_all(&dir);
+    }
+
+    #[test]
+    fn git_blob_sha1_matches_git() {
+        // `git hash-object` of an empty file and of "hello\n".
+        let hex = |sha: [u8; 20]| sha.iter().map(|b| format!("{b:02x}")).collect::<String>();
+        assert_eq!(
+            hex(git_blob_sha1(b"")),
+            "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+        );
+        assert_eq!(
+            hex(git_blob_sha1(b"hello\n")),
+            "ce013625030ba8dba906f756967f9e9ca394464a"
+        );
+    }
+
+    #[test]
+    fn git_blob_sha1_agrees_with_git_hash_object() {
+        // Differential check against the installed git, over content shapes
+        // the fixed vectors above don't cover: multibyte UTF-8, CRLF, NUL
+        // bytes, and a multi-KB buffer (exercises sha1 block handling).
+        let git_hash_object = |bytes: &[u8]| -> String {
+            use std::io::Write;
+            let mut child = std::process::Command::new("git")
+                .args(["hash-object", "--stdin"])
+                .stdin(std::process::Stdio::piped())
+                .stdout(std::process::Stdio::piped())
+                .spawn()
+                .unwrap();
+            child.stdin.take().unwrap().write_all(bytes).unwrap();
+            let out = child.wait_with_output().unwrap();
+            assert!(out.status.success(), "git hash-object failed");
+            String::from_utf8(out.stdout)
+                .unwrap()
+                .trim_end()
+                .to_string()
+        };
+        let hex = |sha: [u8; 20]| sha.iter().map(|b| format!("{b:02x}")).collect::<String>();
+
+        let mut big = Vec::with_capacity(8192);
+        for i in 0..8192u32 {
+            big.push((i.wrapping_mul(2654435761) >> 24) as u8);
+        }
+        let contents: Vec<&[u8]> = vec![
+            b"",
+            b"x",
+            "関数の複雑度 → スコア\n".as_bytes(),
+            b"line one\r\nline two\r\n",
+            b"nul\x00in the middle",
+            &big,
+        ];
+        for bytes in contents {
+            assert_eq!(
+                hex(git_blob_sha1(bytes)),
+                git_hash_object(bytes),
+                "blob SHA must match git's for {} bytes",
+                bytes.len()
+            );
+        }
+    }
+
+    #[test]
+    fn git_index_vouches_for_clean_files_only() {
+        let dir = std::env::temp_dir().join("cccc_cache_unit_gitindex");
+        let _ = std::fs::remove_dir_all(&dir);
+        std::fs::create_dir_all(&dir).unwrap();
+        // `git rev-parse --show-toplevel` resolves symlinks (macOS /tmp);
+        // canonicalize so our paths agree with git's.
+        let dir = dir.canonicalize().unwrap();
+        let src = dir.join("a.ts");
+        std::fs::write(&src, "function f() {}").unwrap();
+        let run_git = |args: &[&str]| {
+            assert!(
+                std::process::Command::new("git")
+                    .arg("-C")
+                    .arg(&dir)
+                    .args(args)
+                    .output()
+                    .unwrap()
+                    .status
+                    .success()
+            );
+        };
+        run_git(&["init", "-q"]);
+        run_git(&["add", "."]);
+        run_git(&[
+            "-c",
+            "user.name=t",
+            "-c",
+            "user.email=t@t",
+            "commit",
+            "-q",
+            "-m",
+            "x",
+        ]);
+
+        let cache_file = dir.join("cache.bin");
+        store_one(&cache_file, &src, "es");
+        let cache = load(&cache_file).unwrap();
+
+        // An mtime-only change: the git index vouches without reading the
+        // file. Dropping read permission proves the hit really came from git —
+        // the content-hash fallback would need to open the file. The mtime
+        // moves into the past: a future mtime would trip git's racy-clean
+        // check, which re-reads the file on every status.
+        let bumped = std::time::SystemTime::now() - std::time::Duration::from_secs(3600);
+        std::fs::File::options()
+            .write(true)
+            .open(&src)
+            .unwrap()
+            .set_modified(bumped)
+            .unwrap();
+        // Re-sync the index's stat cache (as a checkout would have), so `git
+        // status` can call the file clean without re-reading it.
+        run_git(&["update-index", "--refresh"]);
+        #[cfg(unix)]
+        let perms = {
+            use std::os::unix::fs::PermissionsExt;
+            let orig = std::fs::metadata(&src).unwrap().permissions();
+            std::fs::set_permissions(&src, std::fs::Permissions::from_mode(0o000)).unwrap();
+            orig
+        };
+        let git = LazyGitIndex::new(dir.clone());
+        let hit = cache
+            .lookup(&src, "es", Some(&git))
+            .expect("clean file hits via git");
+        assert!(hit.refreshed, "a git hit persists the fresh mtime");
+        assert_eq!(hit.report.cognitive, 3);
+        #[cfg(unix)]
+        std::fs::set_permissions(&src, perms).unwrap();
+
+        // A dirty file drops out of the map and must fail validation (the
+        // content changed, so the stat/hash fallback rejects it too).
+        std::fs::write(&src, "function f() { return 9 }").unwrap();
+        let git = LazyGitIndex::new(dir.clone());
+        assert!(
+            cache.lookup(&src, "es", Some(&git)).is_none(),
+            "dirty file must not hit via the stale index SHA"
+        );
+
+        let _ = std::fs::remove_dir_all(&dir);
+    }
+
+    /// A file whose git blob differs from its worktree bytes (a `text`
+    /// attribute normalizes CRLF away on add) must never be vouched for by
+    /// the index: our signature hashes the raw bytes we analyzed, git's index
+    /// names the filtered blob, and the SHAs must disagree. Read permission
+    /// is dropped so the content-hash fallback can't mask a wrong git hit —
+    /// a lookup that succeeded here could only have come from the index.
+    #[cfg(unix)]
+    #[test]
+    fn filtered_file_is_never_vouched_by_the_index() {
+        use std::os::unix::fs::PermissionsExt;
+
+        let dir = std::env::temp_dir().join("cccc_cache_unit_gitfilter");
+        let _ = std::fs::remove_dir_all(&dir);
+        std::fs::create_dir_all(&dir).unwrap();
+        let dir = dir.canonicalize().unwrap();
+        let src = dir.join("a.ts");
+        std::fs::write(&src, "function f() {\r\n}\r\n").unwrap();
+        std::fs::write(dir.join(".gitattributes"), "*.ts text\n").unwrap();
+        let run_git = |args: &[&str]| {
+            assert!(
+                std::process::Command::new("git")
+                    .arg("-C")
+                    .arg(&dir)
+                    .args(["-c", "core.autocrlf=false"])
+                    .args(args)
+                    .output()
+                    .unwrap()
+                    .status
+                    .success()
+            );
+        };
+        run_git(&["init", "-q"]);
+        run_git(&["add", "."]);
+        run_git(&[
+            "-c",
+            "user.name=t",
+            "-c",
+            "user.email=t@t",
+            "commit",
+            "-q",
+            "-m",
+            "x",
+        ]);
+
+        let cache_file = dir.join("cache.bin");
+        store_one(&cache_file, &src, "es");
+        let cache = load(&cache_file).unwrap();
+
+        // The CI shape: mtime moved, content untouched, index stat-clean.
+        let bumped = std::time::SystemTime::now() - std::time::Duration::from_secs(3600);
+        std::fs::File::options()
+            .write(true)
+            .open(&src)
+            .unwrap()
+            .set_modified(bumped)
+            .unwrap();
+        run_git(&["update-index", "--refresh"]);
+        let perms = std::fs::metadata(&src).unwrap().permissions();
+        std::fs::set_permissions(&src, std::fs::Permissions::from_mode(0o000)).unwrap();
+
+        let git = LazyGitIndex::new(dir.clone());
+        assert!(
+            cache.lookup(&src, "es", Some(&git)).is_none(),
+            "the index's normalized blob SHA must not validate raw CRLF bytes"
+        );
+
+        // Positive control: with the file readable again, the content-hash
+        // fallback rescues the hit — filtered files are slower, never wrong.
+        std::fs::set_permissions(&src, perms).unwrap();
+        let git = LazyGitIndex::new(dir.clone());
+        let hit = cache
+            .lookup(&src, "es", Some(&git))
+            .expect("hash fallback still hits");
+        assert!(hit.refreshed);
 
         let _ = std::fs::remove_dir_all(&dir);
     }
