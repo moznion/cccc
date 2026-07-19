@@ -88,6 +88,11 @@ pub fn load(path: &Path) -> Option<Cache> {
 }
 
 impl Cache {
+    /// Number of files this cache holds entries for.
+    pub fn entry_count(&self) -> usize {
+        self.index.len()
+    }
+
     /// The cached report for `path`, if the file still matches its recorded
     /// signature and is still analyzed by `lang`.
     pub fn lookup(&self, path: &Path, lang: &str) -> Option<FileReport> {
