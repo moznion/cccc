@@ -1011,6 +1011,54 @@ fn cache_git_index_validates_unreadable_file() {
 }
 
 #[test]
+fn print_cache_file_reports_the_resolved_path() {
+    let dir = std::env::temp_dir().join("cccc_print_cache_file_cli_test");
+    let _ = std::fs::remove_dir_all(&dir);
+    std::fs::create_dir_all(&dir).unwrap();
+    std::fs::write(dir.join("cccc.toml"), "cache = true\n").unwrap();
+
+    // Config-enabled cache: the default file next to the config.
+    let out = Command::cargo_bin("cccc")
+        .unwrap()
+        .current_dir(&dir)
+        .args(["--print-cache-file"])
+        .assert()
+        .success();
+    let printed = String::from_utf8(out.get_output().stdout.clone()).unwrap();
+    let printed = printed.trim_end();
+    assert!(
+        std::path::Path::new(printed).is_absolute() && printed.ends_with("/.cccc.cache"),
+        "expected an absolute default path, got {printed:?}"
+    );
+
+    // An explicit --cache-file wins.
+    let out = Command::cargo_bin("cccc")
+        .unwrap()
+        .current_dir(&dir)
+        .args(["--print-cache-file", "--cache-file", "elsewhere.bin"])
+        .assert()
+        .success();
+    let printed = String::from_utf8(out.get_output().stdout.clone()).unwrap();
+    assert_eq!(printed.trim_end(), "elsewhere.bin");
+
+    // Disabled (--no-cache, or no config at all): prints nothing.
+    for args in [
+        vec!["--print-cache-file", "--no-cache"],
+        vec!["--print-cache-file", "--no-config"],
+    ] {
+        Command::cargo_bin("cccc")
+            .unwrap()
+            .current_dir(&dir)
+            .args(&args)
+            .assert()
+            .success()
+            .stdout(predicates::str::is_empty());
+    }
+
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
 fn no_cache_flag_disables_config_enabled_cache() {
     let dir = std::env::temp_dir().join("cccc_no_cache_cli_test");
     let _ = std::fs::remove_dir_all(&dir);

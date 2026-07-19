@@ -115,6 +115,16 @@ pub fn run() -> i32 {
                     .join(".cccc.cache")
             })
     });
+    // Tooling introspection: report where the cache would live (nothing when
+    // disabled) so wrappers like CI actions can wire persistence around it
+    // without re-implementing config discovery.
+    if cli.print_cache_file {
+        if let Some(path) = &cache_path {
+            println!("{}", path.display());
+        }
+        return 0;
+    }
+
     let max_cognitive = cli.max_cognitive.or(config.max_cognitive);
     let max_cyclomatic = cli.max_cyclomatic.or(config.max_cyclomatic);
     let min = cli.min.or(config.min);

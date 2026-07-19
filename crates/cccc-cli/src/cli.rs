@@ -13,7 +13,7 @@ use clap::Parser;
 #[command(about)]
 pub struct Cli {
     /// Files or directories to analyze.
-    #[arg(required = true)]
+    #[arg(required_unless_present = "print_cache_file")]
     pub paths: Vec<PathBuf>,
 
     /// Restrict analysis to these languages (comma-separated; e.g.
@@ -94,6 +94,12 @@ pub struct Cli {
     /// Do not use the results cache, even if the config file enables it.
     #[arg(long, conflicts_with_all = ["cache", "cache_file"])]
     pub no_cache: bool,
+
+    /// Print the resolved results-cache path and exit without analyzing
+    /// anything. Prints nothing when the cache is disabled. For tooling
+    /// (e.g. CI wrappers) that must know the cache location up front.
+    #[arg(long)]
+    pub print_cache_file: bool,
 
     /// Pretty-print the JSON output (the default is compact, one line).
     #[arg(long)]
