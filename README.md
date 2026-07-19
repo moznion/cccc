@@ -150,6 +150,7 @@ or an artifact store; `--pretty` prints the same document indented.
 | `--cache` | Cache results and reuse them for files unchanged since the last run |
 | `--cache-file PATH` | Where to keep the results cache (implies `--cache`). Default: `.cccc.cache` next to the config file, or in the current directory |
 | `--no-cache` | Do not use the results cache, even if the config file enables it |
+| `--print-cache-file` | Print the resolved cache path (nothing when disabled) and exit; for tooling |
 | `--pretty` | Pretty-print the JSON output (default is compact, one line) |
 | `-j, --jobs N` | Number of files to analyze in parallel (default: logical CPU count) |
 
@@ -261,7 +262,11 @@ measured 1.6–9.6× faster than a cold run (see BENCHMARK.md). Correctness
 never depends on which commit (or how stale a run) the restored cache came
 from: every entry is checked content-to-content. Under `CI=…` (GitHub
 Actions sets it) the git subprocesses start early so their latency hides
-behind file discovery. For example:
+behind file discovery.
+
+On GitHub Actions, [cccc-action](https://github.com/moznion/cccc-action)
+wires the persistence up for you when the config sets `cache = true`. Wiring
+it by hand looks like:
 
 ```yaml
 - uses: actions/cache@v4
@@ -271,6 +276,11 @@ behind file discovery. For example:
     restore-keys: cccc-
 - run: cccc --cache --max-cognitive 15 src/
 ```
+
+Tooling that needs the resolved cache location up front (the way
+cccc-action does) can ask `cccc --print-cache-file`, which prints the path
+the current config resolves to — or nothing when caching is disabled — and
+exits.
 
 ### Examples
 
@@ -320,6 +330,10 @@ A composite action to install and run `cccc`  in CI lives in its own repository:
   with:
     path: src/           # analyze this; thresholds come from cccc.toml
 ```
+
+Like thresholds, caching is driven by the config: when `cccc.toml` sets
+`cache = true`, the action persists the [results cache](#results-cache)
+across runs on its own (via `actions/cache` — no workflow wiring needed).
 
 An example GitHub Actions workflow for continuously measuring complexity with [k1LoW/octocov](https://github.com/k1LoW/octocov) is available at [.github/workflows/complexity.yml](./.github/workflows/complexity.yml).
 
