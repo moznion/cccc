@@ -210,39 +210,55 @@ directory or named explicitly on the command line. An invalid pattern is an erro
 
 ### Results cache
 
-For continuous measurement — watch loops, pre-commit hooks, editor
-integrations — `--cache` (or `cache = true` in `cccc.toml`) makes repeat runs
-reuse the previous results for files that haven't changed, re-analyzing only
-what did. On large monorepos this cuts warm runs by ~2.7× (TS/JS) to ~18×
-(tree-sitter languages such as C) — measured numbers are in
-[BENCHMARK.md](BENCHMARK.md) — and the output is byte-for-byte identical to an
-uncached run.
+`--cache` (or `cache = true` in `cccc.toml`) makes repeat runs reuse the
+previous results for files that haven't changed, re-analyzing only what did.
+The output is byte-for-byte identical to an uncached run: the cache is an
+accelerator, never a source of errors — anything unexpected (a missing,
+corrupt, or version-mismatched cache file) just degrades to a full run. It
+pays off wherever cccc runs repeatedly over a mostly-unchanged tree: watch
+loops, pre-commit hooks, editor integrations, and CI. On large monorepos,
+warm runs measure ~3× (TS/JS via oxc) to ~17× (tree-sitter languages such as
+C) faster than cold ones — numbers and method in
+[BENCHMARK.md](BENCHMARK.md).
 
-Validation is hybrid, the way git's index does it: an entry stores the file's
-size, mtime, and an xxh3-128 hash of its content. When size and mtime match,
-the entry is trusted on the stat alone — no file read. When the mtime moved
-but the content didn't — a fresh checkout in CI, a branch switch, a `touch` —
-the hash rescues the hit, and the refreshed mtime is written back so the next
-run is stat-fast again. In a git worktree there is a shortcut past even that
-read: each entry also records its content's git blob SHA, and a moved-mtime
-file that git's own index calls clean is validated against the index's blob
-SHA — one `git ls-files`/`git status` for the whole tree instead of reading
-every churned file. git is only consulted when a stat check has already
-failed (a fully warm run never runs it), and only trusted content-to-content:
-dirty files, untracked files, and any git failure at all fall back to the
-hash. An entry is only re-analyzed when its content really changed, another
-language claims its extension, or the cache was written by a different `cccc`
-version — anything else (including a missing or corrupt cache file) just
-means that file is analyzed fresh. The cache lives in `.cccc.cache` next to
-the config file (so runs from any subdirectory share it), or where
-`--cache-file` points; add it to `.gitignore`.
+An entry is reused only when it provably still describes the file's current
+content, checked cheapest-first:
 
-This is what makes the cache work in CI, where every checkout resets every
-mtime: persist the cache file across runs and each run validates unchanged
-files off git's index instead of re-parsing them — measured 1.6–9.6× faster
-than a cold run, roughly 2× faster than the hash fallback alone (see
-BENCHMARK.md). Under `CI=…` (GitHub Actions sets it) the git subprocesses
-start early so their latency hides behind file discovery. For example:
+1. **stat** — size and mtime unchanged: trusted without reading the file.
+   The steady local path; a fully warm run does nothing but stat.
+2. **git's index** — the mtime moved, but git calls the file clean and the
+   index's blob SHA matches the one recorded at analysis time: still no
+   read. One `git ls-files`/`git status` pair answers for the whole tree,
+   which is what keeps fresh CI checkouts (every mtime reset) warm. git is
+   consulted only after a stat check has failed, and never trusted beyond
+   content: dirty or untracked files, non-git trees, and any git failure at
+   all fall through to the hash.
+3. **content hash** — the file is read and its xxh3-128 compared; the final
+   authority. A mismatch means the content really changed, and only then is
+   the file re-analyzed.
+
+A hit that needed step 2 or 3 gets its refreshed mtime written back, so the
+next run takes the stat path again. Entries are also keyed to the analyzing
+language (`--ext` re-routing must not resurface another language's scores),
+and the whole cache to the cccc version that wrote it.
+
+The cache lives in `.cccc.cache` next to the config file (so runs from any
+subdirectory share it), or where `--cache-file` points; add it to
+`.gitignore`. It needs no maintenance beyond that: every run rewrites it to
+match exactly the current tree — deleted files' entries are pruned, and its
+size stays proportional to the project, not its history — and deleting the
+file at any time is always safe (the next run is simply cold).
+
+#### In CI
+
+The git-index check is what makes the cache effective in CI, where every
+checkout resets every mtime: persist the cache file across runs and each run
+validates unchanged files off git's index instead of re-parsing them —
+measured 1.6–9.6× faster than a cold run (see BENCHMARK.md). Correctness
+never depends on which commit (or how stale a run) the restored cache came
+from: every entry is checked content-to-content. Under `CI=…` (GitHub
+Actions sets it) the git subprocesses start early so their latency hides
+behind file discovery. For example:
 
 ```yaml
 - uses: actions/cache@v4
