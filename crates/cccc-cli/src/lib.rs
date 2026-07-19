@@ -195,6 +195,25 @@ pub fn run() -> i32 {
             .unwrap_or(1)
     });
 
+    // Let cache validation ask git which files are clean and what their blob
+    // SHAs are, so it can skip reading files whose mtime moved but whose
+    // content didn't — the CI fast path: a fresh checkout resets every mtime
+    // but writes a stat-clean index. Consulted (and under CI, started) only
+    // when needed — see [`cache::LazyGitIndex`] — and only prepared at all
+    // when there is an existing cache to validate against.
+    let git_index = cache_path.as_ref().filter(|p| p.exists()).map(|_| {
+        let root = match cli.paths.first() {
+            Some(p) if p.is_dir() => p.clone(),
+            Some(p) => p
+                .parent()
+                .filter(|d| !d.as_os_str().is_empty())
+                .unwrap_or(Path::new("."))
+                .to_path_buf(),
+            None => std::path::PathBuf::from("."),
+        };
+        cache::LazyGitIndex::new(root)
+    });
+
     let files = walk::collect_files(&cli.paths, &exts, no_ignore, exclude.as_ref(), jobs);
     if files.is_empty() {
         eprintln!("cccc: no matching files found");
@@ -220,25 +239,33 @@ pub fn run() -> i32 {
     // Split the files into cache hits (report ready) and misses (to analyze).
     // Without a usable cache everything is a miss.
     let cache = cache_path.as_deref().and_then(cache::load);
-    let (cached_reports, to_analyze): (Vec<FileReport>, Vec<&std::path::PathBuf>) = match &cache {
+    let mut sig_refreshed = false;
+    let (cached_entries, to_analyze): (
+        Vec<(FileReport, Option<cache::Sig>)>,
+        Vec<&std::path::PathBuf>,
+    ) = match &cache {
         Some(c) => {
-            let checked: Vec<Result<FileReport, &std::path::PathBuf>> = match &pool {
+            let git = git_index.as_ref();
+            let checked: Vec<Result<cache::Hit, &std::path::PathBuf>> = match &pool {
                 Some(pool) => pool.install(|| {
                     files
                         .par_iter()
-                        .map(|p| check_cached(c, &dispatch, p))
+                        .map(|p| check_cached(c, &dispatch, p, git))
                         .collect()
                 }),
                 None => files
                     .iter()
-                    .map(|p| check_cached(c, &dispatch, p))
+                    .map(|p| check_cached(c, &dispatch, p, git))
                     .collect(),
             };
             let mut hits = Vec::new();
             let mut misses = Vec::new();
             for entry in checked {
                 match entry {
-                    Ok(report) => hits.push(report),
+                    Ok(hit) => {
+                        sig_refreshed |= hit.refreshed;
+                        hits.push((hit.report, Some(hit.sig)));
+                    }
                     Err(p) => misses.push(p),
                 }
             }
@@ -247,32 +274,38 @@ pub fn run() -> i32 {
         None => (Vec::new(), files.iter().collect()),
     };
 
-    let mut reports: Vec<FileReport> = match &pool {
+    // Analyze the misses, signing each off the bytes just read when a cache is
+    // in play (no cache, no hashing cost).
+    let want_sig = cache_path.is_some();
+    let mut entries: Vec<(FileReport, Option<cache::Sig>)> = match &pool {
         Some(pool) => pool.install(|| {
             to_analyze
                 .par_iter()
-                .filter_map(|p| read_and_analyze(&dispatch, p))
+                .filter_map(|p| read_and_analyze(&dispatch, p, want_sig))
                 .collect()
         }),
         None => to_analyze
             .iter()
-            .filter_map(|p| read_and_analyze(&dispatch, p))
+            .filter_map(|p| read_and_analyze(&dispatch, p, want_sig))
             .collect(),
     };
-    reports.extend(cached_reports);
+    entries.extend(cached_entries);
 
     // Refresh the cache — unless it is already exactly what we would write:
-    // every file was a hit AND the cache holds nothing else. The second check
-    // matters when files were deleted (or newly excluded) since the last run —
-    // all-hits alone would skip the write and leave their stale entries behind.
-    let cache_is_current = cache
-        .as_ref()
-        .is_some_and(|c| to_analyze.is_empty() && c.entry_count() == reports.len());
+    // every file was a stat hit AND the cache holds nothing else. The second
+    // check matters when files were deleted (or newly excluded) since the last
+    // run — all-hits alone would skip the write and leave their stale entries
+    // behind. A hit that passed by content hash also forces the write: its
+    // stored mtime is stale, and persisting the refreshed one is what lets the
+    // next run stat-hit instead of hashing again.
+    let cache_is_current = cache.as_ref().is_some_and(|c| {
+        to_analyze.is_empty() && !sig_refreshed && c.entry_count() == entries.len()
+    });
     if let Some(cache_file) = cache_path.as_deref()
         && !cache_is_current
     {
         let store = || {
-            cache::store(cache_file, &reports, &|p| {
+            cache::store(cache_file, &entries, &|p| {
                 lang_for(&dispatch, p).map(|l| l.name)
             })
         };
@@ -282,6 +315,7 @@ pub fn run() -> i32 {
         }
     }
 
+    let mut reports: Vec<FileReport> = entries.into_iter().map(|(r, _)| r).collect();
     reports.sort_by(|a, b| a.path.cmp(&b.path));
 
     // Determine exit status before any `--min` filtering, so display options do
@@ -390,13 +424,28 @@ fn split_exts(s: &str) -> Vec<String> {
 /// Read a file and analyze it with the language matching its extension,
 /// reporting (but not failing on) read errors. A file whose extension no active
 /// language claims is skipped silently (it was only collected via `--ext`).
+///
+/// With `want_sig`, also produce the file's cache signature, hashed from the
+/// bytes already in memory. The mtime is stat'ed *before* the read: if the
+/// file changes in between, the stored mtime undershoots the analyzed content,
+/// and the next run's hash check catches it — the unsafe direction (a fresher
+/// mtime masking older content) can't happen.
 fn read_and_analyze(
     dispatch: &HashMap<String, &'static lang::Language>,
     path: &Path,
-) -> Option<FileReport> {
+    want_sig: bool,
+) -> Option<(FileReport, Option<cache::Sig>)> {
     let language = lang_for(dispatch, path)?;
+    let mtime = if want_sig {
+        cache::mtime_ns(path)
+    } else {
+        None
+    };
     match std::fs::read_to_string(path) {
-        Ok(src) => Some((language.analyze)(path, &src)),
+        Ok(src) => {
+            let sig = mtime.map(|m| cache::sig_for(src.as_bytes(), m));
+            Some(((language.analyze)(path, &src), sig))
+        }
         Err(e) => {
             eprintln!("cccc: cannot read {}: {e}", path.display());
             None
@@ -415,14 +464,15 @@ fn lang_for(
         .copied()
 }
 
-/// The cached report for `path` — or `path` itself, as a miss to analyze.
+/// The cache hit for `path` — or `path` itself, as a miss to analyze.
 fn check_cached<'a>(
     cache: &cache::Cache,
     dispatch: &HashMap<String, &'static lang::Language>,
     path: &'a std::path::PathBuf,
-) -> Result<FileReport, &'a std::path::PathBuf> {
-    match lang_for(dispatch, path).and_then(|l| cache.lookup(path, l.name)) {
-        Some(report) => Ok(report),
+    git: Option<&cache::LazyGitIndex>,
+) -> Result<cache::Hit, &'a std::path::PathBuf> {
+    match lang_for(dispatch, path).and_then(|l| cache.lookup(path, l.name, git)) {
+        Some(hit) => Ok(hit),
         None => Err(path),
     }
 }
