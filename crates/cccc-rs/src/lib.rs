@@ -27,8 +27,9 @@
 //! - `if` / `else if` / `else` → [`Node::Branch`] (chaining `else if` as a nested
 //!   `Branch` so it scores flat). `if let` / `while let` are just the same nodes.
 //! - `for` / `while` / `loop` → [`Node::Loop`].
-//! - `match` → [`Node::Switch`]; a `_` (or bare binding) arm is the `default`.
-//!   An arm guard (`pat if cond`) is visited inside the case body.
+//! - `match` → [`Node::Switch`]; an unguarded `_` (or bare binding) arm is the
+//!   `default`. An arm guard (`pat if cond`) is visited inside the case body and
+//!   keeps the arm a decision point.
 //! - labelled `break 'a` / `continue 'a` → [`Node::Jump`] (`labeled: true`).
 //! - `&&` / `||` runs → folded [`Node::Logical`] (one node per like-operator run).
 //! - calls (`f(..)`, `obj.m(..)`) → [`Node::Call`] for recursion detection.
@@ -234,7 +235,7 @@ impl<'ast> Visit<'ast> for Builder {
         let mut cases = Vec::new();
         for arm in &it.arms {
             let body = self.collect(|s| {
-                if let Some((_, guard)) = &arm.guard {
+                if let Some(guard) = arm_guard(&arm.pat) {
                     s.visit_expr(guard);
                 }
                 s.visit_expr(&arm.body);
@@ -316,7 +317,17 @@ fn logical_op(op: &BinOp) -> Option<LogicalOp> {
     }
 }
 
+/// The guard of a guarded arm pattern (`pat if cond => ..`). Since syn 3 the
+/// guard hangs off the pattern as [`Pat::Guard`] rather than off the `Arm`.
+fn arm_guard(pat: &Pat) -> Option<&Expr> {
+    match pat {
+        Pat::Guard(g) => Some(&g.guard),
+        _ => None,
+    }
+}
+
 /// A `match` arm that always matches: `_` or a bare binding (`other => ..`).
+/// A guard makes the arm conditional, so `Pat::Guard` is never a catch-all.
 fn is_catch_all(pat: &Pat) -> bool {
     match pat {
         Pat::Wild(_) => true,
@@ -412,6 +423,24 @@ mod tests {
         assert_eq!(cognitive_of(src, "get_words"), 1);
         // base 1 + 2 non-default arms = 3
         assert_eq!(cyclomatic_of(src, "get_words"), 3);
+    }
+
+    #[test]
+    fn guarded_arms_are_decision_points() {
+        let src = r#"
+            fn f(n: i32) -> i32 {
+                match n {
+                    x if x > 10 && x < 20 => 1,
+                    _ if n == 0 => 2,
+                    _ => 3,
+                }
+            }
+        "#;
+        // match(+1) + && seq inside the guard(+1) = 2
+        assert_eq!(cognitive_of(src, "f"), 2);
+        // base 1 + 2 guarded (non-default) arms + (&& 2 operands => +1) = 4;
+        // only the bare `_` arm is the default.
+        assert_eq!(cyclomatic_of(src, "f"), 4);
     }
 
     #[test]
