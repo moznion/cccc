@@ -16,7 +16,7 @@ jobs:
       contents: write # to store the reports in octocov-complexity-reports using octocov
       actions: read
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Measure complexity (cccc)
         uses: moznion/cccc-action@4df3f72f581c87d0792ca89ef401c4ec8e85788b # v1.1.0
