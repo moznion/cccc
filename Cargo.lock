@@ -1101,9 +1101,9 @@ dependencies = [
 
 [[package]]
 name = "php-ast"
-version = "0.18.2"
+version = "0.18.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "eac0c65d2ef871f0751d929a50a5d403d5e9beebfd370dcae8383d72ab97d212"
+checksum = "939e150fa6e738ca9777cfc9ada95a53edb3e3037c5eb6307a5a0bfe1cb9542c"
 dependencies = [
  "bumpalo",
  "serde",
