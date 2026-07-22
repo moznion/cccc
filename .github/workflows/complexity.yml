@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
       - name: Measure complexity (cccc)
-        uses: moznion/cccc-action@8fa5a4b13bf907676709cece09147a047b7be7b0 # v1.0.0
+        uses: moznion/cccc-action@4df3f72f581c87d0792ca89ef401c4ec8e85788b # v1.1.0
         with:
           path: crates
           output-file: cccc.json
