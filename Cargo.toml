@@ -14,7 +14,9 @@ members = [
     "crates/cccc-kt",
     "crates/cccc-py",
     "crates/cccc-zig",
+    "crates/cccc-clike",
     "crates/cccc-c",
+    "crates/cccc-cpp",
     "crates/cccc-pl",
     "crates/cccc-swift",
     "crates/cccc-java",
@@ -44,7 +46,9 @@ cccc-lisp = { path = "crates/cccc-lisp", version = "1.6.0" }
 cccc-kt = { path = "crates/cccc-kt", version = "1.6.0" }
 cccc-py = { path = "crates/cccc-py", version = "1.6.0" }
 cccc-zig = { path = "crates/cccc-zig", version = "1.6.0" }
+cccc-clike = { path = "crates/cccc-clike", version = "1.6.0" }
 cccc-c = { path = "crates/cccc-c", version = "1.6.0" }
+cccc-cpp = { path = "crates/cccc-cpp", version = "1.6.0" }
 cccc-pl = { path = "crates/cccc-pl", version = "1.6.0" }
 cccc-swift = { path = "crates/cccc-swift", version = "1.6.0" }
 cccc-java = { path = "crates/cccc-java", version = "1.6.0" }

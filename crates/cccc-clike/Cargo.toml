@@ -1,15 +1,13 @@
 [package]
-name = "cccc-c"
+name = "cccc-clike"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
 homepage.workspace = true
-description = "C (tree-sitter) adapter that lowers source into the cccc-core complexity IR"
+description = "Shared tree-sitter lowering helpers for C-family adapters (cccc-c, cccc-cpp), factored out because tree-sitter-cpp's grammar is a superset of tree-sitter-c's"
 
 [dependencies]
 cccc-core = { workspace = true }
-cccc-clike = { workspace = true }
 tree-sitter = "0.26"
-tree-sitter-c = "0.24"
