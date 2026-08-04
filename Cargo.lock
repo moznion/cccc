@@ -331,7 +331,7 @@ name = "cccc-php"
 version = "1.6.0"
 dependencies = [
  "cccc-core",
- "php-ast",
+ "php-ast 0.19.0",
  "php-rs-parser",
 ]
 
@@ -1108,13 +1108,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "php-ast"
+version = "0.19.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "62fc777e8e827b1a77a7fde37dee8c59e0057a84b9d96d8207a026190d63875a"
+dependencies = [
+ "bumpalo",
+ "serde",
+]
+
+[[package]]
 name = "php-lexer"
 version = "0.18.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c7a56c316c092338f0c56cdf8389a196231b8188e64e7b442b8b41c52aa2e9c9"
 dependencies = [
  "memchr",
- "php-ast",
+ "php-ast 0.18.3",
 ]
 
 [[package]]
@@ -1126,7 +1136,7 @@ dependencies = [
  "bumpalo",
  "memchr",
  "miette",
- "php-ast",
+ "php-ast 0.18.3",
  "php-lexer",
  "phpdoc-parser",
  "thiserror",
