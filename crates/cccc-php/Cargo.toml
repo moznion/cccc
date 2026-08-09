@@ -14,4 +14,4 @@ cccc-core = { workspace = true }
 # and cross-compilation stays clean. `php-ast` provides the lifetime-free owned
 # AST plus the `OwnedVisitor` full-traversal trait we drive lowering from.
 php-rs-parser = "0.18.1"
-php-ast = "0.18.1"
+php-ast = "0.19.0"
