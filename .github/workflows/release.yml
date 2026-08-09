@@ -73,7 +73,7 @@ jobs:
         shell: bash
         run: echo "LIBCLANG_PATH=C:\\Program Files\\LLVM\\bin" >> "$GITHUB_ENV"
 
-      - uses: taiki-e/upload-rust-binary-action@9e81141ff6bc3277fe5cb780abf417679057bd40
+      - uses: taiki-e/upload-rust-binary-action@14950759bde99e9dbc62b33fff358f17d1542832
         with:
           # The unified cccc binary.
           bin: ${{ matrix.bin }}
