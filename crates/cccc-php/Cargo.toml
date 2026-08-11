@@ -13,5 +13,5 @@ cccc-core = { workspace = true }
 # Pure-Rust, fault-tolerant PHP parser (PHP 7.4–8.5), so there is no C toolchain
 # and cross-compilation stays clean. `php-ast` provides the lifetime-free owned
 # AST plus the `OwnedVisitor` full-traversal trait we drive lowering from.
-php-rs-parser = "0.18.1"
+php-rs-parser = "0.19.0"
 php-ast = "0.18.1"
