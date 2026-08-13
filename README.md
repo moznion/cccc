@@ -48,6 +48,9 @@
   - **Dart** (`--lang dart`), via the
     [nielsenko/tree-sitter-dart](https://github.com/nielsenko/tree-sitter-dart)
     grammar. Analyzes `.dart`.
+  - **Scala** (`--lang scala`), via the official
+    [tree-sitter-scala](https://github.com/tree-sitter/tree-sitter-scala)
+    grammar. Analyzes `.scala`, `.sc`.
 - A Rust library for calculating cognitive and cyclomatic complexity in a language-agnostic way
 
 ## Workspace layout
@@ -77,6 +80,7 @@ library and extended to other languages:
 | [`cccc-swift`](crates/cccc-swift) | Swift adapter **library**: lowers the [alex-pinkus/tree-sitter-swift](https://github.com/alex-pinkus/tree-sitter-swift) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Swift grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 | [`cccc-java`](crates/cccc-java) | Java adapter **library**: lowers the official [tree-sitter-java](https://github.com/tree-sitter/tree-sitter-java) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Java grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 | [`cccc-dart`](crates/cccc-dart) | Dart adapter **library**: lowers the [nielsenko/tree-sitter-dart](https://github.com/nielsenko/tree-sitter-dart) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Dart grammar — **no CLI dependencies**. The grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
+| [`cccc-scala`](crates/cccc-scala) | Scala adapter **library**: lowers the official [tree-sitter-scala](https://github.com/tree-sitter/tree-sitter-scala) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Scala grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 
 Each adapter is a standalone library so that a consumer who only wants the
 metrics pulls in just that adapter (+ `cccc-core` + its parser), never clap /
@@ -89,7 +93,7 @@ it with one entry in `cccc-cli`'s `lang::LANGUAGES` (and add the dependency) —
 no new binary, and no reimplementing the metrics or the CLI. `cccc-es` (oxc),
 `cccc-rs` (syn), `cccc-go` (gosyn), `cccc-php` (php-rs-parser), `cccc-rb`
 (ruby-prism), `cccc-kt` / `cccc-py` / `cccc-pl` (tree-sitter), `cccc-swift` (tree-sitter), `cccc-c` (tree-sitter),
-`cccc-java` (tree-sitter), `cccc-dart` (tree-sitter), `cccc-scheme` (lispexp), `cccc-clojure` (lispexp), `cccc-lisp` (lispexp, Common Lisp / Emacs Lisp / …),
+`cccc-java` (tree-sitter), `cccc-dart` (tree-sitter), `cccc-scala` (tree-sitter), `cccc-scheme` (lispexp), `cccc-clojure` (lispexp), `cccc-lisp` (lispexp, Common Lisp / Emacs Lisp / …),
 and `cccc-zig` (zigsyn) are the reference adapters: same shape, different parser.
 The Lisp-family adapters share their lowering skeleton via `cccc-lisp-kit`.
 
@@ -586,3 +590,22 @@ coalescing logical nodes. Null-aware access (`?.`, `?[]`, `?..`), null-aware
 spread (`...?`), collection elements (`?value`), and map keys/values each add
 one cyclomatic path without adding cognitive complexity. External, native, and
 otherwise bodyless declarations are not reported as functions.
+
+For **Scala** (`--lang scala`): `def` definitions (and bodyless abstract `def`
+declarations), anonymous functions (`x => …`), and partial-function literals
+(`xs.collect { case … }`, `def receive = { case … }` — an anonymous unit whose
+body is the pattern match) are function-like units;
+`if`/`else if`/`else`, `match` (a bare `case _ =>`, or a lowercase variable
+pattern like `case other =>`, is the non-decision `default` arm; an uppercase
+stable-id like `case None =>` stays a decision), `for`/`while`/`do`-`while`, each
+`catch` clause (the `try` body and `finally` run at the surrounding level; the
+`case` handlers inside a `catch` score within that one node), and `&&`/`||` runs
+map to the corresponding nodes. A pattern guard (`case x if a && b =>`) is
+transparent, so its operators still contribute but the guard itself is not a
+separate decision. A secondary constructor (`def this(…)`) is reported as a
+`constructor` unit (like the Kotlin/Swift adapters), and its mandatory `this(…)`
+self-delegation is not counted as recursion. Scala has no `break`/`continue` statements (nor labelled
+loops) and no `??`-style coalescing operator. The library-based escapes —
+`scala.util.control.Breaks` (`breakable {}` / `break()`) and Scala 3's
+`scala.util.boundary` — are ordinary method calls, so they are not treated as
+jumps and add nothing to the score.
