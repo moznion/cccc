@@ -36,6 +36,12 @@
   - **C** (`--lang c`), via the official
     [tree-sitter-c](https://github.com/tree-sitter/tree-sitter-c) grammar.
     Analyzes `.c`, `.h`.
+  - **C++** (`--lang cpp`, aliases `c++`/`cxx`), via the official
+    [tree-sitter-cpp](https://github.com/tree-sitter/tree-sitter-cpp) grammar.
+    Analyzes `.cpp`, `.cc`, `.cxx`, `.hpp`, `.hxx`, `.h++`, `.tpp`, `.ipp`
+    (`.h` is claimed by C, since extension routing needs disjoint claims —
+    override via `--ext`). Shares its lowering for everything C and C++ have
+    in common with `cccc-c`, via `cccc-clike`.
   - **Perl** (`--lang perl`), via the community-maintained
     [tree-sitter-perl](https://github.com/tree-sitter-perl/tree-sitter-perl)
     grammar. Analyzes `.pl`, `.pm`, `.t`.
@@ -73,6 +79,8 @@ library and extended to other languages:
 | [`cccc-py`](crates/cccc-py) | Python adapter **library**: lowers the official [tree-sitter-python](https://github.com/tree-sitter/tree-sitter-python) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Python grammar — **no CLI dependencies**. Like `cccc-kt`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 | [`cccc-zig`](crates/cccc-zig) | Zig adapter **library**: lowers the pure-Rust [zigsyn](https://docs.rs/zigsyn) AST into `cccc-core`'s IR. Depends only on `cccc-core` + zigsyn — **no CLI dependencies or C toolchain**. |
 | [`cccc-c`](crates/cccc-c) | C adapter **library**: lowers the official [tree-sitter-c](https://github.com/tree-sitter/tree-sitter-c) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the C grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
+| [`cccc-clike`](crates/cccc-clike) | Shared **lowering** for the C-family adapters: `tree-sitter-cpp`'s grammar is a superset of `tree-sitter-c`'s, so `cccc-c` and `cccc-cpp` both construct a `cccc_clike::SharedBuilder` (tagged `Language::C`/`Language::Cpp`) instead of duplicating the lowering for what they share (functions, `if`, loops, `switch`, jumps, logical folding, preprocessor conditionals, calls). C++-only constructs (lambdas, `catch`, range-`for`) are gated on the language tag in the same `visit`. Depends only on `cccc-core` + tree-sitter — no grammar crate, no CLI dependencies. |
+| [`cccc-cpp`](crates/cccc-cpp) | C++ adapter **library**: lowers the official [tree-sitter-cpp](https://github.com/tree-sitter/tree-sitter-cpp) CST into `cccc-core`'s IR via `cccc-clike`. Depends only on `cccc-core` + `cccc-clike` + tree-sitter + the C++ grammar — **no CLI dependencies**. |
 | [`cccc-pl`](crates/cccc-pl) | Perl adapter **library**: lowers the [tree-sitter-perl](https://github.com/tree-sitter-perl/tree-sitter-perl) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Perl grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 | [`cccc-swift`](crates/cccc-swift) | Swift adapter **library**: lowers the [alex-pinkus/tree-sitter-swift](https://github.com/alex-pinkus/tree-sitter-swift) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Swift grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 | [`cccc-java`](crates/cccc-java) | Java adapter **library**: lowers the official [tree-sitter-java](https://github.com/tree-sitter/tree-sitter-java) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Java grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
@@ -88,10 +96,11 @@ To support another language: (1) add an adapter crate that lowers its AST into
 it with one entry in `cccc-cli`'s `lang::LANGUAGES` (and add the dependency) —
 no new binary, and no reimplementing the metrics or the CLI. `cccc-es` (oxc),
 `cccc-rs` (syn), `cccc-go` (gosyn), `cccc-php` (php-rs-parser), `cccc-rb`
-(ruby-prism), `cccc-kt` / `cccc-py` / `cccc-pl` (tree-sitter), `cccc-swift` (tree-sitter), `cccc-c` (tree-sitter),
+(ruby-prism), `cccc-kt` / `cccc-py` / `cccc-pl` (tree-sitter), `cccc-swift` (tree-sitter), `cccc-c` / `cccc-cpp` (tree-sitter),
 `cccc-java` (tree-sitter), `cccc-dart` (tree-sitter), `cccc-scheme` (lispexp), `cccc-clojure` (lispexp), `cccc-lisp` (lispexp, Common Lisp / Emacs Lisp / …),
 and `cccc-zig` (zigsyn) are the reference adapters: same shape, different parser.
-The Lisp-family adapters share their lowering skeleton via `cccc-lisp-kit`.
+The Lisp-family adapters share their lowering skeleton via `cccc-lisp-kit`;
+`cccc-c` and `cccc-cpp` share theirs via `cccc-clike`.
 
 **See [docs/ADDING_A_LANGUAGE.md](docs/ADDING_A_LANGUAGE.md) for the full
 step-by-step guide**, including the IR-node reference table, the
@@ -532,7 +541,21 @@ C has no exceptions and no `??`; `#define` bodies are opaque to the grammar, so
 code inside a macro body is not scored. One known wart of preprocessor-unaware
 parsing: the standard `extern "C" {` guard splits its braces across two
 `#ifdef __cplusplus` blocks, which surfaces as a parse warning — the rest of
-the header still parses and scores.
+the header still parses and scores. Another: the `<cinttypes>` printf-width
+macros (`"..." PRIu32 "..."` and friends) only become adjacent string
+literals after macro expansion, which the grammar never performs, so they
+also surface as a parse warning local to that expression.
+
+For **C++** (`--lang cpp`): everything above for C applies unchanged (`tree-sitter-cpp`'s
+grammar is a superset of `tree-sitter-c`'s, sharing the same node kinds/fields
+for what the two languages have in common), plus: a `[...](...){...}` lambda is
+its own function-like unit (like a closure elsewhere); `catch` clauses map to
+the corresponding node (the `try` body runs at the surrounding level, same as
+Kotlin/Python's `catch`/`except`); range-`for` (`for (auto &x : xs)`) is a loop,
+same as any other. Constructor/destructor/operator-overload names, including
+out-of-line qualified definitions (`Foo::bar`), are dug out of the declarator
+chain; a qualified definition and a qualified or unqualified self-call both
+resolve to the same trailing simple name, so recursion is still detected.
 
 For **Perl** (`--lang perl`): named `sub`s / `method` declarations (feature
 `class`, Perl 5.38+) / anonymous `sub`s are the function-like units, and a

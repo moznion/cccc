@@ -12,12 +12,14 @@
 //! the engine cares about and emits the matching IR nodes. All complexity rules
 //! live in [`cccc_core::engine`].
 //!
-//! Like `cccc-kt`, lowering is an explicit `kind()`-dispatch whose **default arm
-//! recurses into every named child** (see the warning in
-//! `docs/ADDING_A_LANGUAGE.md`), so an unrecognized construct is transparent and
-//! nothing nested inside it is silently dropped. The IR tree is assembled with a
-//! stack of "collectors": [`Builder::collect`] pushes a fresh child vector, runs
-//! a sub-traversal, and pops the nodes it gathered.
+//! Most of the actual lowering (functions, `if`, loops, `switch`, jumps,
+//! logical-operator folding, preprocessor conditionals, calls) is shared with
+//! `cccc-cpp` and lives in `cccc_clike::SharedBuilder`, since `tree-sitter-cpp`'s
+//! grammar is a superset of this one. This crate just loads the C grammar and
+//! wraps that shared builder (see [`Builder`]); [`Builder::visit`] recurses
+//! into every named child by default (see the warning in
+//! `docs/ADDING_A_LANGUAGE.md`), so an unrecognized construct is transparent
+//! and nothing nested inside it is silently dropped.
 //!
 //! ## C-to-IR mapping notes
 //!
@@ -47,14 +49,15 @@
 
 use std::path::Path;
 
+use cccc_clike::{SharedBuilder, collect_errors};
 use cccc_core::engine;
-use cccc_core::ir::{LogicalOp, Node, SwitchCase};
+use cccc_core::ir::Node;
 use cccc_core::report::FileReport;
 use tree_sitter::Node as TsNode;
 
 /// File extensions analyzed by default (when `--ext` is not given). `.h`
-/// headers are claimed as C — this project bundles no C++ front-end, so there
-/// is no dispatch ambiguity.
+/// headers are claimed as C — `cccc-cpp` deliberately doesn't claim `.h`
+/// (extension routing needs disjoint claims), so there's no ambiguity.
 pub const DEFAULT_EXTS: &[&str] = &["c", "h"];
 
 /// Parse `source` and produce its [`FileReport`], scoring via the core engine.
@@ -90,348 +93,24 @@ pub fn to_ir(_path: &Path, source: &str) -> (Vec<Node>, Vec<String>) {
     (builder.finish(), errors)
 }
 
-/// Collect the 1-based lines of every `ERROR`/`MISSING` node so a partially
-/// parsed file surfaces its syntax problems (deduplicated, order preserved).
-fn collect_errors(node: TsNode, out: &mut Vec<String>) {
-    let mut cursor = node.walk();
-    if node.is_error() || node.is_missing() {
-        let msg = format!("syntax error at line {}", node.start_position().row + 1);
-        if !out.contains(&msg) {
-            out.push(msg);
-        }
-    }
-    for child in node.children(&mut cursor) {
-        collect_errors(child, out);
-    }
-}
-
 /// Assembles the IR tree while an explicit recursion walks the tree-sitter CST.
-struct Builder<'a> {
-    /// Source bytes, for extracting identifier text.
-    src: &'a [u8],
-    /// Stack of node collectors. `stack.last_mut()` receives emitted nodes;
-    /// structural nodes push a fresh collector for their body, then pop it.
-    stack: Vec<Vec<Node>>,
-}
+struct Builder<'a>(SharedBuilder<'a>);
 
 impl<'a> Builder<'a> {
     fn new(src: &'a [u8]) -> Self {
-        Self {
-            src,
-            stack: vec![Vec::new()], // module-level collector
-        }
+        Self(SharedBuilder::new(src, cccc_clike::Language::C))
     }
 
     /// The module-level node list (the single remaining collector).
-    fn finish(mut self) -> Vec<Node> {
-        self.stack.pop().expect("module collector")
-    }
-
-    /// Append a node to the current collector.
-    fn emit(&mut self, node: Node) {
-        self.stack.last_mut().expect("collector").push(node);
-    }
-
-    /// Run `f` against a fresh collector and return the nodes it gathered.
-    fn collect<F: FnOnce(&mut Self)>(&mut self, f: F) -> Vec<Node> {
-        self.stack.push(Vec::new());
-        f(self);
-        self.stack.pop().expect("collector")
-    }
-
-    /// The UTF-8 text of `node`, or `""` if it is not valid UTF-8.
-    fn text(&self, node: TsNode) -> &str {
-        node.utf8_text(self.src).unwrap_or("")
-    }
-
-    /// Recurse into every named child of `node` (skipping `extras`, i.e.
-    /// comments — see [`named_children`]). This is the "transparent" step shared
-    /// by every arm that carries no score of its own: a fresh cursor walk with
-    /// no intermediate `Vec` allocation.
-    fn visit_named_children(&mut self, node: TsNode) {
-        let mut cursor = node.walk();
-        for child in node.named_children(&mut cursor) {
-            if !child.is_extra() {
-                self.visit(child);
-            }
-        }
+    fn finish(self) -> Vec<Node> {
+        self.0.finish()
     }
 
     // ---- traversal --------------------------------------------------------
 
     fn visit(&mut self, node: TsNode) {
-        match node.kind() {
-            "function_definition" => {
-                let name = node
-                    .child_by_field_name("declarator")
-                    .and_then(|d| declarator_name(self, d))
-                    .unwrap_or_else(|| "<function>".into());
-                let line = node.start_position().row as u32 + 1;
-                let body = self.collect(|b| b.visit_named_children(node));
-                self.emit(Node::Function {
-                    name,
-                    kind: "function".to_string(),
-                    line,
-                    body,
-                });
-            }
-
-            "if_statement" => {
-                let branch = self.lower_if(node);
-                self.emit(branch);
-            }
-            "conditional_expression" => {
-                let field = |name| node.child_by_field_name(name);
-                let test =
-                    field("condition").map_or_else(Vec::new, |c| self.collect(|b| b.visit(c)));
-                let then =
-                    field("consequence").map_or_else(Vec::new, |c| self.collect(|b| b.visit(c)));
-                let alternate =
-                    field("alternative").map_or_else(Vec::new, |c| self.collect(|b| b.visit(c)));
-                self.emit(Node::Conditional {
-                    test,
-                    then,
-                    alternate,
-                });
-            }
-            "for_statement" | "while_statement" | "do_statement" => {
-                let body = self.collect(|b| b.visit_named_children(node));
-                self.emit(Node::Loop { body });
-            }
-            "switch_statement" => self.visit_switch(node),
-
-            "break_statement" | "continue_statement" => self.emit(Node::Jump { labeled: false }),
-            "goto_statement" => self.emit(Node::Jump { labeled: true }),
-
-            "binary_expression" => match logical_op_of(node) {
-                Some(op) => self.visit_logical(node, op),
-                None => self.visit_named_children(node),
-            },
-
-            "call_expression" => self.visit_call(node),
-
-            // The grammar aliases preprocessor conditionals inside declarations
-            // and inside blocks to the same kinds, so one set of arms covers
-            // both placements.
-            "preproc_if" | "preproc_ifdef" => {
-                let branch = self.lower_preproc(node);
-                self.emit(branch);
-            }
-
-            // Everything else is transparent: recurse into every named child so
-            // no nested construct is missed.
-            _ => self.visit_named_children(node),
-        }
+        self.0.visit(node);
     }
-
-    /// Build a `Branch` from an `if_statement` (recursively, so an `else if`
-    /// becomes a nested `Branch` and thus scores flat). The grammar tags the
-    /// parts with fields (`condition`, `consequence`, `alternative`), so we
-    /// address them by field rather than by position.
-    fn lower_if(&mut self, node: TsNode) -> Node {
-        let field = |name| node.child_by_field_name(name);
-        let test = field("condition").map_or_else(Vec::new, |c| self.collect(|b| b.visit(c)));
-        let then = field("consequence").map_or_else(Vec::new, |c| self.collect(|b| b.visit(c)));
-        let alternate = field("alternative").map(|ec| Box::new(self.lower_else(ec)));
-        Node::Branch {
-            test,
-            then,
-            alternate,
-        }
-    }
-
-    /// Lower an `else_clause`. If it wraps a single `if_statement` it is an
-    /// `else if` → nested `Branch`; otherwise it is a plain `else` → `Group`.
-    fn lower_else(&mut self, else_clause: TsNode) -> Node {
-        let inner = named_children(else_clause);
-        if let [only] = inner.as_slice()
-            && only.kind() == "if_statement"
-        {
-            return self.lower_if(*only);
-        }
-        Node::Group(self.collect(|b| b.visit_named_children(else_clause)))
-    }
-
-    /// Build a `Branch` from a preprocessor conditional (`#if` / `#ifdef` /
-    /// `#ifndef` / `#elif` / `#elifdef` / `#elifndef`): the directive's own
-    /// body is the `then`, and the `alternative` field chains — an `#elif`
-    /// nests as another `Branch` (scoring flat, like `else if`), an `#else`
-    /// closes the chain as a `Group`.
-    fn lower_preproc(&mut self, node: TsNode) -> Node {
-        // `#if`/`#elif` carry a `condition` expression; `#ifdef`/`#elifdef`
-        // carry a `name` identifier. Either way it is the branch's test.
-        let cond = node
-            .child_by_field_name("condition")
-            .or_else(|| node.child_by_field_name("name"));
-        let alt = node.child_by_field_name("alternative");
-        let test = cond.map_or_else(Vec::new, |c| self.collect(|b| b.visit(c)));
-        let then = self.collect(|b| {
-            for child in named_children(node) {
-                let is_cond = cond.is_some_and(|c| c.id() == child.id());
-                let is_alt = alt.is_some_and(|a| a.id() == child.id());
-                if !is_cond && !is_alt {
-                    b.visit(child);
-                }
-            }
-        });
-        let alternate = alt.map(|a| {
-            Box::new(match a.kind() {
-                "preproc_elif" | "preproc_elifdef" | "preproc_elifndef" => self.lower_preproc(a),
-                // preproc_else
-                _ => Node::Group(self.collect(|b| b.visit_named_children(a))),
-            })
-        });
-        Node::Branch {
-            test,
-            then,
-            alternate,
-        }
-    }
-
-    /// A `switch` becomes a `Switch`: one `SwitchCase` per `case_statement`,
-    /// with the `default:` label marked `is_default` (the grammar gives it no
-    /// `value` field). The subject expression runs at the switch's own level.
-    fn visit_switch(&mut self, node: TsNode) {
-        if let Some(cond) = node.child_by_field_name("condition") {
-            self.visit(cond);
-        }
-        let mut cases = Vec::new();
-        if let Some(body) = node.child_by_field_name("body") {
-            for child in named_children(body) {
-                if child.kind() == "case_statement" {
-                    let is_default = child.child_by_field_name("value").is_none();
-                    let case_body = self.collect(|b| b.visit_named_children(child));
-                    cases.push(SwitchCase {
-                        is_default,
-                        body: case_body,
-                    });
-                } else {
-                    // A label or statement outside any case (legal C) runs at
-                    // the switch's level.
-                    self.visit(child);
-                }
-            }
-        }
-        self.emit(Node::Switch { cases });
-    }
-
-    /// One folded [`Node::Logical`] for a run of like operators (`&&` / `||`).
-    /// A different operator nested inside starts a fresh `Logical`.
-    fn visit_logical(&mut self, node: TsNode, op: LogicalOp) {
-        let mut operands = Vec::new();
-        for side in named_children(node) {
-            self.collect_logical_side(side, op, &mut operands);
-        }
-        self.emit(Node::Logical { op, operands });
-    }
-
-    /// Flatten same-operator operands; a different operator nests as its own
-    /// `Logical`; any other expression becomes a `Group` of its sub-nodes.
-    fn collect_logical_side(&mut self, side: TsNode, op: LogicalOp, operands: &mut Vec<Node>) {
-        let side = unwrap_parens(side);
-        match logical_op_of(side) {
-            Some(side_op) => {
-                let kids = named_children(side);
-                if side_op == op {
-                    for k in kids {
-                        self.collect_logical_side(k, op, operands);
-                    }
-                } else {
-                    let mut sub = Vec::new();
-                    for k in kids {
-                        self.collect_logical_side(k, side_op, &mut sub);
-                    }
-                    operands.push(Node::Logical {
-                        op: side_op,
-                        operands: sub,
-                    });
-                }
-            }
-            None => operands.push(Node::Group(self.collect(|b| b.visit(side)))),
-        }
-    }
-
-    /// Emit a `Call` (with the callee's simple name for recursion detection),
-    /// then recurse into the callee expression and the argument list (which may
-    /// contain further constructs).
-    fn visit_call(&mut self, node: TsNode) {
-        let callee = node
-            .child_by_field_name("function")
-            .and_then(|f| self.callee_name(f));
-        self.emit(Node::Call { callee });
-        self.visit_named_children(node);
-    }
-
-    /// Simple name of a directly-called callee: `foo(..)`, `s.foo(..)` /
-    /// `p->foo(..)`, or a parenthesized/dereferenced function pointer
-    /// (`(*fp)(..)`). Returns the trailing identifier.
-    fn callee_name(&self, node: TsNode) -> Option<String> {
-        match node.kind() {
-            "identifier" => Some(self.text(node).to_string()),
-            "field_expression" => node
-                .child_by_field_name("field")
-                .map(|f| self.text(f).to_string()),
-            "parenthesized_expression" | "pointer_expression" => named_children(node)
-                .into_iter()
-                .find_map(|c| self.callee_name(c)),
-            _ => None,
-        }
-    }
-}
-
-/// Dig the defined name out of a declarator chain: a `function_definition`'s
-/// `declarator` may wrap the identifier in `pointer_declarator` (functions
-/// returning pointers), `function_declarator`, and `parenthesized_declarator`
-/// layers (`int *(*f(void))(int)`). Follows `declarator` fields, falling back
-/// to the named children for the field-less `parenthesized_declarator`.
-fn declarator_name(b: &Builder, node: TsNode) -> Option<String> {
-    match node.kind() {
-        "identifier" => Some(b.text(node).to_string()),
-        "parenthesized_declarator" => named_children(node)
-            .into_iter()
-            .find_map(|c| declarator_name(b, c)),
-        _ => node
-            .child_by_field_name("declarator")
-            .and_then(|d| declarator_name(b, d)),
-    }
-}
-
-/// The named children of `node` (skipping `extras`), collected into a `Vec` so
-/// the caller can index or slice-match them without holding the cursor's
-/// borrow. Comments are `extras` in this grammar: they can appear *between*
-/// any two children, so dropping them keeps slice-shape checks
-/// (`lower_else`'s single-child `else if` test, `unwrap_parens`' single-child
-/// unwrap) honest.
-fn named_children(node: TsNode) -> Vec<TsNode> {
-    let mut cursor = node.walk();
-    node.named_children(&mut cursor)
-        .filter(|c| !c.is_extra())
-        .collect()
-}
-
-/// The normalized logical operator a node represents, if any. The grammar
-/// aliases the preprocessor's binary expressions to `binary_expression` too,
-/// so `#if defined(A) && defined(B)` folds the same way.
-fn logical_op_of(node: TsNode) -> Option<LogicalOp> {
-    if node.kind() != "binary_expression" {
-        return None;
-    }
-    match node.child_by_field_name("operator")?.kind() {
-        "&&" => Some(LogicalOp::And),
-        "||" => Some(LogicalOp::Or),
-        _ => None,
-    }
-}
-
-/// Follow a single-child `parenthesized_expression` to the inner expression so
-/// `a && (b && c)` folds into one run.
-fn unwrap_parens(node: TsNode) -> TsNode {
-    if node.kind() == "parenthesized_expression"
-        && let [inner] = named_children(node).as_slice()
-    {
-        return unwrap_parens(*inner);
-    }
-    node
 }
 
 #[cfg(test)]
