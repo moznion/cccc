@@ -19,13 +19,17 @@
 //!   mandatory `this(..)` self-delegation is not mistaken for recursion.
 //! - `if` → [`Node::Branch`] (`else if` chains as a nested `Branch`, scored flat).
 //! - `match` → [`Node::Switch`]; a `case _ =>` or lowercase variable pattern
-//!   (`case other =>`) is the non-decision `default` arm, an uppercase stable-id
-//!   (`case None =>`) is not. A guard (`case x if a && b =>`) is transparent: its
-//!   operators count, the guard itself is not a decision.
+//!   (`case other =>`, also as `v @ _`) is the non-decision `default` arm, an
+//!   uppercase stable-id (`case None =>`) is not. A guard (`case x if a && b =>`)
+//!   is transparent: its operators count, the guard itself is not a decision.
 //! - a partial-function literal (`xs.collect { case … }`) → an anonymous
 //!   [`Node::Function`] wrapping a [`Node::Switch`], like a lambda. `match` and
 //!   `catch` reuse the same `case_block` node via their own paths, so only a
 //!   genuine partial function lands here.
+//! - a lone unguarded arm whose pattern only destructures (`{ case (k, v) => … }`,
+//!   `t match { case (a, b) => … }`) is not a decision: it is Scala's idiom for
+//!   unpacking a tuple (a lambda cannot), so no `Switch` is emitted and the arm
+//!   is transparent — the partial function stays an anonymous `Function`.
 //! - `for` / `while` / `do`-`while` → [`Node::Loop`]. Scala has no `break` /
 //!   `continue` (nor labelled loops), so no [`Node::Jump`]; the library escapes
 //!   (`scala.util.control.Breaks`, Scala 3's `boundary`) are plain calls and stay
@@ -246,28 +250,56 @@ impl<'a> Builder<'a> {
 
     /// A `match` → [`Node::Switch`]. The scrutinee runs at the switch's own level
     /// first, then one `SwitchCase` per arm (see [`Builder::lower_cases`]).
+    /// A lone destructuring arm is transparent instead (see module docs).
     fn visit_match(&mut self, node: TsNode) {
         if let Some(value) = node.child_by_field_name("value") {
             self.visit(value);
         }
-        let cases = node
-            .child_by_field_name("body")
-            .map_or_else(Vec::new, |body| self.lower_cases(body));
+        let body = node.child_by_field_name("body");
+        if let Some(arm) = body.and_then(|b| self.sole_destructuring_arm(b)) {
+            self.visit_named_children(arm);
+            return;
+        }
+        let cases = body.map_or_else(Vec::new, |body| self.lower_cases(body));
         self.emit(Node::Switch { cases });
     }
 
     /// A partial-function literal (`{ case … }` as an expression) → an anonymous
     /// [`Node::Function`] (its own frame, like a lambda) wrapping a `Switch`, so
-    /// its branching is scored on the function rather than the enclosing unit.
+    /// its branching is scored on the function rather than the enclosing unit. A
+    /// lone destructuring arm is the function body itself, with no `Switch`.
     fn visit_partial_function(&mut self, node: TsNode) {
         let line = node.start_position().row as u32 + 1;
-        let cases = self.lower_cases(node);
+        let body = match self.sole_destructuring_arm(node) {
+            Some(arm) => self.collect(|b| b.visit_named_children(arm)),
+            None => vec![Node::Switch {
+                cases: self.lower_cases(node),
+            }],
+        };
         self.emit(Node::Function {
             name: "<partial>".to_string(),
             kind: "lambda".to_string(),
             line,
-            body: vec![Node::Switch { cases }],
+            body,
         });
+    }
+
+    /// The only arm of a `case_block`/`indented_cases`, if it is unguarded and
+    /// its pattern merely destructures ([`Builder::is_destructuring_pattern`]).
+    fn sole_destructuring_arm<'t>(&self, body: TsNode<'t>) -> Option<TsNode<'t>> {
+        let mut cursor = body.walk();
+        let arms: Vec<TsNode<'t>> = body
+            .named_children(&mut cursor)
+            .filter(|c| c.kind() == "case_clause")
+            .collect();
+        let [arm] = arms.as_slice() else {
+            return None;
+        };
+        let destructures = !has_guard(*arm)
+            && arm
+                .child_by_field_name("pattern")
+                .is_some_and(|p| self.is_destructuring_pattern(p));
+        destructures.then_some(*arm)
     }
 
     /// Lower a `case_block`/`indented_cases` into one [`SwitchCase`] per arm
@@ -293,17 +325,16 @@ impl<'a> Builder<'a> {
     /// True if an arm is the non-decision `default`: no guard, and an irrefutable
     /// pattern. A guarded arm (`case _ if c =>`) always tests something.
     fn is_default_case(&self, arm: TsNode) -> bool {
-        let mut cursor = arm.walk();
-        if arm.children(&mut cursor).any(|c| c.kind() == "guard") {
-            return false;
-        }
-        arm.child_by_field_name("pattern")
-            .is_some_and(|p| self.is_irrefutable_pattern(p))
+        !has_guard(arm)
+            && arm
+                .child_by_field_name("pattern")
+                .is_some_and(|p| self.is_irrefutable_pattern(p))
     }
 
     /// Whether a pattern always matches: `_`, or a variable pattern — a
-    /// lowercase-initial `identifier` binding the whole value. An uppercase
-    /// `identifier` (`case None`) is a stable-id comparison; all else is refutable.
+    /// lowercase-initial `identifier` binding the whole value (also as a binder
+    /// `v @ _`). An uppercase `identifier` (`case None`) is a stable-id
+    /// comparison; all else is refutable.
     fn is_irrefutable_pattern(&self, pattern: TsNode) -> bool {
         match pattern.kind() {
             "wildcard" => true,
@@ -312,7 +343,26 @@ impl<'a> Builder<'a> {
                 .chars()
                 .next()
                 .is_some_and(|c| c == '_' || c.is_lowercase()),
+            "capture_pattern" => pattern
+                .child_by_field_name("pattern")
+                .is_some_and(|p| self.is_irrefutable_pattern(p)),
             _ => false,
+        }
+    }
+
+    /// Whether a pattern only unpacks its value: an irrefutable pattern, or a
+    /// tuple (possibly nested, possibly bound with `@`) of such patterns. A tuple
+    /// pattern is refutable in general (it type-tests), so this is used only for
+    /// a lone arm, where the author is asserting the shape rather than testing it.
+    fn is_destructuring_pattern(&self, pattern: TsNode) -> bool {
+        match pattern.kind() {
+            "tuple_pattern" => named_children(pattern)
+                .into_iter()
+                .all(|p| self.is_destructuring_pattern(p)),
+            "capture_pattern" => pattern
+                .child_by_field_name("pattern")
+                .is_some_and(|p| self.is_destructuring_pattern(p)),
+            _ => self.is_irrefutable_pattern(pattern),
         }
     }
 
@@ -403,6 +453,12 @@ fn named_children(node: TsNode) -> Vec<TsNode> {
     node.named_children(&mut cursor)
         .filter(|c| !c.is_extra())
         .collect()
+}
+
+/// Whether a `case_clause` has a pattern guard (`case x if c =>`).
+fn has_guard(arm: TsNode) -> bool {
+    let mut cursor = arm.walk();
+    arm.children(&mut cursor).any(|c| c.kind() == "guard")
 }
 
 /// The `left`/`right` operands of an `infix_expression`, by field so the (named)
@@ -657,6 +713,180 @@ mod tests {
             find(&analyze(src).functions, "<partial>").unwrap().kind,
             "lambda"
         );
+    }
+
+    // `{ case (k, v) => … }` is Scala's idiom for unpacking a tuple argument, not
+    // a branch: the lone destructuring arm adds nothing, only its body scores.
+    #[test]
+    fn tuple_destructuring_partial_function_is_not_a_decision() {
+        let src = r#"
+            object S {
+                def f(m: Map[String, Int]): List[String] = m.toList.map {
+                    case (k, v) => if (v > 0) k else ""
+                }
+            }
+        "#;
+        assert!(parse_errors(src).is_empty(), "{:?}", parse_errors(src));
+        assert_eq!(cognitive_of(src, "f"), 0);
+        // if(+1) + else(+1 flat) = 2; no switch
+        assert_eq!(cognitive_of(src, "<partial>"), 2);
+        // base 1 + if = 2; the tuple arm is not a decision
+        assert_eq!(cyclomatic_of(src, "<partial>"), 2);
+        assert_eq!(
+            find(&analyze(src).functions, "<partial>").unwrap().kind,
+            "lambda"
+        );
+    }
+
+    // Nested tuples, wildcards and `@` binders still only destructure.
+    #[test]
+    fn nested_and_bound_tuple_destructuring_is_not_a_decision() {
+        for src in [
+            "object S { def f(xs: List[(Int, (Int, Int))]) = xs.map { case (a, (b, _)) => a } }",
+            "object S { def f(xs: List[(Int, Int)]) = xs.map { case p @ (a, b) => p } }",
+        ] {
+            assert!(parse_errors(src).is_empty(), "{:?}", parse_errors(src));
+            assert_eq!(cognitive_of(src, "<partial>"), 0, "{src}");
+            assert_eq!(cyclomatic_of(src, "<partial>"), 1, "{src}");
+        }
+    }
+
+    // The same lone destructuring arm in a `match` is transparent too.
+    #[test]
+    fn single_arm_destructuring_match_is_not_a_decision() {
+        let src = r#"
+            object S {
+                def f(t: (Int, Int)): Int = t match {
+                    case (a, b) => if (a > b) a else b
+                }
+            }
+        "#;
+        assert!(parse_errors(src).is_empty(), "{:?}", parse_errors(src));
+        // if(+1) + else(+1 flat) = 2; no switch
+        assert_eq!(cognitive_of(src, "f"), 2);
+        // base 1 + if = 2
+        assert_eq!(cyclomatic_of(src, "f"), 2);
+    }
+
+    // A lone arm that tests something — a guard, a constructor or literal
+    // pattern — is still a real `Switch`, as is any multi-arm tuple match.
+    #[test]
+    fn refutable_or_guarded_lone_arm_stays_a_decision() {
+        for src in [
+            "object S { def f(m: Map[Int, Int]) = m.collect { case (k, v) if v > 0 => k } }",
+            "object S { def f(xs: List[Option[Int]]) = xs.collect { case Some(x) => x } }",
+            "object S { def f(xs: List[(Int, Int)]) = xs.collect { case (0, v) => v } }",
+        ] {
+            assert!(parse_errors(src).is_empty(), "{:?}", parse_errors(src));
+            // switch(+1)
+            assert_eq!(cognitive_of(src, "<partial>"), 1, "{src}");
+            // base 1 + one non-default arm
+            assert_eq!(cyclomatic_of(src, "<partial>"), 2, "{src}");
+        }
+
+        let multi = r#"
+            object S {
+                def f(xs: List[(Int, Int)]): List[Int] = xs.map {
+                    case (0, v) => v
+                    case (k, v) => k
+                }
+            }
+        "#;
+        assert!(parse_errors(multi).is_empty(), "{:?}", parse_errors(multi));
+        assert_eq!(cognitive_of(multi, "<partial>"), 1);
+        // base 1 + both tuple arms (a tuple is only a catch-all when alone) = 3
+        assert_eq!(cyclomatic_of(multi, "<partial>"), 3);
+    }
+
+    // `v @ _` binds the whole value, so it is the default arm like `case v =>`.
+    #[test]
+    fn bound_wildcard_is_the_default_arm() {
+        let src = r#"
+            object S {
+                def f(n: Int): Int = n match {
+                    case 0 => 0
+                    case v @ _ => v
+                }
+            }
+        "#;
+        assert!(parse_errors(src).is_empty(), "{:?}", parse_errors(src));
+        assert_eq!(cognitive_of(src, "f"), 1); // match(+1)
+        // base 1 + `case 0` = 2
+        assert_eq!(cyclomatic_of(src, "f"), 2);
+    }
+
+    // ---- Scala 3 syntax ---------------------------------------------------
+
+    #[test]
+    fn scala3_if_then_else_and_indented_match() {
+        let src = r#"
+object S:
+  def f(a: Boolean, n: Int): Int =
+    if a then 1
+    else if n > 0 then 2
+    else n match
+      case 0 => 3
+      case _ => 4
+"#;
+        assert!(parse_errors(src).is_empty(), "{:?}", parse_errors(src));
+        // if(+1) + else if(+1 flat) + else(+1 flat) + match nested in else(+2) = 5
+        assert_eq!(cognitive_of(src, "f"), 5);
+        // base 1 + if + else if + `case 0` = 4
+        assert_eq!(cyclomatic_of(src, "f"), 4);
+    }
+
+    #[test]
+    fn scala3_braceless_catch() {
+        let indented = r#"
+object S:
+  def f(): Int =
+    try risky()
+    catch
+      case e: IllegalStateException => 1
+      case e: RuntimeException => 2
+"#;
+        let one_line = r#"
+object S:
+  def f(): Int = try risky() catch case e: Exception => 1
+"#;
+        for src in [indented, one_line] {
+            assert!(parse_errors(src).is_empty(), "{:?}", parse_errors(src));
+            // one catch clause(+1)
+            assert_eq!(cognitive_of(src, "f"), 1, "{src}");
+            assert_eq!(cyclomatic_of(src, "f"), 2, "{src}");
+            // the handlers are not a partial function
+            assert!(find(&analyze(src).functions, "<partial>").is_none());
+        }
+    }
+
+    #[test]
+    fn scala3_while_do() {
+        let src = r#"
+object S:
+  def f(n: Int): Unit =
+    var i = n
+    while i > 0 do i -= 1
+"#;
+        assert!(parse_errors(src).is_empty(), "{:?}", parse_errors(src));
+        assert_eq!(cognitive_of(src, "f"), 1);
+        assert_eq!(cyclomatic_of(src, "f"), 2);
+    }
+
+    #[test]
+    fn scala3_extension_and_given_methods_are_units() {
+        let src = r#"
+object S:
+  extension (x: Int) def isPos: Boolean = if x > 0 then true else false
+
+  given Ordering[Int] with
+    def compare(a: Int, b: Int): Int = if a < b then -1 else 1
+"#;
+        assert!(parse_errors(src).is_empty(), "{:?}", parse_errors(src));
+        for name in ["isPos", "compare"] {
+            // if(+1) + else(+1 flat) = 2
+            assert_eq!(cognitive_of(src, name), 2, "{name}");
+            assert_eq!(cyclomatic_of(src, name), 2, "{name}");
+        }
     }
 
     // `scala.util.control.Breaks` / `boundary` are ordinary calls, so

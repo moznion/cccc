@@ -684,6 +684,11 @@ its language onto the same IR, with the per-language differences below.
   `catch` score within that one node), and `&&`/`||`.
 - A pattern guard (`case x if a && b =>`) is transparent: its operators still
   contribute, but the guard itself is not a separate decision.
+- A lone unguarded arm that only destructures — `{ case (k, v) => … }` or
+  `t match { case (a, b) => … }` (tuples of variables / `_`, nested or bound
+  with `@`) — is not a decision: it is Scala's idiom for unpacking a tuple, so
+  it adds no `match` increment and its body scores directly. With more than
+  one arm, a tuple pattern is an ordinary refutable case.
 - No `break`/`continue` statements (nor labelled loops) and no `??`-style
   coalescing operator. The library-based escapes —
   `scala.util.control.Breaks` (`breakable {}` / `break()`) and Scala 3's
