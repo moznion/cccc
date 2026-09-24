@@ -62,6 +62,12 @@ jobs:
         with:
           ref: refs/tags/${{ inputs.tag }}
 
+      # Installs the toolchain pinned in rust-toolchain.toml; the upload action
+      # then adds the target to it.
+      - name: Install Rust toolchain
+        shell: bash
+        run: rustup toolchain install
+
       # cccc-rb builds Ruby's Prism from vendored C via bindgen, which needs
       # libclang on the host that runs the build.
       - name: Install libclang (bindgen)

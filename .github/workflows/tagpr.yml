@@ -30,9 +30,9 @@ jobs:
           persist-credentials: false
 
       # tagpr.postVersionCommand runs `cargo update --workspace` to sync Cargo.lock.
-      - uses: dtolnay/rust-toolchain@2c7215f132e9ebf062739d9130488b56d53c060c
-        with:
-          toolchain: stable
+      # Installs the toolchain pinned in rust-toolchain.toml.
+      - name: Install Rust toolchain
+        run: rustup toolchain install
 
       - id: tagpr
         uses: Songmu/tagpr@2afc990a4a5a9a340665cc1a484c2102f7de332f # v1.21.0
