@@ -1,0 +1,6 @@
+# Pins the Rust toolchain for local development and every CI workflow.
+# Bumped by Dependabot (`rust-toolchain` ecosystem in .github/dependabot.yml).
+[toolchain]
+channel = "1.98.1"
+profile = "minimal"
+components = ["rustfmt", "clippy"]
