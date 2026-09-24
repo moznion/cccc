@@ -964,6 +964,11 @@ fn cache_git_index_validates_unreadable_file() {
         );
     };
     git(&["init", "-q"]);
+    // Making the file unreadable below bumps its ctime, and git compares
+    // ctime at one-second granularity: a chmod landing in a later second
+    // than the index refresh would make `git status` re-read the file, fail,
+    // and report it dirty. Only mode changes are in play here, so ignore ctime.
+    git(&["config", "core.trustctime", "false"]);
     git(&["add", "sample.ts"]);
     git(&[
         "-c",
