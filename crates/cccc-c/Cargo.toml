@@ -11,5 +11,5 @@ description = "C (tree-sitter) adapter that lowers source into the cccc-core com
 [dependencies]
 cccc-core = { workspace = true }
 cccc-clike = { workspace = true }
-tree-sitter = "0.26"
+tree-sitter = "0.27"
 tree-sitter-c = "0.24"

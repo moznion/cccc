@@ -10,5 +10,5 @@ description = "Kotlin (tree-sitter) adapter that lowers source into the cccc-cor
 
 [dependencies]
 cccc-core = { workspace = true }
-tree-sitter = "0.26"
+tree-sitter = "0.27"
 tree-sitter-kotlin = { git = "https://github.com/exoego/tree-sitter-kotlin", rev = "97ab2826bf686723ca7dcc34d55f758d9c41a59d" }
