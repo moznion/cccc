@@ -10,4 +10,4 @@ description = "Shared tree-sitter lowering helpers for C-family adapters (cccc-c
 
 [dependencies]
 cccc-core = { workspace = true }
-tree-sitter = "0.26"
+tree-sitter = "0.27"
