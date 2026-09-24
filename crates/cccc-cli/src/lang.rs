@@ -88,6 +88,7 @@ pub const LANGUAGES: &[Language] = &[
         exts: cccc_clojure::DEFAULT_EXTS,
         analyze: cccc_clojure::analyze_source,
     },
+    #[cfg(feature = "kotlin")]
     Language {
         name: "kotlin",
         aliases: &["kt"],
@@ -305,6 +306,7 @@ mod tests {
                 "commonlisp".to_string(),
                 "emacslisp".to_string(),
                 "clojure".to_string(),
+                #[cfg(feature = "kotlin")]
                 "kotlin".to_string(),
                 "python".to_string(),
                 "zig".to_string(),
@@ -352,10 +354,14 @@ mod tests {
     fn dispatch_covers_each_extension() {
         let all = resolve_languages(None, None).unwrap();
         let map = build_dispatch(&all, &BTreeMap::new());
-        for key in [
-            "ts", "rs", "go", "php", "rb", "scm", "lisp", "el", "clj", "kt", "kts", "py", "pyi",
-            "zig", "c", "h", "pl", "pm", "t", "swift", "java", "dart", "scala", "sc",
-        ] {
+        let mut keys = vec![
+            "ts", "rs", "go", "php", "rb", "scm", "lisp", "el", "clj", "py", "pyi", "zig", "c",
+            "h", "pl", "pm", "t", "swift", "java", "dart", "scala", "sc",
+        ];
+        if cfg!(feature = "kotlin") {
+            keys.extend(["kt", "kts"]);
+        }
+        for key in keys {
             assert!(map.contains_key(key), "missing dispatch for .{key}");
         }
     }

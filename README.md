@@ -79,7 +79,7 @@ library and extended to other languages:
 | [`cccc-lisp`](crates/cccc-lisp) | Lisp-family adapter **library** (Common Lisp, Emacs Lisp, …) built on `cccc-lisp-kit`. Its `Dialect` API also analyzes Scheme/Clojure by delegating to `cccc-scheme`/`cccc-clojure` (no duplicated lowering). **No CLI dependencies.** |
 | [`cccc-clojure`](crates/cccc-clojure) | Clojure adapter **library**: lowers the [lispexp](https://docs.rs/lispexp) S-expression tree into `cccc-core`'s IR. Depends only on `cccc-core` + lispexp (pure Rust) — **no CLI dependencies**. |
 | [`cccc-scheme`](crates/cccc-scheme) | Scheme (R7RS-small) adapter **library**: lowers the [lispexp](https://docs.rs/lispexp) S-expression tree into `cccc-core`'s IR. Depends only on `cccc-core` + lispexp (pure Rust) — **no CLI dependencies**. |
-| [`cccc-kt`](crates/cccc-kt) | Kotlin adapter **library**: lowers the [exoego/tree-sitter-kotlin](https://github.com/exoego/tree-sitter-kotlin) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Kotlin grammar — **no CLI dependencies**. Note: the grammar ships C source compiled by `cc`, so building this crate needs a C compiler (but not libclang, unlike `cccc-rb`). |
+| [`cccc-kt`](crates/cccc-kt) | Kotlin adapter **library**: lowers the [exoego/tree-sitter-kotlin](https://github.com/exoego/tree-sitter-kotlin) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Kotlin grammar — **no CLI dependencies**. Note: the grammar ships C source compiled by `cc`, so building this crate needs a C compiler (but not libclang, unlike `cccc-rb`). Not published to crates.io (the grammar is a git dependency); `cccc-cli` includes it via its default `kotlin` feature. |
 | [`cccc-py`](crates/cccc-py) | Python adapter **library**: lowers the official [tree-sitter-python](https://github.com/tree-sitter/tree-sitter-python) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Python grammar — **no CLI dependencies**. Like `cccc-kt`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 | [`cccc-zig`](crates/cccc-zig) | Zig adapter **library**: lowers the pure-Rust [zigsyn](https://docs.rs/zigsyn) AST into `cccc-core`'s IR. Depends only on `cccc-core` + zigsyn — **no CLI dependencies or C toolchain**. |
 | [`cccc-c`](crates/cccc-c) | C adapter **library**: lowers the official [tree-sitter-c](https://github.com/tree-sitter/tree-sitter-c) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the C grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
@@ -124,10 +124,26 @@ assert_eq!(report.functions[0].cognitive, 1);  // one `if`
 
 ## Install / build
 
+Prebuilt binaries for Linux, macOS, and Windows are attached to each
+[GitHub Release](https://github.com/moznion/cccc/releases). To build from source:
+
 ```sh
 cargo build --release
 # single binary at ./target/release/cccc
 ```
+
+Or install from crates.io:
+
+```sh
+cargo install cccc-cli
+```
+
+> [!NOTE]
+> The crates.io build does **not** support Kotlin. `cccc-kt` depends on a Kotlin
+> grammar that is only available from git, and crates.io rejects git
+> dependencies, so `cccc-kt` is not published and `cccc-cli` is published without
+> its (default) `kotlin` feature. Use a GitHub Release binary or build from this
+> repository to analyze Kotlin.
 
 ## Usage
 

@@ -12,6 +12,18 @@ description = "The unified cccc binary: one CLI that measures cognitive/cyclomat
 name = "cccc"
 path = "src/main.rs"
 
+[features]
+# Kotlin support. On by default, but the crates.io release is published without
+# it: cccc-kt depends on a git-only grammar, so .github/scripts/publish-crates.sh
+# drops every line marked `crates.io: strip` before `cargo publish`. Kotlin is
+# available in the GitHub Releases binaries and in builds from this repository.
+default = ["kotlin"] # crates.io: strip
+kotlin = ["dep:cccc-kt"] # crates.io: strip
+
+[lints.rust]
+# Keep `cfg(feature = "kotlin")` known after the feature is stripped for crates.io.
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(feature, values("kotlin"))'] }
+
 [dependencies]
 cccc-core = { workspace = true }
 cccc-es = { workspace = true }
@@ -22,7 +34,7 @@ cccc-rb = { workspace = true }
 cccc-scheme = { workspace = true }
 cccc-lisp = { workspace = true }
 cccc-clojure = { workspace = true }
-cccc-kt = { workspace = true }
+cccc-kt = { workspace = true, optional = true } # crates.io: strip
 cccc-py = { workspace = true }
 cccc-zig = { workspace = true }
 cccc-c = { workspace = true }

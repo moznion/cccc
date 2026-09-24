@@ -337,19 +337,29 @@ fn json_mode_reports_parse_errors_in_output_not_stderr() {
 
 // ----- multi-language dispatch & --lang -------------------------------------
 
+/// Kotlin's entry in a comma-separated `--lang`/`--exclude-lang` list: it is only
+/// compiled in with the (default) `kotlin` feature, and naming an unknown
+/// language is an error.
+const KOTLIN: &str = if cfg!(feature = "kotlin") {
+    ",kotlin"
+} else {
+    ""
+};
+
 #[test]
 fn analyzes_all_languages_in_one_run() {
     // The fixtures dir holds one file per language; a single run dispatches each
     // by extension and reports them all together.
     let v = json(&["tests/fixtures"]);
-    assert_eq!(v["summary"]["file_count"], 19);
+    let expected_files = if cfg!(feature = "kotlin") { 19 } else { 18 };
+    assert_eq!(v["summary"]["file_count"], expected_files);
     let paths: Vec<String> = v["files"]
         .as_array()
         .unwrap()
         .iter()
         .map(|f| f["path"].as_str().unwrap().to_string())
         .collect();
-    for ext in [
+    let mut samples = vec![
         "sample.ts",
         "sample.rs",
         "sample.go",
@@ -359,7 +369,6 @@ fn analyzes_all_languages_in_one_run() {
         "sample.lisp",
         "sample.el",
         "sample.clj",
-        "sample.kt",
         "sample.py",
         "sample.zig",
         "sample.c",
@@ -369,7 +378,11 @@ fn analyzes_all_languages_in_one_run() {
         "sample.java",
         "sample.dart",
         "sample.scala",
-    ] {
+    ];
+    if cfg!(feature = "kotlin") {
+        samples.push("sample.kt");
+    }
+    for ext in samples {
         assert!(paths.iter().any(|p| p.ends_with(ext)), "missing {ext}");
     }
 }
@@ -402,11 +415,10 @@ fn unknown_lang_is_an_error() {
 #[test]
 fn exclude_lang_drops_a_language() {
     // Excluding every language except ES and Rust leaves the .ts and .rs fixtures.
-    let v = json(&[
-        "--exclude-lang",
-        "go,php,ruby,scheme,commonlisp,emacslisp,clojure,kotlin,python,perl,zig,c,cpp,swift,java,dart,scala",
-        "tests/fixtures",
-    ]);
+    let excluded = format!(
+        "go,php,ruby,scheme,commonlisp,emacslisp,clojure{KOTLIN},python,perl,zig,c,cpp,swift,java,dart,scala"
+    );
+    let v = json(&["--exclude-lang", &excluded, "tests/fixtures"]);
     let mut exts: Vec<String> = v["files"]
         .as_array()
         .unwrap()
@@ -450,7 +462,9 @@ fn excluding_every_language_is_an_error() {
         .unwrap()
         .args([
             "--exclude-lang",
-            "es,rust,go,php,ruby,scheme,commonlisp,emacslisp,clojure,kotlin,python,perl,zig,c,cpp,swift,java,dart,scala",
+            &format!(
+                "es,rust,go,php,ruby,scheme,commonlisp,emacslisp,clojure{KOTLIN},python,perl,zig,c,cpp,swift,java,dart,scala"
+            ),
             "tests/fixtures",
         ])
         .assert()

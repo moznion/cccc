@@ -6,8 +6,10 @@ name: tagpr
 # the archives to that release.
 #
 # The tag is pushed with GITHUB_TOKEN, which does not trigger `on: push: tags`
-# workflows, so the assets are built in this workflow directly.
-# Run it manually with a tag to (re)upload the assets of an existing release;
+# workflows, so the assets are built in this workflow directly. The `publish`
+# job then publishes the workspace crates of the same tag to crates.io.
+# Run it manually with a tag to (re)upload the assets of an existing release or
+# to resume a failed crates.io publish (versions already there are skipped);
 # the tagpr job is skipped in that case.
 
 on:
@@ -132,3 +134,36 @@ jobs:
           checksum: sha256
           ref: refs/tags/${{ needs.tagpr.outputs.tag || inputs.tag }}
           token: ${{ secrets.GITHUB_TOKEN }}
+
+  # cccc-kt is not published (its Kotlin grammar is a git dependency), so the
+  # crates.io cccc-cli is built without Kotlin; see .github/scripts/publish-crates.sh.
+  publish:
+    needs: tagpr
+    # Runs after tagpr cut a tag, or on a manual dispatch (tagpr skipped).
+    if: >-
+      !cancelled() && !failure()
+      && (needs.tagpr.outputs.tag != '' || github.event_name == 'workflow_dispatch')
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    # New crates are rate-limited by crates.io; the script waits out 429s.
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: refs/tags/${{ needs.tagpr.outputs.tag || inputs.tag }}
+          persist-credentials: false
+
+      # Installs the toolchain pinned in rust-toolchain.toml.
+      - name: Install Rust toolchain
+        run: rustup toolchain install
+
+      # cccc-rb builds Ruby's Prism from vendored C via bindgen, which needs
+      # libclang for the verification build.
+      - name: Install libclang (bindgen)
+        run: sudo apt-get update && sudo apt-get install -y libclang-dev
+
+      - name: Publish crates
+        run: .github/scripts/publish-crates.sh
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}

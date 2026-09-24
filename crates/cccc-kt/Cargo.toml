@@ -7,6 +7,11 @@ license.workspace = true
 repository.workspace = true
 homepage.workspace = true
 description = "Kotlin (tree-sitter) adapter that lowers source into the cccc-core complexity IR"
+# The Kotlin grammar is a git dependency (exoego/tree-sitter-kotlin), which
+# crates.io rejects, so this crate is not published. cccc-cli pulls it in via
+# its default `kotlin` feature, which is stripped from the published manifest
+# (see .github/scripts/publish-crates.sh).
+publish = false
 
 [dependencies]
 cccc-core = { workspace = true }
