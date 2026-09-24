@@ -16,4 +16,4 @@ cccc-core = { workspace = true }
 # the grammar is fault-tolerant and covers the constructs complexity cares
 # about.
 tree-sitter = "0.26"
-ts-parser-perl = "1.2"
+ts-parser-perl = "2.0"

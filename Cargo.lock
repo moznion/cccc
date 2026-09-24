@@ -1692,9 +1692,9 @@ dependencies = [
 
 [[package]]
 name = "ts-parser-perl"
-version = "1.2.1"
+version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d125f7bfdd1fd82a7e87d2e85793f486ad1b5f465144e9e22132dbe5bd80e694"
+checksum = "db3cd8574afc19af4d3db44fe0cf94a5e8fc3f4056c0326baf5ba01a29666129"
 dependencies = [
  "cc",
  "tree-sitter-language",
