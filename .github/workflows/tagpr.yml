@@ -1,0 +1,49 @@
+name: tagpr
+
+# Keeps a release pull request open for the unreleased changes on main. Merging
+# it makes tagpr tag the merge commit and create the GitHub Release, then the
+# binaries are built and attached by the reusable release workflow.
+#
+# The tag is pushed with GITHUB_TOKEN, which does not trigger `on: push: tags`
+# workflows, so the release workflow is called from here directly.
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: tagpr
+  cancel-in-progress: false
+
+jobs:
+  tagpr:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: read
+    outputs:
+      tag: ${{ steps.tagpr.outputs.tag }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # tagpr.postVersionCommand runs `cargo update --workspace` to sync Cargo.lock.
+      - uses: dtolnay/rust-toolchain@2c7215f132e9ebf062739d9130488b56d53c060c
+        with:
+          toolchain: stable
+
+      - id: tagpr
+        uses: Songmu/tagpr@2afc990a4a5a9a340665cc1a484c2102f7de332f # v1.21.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  release:
+    needs: tagpr
+    if: needs.tagpr.outputs.tag != ''
+    permissions:
+      contents: write
+    uses: ./.github/workflows/release.yml
+    with:
+      tag: ${{ needs.tagpr.outputs.tag }}

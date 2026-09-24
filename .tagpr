@@ -1,0 +1,30 @@
+# config file for the tagpr in git config format
+# The tagpr generates the initial configuration, which you can rewrite to suit your environment.
+# CONFIGURATIONS:
+#   tagpr.releaseBranch
+#       Generally, it is "main." It is the branch for releases. The tagpr tracks this branch,
+#       creates or updates a pull request as a release candidate, or tags when they are merged.
+#
+#   tagpr.versionFile
+#       Versioning file containing the semantic version needed to be updated at release.
+#       Only the first occurrence is rewritten, so postVersionCommand syncs the rest.
+#
+#   tagpr.postVersionCommand
+#       Command to change files just after the version files are updated.
+#
+#   tagpr.vPrefix
+#       Flag whether or not v-prefix is added to semver when git tagging. (e.g. v1.2.3 if true)
+#
+#   tagpr.release
+#       GitHub Release creation behavior after tagging [true, draft, false]
+#       Binary assets are attached afterwards by .github/workflows/release.yml.
+#
+#   tagpr.changelog (Optional)
+#       Flag whether or not changelog is added or changed during the release.
+[tagpr]
+	vPrefix = true
+	releaseBranch = main
+	versionFile = Cargo.toml
+	postVersionCommand = .github/scripts/sync-workspace-version.sh
+	release = true
+	changelog = true
