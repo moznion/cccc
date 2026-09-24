@@ -212,7 +212,7 @@ dependencies = [
 
 [[package]]
 name = "cccc-c"
-version = "1.6.0"
+version = "1.7.0"
 dependencies = [
  "cccc-clike",
  "cccc-core",
@@ -222,7 +222,7 @@ dependencies = [
 
 [[package]]
 name = "cccc-cli"
-version = "1.6.0"
+version = "1.7.0"
 dependencies = [
  "assert_cmd",
  "bincode",
@@ -258,7 +258,7 @@ dependencies = [
 
 [[package]]
 name = "cccc-clike"
-version = "1.6.0"
+version = "1.7.0"
 dependencies = [
  "cccc-core",
  "tree-sitter",
@@ -266,21 +266,21 @@ dependencies = [
 
 [[package]]
 name = "cccc-clojure"
-version = "1.6.0"
+version = "1.7.0"
 dependencies = [
  "cccc-lisp-kit",
 ]
 
 [[package]]
 name = "cccc-core"
-version = "1.6.0"
+version = "1.7.0"
 dependencies = [
  "serde",
 ]
 
 [[package]]
 name = "cccc-cpp"
-version = "1.6.0"
+version = "1.7.0"
 dependencies = [
  "cccc-clike",
  "cccc-core",
@@ -290,7 +290,7 @@ dependencies = [
 
 [[package]]
 name = "cccc-dart"
-version = "1.6.0"
+version = "1.7.0"
 dependencies = [
  "cccc-core",
  "tree-sitter",
@@ -299,7 +299,7 @@ dependencies = [
 
 [[package]]
 name = "cccc-es"
-version = "1.6.0"
+version = "1.7.0"
 dependencies = [
  "cccc-core",
  "oxc_allocator",
@@ -312,7 +312,7 @@ dependencies = [
 
 [[package]]
 name = "cccc-go"
-version = "1.6.0"
+version = "1.7.0"
 dependencies = [
  "cccc-core",
  "gosyn",
@@ -320,7 +320,7 @@ dependencies = [
 
 [[package]]
 name = "cccc-java"
-version = "1.6.0"
+version = "1.7.0"
 dependencies = [
  "cccc-core",
  "tree-sitter",
@@ -329,7 +329,7 @@ dependencies = [
 
 [[package]]
 name = "cccc-kt"
-version = "1.6.0"
+version = "1.7.0"
 dependencies = [
  "cccc-core",
  "tree-sitter",
@@ -338,7 +338,7 @@ dependencies = [
 
 [[package]]
 name = "cccc-lisp"
-version = "1.6.0"
+version = "1.7.0"
 dependencies = [
  "cccc-clojure",
  "cccc-lisp-kit",
@@ -347,7 +347,7 @@ dependencies = [
 
 [[package]]
 name = "cccc-lisp-kit"
-version = "1.6.0"
+version = "1.7.0"
 dependencies = [
  "cccc-core",
  "lispexp",
@@ -355,7 +355,7 @@ dependencies = [
 
 [[package]]
 name = "cccc-php"
-version = "1.6.0"
+version = "1.7.0"
 dependencies = [
  "cccc-core",
  "php-ast",
@@ -364,7 +364,7 @@ dependencies = [
 
 [[package]]
 name = "cccc-pl"
-version = "1.6.0"
+version = "1.7.0"
 dependencies = [
  "cccc-core",
  "tree-sitter",
@@ -373,7 +373,7 @@ dependencies = [
 
 [[package]]
 name = "cccc-py"
-version = "1.6.0"
+version = "1.7.0"
 dependencies = [
  "cccc-core",
  "tree-sitter",
@@ -382,7 +382,7 @@ dependencies = [
 
 [[package]]
 name = "cccc-rb"
-version = "1.6.0"
+version = "1.7.0"
 dependencies = [
  "cccc-core",
  "ruby-prism",
@@ -390,7 +390,7 @@ dependencies = [
 
 [[package]]
 name = "cccc-rs"
-version = "1.6.0"
+version = "1.7.0"
 dependencies = [
  "cccc-core",
  "proc-macro2",
@@ -399,7 +399,7 @@ dependencies = [
 
 [[package]]
 name = "cccc-scala"
-version = "1.6.0"
+version = "1.7.0"
 dependencies = [
  "cccc-core",
  "tree-sitter",
@@ -408,14 +408,14 @@ dependencies = [
 
 [[package]]
 name = "cccc-scheme"
-version = "1.6.0"
+version = "1.7.0"
 dependencies = [
  "cccc-lisp-kit",
 ]
 
 [[package]]
 name = "cccc-swift"
-version = "1.6.0"
+version = "1.7.0"
 dependencies = [
  "cccc-core",
  "tree-sitter",
@@ -424,7 +424,7 @@ dependencies = [
 
 [[package]]
 name = "cccc-zig"
-version = "1.6.0"
+version = "1.7.0"
 dependencies = [
  "cccc-core",
  "zigsyn",
