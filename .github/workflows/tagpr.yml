@@ -2,14 +2,23 @@ name: tagpr
 
 # Keeps a release pull request open for the unreleased changes on main. Merging
 # it makes tagpr tag the merge commit and create the GitHub Release, then the
-# binaries are built and attached by the reusable release workflow.
+# `release` job builds the unified `cccc` binary for every target and attaches
+# the archives to that release.
 #
 # The tag is pushed with GITHUB_TOKEN, which does not trigger `on: push: tags`
-# workflows, so the release workflow is called from here directly.
+# workflows, so the assets are built in this workflow directly.
+# Run it manually with a tag to (re)upload the assets of an existing release;
+# the tagpr job is skipped in that case.
 
 on:
   push:
     branches: [main]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag (e.g. v1.2.3)
+        required: true
+        type: string
 
 concurrency:
   group: tagpr
@@ -17,6 +26,7 @@ concurrency:
 
 jobs:
   tagpr:
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -41,9 +51,84 @@ jobs:
 
   release:
     needs: tagpr
-    if: needs.tagpr.outputs.tag != ''
+    # Runs after tagpr cut a tag, or on a manual dispatch (tagpr skipped).
+    if: >-
+      !cancelled() && !failure()
+      && (needs.tagpr.outputs.tag != '' || github.event_name == 'workflow_dispatch')
     permissions:
       contents: write
-    uses: ./.github/workflows/release.yml
-    with:
-      tag: ${{ needs.tagpr.outputs.tag }}
+    strategy:
+      fail-fast: false
+      matrix:
+        # One asset per (binary × target). There is a single unified `cccc`
+        # binary; the `include` entries attach the runner OS to each target.
+        bin:
+          - cccc
+        target:
+          - x86_64-unknown-linux-musl
+          - aarch64-unknown-linux-musl
+          - x86_64-apple-darwin
+          - aarch64-apple-darwin
+          - x86_64-pc-windows-msvc
+        include:
+          # The two musl targets build the vendored Prism C sources for a
+          # foreign libc, so they cross-compile with cargo-zigbuild (zig provides
+          # the target C toolchain + linker); the rest build natively with cargo.
+          - target: x86_64-unknown-linux-musl
+            os: ubuntu-latest
+            build-tool: cargo-zigbuild
+          - target: aarch64-unknown-linux-musl
+            os: ubuntu-latest
+            build-tool: cargo-zigbuild
+          - target: x86_64-apple-darwin
+            os: macos-latest
+            build-tool: cargo
+          - target: aarch64-apple-darwin
+            os: macos-latest
+            build-tool: cargo
+          - target: x86_64-pc-windows-msvc
+            os: windows-latest
+            build-tool: cargo
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: refs/tags/${{ needs.tagpr.outputs.tag || inputs.tag }}
+
+      # Installs the toolchain pinned in rust-toolchain.toml; the upload action
+      # then adds the target to it.
+      - name: Install Rust toolchain
+        shell: bash
+        run: rustup toolchain install
+
+      # cccc-rb builds Ruby's Prism from vendored C via bindgen, which needs
+      # libclang on the host that runs the build.
+      - name: Install libclang (bindgen)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y libclang-dev
+
+      - name: Set up Zig (cargo-zigbuild cross C toolchain)
+        if: matrix.build-tool == 'cargo-zigbuild'
+        uses: mlugg/setup-zig@d1434d08867e3ee9daa34448df10607b98908d29 # v2.2.1
+        with:
+          version: 0.16.0
+
+      - name: Point bindgen at the preinstalled libclang (Windows)
+        if: runner.os == 'Windows'
+        shell: bash
+        run: echo "LIBCLANG_PATH=C:\\Program Files\\LLVM\\bin" >> "$GITHUB_ENV"
+
+      - uses: taiki-e/upload-rust-binary-action@9db2ba52f2d913fae376c843748c9d2c2ac2c9ba
+        with:
+          # The unified cccc binary.
+          bin: ${{ matrix.bin }}
+          target: ${{ matrix.target }}
+          build-tool: ${{ matrix.build-tool }}
+          # Archive name: cccc-<tag>-<target>.{tar.gz,zip}
+          archive: $bin-$tag-$target
+          # Bundle docs/license alongside the binary in the archive.
+          include: README.md,LICENSE
+          # Emit a .sha256 file next to each asset.
+          checksum: sha256
+          ref: refs/tags/${{ needs.tagpr.outputs.tag || inputs.tag }}
+          token: ${{ secrets.GITHUB_TOKEN }}
