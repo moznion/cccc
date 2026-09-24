@@ -342,7 +342,7 @@ fn analyzes_all_languages_in_one_run() {
     // The fixtures dir holds one file per language; a single run dispatches each
     // by extension and reports them all together.
     let v = json(&["tests/fixtures"]);
-    assert_eq!(v["summary"]["file_count"], 18);
+    assert_eq!(v["summary"]["file_count"], 19);
     let paths: Vec<String> = v["files"]
         .as_array()
         .unwrap()
@@ -363,6 +363,7 @@ fn analyzes_all_languages_in_one_run() {
         "sample.py",
         "sample.zig",
         "sample.c",
+        "sample.cpp",
         "sample.pl",
         "sample.swift",
         "sample.java",
@@ -403,7 +404,7 @@ fn exclude_lang_drops_a_language() {
     // Excluding every language except ES and Rust leaves the .ts and .rs fixtures.
     let v = json(&[
         "--exclude-lang",
-        "go,php,ruby,scheme,commonlisp,emacslisp,clojure,kotlin,python,perl,zig,c,swift,java,dart,scala",
+        "go,php,ruby,scheme,commonlisp,emacslisp,clojure,kotlin,python,perl,zig,c,cpp,swift,java,dart,scala",
         "tests/fixtures",
     ]);
     let mut exts: Vec<String> = v["files"]
@@ -449,7 +450,7 @@ fn excluding_every_language_is_an_error() {
         .unwrap()
         .args([
             "--exclude-lang",
-            "es,rust,go,php,ruby,scheme,commonlisp,emacslisp,clojure,kotlin,python,perl,zig,c,swift,java,dart,scala",
+            "es,rust,go,php,ruby,scheme,commonlisp,emacslisp,clojure,kotlin,python,perl,zig,c,cpp,swift,java,dart,scala",
             "tests/fixtures",
         ])
         .assert()
@@ -964,6 +965,11 @@ fn cache_git_index_validates_unreadable_file() {
         );
     };
     git(&["init", "-q"]);
+    // Making the file unreadable below bumps its ctime, and git compares
+    // ctime at one-second granularity: a chmod landing in a later second
+    // than the index refresh would make `git status` re-read the file, fail,
+    // and report it dirty. Only mode changes are in play here, so ignore ctime.
+    git(&["config", "core.trustctime", "false"]);
     git(&["add", "sample.ts"]);
     git(&[
         "-c",

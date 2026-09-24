@@ -1,25 +1,29 @@
 name: Release
 
+# Builds the unified `cccc` binary for every target and attaches the archives to
+# the GitHub Release of the given tag. The release itself is created by tagpr
+# (.github/workflows/tagpr.yml), which calls this workflow after tagging.
+# Run it manually to (re)upload the assets of an existing release.
+
 on:
-  push:
-    tags:
-      - "v*"
+  workflow_call:
+    inputs:
+      tag:
+        description: Release tag (e.g. v1.2.3)
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag (e.g. v1.2.3)
+        required: true
+        type: string
 
 permissions:
   contents: write
 
 jobs:
-  create-release:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: taiki-e/create-gh-release-action@eba8ea96c86cca8a37f1b56e94b4d13301fba651 # v1.11.0
-        with:
-          # Tags like v1.2.3 / v1.2.3-rc.1 become the release version.
-          token: ${{ secrets.GITHUB_TOKEN }}
-
   upload-assets:
-    needs: create-release
     strategy:
       fail-fast: false
       matrix:
@@ -55,6 +59,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: refs/tags/${{ inputs.tag }}
 
       # cccc-rb builds Ruby's Prism from vendored C via bindgen, which needs
       # libclang on the host that runs the build.
@@ -73,7 +79,7 @@ jobs:
         shell: bash
         run: echo "LIBCLANG_PATH=C:\\Program Files\\LLVM\\bin" >> "$GITHUB_ENV"
 
-      - uses: taiki-e/upload-rust-binary-action@9e81141ff6bc3277fe5cb780abf417679057bd40
+      - uses: taiki-e/upload-rust-binary-action@9db2ba52f2d913fae376c843748c9d2c2ac2c9ba
         with:
           # The unified cccc binary.
           bin: ${{ matrix.bin }}
@@ -85,4 +91,5 @@ jobs:
           include: README.md,LICENSE
           # Emit a .sha256 file next to each asset.
           checksum: sha256
+          ref: refs/tags/${{ inputs.tag }}
           token: ${{ secrets.GITHUB_TOKEN }}

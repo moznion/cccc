@@ -96,6 +96,11 @@ fn c_fixture_dispatches() {
 }
 
 #[test]
+fn cpp_fixture_dispatches() {
+    assert_sum_of_primes("sample.cpp", "sumOfPrimes");
+}
+
+#[test]
 fn perl_fixture_dispatches() {
     assert_sum_of_primes("sample.pl", "sum_of_primes");
 }

@@ -9,6 +9,10 @@ updates:
       oxc:
         patterns:
           - "oxc*"
+      php-parser:
+        patterns:
+          - "php-rs-parser"
+          - "php-ast"
   - package-ecosystem: 'github-actions'
     directory: '/'
     schedule:

@@ -36,6 +36,13 @@
   - **C** (`--lang c`), via the official
     [tree-sitter-c](https://github.com/tree-sitter/tree-sitter-c) grammar.
     Analyzes `.c`, `.h`.
+  - **C++** (`--lang cpp`, aliases `c++`/`cxx`), via the official
+    [tree-sitter-cpp](https://github.com/tree-sitter/tree-sitter-cpp) grammar.
+    Analyzes `.cpp`, `.cc`, `.cxx`, `.hpp`, `.hh`, `.hxx`, `.h++`, `.tpp`,
+    `.ipp` (`.h` is claimed by C, since extension routing needs disjoint
+    claims — see [C++](#c---lang-cpp) for routing `.h` to C++). Shares its
+    lowering for everything C and C++ have in common with `cccc-c`, via
+    `cccc-clike`.
   - **Perl** (`--lang perl`), via the community-maintained
     [tree-sitter-perl](https://github.com/tree-sitter-perl/tree-sitter-perl)
     grammar. Analyzes `.pl`, `.pm`, `.t`.
@@ -76,6 +83,8 @@ library and extended to other languages:
 | [`cccc-py`](crates/cccc-py) | Python adapter **library**: lowers the official [tree-sitter-python](https://github.com/tree-sitter/tree-sitter-python) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Python grammar — **no CLI dependencies**. Like `cccc-kt`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 | [`cccc-zig`](crates/cccc-zig) | Zig adapter **library**: lowers the pure-Rust [zigsyn](https://docs.rs/zigsyn) AST into `cccc-core`'s IR. Depends only on `cccc-core` + zigsyn — **no CLI dependencies or C toolchain**. |
 | [`cccc-c`](crates/cccc-c) | C adapter **library**: lowers the official [tree-sitter-c](https://github.com/tree-sitter/tree-sitter-c) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the C grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
+| [`cccc-clike`](crates/cccc-clike) | Shared **lowering** for the C-family adapters: `tree-sitter-cpp`'s grammar is a superset of `tree-sitter-c`'s, so `cccc-c` and `cccc-cpp` both construct a `cccc_clike::SharedBuilder` (tagged `Language::C`/`Language::Cpp`) instead of duplicating the lowering for what they share (functions, `if`, loops, `switch`, jumps, logical folding, preprocessor conditionals, calls). C++-only constructs (lambdas, `catch`, range-`for`) are gated on the language tag in the same `visit`. Depends only on `cccc-core` + tree-sitter — no grammar crate, no CLI dependencies. |
+| [`cccc-cpp`](crates/cccc-cpp) | C++ adapter **library**: lowers the official [tree-sitter-cpp](https://github.com/tree-sitter/tree-sitter-cpp) CST into `cccc-core`'s IR via `cccc-clike`. Depends only on `cccc-core` + `cccc-clike` + tree-sitter + the C++ grammar — **no CLI dependencies**. |
 | [`cccc-pl`](crates/cccc-pl) | Perl adapter **library**: lowers the [tree-sitter-perl](https://github.com/tree-sitter-perl/tree-sitter-perl) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Perl grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 | [`cccc-swift`](crates/cccc-swift) | Swift adapter **library**: lowers the [alex-pinkus/tree-sitter-swift](https://github.com/alex-pinkus/tree-sitter-swift) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Swift grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 | [`cccc-java`](crates/cccc-java) | Java adapter **library**: lowers the official [tree-sitter-java](https://github.com/tree-sitter/tree-sitter-java) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Java grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
@@ -92,10 +101,11 @@ To support another language: (1) add an adapter crate that lowers its AST into
 it with one entry in `cccc-cli`'s `lang::LANGUAGES` (and add the dependency) —
 no new binary, and no reimplementing the metrics or the CLI. `cccc-es` (oxc),
 `cccc-rs` (syn), `cccc-go` (gosyn), `cccc-php` (php-rs-parser), `cccc-rb`
-(ruby-prism), `cccc-kt` / `cccc-py` / `cccc-pl` (tree-sitter), `cccc-swift` (tree-sitter), `cccc-c` (tree-sitter),
+(ruby-prism), `cccc-kt` / `cccc-py` / `cccc-pl` (tree-sitter), `cccc-swift` (tree-sitter), `cccc-c` / `cccc-cpp` (tree-sitter),
 `cccc-java` (tree-sitter), `cccc-dart` (tree-sitter), `cccc-scala` (tree-sitter), `cccc-scheme` (lispexp), `cccc-clojure` (lispexp), `cccc-lisp` (lispexp, Common Lisp / Emacs Lisp / …),
 and `cccc-zig` (zigsyn) are the reference adapters: same shape, different parser.
-The Lisp-family adapters share their lowering skeleton via `cccc-lisp-kit`.
+The Lisp-family adapters share their lowering skeleton via `cccc-lisp-kit`;
+`cccc-c` and `cccc-cpp` share theirs via `cccc-clike`.
 
 **See [docs/ADDING_A_LANGUAGE.md](docs/ADDING_A_LANGUAGE.md) for the full
 step-by-step guide**, including the IR-node reference table, the
@@ -466,146 +476,216 @@ Each function-like unit is scored independently (nesting resets to 0 at the
 function boundary); nested functions are reported as children rather than
 inflating the parent's own score.
 
-The rules above are stated in TypeScript/JavaScript terms; each adapter maps its
-language onto the same IR. For **Rust** (`--lang rust`): `fn` / `impl` methods /
-trait default methods / closures are the function-like units; `if`/`else if`/
-`else`, `match` (a `_` or bare-binding arm is the non-decision `default`),
-`for`/`while`/`loop`, labelled `break`/`continue`, and `&&`/`||` map to the
-corresponding nodes. Rust has no ternary (`if` is an expression) and no
-`try`/`catch` (errors flow through `?`), so those simply don't occur.
+The rules above are stated in TypeScript/JavaScript terms; each adapter maps
+its language onto the same IR, with the per-language differences below.
 
-For **Go** (`--lang go`): top-level functions / methods / function literals
-(closures) are the function-like units; `if`/`else if`/`else`, `for` (including
-`for`-`range`), `switch`/type-`switch`/`select` (a `default` clause is the
-non-decision arm), labelled `break`/`continue`/`goto`, and `&&`/`||` map to the
-corresponding nodes. Go has no ternary and no `try`/`catch` (errors are returned
-values), so those simply don't occur.
+### Rust (`--lang rust`)
+- **Function-like units:** `fn` / `impl` methods / trait default methods /
+  closures.
+- **Maps to the shared nodes:** `if`/`else if`/`else`, `match` (a `_` or
+  bare-binding arm is the non-decision `default`), `for`/`while`/`loop`,
+  labelled `break`/`continue`, and `&&`/`||`.
+- No ternary (`if` is an expression) and no `try`/`catch` (errors flow through
+  `?`) — those constructs simply don't occur.
 
-For **PHP** (`--lang php`): functions / methods / closures / `fn` arrow functions /
-property hooks are the function-like units; `if`/`elseif`/`else`, `while`/
-`do`-`while`/`for`/`foreach`, `switch` and the `match` expression (a `default`
-arm is the non-decision case), `catch` clauses, multi-level `break N`/
-`continue N` and `goto`, the ternary `?:`, and `&&`/`and`/`||`/`or`/`??` map to
-the corresponding nodes. `&&` and `and` (likewise `||` and `or`) are the same
-normalized operator; `??` folds as a coalescing run.
-Each null-safe property or method access (`?->`) adds one cyclomatic path.
+### Go (`--lang go`)
+- **Function-like units:** top-level functions / methods / function literals
+  (closures).
+- **Maps to the shared nodes:** `if`/`else if`/`else`, `for` (including
+  `for`-`range`), `switch`/type-`switch`/`select` (a `default` clause is the
+  non-decision arm), labelled `break`/`continue`/`goto`, and `&&`/`||`.
+- No ternary and no `try`/`catch` (errors are returned values) — those
+  constructs simply don't occur.
 
-For **Ruby** (`--lang ruby`): methods, blocks, and lambdas are function-like
-units; branches, loops, `case`/`when` and `case`/`in`, rescue clauses, ternary
-expressions, and logical operators map to the corresponding nodes. Each safe
-navigation operator (`&.`) adds one cyclomatic path.
+### PHP (`--lang php`)
+- **Function-like units:** functions / methods / closures / `fn` arrow
+  functions / property hooks.
+- **Maps to the shared nodes:** `if`/`elseif`/`else`, `while`/`do`-`while`/
+  `for`/`foreach`, `switch` and the `match` expression (a `default` arm is the
+  non-decision case), `catch` clauses, multi-level `break N`/`continue N` and
+  `goto`, the ternary `?:`, and `&&`/`and`/`||`/`or`/`??`.
+- `&&`/`and` (likewise `||`/`or`) are the same normalized operator. `??` folds
+  as a coalescing run.
+- Each null-safe property or method access (`?->`) adds one cyclomatic path.
 
-For **Kotlin** (`--lang kotlin`): `fun` declarations / methods / local
-functions / `fun` anonymous functions / lambdas / property `get`/`set`
-accessors are the function-like units; the `if` expression (`else if` — an `if`
-nested in the `else` body — chains flat), the `when` expression with or without
-a subject (its `else` entry is the non-decision `default` arm), `for`/`while`/
-`do`-`while`, `catch` clauses, labelled `break@`/`continue@`, and `&&`/`||` map
-to the corresponding nodes. The elvis operator `?:` folds as a coalescing run
-(like PHP's `??`). Kotlin has no C-style ternary — `if` is already an
-expression. Each safe-navigation operator (`?.`) adds one cyclomatic path.
+### Ruby (`--lang ruby`)
+- **Function-like units:** methods, blocks, and lambdas.
+- **Maps to the shared nodes:** branches, loops, `case`/`when` and
+  `case`/`in`, rescue clauses, ternary expressions, logical operators.
+- Each safe navigation operator (`&.`) adds one cyclomatic path.
 
-For **Python** (`--lang python`): `def` (incl. `async def` and decorated
-definitions) / methods / `lambda` are the function-like units;
-`if`/`elif`/`else` (`elif` chains flat), the conditional expression
-`a if b else c` (a ternary — its `else` arm is not a second increment),
-`for`/`while` (incl. `async for`; a loop's `else` clause runs at the
-surrounding level), `match` (a bare `case _:` is the non-decision `default`
-arm), `except`/`except*` clauses, and `and`/`or` map to the corresponding
-nodes. Comprehensions and generator expressions score like the written-out
-loop: each `for` clause is a loop and each `if` clause a branch, nested
-left-to-right. Python has no labelled `break`/`continue` and no `??`; `not`
-adds nothing.
+### Kotlin (`--lang kotlin`)
+- **Function-like units:** `fun` declarations / methods / local functions /
+  `fun` anonymous functions / lambdas / property `get`/`set` accessors.
+- **Maps to the shared nodes:** the `if` expression (`else if` — an `if`
+  nested in the `else` body — chains flat), the `when` expression with or
+  without a subject (its `else` entry is the non-decision `default` arm),
+  `for`/`while`/`do`-`while`, `catch` clauses, labelled `break@`/`continue@`,
+  and `&&`/`||`.
+- The elvis operator `?:` folds as a coalescing run (like PHP's `??`). Kotlin
+  has no C-style ternary — `if` is already an expression.
+- Each safe-navigation operator (`?.`) adds one cyclomatic path.
 
-For **Zig** (`--lang zig`): named `fn` declarations and `test` blocks are the
-function-like units; `if`/`else if`/`else`, `while`/`for` (a loop's `else`
-branch runs at the surrounding level), `switch` (an `else` prong is the
-non-decision `default` arm), `catch` handlers, labelled `break`/`continue`, and
-`and`/`or` map to the corresponding nodes. `orelse` folds as a coalescing run.
-Zig has no ternary expression; `if` is already an expression.
+### Python (`--lang python`)
+- **Function-like units:** `def` (incl. `async def` and decorated
+  definitions) / methods / `lambda`.
+- **Maps to the shared nodes:** `if`/`elif`/`else` (`elif` chains flat), the
+  conditional expression `a if b else c` (a ternary — its `else` arm is not a
+  second increment), `for`/`while` (incl. `async for`; a loop's `else` clause
+  runs at the surrounding level), `match` (a bare `case _:` is the
+  non-decision `default` arm), `except`/`except*` clauses, and `and`/`or`.
+- Comprehensions and generator expressions score like the written-out loop:
+  each `for` clause is a loop and each `if` clause a branch, nested
+  left-to-right.
+- No labelled `break`/`continue` and no `??`. `not` adds nothing.
 
-For **C** (`--lang c`): function definitions (including K&R-style definitions
-and GNU nested functions) are the function-like units; `if`/`else if`/`else`,
-the ternary `?:` (GNU's elided-middle `a ?: b` included), `for`/`while`/
-`do`-`while`, `switch` (the `default:` label is the non-decision arm; each
-fall-through `case` label is its own cyclomatic point), `goto` (one flat
-cognitive point, like a labelled jump), and `&&`/`||` map to the corresponding
-nodes. Preprocessor conditionals (`#if`/`#ifdef`/`#ifndef`, chained via
-`#elif`/`#else`) score as branches, mirroring the SonarSource C/C++ analyzers.
-C has no exceptions and no `??`; `#define` bodies are opaque to the grammar, so
-code inside a macro body is not scored. One known wart of preprocessor-unaware
-parsing: the standard `extern "C" {` guard splits its braces across two
-`#ifdef __cplusplus` blocks, which surfaces as a parse warning — the rest of
-the header still parses and scores.
+### Zig (`--lang zig`)
+- **Function-like units:** named `fn` declarations and `test` blocks.
+- **Maps to the shared nodes:** `if`/`else if`/`else`, `while`/`for` (a
+  loop's `else` branch runs at the surrounding level), `switch` (an `else`
+  prong is the non-decision `default` arm), `catch` handlers, labelled
+  `break`/`continue`, and `and`/`or`.
+- `orelse` folds as a coalescing run. Zig has no ternary expression — `if` is
+  already an expression.
 
-For **Perl** (`--lang perl`): named `sub`s / `method` declarations (feature
-`class`, Perl 5.38+) / anonymous `sub`s are the function-like units, and a
-block callback passed to `grep`/`map`/`sort` is its own anonymous unit (like a
-Ruby block); `if`/`elsif`/`else` (`elsif` chains flat) and `unless`, the
-statement modifiers `EXPR if/unless COND` (a branch) and
-`EXPR while/until/for COND` (a loop, incl. `do { } while`), the ternary `?:`,
-`while`/`until`/C-style `for`/`foreach`, `try`/`catch` (feature `try`, Perl
-5.34+ — `finally` runs at the surrounding level), labelled `next`/`last`/
-`redo`, and `&&`/`and`/`||`/`or`/`//` map to the corresponding nodes. `&&` and
-`and` (likewise `||` and `or`) are the same normalized operator; `//` folds as
-a coalescing run. A classic `eval { }` is transparent (the `if ($@)` after it
-is the decision point), `xor`/`not`/`!` add nothing, and `given`/`when` (long
-deprecated) is not scored.
+### C (`--lang c`)
+- **Function-like units:** function definitions, including K&R-style
+  definitions and GNU nested functions.
+- **Maps to the shared nodes:** `if`/`else if`/`else`, the ternary `?:`
+  (GNU's elided-middle `a ?: b` included), `for`/`while`/`do`-`while`,
+  `switch` (the `default:` label is the non-decision arm; each fall-through
+  `case` label is its own cyclomatic point), `goto` (one flat cognitive
+  point — like a labelled jump), and `&&`/`||`.
+- Preprocessor conditionals (`#if`/`#ifdef`/`#ifndef`, chained via
+  `#elif`/`#else`) score as branches, mirroring the SonarSource C/C++
+  analyzers.
+- No exceptions and no `??`. `#define` bodies are opaque to the grammar, so
+  code inside a macro body is not scored.
+- Known wart of preprocessor-unaware parsing: the standard `extern "C" {`
+  guard splits its braces across two `#ifdef __cplusplus` blocks, which
+  surfaces as a parse warning — the rest of the header still parses and
+  scores.
+- Another wart: the `<cinttypes>` printf-width macros (`"..." PRIu32 "..."`
+  and friends) only become adjacent string literals after macro expansion,
+  which the grammar never performs, so they also surface as a parse warning
+  local to that expression.
 
-For **Swift** (`--lang swift`): `func` declarations / methods / local
-functions / closures / `init` / `deinit` / `subscript` / computed-property
-`get`/`set` accessors (including the implicit getter-only form) / `willSet`/
-`didSet` observers are the function-like units; `if`/`else if`/`else` (with
-`if let` / `if case` variants), `guard` … `else` (scored exactly like an `if`),
-`switch` (its `default` entry is the non-decision arm; `case a, b:` is one
-arm), `for`-`in` (its `where` clause adds nothing by itself), `while`/
-`repeat`-`while`, `catch` blocks, labelled `break`/`continue`, the ternary
-`a ? b : c`, and `&&`/`||` map to the corresponding nodes. Nil-coalescing `??`
-folds as a coalescing run (like PHP's `??`). `#if` compilation directives are
-transparent — every branch's code scores where it stands; `try`/`try?`/`await`
-add nothing. Each optional-chaining guard on a member access, subscript, or call
-adds one cyclomatic path.
+### C++ (`--lang cpp`)
+- Everything above for C applies unchanged (`tree-sitter-cpp`'s grammar is a
+  superset of `tree-sitter-c`'s, sharing the same node kinds/fields for what
+  the two languages have in common).
+- **Function-like units:** additionally, a `[...](...){...}` lambda is its own
+  unit (like a closure elsewhere).
+- **Maps to the shared nodes:** additionally, `catch` clauses (the `try` body
+  runs at the surrounding level, same as Kotlin/Python's `catch`/`except`)
+  and range-`for` (`for (auto &x : xs)`), which is a loop like any other.
+- Constructor/destructor/operator-overload names, including out-of-line
+  qualified definitions (`Foo::bar`), are dug out of the declarator chain, as
+  are functions returning a reference (`int &get()`), conversion operators
+  (named e.g. `operator bool`), and explicit specializations (`spec<int>` is
+  named `spec`). A qualified definition and a qualified or unqualified
+  self-call both resolve to the same trailing simple name, and template
+  arguments are dropped on both sides (`fact<N - 1>()` inside `fact`), so
+  recursion is still detected.
+- C++20 module units (`.cppm`/`.ixx`) aren't claimed: the grammar can't parse
+  `export module`/`import` declarations.
+- **C++ headers in `.h` files.** `.h` is routed to C by default, and when two
+  languages claim the same extension the one registered first (C) wins — so
+  to analyze `.h` as C++, add `h` to `cpp` *and* drop it from `c`:
 
-For **Java** (`--lang java`): methods (incl. ones in anonymous classes and
-interface `default` methods) / constructors / record compact constructors /
-lambdas are the function-like units (static and instance initializer blocks
-run at the surrounding level); `if`/`else if`/`else` (`else if` chains flat),
-the ternary `?:`, `switch` statements and expressions alike — both colon-style
-`case:` groups and arrow-style `case ->` rules, with pattern matching and
-guards supported (a `default` or `case null, default` arm is the non-decision
-case), `for`/enhanced `for`/`while`/`do`-`while`, `catch` clauses (a
-multi-catch `catch (A | B e)` is one clause; `try`-with-resources bodies are
-transparent), labelled `break L`/`continue L`, and `&&`/`||` map to the
-corresponding nodes. Java has no `??`-style coalescing operator.
+  ```toml
+  [ext]
+  c = ["c"]
+  cpp = ["cpp", "cc", "cxx", "hpp", "hh", "hxx", "h++", "tpp", "ipp", "h"]
+  ```
 
-For **Dart** (`--lang dart`): top-level and local functions, methods, getters,
-setters, constructors, factory constructors, operators, and anonymous function
-expressions are function-like units; `if`/`else if`/`else`, the ternary `?:`,
-`for` (including `await for`)/`while`/`do`-`while`, switch statements and switch
-expressions (a `default` or wildcard arm is the non-decision case), `catch` and
-`on` handlers, labelled `break`/`continue`, and `&&`/`||` map to the
-corresponding nodes. Pattern `&&`/`||` use the same logical-sequence rules, and
-collection `if`/`for` lower to nested branches/loops. `??` and `??=` map to
-coalescing logical nodes. Null-aware access (`?.`, `?[]`, `?..`), null-aware
-spread (`...?`), collection elements (`?value`), and map keys/values each add
-one cyclomatic path without adding cognitive complexity. External, native, and
-otherwise bodyless declarations are not reported as functions.
+  or on the command line, `--ext c=c --ext cpp=cpp,cc,cxx,hpp,hh,hxx,h++,tpp,ipp,h`.
+  In a C++-only project, `--exclude-lang c` plus the `cpp` override works too.
+- Extension matching is case-insensitive, so `.C` (a traditional C++
+  extension on case-sensitive filesystems) is analyzed as C.
 
-For **Scala** (`--lang scala`): `def` definitions (and bodyless abstract `def`
-declarations), anonymous functions (`x => …`), and partial-function literals
-(`xs.collect { case … }`, `def receive = { case … }` — an anonymous unit whose
-body is the pattern match) are function-like units;
-`if`/`else if`/`else`, `match` (a bare `case _ =>`, or a lowercase variable
-pattern like `case other =>`, is the non-decision `default` arm; an uppercase
-stable-id like `case None =>` stays a decision), `for`/`while`/`do`-`while`, each
-`catch` clause (the `try` body and `finally` run at the surrounding level; the
-`case` handlers inside a `catch` score within that one node), and `&&`/`||` runs
-map to the corresponding nodes. A pattern guard (`case x if a && b =>`) is
-transparent, so its operators still contribute but the guard itself is not a
-separate decision. A secondary constructor (`def this(…)`) is reported as a
-`constructor` unit (like the Kotlin/Swift adapters), and its mandatory `this(…)`
-self-delegation is not counted as recursion. Scala has no `break`/`continue` statements (nor labelled
-loops) and no `??`-style coalescing operator. The library-based escapes —
-`scala.util.control.Breaks` (`breakable {}` / `break()`) and Scala 3's
-`scala.util.boundary` — are ordinary method calls, so they are not treated as
-jumps and add nothing to the score.
+### Perl (`--lang perl`)
+- **Function-like units:** named `sub`s / `method` declarations (feature
+  `class`, Perl 5.38+) / anonymous `sub`s. A block callback passed to
+  `grep`/`map`/`sort` is its own anonymous unit (like a Ruby block).
+- **Maps to the shared nodes:** `if`/`elsif`/`else` (`elsif` chains flat) and
+  `unless`, the statement modifiers `EXPR if/unless COND` (a branch) and
+  `EXPR while/until/for COND` (a loop — incl. `do { } while`), the ternary
+  `?:`, `while`/`until`/C-style `for`/`foreach`, `try`/`catch` (Perl 5.34+'s
+  `try` feature — `finally` runs at the surrounding level), labelled
+  `next`/`last`/`redo`, and `&&`/`and`/`||`/`or`/`//`.
+- `&&`/`and` (likewise `||`/`or`) are the same normalized operator. `//`
+  folds as a coalescing run.
+- A classic `eval { }` is transparent (the `if ($@)` after it is the decision
+  point). `xor`/`not`/`!` add nothing. `given`/`when` (long deprecated) is
+  not scored.
+
+### Swift (`--lang swift`)
+- **Function-like units:** `func` declarations / methods / local functions /
+  closures / `init` / `deinit` / `subscript` / computed-property `get`/`set`
+  accessors (including the implicit getter-only form) / `willSet`/`didSet`
+  observers.
+- **Maps to the shared nodes:** `if`/`else if`/`else` (with `if let` /
+  `if case` variants), `guard` … `else` (scored exactly like an `if`),
+  `switch` (its `default` entry is the non-decision arm; `case a, b:` is one
+  arm), `for`-`in` (its `where` clause adds nothing by itself), `while`/
+  `repeat`-`while`, `catch` blocks, labelled `break`/`continue`, the ternary
+  `a ? b : c`, and `&&`/`||`.
+- Nil-coalescing `??` folds as a coalescing run (like PHP's `??`).
+- `#if` compilation directives are transparent — every branch's code scores
+  where it stands. `try`/`try?`/`await` add nothing.
+- Each optional-chaining guard on a member access, subscript, or call adds
+  one cyclomatic path.
+
+### Java (`--lang java`)
+- **Function-like units:** methods (incl. ones in anonymous classes and
+  interface `default` methods) / constructors / record compact constructors /
+  lambdas. Static and instance initializer blocks run at the surrounding
+  level.
+- **Maps to the shared nodes:** `if`/`else if`/`else` (`else if` chains
+  flat), the ternary `?:`, `switch` statements and expressions alike — both
+  colon-style `case:` groups and arrow-style `case ->` rules with pattern
+  matching and guards supported (a `default` or `case null, default` arm is
+  the non-decision case), `for`/enhanced `for`/`while`/`do`-`while`, `catch`
+  clauses (a multi-catch `catch (A | B e)` is one clause; `try`-with-resources
+  bodies are transparent), labelled `break L`/`continue L`, and `&&`/`||`.
+- No `??`-style coalescing operator.
+
+### Dart (`--lang dart`)
+- **Function-like units:** top-level and local functions, methods, getters,
+  setters, constructors, factory constructors, operators, and anonymous
+  function expressions.
+- **Maps to the shared nodes:** `if`/`else if`/`else`, the ternary `?:`,
+  `for` (including `await for`)/`while`/`do`-`while`, switch statements and
+  switch expressions (a `default` or wildcard arm is the non-decision case),
+  `catch` and `on` handlers, labelled `break`/`continue`, and `&&`/`||`.
+- Pattern `&&`/`||` use the same logical-sequence rules. Collection
+  `if`/`for` lower to nested branches/loops. `??`/`??=` map to coalescing
+  logical nodes.
+- Null-aware access (`?.`, `?[]`, `?..`), null-aware spread (`...?`),
+  collection elements (`?value`), and map keys/values each add one
+  cyclomatic path without adding cognitive complexity.
+- External, native, and otherwise bodyless declarations are not reported as
+  functions.
+
+### Scala (`--lang scala`)
+- **Function-like units:** `def` definitions (and bodyless abstract `def`
+  declarations), anonymous functions (`x => …`), and partial-function
+  literals (`xs.collect { case … }`, `def receive = { case … }` — an
+  anonymous unit whose body is the pattern match). A secondary constructor
+  (`def this(…)`) is reported as a `constructor` unit (like the Kotlin/Swift
+  adapters), and its mandatory `this(…)` self-delegation is not counted as
+  recursion.
+- **Maps to the shared nodes:** `if`/`else if`/`else`, `match` (a bare
+  `case _ =>`, or a lowercase variable pattern like `case other =>`, is the
+  non-decision `default` arm; an uppercase stable-id like `case None =>` stays
+  a decision), `for`/`while`/`do`-`while`, each `catch` clause (the `try` body
+  and `finally` run at the surrounding level; the `case` handlers inside a
+  `catch` score within that one node), and `&&`/`||`.
+- A pattern guard (`case x if a && b =>`) is transparent: its operators still
+  contribute, but the guard itself is not a separate decision.
+- No `break`/`continue` statements (nor labelled loops) and no `??`-style
+  coalescing operator. The library-based escapes —
+  `scala.util.control.Breaks` (`breakable {}` / `break()`) and Scala 3's
+  `scala.util.boundary` — are ordinary method calls, so they are not treated
+  as jumps and add nothing to the score.
