@@ -295,9 +295,10 @@ impl<'a> Builder<'a> {
         }
     }
 
-    /// Visit every *named* child of `node` under the field `field`. The grammar
-    /// tags a parenthesized condition's `(`/`)` tokens with the same field as
-    /// the expression, so a plain `child_by_field_name` could land on a token.
+    /// Visit every *named* child of `node` under the field `field`. A field
+    /// that wraps a hidden rule also tags the anonymous tokens spliced up from
+    /// it (e.g. `cstyle_for_statement`'s `condition` covers its `;`), so a
+    /// plain `child_by_field_name` could land on a token.
     fn visit_field(&mut self, node: TsNode, field: &str) {
         let mut cursor = node.walk();
         let children: Vec<TsNode> = node
@@ -395,9 +396,15 @@ impl<'a> Builder<'a> {
 
     /// Flatten same-operator operands; a different operator nests as its own
     /// `Logical`; any other expression becomes a `Group` of its sub-nodes.
-    /// (Parentheses need no unwrapping: the grammar attaches `(`/`)` as tokens,
-    /// so `$a && ($b && $c)` is already one nested `binary_expression`.)
+    /// A `parenthesized_expression` is unwrapped first, so `$a && ($b && $c)`
+    /// still folds into one run.
     fn collect_logical_side(&mut self, side: TsNode, op: LogicalOp, operands: &mut Vec<Node>) {
+        if side.kind() == "parenthesized_expression" {
+            for inner in named_children(side) {
+                self.collect_logical_side(inner, op, operands);
+            }
+            return;
+        }
         match logical_op_of(side) {
             Some(side_op) => {
                 let kids = named_children(side);
