@@ -38,10 +38,11 @@
     Analyzes `.c`, `.h`.
   - **C++** (`--lang cpp`, aliases `c++`/`cxx`), via the official
     [tree-sitter-cpp](https://github.com/tree-sitter/tree-sitter-cpp) grammar.
-    Analyzes `.cpp`, `.cc`, `.cxx`, `.hpp`, `.hxx`, `.h++`, `.tpp`, `.ipp`
-    (`.h` is claimed by C, since extension routing needs disjoint claims —
-    override via `--ext`). Shares its lowering for everything C and C++ have
-    in common with `cccc-c`, via `cccc-clike`.
+    Analyzes `.cpp`, `.cc`, `.cxx`, `.hpp`, `.hh`, `.hxx`, `.h++`, `.tpp`,
+    `.ipp` (`.h` is claimed by C, since extension routing needs disjoint
+    claims — see [C++](#c---lang-cpp) for routing `.h` to C++). Shares its
+    lowering for everything C and C++ have in common with `cccc-c`, via
+    `cccc-clike`.
   - **Perl** (`--lang perl`), via the community-maintained
     [tree-sitter-perl](https://github.com/tree-sitter-perl/tree-sitter-perl)
     grammar. Analyzes `.pl`, `.pm`, `.t`.
@@ -575,9 +576,29 @@ its language onto the same IR, with the per-language differences below.
   runs at the surrounding level, same as Kotlin/Python's `catch`/`except`)
   and range-`for` (`for (auto &x : xs)`), which is a loop like any other.
 - Constructor/destructor/operator-overload names, including out-of-line
-  qualified definitions (`Foo::bar`), are dug out of the declarator chain; a
-  qualified definition and a qualified or unqualified self-call both resolve
-  to the same trailing simple name, so recursion is still detected.
+  qualified definitions (`Foo::bar`), are dug out of the declarator chain, as
+  are functions returning a reference (`int &get()`), conversion operators
+  (named e.g. `operator bool`), and explicit specializations (`spec<int>` is
+  named `spec`). A qualified definition and a qualified or unqualified
+  self-call both resolve to the same trailing simple name, and template
+  arguments are dropped on both sides (`fact<N - 1>()` inside `fact`), so
+  recursion is still detected.
+- C++20 module units (`.cppm`/`.ixx`) aren't claimed: the grammar can't parse
+  `export module`/`import` declarations.
+- **C++ headers in `.h` files.** `.h` is routed to C by default, and when two
+  languages claim the same extension the one registered first (C) wins — so
+  to analyze `.h` as C++, add `h` to `cpp` *and* drop it from `c`:
+
+  ```toml
+  [ext]
+  c = ["c"]
+  cpp = ["cpp", "cc", "cxx", "hpp", "hh", "hxx", "h++", "tpp", "ipp", "h"]
+  ```
+
+  or on the command line, `--ext c=c --ext cpp=cpp,cc,cxx,hpp,hh,hxx,h++,tpp,ipp,h`.
+  In a C++-only project, `--exclude-lang c` plus the `cpp` override works too.
+- Extension matching is case-insensitive, so `.C` (a traditional C++
+  extension on case-sensitive filesystems) is analyzed as C.
 
 ### Perl (`--lang perl`)
 - **Function-like units:** named `sub`s / `method` declarations (feature

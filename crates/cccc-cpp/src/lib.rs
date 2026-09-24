@@ -30,17 +30,19 @@
 
 use std::path::Path;
 
-use cccc_clike::{SharedBuilder, collect_errors};
+use cccc_clike::{Language, SharedBuilder, collect_errors};
 use cccc_core::engine;
 use cccc_core::ir::Node;
 use cccc_core::report::FileReport;
-use tree_sitter::Node as TsNode;
 
 /// File extensions analyzed by default (when `--ext` is not given). `.h` is
 /// deliberately excluded: `cccc-c` already claims it, and extension dispatch
 /// requires disjoint claims. Users with C++ in `.h` files can override via
-/// `--ext`/the `[ext]` config.
-pub const DEFAULT_EXTS: &[&str] = &["cpp", "cc", "cxx", "hpp", "hxx", "h++", "tpp", "ipp"];
+/// `--ext`/the `[ext]` config — dropping `h` from `c`'s list too, since `c` is
+/// registered first and wins a shared extension. C++20 module units
+/// (`.cppm`/`.ixx`) are left out because the grammar can't parse
+/// `export module`/`import` declarations.
+pub const DEFAULT_EXTS: &[&str] = &["cpp", "cc", "cxx", "hpp", "hh", "hxx", "h++", "tpp", "ipp"];
 
 /// Parse `source` and produce its [`FileReport`], scoring via the core engine.
 /// This is the convenience entry point used by the CLI; for the raw IR (e.g. to
@@ -70,29 +72,9 @@ pub fn to_ir(_path: &Path, source: &str) -> (Vec<Node>, Vec<String>) {
     let mut errors = Vec::new();
     collect_errors(tree.root_node(), &mut errors);
 
-    let mut builder = Builder::new(src);
+    let mut builder = SharedBuilder::new(src, Language::Cpp);
     builder.visit(tree.root_node());
     (builder.finish(), errors)
-}
-
-/// Assembles the IR tree while an explicit recursion walks the tree-sitter CST.
-struct Builder<'a>(SharedBuilder<'a>);
-
-impl<'a> Builder<'a> {
-    fn new(src: &'a [u8]) -> Self {
-        Self(SharedBuilder::new(src, cccc_clike::Language::Cpp))
-    }
-
-    /// The module-level node list (the single remaining collector).
-    fn finish(self) -> Vec<Node> {
-        self.0.finish()
-    }
-
-    // ---- traversal --------------------------------------------------------
-
-    fn visit(&mut self, node: TsNode) {
-        self.0.visit(node);
-    }
 }
 
 #[cfg(test)]
@@ -300,6 +282,123 @@ mod tests {
     }
 
     #[test]
+    fn reference_returning_function_is_named() {
+        // `reference_declarator` holds its inner declarator without a field
+        // name, so the name has to be found among its children.
+        let src = r#"
+            int &get(int x) {
+                if (x) { return get(0); }
+                return g;
+            }
+            int &&take(int x) {
+                if (x) { }
+                return 0;
+            }
+        "#;
+        let report = analyze_ok(src);
+        // if(+1) + recursion(+1) = 2
+        assert_eq!(cognitive_of_report(&report, "get"), 2);
+        assert_eq!(cognitive_of_report(&report, "take"), 1);
+    }
+
+    #[test]
+    fn reference_returning_method_is_named() {
+        let src = r#"
+            class Foo {
+                const int &value() const {
+                    if (a) { }
+                    return a;
+                }
+            };
+            int &Foo::at(int i) {
+                if (i) { }
+                return a;
+            }
+        "#;
+        let report = analyze_ok(src);
+        assert_eq!(cognitive_of_report(&report, "value"), 1);
+        assert_eq!(cognitive_of_report(&report, "at"), 1);
+    }
+
+    #[test]
+    fn conversion_operator_is_named() {
+        let src = r#"
+            struct S {
+                operator bool() const {
+                    if (a) { }
+                    return a;
+                }
+                explicit operator const char *() {
+                    if (a) { }
+                    return "";
+                }
+            };
+            S::operator int() {
+                if (a) { }
+                return 0;
+            }
+        "#;
+        let report = analyze_ok(src);
+        assert_eq!(cognitive_of_report(&report, "operator bool"), 1);
+        assert_eq!(cognitive_of_report(&report, "operator const char *"), 1);
+        assert_eq!(cognitive_of_report(&report, "operator int"), 1);
+    }
+
+    #[test]
+    fn explicit_specialization_is_named_without_template_args() {
+        // `spec<int>` is registered as `spec`, the same name a call with
+        // explicit template arguments resolves to.
+        let src = r#"
+            template <>
+            void spec<int>(int x) {
+                if (x) { spec<int>(0); }
+            }
+            template <>
+            int Foo<int>::get<char>() {
+                if (a) { }
+                return 0;
+            }
+        "#;
+        let report = analyze_ok(src);
+        // if(+1) + recursion(+1) = 2
+        assert_eq!(cognitive_of_report(&report, "spec"), 2);
+        assert_eq!(cognitive_of_report(&report, "get"), 1);
+    }
+
+    #[test]
+    fn template_call_recursion_is_detected() {
+        let src = r#"
+            template <int N>
+            int fact() {
+                if (N) { return N * fact<N - 1>(); }
+                return 1;
+            }
+        "#;
+        // if(+1) + recursion(+1) = 2
+        assert_eq!(cognitive_of(src, "fact"), 2);
+    }
+
+    #[test]
+    fn member_template_call_recursion_is_detected() {
+        let src = r#"
+            struct S {
+                template <typename T>
+                void walk(int n) {
+                    if (n) { this->walk<T>(n - 1); }
+                }
+                template <typename T>
+                void visit(S &s, int n) {
+                    if (n) { s.template visit<T>(s, n - 1); }
+                }
+            };
+        "#;
+        let report = analyze_ok(src);
+        // if(+1) + recursion(+1) = 2
+        assert_eq!(cognitive_of_report(&report, "walk"), 2);
+        assert_eq!(cognitive_of_report(&report, "visit"), 2);
+    }
+
+    #[test]
     fn preproc_around_functions_still_finds_them() {
         let src = r#"
             #if defined(A) && defined(B)
@@ -446,6 +545,9 @@ mod tests {
             }
             "#;
 
+        // NOTE: this pins a tree-sitter-cpp grammar gap, not desired
+        // behavior. If a grammar upgrade fixes it, this assertion fails:
+        // drop the parse-error expectation and switch to `analyze_ok`.
         let file_report = analyze(src);
         assert_eq!(file_report.parse_errors.len(), 1);
         assert_eq!(cognitive_of_report(&file_report, "~Queue"), 1);
@@ -469,6 +571,9 @@ mod tests {
             }
             "#;
 
+        // NOTE: this pins a tree-sitter-cpp grammar gap, not desired
+        // behavior. If a grammar upgrade fixes it, this assertion fails:
+        // drop the parse-error expectation and switch to `analyze_ok`.
         let report = analyze(src);
         assert_eq!(report.parse_errors.len(), 1);
         assert_eq!(cognitive_of_report(&report, "log_uptime"), 1);
@@ -494,6 +599,9 @@ mod tests {
             template class PeriodicTaskBase<uint16_t>;
             "#;
 
+        // NOTE: this pins a tree-sitter-cpp grammar gap, not desired
+        // behavior. If a grammar upgrade fixes it, this assertion fails:
+        // drop the parse-error expectation and switch to `analyze_ok`.
         let report = analyze(src);
         assert_eq!(report.parse_errors.len(), 1);
         assert_eq!(cognitive_of_report(&report, "run"), 1);

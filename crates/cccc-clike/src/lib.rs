@@ -59,10 +59,6 @@ impl SharedBuilder<'_> {
         }
     }
 
-    pub fn lang(&self) -> &Language {
-        &self.lang
-    }
-
     /// The module-level node list (the single remaining collector).
     pub fn finish(mut self) -> Vec<Node> {
         self.stack.pop().expect("module collector")
@@ -331,17 +327,28 @@ impl SharedBuilder<'_> {
 
     /// Simple name of a directly-called callee: `foo(..)`, `s.foo(..)` /
     /// `p->foo(..)`, or a parenthesized/dereferenced function pointer
-    /// (`(*fp)(..)`) — plus, in C++, a qualified call (`Foo::bar(..)`).
+    /// (`(*fp)(..)`) — plus, in C++, a qualified call (`Foo::bar(..)`) and a
+    /// call with explicit template arguments (`fact<N - 1>(..)`,
+    /// `p->get<T>(..)`, `obj.template get<T>(..)`), whose arguments are
+    /// dropped so the name lines up with the definition's.
     /// Returns the trailing identifier.
     fn callee_name(&self, node: TsNode) -> Option<String> {
         match node.kind() {
-            "identifier" => Some(self.text(node).to_string()),
+            "identifier" | "field_identifier" => Some(self.text(node).to_string()),
             "field_expression" => node
                 .child_by_field_name("field")
-                .map(|f| self.text(f).to_string()),
-            "qualified_identifier" if self.lang == Language::Cpp => node
-                .child_by_field_name("name")
-                .and_then(|n| self.callee_name(n)),
+                .and_then(|f| self.callee_name(f)),
+            "qualified_identifier" | "template_function" | "template_method"
+                if self.lang == Language::Cpp =>
+            {
+                node.child_by_field_name("name")
+                    .and_then(|n| self.callee_name(n))
+            }
+            // `obj.template get<T>(..)`: the `template` disambiguator wraps
+            // the `template_method`.
+            "dependent_name" if self.lang == Language::Cpp => named_children(node)
+                .into_iter()
+                .find_map(|c| self.callee_name(c)),
             "parenthesized_expression" | "pointer_expression" => named_children(node)
                 .into_iter()
                 .find_map(|c| self.callee_name(c)),
@@ -358,22 +365,31 @@ impl SharedBuilder<'_> {
 /// (`int *(*f(void))(int)` still names `f`). In C++, the name itself can also
 /// be a `field_identifier` (a method defined inline in a class body), a
 /// `destructor_name` (`~Foo`), an `operator_name` (`operator+`), or a
-/// `qualified_identifier` (`Foo::bar`, an out-of-line definition) — those four
-/// only happen in C++, so they're gated on `b.lang`.
+/// `qualified_identifier` (`Foo::bar`, an out-of-line definition), a
+/// `template_function` (`spec<int>`, an explicit specialization), or an
+/// `operator_cast` (`operator bool`, a conversion operator); and a function
+/// returning a reference wraps its declarator in a `reference_declarator`
+/// (`int &get()`). Those only happen in C++, so they're gated on `b.lang`.
 ///
 /// For a `qualified_identifier` we keep only the trailing name (`Foo::bar`
-/// becomes `bar`), because that's what [`SharedBuilder::callee_name`] returns
-/// for a qualified *call* too. Without that, an out-of-line method calling
-/// itself wouldn't be recognized as recursion.
+/// becomes `bar`), and for a `template_function` we drop the template
+/// arguments (`spec<int>` becomes `spec`), because that's what
+/// [`SharedBuilder::callee_name`] returns for such a *call* too. Without that,
+/// a method or template calling itself wouldn't be recognized as recursion.
 fn declarator_name(b: &SharedBuilder, node: TsNode) -> Option<String> {
     match node.kind() {
         "identifier" => Some(b.text(node).to_string()),
         "field_identifier" | "destructor_name" | "operator_name" if b.lang == Language::Cpp => {
             Some(b.text(node).to_string())
         }
-        "qualified_identifier" if b.lang == Language::Cpp => node
+        "qualified_identifier" | "template_function" if b.lang == Language::Cpp => node
             .child_by_field_name("name")
             .and_then(|n| declarator_name(b, n)),
+        "operator_cast" if b.lang == Language::Cpp => Some(operator_cast_name(b, node)),
+        // `reference_declarator` tags its inner declarator with no field name.
+        "reference_declarator" if b.lang == Language::Cpp => named_children(node)
+            .into_iter()
+            .find_map(|c| declarator_name(b, c)),
         "parenthesized_declarator" => named_children(node)
             .into_iter()
             .find_map(|c| declarator_name(b, c)),
@@ -381,6 +397,30 @@ fn declarator_name(b: &SharedBuilder, node: TsNode) -> Option<String> {
             .child_by_field_name("declarator")
             .and_then(|d| declarator_name(b, d)),
     }
+}
+
+/// The name of a conversion operator: its source text up to the parameter
+/// list, whitespace-normalized (`operator bool() const` becomes
+/// `operator bool`, `operator const char *()` becomes
+/// `operator const char *`). The target type is split across the node's
+/// `type` field and the abstract declarator chain (the `*` in
+/// `operator const char *`), so slicing the text is simpler than rebuilding
+/// the type from its parts.
+fn operator_cast_name(b: &SharedBuilder, node: TsNode) -> String {
+    let mut end = node.end_byte();
+    let mut cur = node.child_by_field_name("declarator");
+    while let Some(d) = cur {
+        if let Some(params) = d.child_by_field_name("parameters") {
+            end = params.start_byte();
+            break;
+        }
+        cur = d.child_by_field_name("declarator");
+    }
+    let text = b.src.get(node.start_byte()..end).unwrap_or_default();
+    String::from_utf8_lossy(text)
+        .split_whitespace()
+        .collect::<Vec<_>>()
+        .join(" ")
 }
 
 /// The named children of `node` (skipping `extras`), collected into a `Vec` so

@@ -16,8 +16,8 @@
 //! logical-operator folding, preprocessor conditionals, calls) is shared with
 //! `cccc-cpp` and lives in `cccc_clike::SharedBuilder`, since `tree-sitter-cpp`'s
 //! grammar is a superset of this one. This crate just loads the C grammar and
-//! wraps that shared builder (see [`Builder`]); [`Builder::visit`] recurses
-//! into every named child by default (see the warning in
+//! drives that shared builder; `SharedBuilder::visit` recurses into every
+//! named child by default (see the warning in
 //! `docs/ADDING_A_LANGUAGE.md`), so an unrecognized construct is transparent
 //! and nothing nested inside it is silently dropped.
 //!
@@ -49,11 +49,10 @@
 
 use std::path::Path;
 
-use cccc_clike::{SharedBuilder, collect_errors};
+use cccc_clike::{Language, SharedBuilder, collect_errors};
 use cccc_core::engine;
 use cccc_core::ir::Node;
 use cccc_core::report::FileReport;
-use tree_sitter::Node as TsNode;
 
 /// File extensions analyzed by default (when `--ext` is not given). `.h`
 /// headers are claimed as C — `cccc-cpp` deliberately doesn't claim `.h`
@@ -88,29 +87,9 @@ pub fn to_ir(_path: &Path, source: &str) -> (Vec<Node>, Vec<String>) {
     let mut errors = Vec::new();
     collect_errors(tree.root_node(), &mut errors);
 
-    let mut builder = Builder::new(src);
+    let mut builder = SharedBuilder::new(src, Language::C);
     builder.visit(tree.root_node());
     (builder.finish(), errors)
-}
-
-/// Assembles the IR tree while an explicit recursion walks the tree-sitter CST.
-struct Builder<'a>(SharedBuilder<'a>);
-
-impl<'a> Builder<'a> {
-    fn new(src: &'a [u8]) -> Self {
-        Self(SharedBuilder::new(src, cccc_clike::Language::C))
-    }
-
-    /// The module-level node list (the single remaining collector).
-    fn finish(self) -> Vec<Node> {
-        self.0.finish()
-    }
-
-    // ---- traversal --------------------------------------------------------
-
-    fn visit(&mut self, node: TsNode) {
-        self.0.visit(node);
-    }
 }
 
 #[cfg(test)]
