@@ -113,6 +113,12 @@ pub const LANGUAGES: &[Language] = &[
         analyze: cccc_c::analyze_source,
     },
     Language {
+        name: "cpp",
+        aliases: &["c++", "cxx"],
+        exts: cccc_cpp::DEFAULT_EXTS,
+        analyze: cccc_cpp::analyze_source,
+    },
+    Language {
         name: "perl",
         aliases: &["pl"],
         exts: cccc_pl::DEFAULT_EXTS,
@@ -297,6 +303,7 @@ mod tests {
                 "python".to_string(),
                 "zig".to_string(),
                 "c".to_string(),
+                "cpp".to_string(),
                 "perl".to_string(),
                 "swift".to_string(),
                 "java".to_string(),
