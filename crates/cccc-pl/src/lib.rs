@@ -295,9 +295,10 @@ impl<'a> Builder<'a> {
         }
     }
 
-    /// Visit every *named* child of `node` under the field `field`. The grammar
-    /// tags a parenthesized condition's `(`/`)` tokens with the same field as
-    /// the expression, so a plain `child_by_field_name` could land on a token.
+    /// Visit every *named* child of `node` under the field `field`. A field
+    /// that wraps a hidden rule also tags the anonymous tokens spliced up from
+    /// it (e.g. `cstyle_for_statement`'s `condition` covers its `;`), so a
+    /// plain `child_by_field_name` could land on a token.
     fn visit_field(&mut self, node: TsNode, field: &str) {
         let mut cursor = node.walk();
         let children: Vec<TsNode> = node
