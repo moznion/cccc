@@ -3,7 +3,7 @@ name: Cross build
 # Builds the unified `cccc` binary for every release target on PRs, so that the
 # cross-compilation of `cccc-rb` (Ruby's Prism, a vendored C library built via
 # bindgen) is validated before a tag is cut. Mirrors the target matrix in
-# release.yml.
+# the release job of tagpr.yml.
 
 on:
   push:

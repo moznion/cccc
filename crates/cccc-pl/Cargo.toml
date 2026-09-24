@@ -15,5 +15,5 @@ cccc-core = { workspace = true }
 # not fully statically parseable in general ("only perl can parse Perl"), but
 # the grammar is fault-tolerant and covers the constructs complexity cares
 # about.
-tree-sitter = "0.26"
+tree-sitter = "0.27"
 ts-parser-perl = "2.0"

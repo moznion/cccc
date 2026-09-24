@@ -10,5 +10,5 @@ description = "Dart (tree-sitter) adapter that lowers source into the cccc-core 
 
 [dependencies]
 cccc-core = { workspace = true }
-tree-sitter = "0.26"
+tree-sitter = "0.27"
 tree-sitter-dart = "0.2"
