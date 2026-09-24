@@ -67,3 +67,22 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y libclang-dev
       - name: Run clippy
         run: cargo clippy --workspace --all-targets --all-features -- -D warnings
+
+  # The crates.io release ships cccc-cli without Kotlin (cccc-kt depends on a
+  # git-only grammar). Check that build and the packaging of every crate here,
+  # so problems surface on the PR instead of in the post-release publish job.
+  crates-io:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      # Installs the toolchain pinned in rust-toolchain.toml.
+      - name: Install Rust toolchain
+        run: rustup toolchain install
+      - uses: Swatinem/rust-cache@f0d9c3887740aee45f6153b24b3a6b815192ec16 # v2
+      # cccc-rb builds Ruby's Prism from vendored C via bindgen, which needs libclang.
+      - name: Install libclang (for the ruby-prism / bindgen build)
+        run: sudo apt-get update && sudo apt-get install -y libclang-dev
+      - name: Test cccc-cli without Kotlin
+        run: cargo test -p cccc-cli --no-default-features
+      - name: Dry-run the crates.io publish
+        run: .github/scripts/publish-crates.sh --dry-run
