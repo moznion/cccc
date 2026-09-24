@@ -17,7 +17,7 @@
 #
 #   tagpr.release
 #       GitHub Release creation behavior after tagging [true, draft, false]
-#       Binary assets are attached afterwards by .github/workflows/release.yml.
+#       Binary assets are attached afterwards by the release job in .github/workflows/tagpr.yml.
 #
 #   tagpr.changelog (Optional)
 #       Flag whether or not changelog is added or changed during the release.
