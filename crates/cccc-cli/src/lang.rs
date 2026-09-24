@@ -142,6 +142,12 @@ pub const LANGUAGES: &[Language] = &[
         exts: cccc_dart::DEFAULT_EXTS,
         analyze: cccc_dart::analyze_source,
     },
+    Language {
+        name: "scala",
+        aliases: &["sc"],
+        exts: cccc_scala::DEFAULT_EXTS,
+        analyze: cccc_scala::analyze_source,
+    },
 ];
 
 /// Resolve the active languages from an `include` (`--lang`) and an `exclude`
@@ -308,6 +314,7 @@ mod tests {
                 "swift".to_string(),
                 "java".to_string(),
                 "dart".to_string(),
+                "scala".to_string(),
             ]),
         )
         .unwrap();
@@ -347,7 +354,7 @@ mod tests {
         let map = build_dispatch(&all, &BTreeMap::new());
         for key in [
             "ts", "rs", "go", "php", "rb", "scm", "lisp", "el", "clj", "kt", "kts", "py", "pyi",
-            "zig", "c", "h", "pl", "pm", "t", "swift", "java", "dart",
+            "zig", "c", "h", "pl", "pm", "t", "swift", "java", "dart", "scala", "sc",
         ] {
             assert!(map.contains_key(key), "missing dispatch for .{key}");
         }
