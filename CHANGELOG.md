@@ -1,5 +1,10 @@
 # Changelog
 
+## [v1.7.1](https://github.com/moznion/cccc/compare/v1.7.0...v1.7.1) - 2026-09-30
+
+- build(deps): bump taiki-e/install-action from 2.87.17 to 2.87.21 by @dependabot[bot] in https://github.com/moznion/cccc/pull/130
+- build(deps): bump the oxc group with 6 updates by @dependabot[bot] in https://github.com/moznion/cccc/pull/131
+
 ## [v1.7.0](https://github.com/moznion/cccc/compare/v1.6.0...v1.7.0) - 2026-09-24
 
 - build(deps): bump dtolnay/rust-toolchain from fa04a1451ff1842e2626ccb99004d0195b455a88 to 2c7215f132e9ebf062739d9130488b56d53c060c by @dependabot[bot] in https://github.com/moznion/cccc/pull/68
