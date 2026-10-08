@@ -1,5 +1,18 @@
 # Changelog
 
+## [v1.7.1](https://github.com/moznion/cccc/compare/v1.7.0...v1.7.1) - 2026-10-08
+
+- build(deps): bump taiki-e/install-action from 2.87.17 to 2.87.21 by @dependabot[bot] in https://github.com/moznion/cccc/pull/130
+- build(deps): bump the oxc group with 6 updates by @dependabot[bot] in https://github.com/moznion/cccc/pull/131
+- build(deps): bump moznion/cccc-action from 1.1.0 to 1.1.1 by @dependabot[bot] in https://github.com/moznion/cccc/pull/133
+- build(deps): bump taiki-e/upload-rust-binary-action from 9db2ba52f2d913fae376c843748c9d2c2ac2c9ba to 83da96bda7236fccb55e1886b220e1115df5f1a8 by @dependabot[bot] in https://github.com/moznion/cccc/pull/134
+- build(deps): bump taiki-e/install-action from 2.87.21 to 2.87.23 by @dependabot[bot] in https://github.com/moznion/cccc/pull/135
+- build(deps): bump Songmu/tagpr from 1.21.0 to 1.21.1 by @dependabot[bot] in https://github.com/moznion/cccc/pull/136
+- build(deps): bump rust-toolchain from 1.98.1 to 1.99.0 by @dependabot[bot] in https://github.com/moznion/cccc/pull/137
+- build(deps): bump the oxc group with 6 updates by @dependabot[bot] in https://github.com/moznion/cccc/pull/138
+- build(deps): bump the php-parser group with 2 updates by @dependabot[bot] in https://github.com/moznion/cccc/pull/139
+- fix(java): switch to tree-sitter-java-orchard to parse annotated varargs by @moznion in https://github.com/moznion/cccc/pull/142
+
 ## [v1.7.0](https://github.com/moznion/cccc/compare/v1.6.0...v1.7.0) - 2026-09-24
 
 - build(deps): bump dtolnay/rust-toolchain from fa04a1451ff1842e2626ccb99004d0195b455a88 to 2c7215f132e9ebf062739d9130488b56d53c060c by @dependabot[bot] in https://github.com/moznion/cccc/pull/68
