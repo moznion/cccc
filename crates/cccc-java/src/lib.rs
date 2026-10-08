@@ -1,6 +1,8 @@
-//! Java adapter: parses source with the official [tree-sitter]
-//! `tree-sitter/tree-sitter-java` grammar and lowers the concrete syntax tree
-//! into the language-agnostic [`cccc_core::ir`].
+//! Java adapter: parses source with the [tree-sitter]
+//! `grammar-orchard/tree-sitter-java-orchard` grammar (a fork of the official
+//! `tree-sitter/tree-sitter-java`, which rejects a type annotation before a
+//! varargs `...`; see tree-sitter/tree-sitter-java#205) and lowers the concrete
+//! syntax tree into the language-agnostic [`cccc_core::ir`].
 //!
 //! This is a pure library — it depends only on `cccc-core`, `tree-sitter`, and
 //! the Java grammar (whose C source is compiled by `cc`, so unlike `cccc-rb`
@@ -71,7 +73,7 @@ pub fn analyze_source(path: &Path, source: &str) -> FileReport {
 pub fn to_ir(_path: &Path, source: &str) -> (Vec<Node>, Vec<String>) {
     let mut parser = tree_sitter::Parser::new();
     if parser
-        .set_language(&tree_sitter_java::LANGUAGE.into())
+        .set_language(&tree_sitter_java_orchard::LANGUAGE.into())
         .is_err()
     {
         return (Vec::new(), vec!["failed to load Java grammar".to_string()]);
@@ -494,6 +496,130 @@ mod tests {
         assert!(parse_errors(src).is_empty(), "{:?}", parse_errors(src));
         assert_eq!(cognitive_of(src, "getWords"), 1);
         assert_eq!(cyclomatic_of(src, "getWords"), 3);
+    }
+
+    #[test]
+    fn annotated_varargs_parses_cleanly() {
+        // JLS 8.4.1: annotations on a variable arity parameter go before `...`.
+        let src = r#"
+            class C {
+                void f(String @N ... names) {
+                    if (names == null) {
+                        return;
+                    }
+                }
+            }
+        "#;
+        assert!(parse_errors(src).is_empty(), "{:?}", parse_errors(src));
+        assert_eq!(cognitive_of(src, "f"), 1);
+        assert_eq!(cyclomatic_of(src, "f"), 2);
+    }
+
+    #[test]
+    fn annotated_varargs_type_forms_parse_cleanly() {
+        let params = [
+            // guava's Objects.hashCode / Preconditions.checkArgument shape
+            "@Nullable Object @Nullable ... xs",
+            "String @A @B ... xs",
+            "String @Size(max = 3) @A(\"x\") ... xs",
+            "String @org.jspecify.annotations.Nullable ... xs",
+            "final @A String @B ... xs",
+            "java.util.List<String> @A ... xs",
+            "String @A [] @B ... xs",
+            "int @A ... xs",
+            "T @A ... xs",
+        ];
+        for param in params {
+            let src = format!(
+                r#"
+                class C {{
+                    <T> void f({param}) {{
+                        if (xs == null) {{
+                            return;
+                        }}
+                    }}
+                }}
+                "#
+            );
+            assert!(
+                parse_errors(&src).is_empty(),
+                "{param}: {:?}",
+                parse_errors(&src)
+            );
+            assert_eq!(cognitive_of(&src, "f"), 1, "{param}");
+            assert_eq!(cyclomatic_of(&src, "f"), 2, "{param}");
+        }
+    }
+
+    #[test]
+    fn annotated_varargs_in_every_declaration_kind_parses_cleanly() {
+        let src = r#"
+            class C {
+                C(String @A ... xs) {
+                    if (xs == null) {
+                        return;
+                    }
+                }
+
+                Object o = new Object() {
+                    void anon(String @A ... xs) {
+                        if (xs == null) {
+                            return;
+                        }
+                    }
+                };
+
+                F lam = (String @A ... xs) -> xs == null ? 0 : xs.length;
+            }
+
+            interface I {
+                // pgjdbc's QueryExecutor.createQuery shape
+                void abs(int a, String @Nullable ... columnNames);
+
+                default void dflt(String @A ... xs) {
+                    if (xs == null) {
+                        return;
+                    }
+                }
+            }
+
+            record R(String @A ... xs) {
+                R {
+                    if (xs == null) {
+                        throw new IllegalArgumentException();
+                    }
+                }
+            }
+
+            enum E {
+                X;
+
+                void inEnum(String @A ... xs) {
+                    if (xs == null) {
+                        return;
+                    }
+                }
+            }
+        "#;
+        assert!(parse_errors(src).is_empty(), "{:?}", parse_errors(src));
+        for name in ["C", "anon", "<lambda>", "dflt", "R", "inEnum"] {
+            assert_eq!(cognitive_of(src, name), 1, "{name}");
+            assert_eq!(cyclomatic_of(src, name), 2, "{name}");
+        }
+        assert_eq!(cognitive_of(src, "abs"), 0);
+        assert_eq!(cyclomatic_of(src, "abs"), 1);
+    }
+
+    #[test]
+    fn varargs_annotation_after_ellipsis_is_a_parse_error() {
+        // Not valid Java (JLS 8.4.1); the old tree-sitter-java grammar accepted
+        // only this order.
+        let src = r#"
+            class C {
+                void f(String ... @A xs) {}
+            }
+        "#;
+        assert!(!parse_errors(src).is_empty());
     }
 
     #[test]
