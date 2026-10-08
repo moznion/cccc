@@ -58,6 +58,10 @@
   - **Scala** (`--lang scala`), via the official
     [tree-sitter-scala](https://github.com/tree-sitter/tree-sitter-scala)
     grammar. Analyzes `.scala`, `.sc`.
+  - **C#** (`--lang csharp`), via the
+    [WillBooster/tree-sitter-c-sharp](https://github.com/WillBooster/tree-sitter-c-sharp)
+    grammar (a fork of the official tree-sitter-c-sharp). Analyzes `.cs`,
+    `.csx`.
 - A Rust library for calculating cognitive and cyclomatic complexity in a language-agnostic way
 
 ## Workspace layout
@@ -90,6 +94,7 @@ library and extended to other languages:
 | [`cccc-java`](crates/cccc-java) | Java adapter **library**: lowers the [tree-sitter-java-orchard](https://codeberg.org/grammar-orchard/tree-sitter-java-orchard) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Java grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 | [`cccc-dart`](crates/cccc-dart) | Dart adapter **library**: lowers the [nielsenko/tree-sitter-dart](https://github.com/nielsenko/tree-sitter-dart) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Dart grammar — **no CLI dependencies**. The grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 | [`cccc-scala`](crates/cccc-scala) | Scala adapter **library**: lowers the official [tree-sitter-scala](https://github.com/tree-sitter/tree-sitter-scala) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Scala grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
+| [`cccc-cs`](crates/cccc-cs) | C# adapter **library**: lowers the [WillBooster/tree-sitter-c-sharp](https://github.com/WillBooster/tree-sitter-c-sharp) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the C# grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 
 Each adapter is a standalone library so that a consumer who only wants the
 metrics pulls in just that adapter (+ `cccc-core` + its parser), never clap /
@@ -102,7 +107,7 @@ it with one entry in `cccc-cli`'s `lang::LANGUAGES` (and add the dependency) —
 no new binary, and no reimplementing the metrics or the CLI. `cccc-es` (oxc),
 `cccc-rs` (syn), `cccc-go` (gosyn), `cccc-php` (php-rs-parser), `cccc-rb`
 (ruby-prism), `cccc-kt` / `cccc-py` / `cccc-pl` (tree-sitter), `cccc-swift` (tree-sitter), `cccc-c` / `cccc-cpp` (tree-sitter),
-`cccc-java` (tree-sitter), `cccc-dart` (tree-sitter), `cccc-scala` (tree-sitter), `cccc-scheme` (lispexp), `cccc-clojure` (lispexp), `cccc-lisp` (lispexp, Common Lisp / Emacs Lisp / …),
+`cccc-java` (tree-sitter), `cccc-dart` (tree-sitter), `cccc-scala` (tree-sitter), `cccc-cs` (tree-sitter), `cccc-scheme` (lispexp), `cccc-clojure` (lispexp), `cccc-lisp` (lispexp, Common Lisp / Emacs Lisp / …),
 and `cccc-zig` (zigsyn) are the reference adapters: same shape, different parser.
 The Lisp-family adapters share their lowering skeleton via `cccc-lisp-kit`;
 `cccc-c` and `cccc-cpp` share theirs via `cccc-clike`.
@@ -710,3 +715,33 @@ its language onto the same IR, with the per-language differences below.
   `scala.util.control.Breaks` (`breakable {}` / `break()`) and Scala 3's
   `scala.util.boundary` — are ordinary method calls, so they are not treated
   as jumps and add nothing to the score.
+
+### C# (`--lang csharp`)
+- **Function-like units:** methods, constructors, destructors, operators
+  (incl. conversion operators), local functions, lambdas, anonymous methods
+  (`delegate { … }`), and property / indexer / event accessors (`get`, `set`,
+  `init`, `add`, `remove` — each reported under the member's name; an
+  expression-bodied `int P => …` is its getter). Bodyless declarations
+  (abstract/interface members, `extern`/`partial` signatures, auto-property
+  `get;`/`set;`) are not reported. Top-level statements and `.csx` scripts
+  score at the module level.
+- **Maps to the shared nodes:** `if`/`else if`/`else`, the ternary `?:`,
+  `switch` statements (the `default:` section is the non-decision arm; each
+  stacked `case` label is its own cyclomatic point) and `switch` expressions
+  (an unguarded discard `_` or `var` pattern arm is the default),
+  `for`/`foreach`/`while`/`do`-`while`, each `catch` clause (an exception
+  filter `when (…)` scores inside it), `goto` (one flat cognitive point — like
+  a labelled jump), and `&&`/`||`.
+- `??` and `??=` fold as coalescing runs. Each null-conditional access
+  (`?.`, `?[]`) adds one cyclomatic path without adding cognitive complexity.
+- The pattern combinators `and`/`or` (`c is 'a' or 'b'`, `> 0 and < 10`) use
+  the same logical-sequence rules as `&&`/`||`, since they replace them in
+  conditions; `not` patterns add nothing, like `!`.
+- Preprocessor conditionals (`#if`, chained via `#elif`/`#else`) score as
+  branches, like the C/C++ adapters. `#region` adds nothing.
+- `base.M()` calls the overridden member, so it is not counted as recursion.
+- `.csx` `#r`/`#load` directives are skipped before parsing.
+- Known wart of preprocessor-unaware parsing: `#if` blocks that split a
+  declaration (e.g. different base-type lists in each branch, sharing one
+  body) or that wrap a `case` label or a property accessor can surface as a
+  parse warning; the rest of the file still parses and scores.

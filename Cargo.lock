@@ -230,6 +230,7 @@ dependencies = [
  "cccc-clojure",
  "cccc-core",
  "cccc-cpp",
+ "cccc-cs",
  "cccc-dart",
  "cccc-es",
  "cccc-go",
@@ -286,6 +287,15 @@ dependencies = [
  "cccc-core",
  "tree-sitter",
  "tree-sitter-cpp",
+]
+
+[[package]]
+name = "cccc-cs"
+version = "1.7.0"
+dependencies = [
+ "cccc-core",
+ "tree-sitter",
+ "willbooster-tree-sitter-c-sharp",
 ]
 
 [[package]]
@@ -1800,6 +1810,16 @@ checksum = "29790946404f91d9c5d06f9874efddea1dc06c5efe94541a7d6863108e3a5e4b"
 dependencies = [
  "same-file",
  "winapi-util",
+]
+
+[[package]]
+name = "willbooster-tree-sitter-c-sharp"
+version = "2.0.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b30569abbe78a25c2a17dac16e9719b08c29d9dbfb6a8f8c646d60f3254704f9"
+dependencies = [
+ "cc",
+ "tree-sitter-language",
 ]
 
 [[package]]
