@@ -49,9 +49,9 @@
   - **Swift** (`--lang swift`), via the
     [alex-pinkus/tree-sitter-swift](https://github.com/alex-pinkus/tree-sitter-swift)
     grammar. Analyzes `.swift`.
-  - **Java** (`--lang java`), via the official
-    [tree-sitter-java](https://github.com/tree-sitter/tree-sitter-java)
-    grammar. Analyzes `.java`.
+  - **Java** (`--lang java`), via the
+    [tree-sitter-java-orchard](https://codeberg.org/grammar-orchard/tree-sitter-java-orchard)
+    grammar (a fork of the official tree-sitter-java). Analyzes `.java`.
   - **Dart** (`--lang dart`), via the
     [nielsenko/tree-sitter-dart](https://github.com/nielsenko/tree-sitter-dart)
     grammar. Analyzes `.dart`.
@@ -87,7 +87,7 @@ library and extended to other languages:
 | [`cccc-cpp`](crates/cccc-cpp) | C++ adapter **library**: lowers the official [tree-sitter-cpp](https://github.com/tree-sitter/tree-sitter-cpp) CST into `cccc-core`'s IR via `cccc-clike`. Depends only on `cccc-core` + `cccc-clike` + tree-sitter + the C++ grammar — **no CLI dependencies**. |
 | [`cccc-pl`](crates/cccc-pl) | Perl adapter **library**: lowers the [tree-sitter-perl](https://github.com/tree-sitter-perl/tree-sitter-perl) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Perl grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 | [`cccc-swift`](crates/cccc-swift) | Swift adapter **library**: lowers the [alex-pinkus/tree-sitter-swift](https://github.com/alex-pinkus/tree-sitter-swift) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Swift grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
-| [`cccc-java`](crates/cccc-java) | Java adapter **library**: lowers the official [tree-sitter-java](https://github.com/tree-sitter/tree-sitter-java) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Java grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
+| [`cccc-java`](crates/cccc-java) | Java adapter **library**: lowers the [tree-sitter-java-orchard](https://codeberg.org/grammar-orchard/tree-sitter-java-orchard) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Java grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 | [`cccc-dart`](crates/cccc-dart) | Dart adapter **library**: lowers the [nielsenko/tree-sitter-dart](https://github.com/nielsenko/tree-sitter-dart) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Dart grammar — **no CLI dependencies**. The grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 | [`cccc-scala`](crates/cccc-scala) | Scala adapter **library**: lowers the official [tree-sitter-scala](https://github.com/tree-sitter/tree-sitter-scala) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Scala grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 

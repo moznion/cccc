@@ -1,6 +1,8 @@
-//! Java adapter: parses source with the official [tree-sitter]
-//! `tree-sitter/tree-sitter-java` grammar and lowers the concrete syntax tree
-//! into the language-agnostic [`cccc_core::ir`].
+//! Java adapter: parses source with the [tree-sitter]
+//! `grammar-orchard/tree-sitter-java-orchard` grammar (a fork of the official
+//! `tree-sitter/tree-sitter-java`, which rejects a type annotation before a
+//! varargs `...`; see tree-sitter/tree-sitter-java#205) and lowers the concrete
+//! syntax tree into the language-agnostic [`cccc_core::ir`].
 //!
 //! This is a pure library — it depends only on `cccc-core`, `tree-sitter`, and
 //! the Java grammar (whose C source is compiled by `cc`, so unlike `cccc-rb`
@@ -71,7 +73,7 @@ pub fn analyze_source(path: &Path, source: &str) -> FileReport {
 pub fn to_ir(_path: &Path, source: &str) -> (Vec<Node>, Vec<String>) {
     let mut parser = tree_sitter::Parser::new();
     if parser
-        .set_language(&tree_sitter_java::LANGUAGE.into())
+        .set_language(&tree_sitter_java_orchard::LANGUAGE.into())
         .is_err()
     {
         return (Vec::new(), vec!["failed to load Java grammar".to_string()]);
@@ -494,6 +496,23 @@ mod tests {
         assert!(parse_errors(src).is_empty(), "{:?}", parse_errors(src));
         assert_eq!(cognitive_of(src, "getWords"), 1);
         assert_eq!(cyclomatic_of(src, "getWords"), 3);
+    }
+
+    #[test]
+    fn annotated_varargs_parses_cleanly() {
+        // JLS 8.4.1: annotations on a variable arity parameter go before `...`.
+        let src = r#"
+            class C {
+                void f(String @N ... names) {
+                    if (names == null) {
+                        return;
+                    }
+                }
+            }
+        "#;
+        assert!(parse_errors(src).is_empty(), "{:?}", parse_errors(src));
+        assert_eq!(cognitive_of(src, "f"), 1);
+        assert_eq!(cyclomatic_of(src, "f"), 2);
     }
 
     #[test]
