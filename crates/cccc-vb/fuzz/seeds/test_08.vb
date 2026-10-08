@@ -1,0 +1,15 @@
+
+Module M
+    Sub OldStyle()
+        On Error GoTo Handler
+        DoWork()
+        Exit Sub
+Handler:
+        Resume Next
+    End Sub
+    Sub Quiet()
+        On Error Resume Next
+        DoWork()
+        On Error GoTo 0
+    End Sub
+End Module

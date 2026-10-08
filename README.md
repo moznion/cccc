@@ -62,6 +62,8 @@
     [WillBooster/tree-sitter-c-sharp](https://github.com/WillBooster/tree-sitter-c-sharp)
     grammar (a fork of the official tree-sitter-c-sharp). Analyzes `.cs`,
     `.csx`.
+  - **Visual Basic .NET** (`--lang vbnet`), via a purpose-built pure-Rust
+    parser (no usable VB.NET grammar exists). Analyzes `.vb`.
 - A Rust library for calculating cognitive and cyclomatic complexity in a language-agnostic way
 
 ## Workspace layout
@@ -95,6 +97,7 @@ library and extended to other languages:
 | [`cccc-dart`](crates/cccc-dart) | Dart adapter **library**: lowers the [nielsenko/tree-sitter-dart](https://github.com/nielsenko/tree-sitter-dart) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Dart grammar — **no CLI dependencies**. The grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 | [`cccc-scala`](crates/cccc-scala) | Scala adapter **library**: lowers the official [tree-sitter-scala](https://github.com/tree-sitter/tree-sitter-scala) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Scala grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 | [`cccc-cs`](crates/cccc-cs) | C# adapter **library**: lowers the [WillBooster/tree-sitter-c-sharp](https://github.com/WillBooster/tree-sitter-c-sharp) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the C# grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
+| [`cccc-vb`](crates/cccc-vb) | Visual Basic .NET adapter **library**: lowers source into `cccc-core`'s IR with its own pure-Rust lexer and recursive-descent parser (the available tree-sitter VB grammars fail on most real-world files). Depends only on `cccc-core` — **no CLI dependencies or C toolchain**. |
 
 Each adapter is a standalone library so that a consumer who only wants the
 metrics pulls in just that adapter (+ `cccc-core` + its parser), never clap /
@@ -107,7 +110,7 @@ it with one entry in `cccc-cli`'s `lang::LANGUAGES` (and add the dependency) —
 no new binary, and no reimplementing the metrics or the CLI. `cccc-es` (oxc),
 `cccc-rs` (syn), `cccc-go` (gosyn), `cccc-php` (php-rs-parser), `cccc-rb`
 (ruby-prism), `cccc-kt` / `cccc-py` / `cccc-pl` (tree-sitter), `cccc-swift` (tree-sitter), `cccc-c` / `cccc-cpp` (tree-sitter),
-`cccc-java` (tree-sitter), `cccc-dart` (tree-sitter), `cccc-scala` (tree-sitter), `cccc-cs` (tree-sitter), `cccc-scheme` (lispexp), `cccc-clojure` (lispexp), `cccc-lisp` (lispexp, Common Lisp / Emacs Lisp / …),
+`cccc-java` (tree-sitter), `cccc-dart` (tree-sitter), `cccc-scala` (tree-sitter), `cccc-cs` (tree-sitter), `cccc-vb` (hand-written parser), `cccc-scheme` (lispexp), `cccc-clojure` (lispexp), `cccc-lisp` (lispexp, Common Lisp / Emacs Lisp / …),
 and `cccc-zig` (zigsyn) are the reference adapters: same shape, different parser.
 The Lisp-family adapters share their lowering skeleton via `cccc-lisp-kit`;
 `cccc-c` and `cccc-cpp` share theirs via `cccc-clike`.
@@ -745,3 +748,39 @@ its language onto the same IR, with the per-language differences below.
   declaration (e.g. different base-type lists in each branch, sharing one
   body) or that wrap a `case` label or a property accessor can surface as a
   parse warning; the rest of the file still parses and scores.
+
+### Visual Basic .NET (`--lang vbnet`)
+- **Function-like units:** `Sub`s (`Sub New` is a `constructor`),
+  `Function`s, `Operator`s, property accessors (`Get` / `Set`, reported under
+  the property's name), custom-event accessors (`AddHandler` /
+  `RemoveHandler` / `RaiseEvent`), and lambdas (single- and multi-line
+  `Sub(…)` / `Function(…)`). Bodyless declarations (`MustOverride`,
+  interface members, `Declare`, `Delegate`, auto-properties, and the empty
+  declaration half of a `Partial` method) are not reported.
+- **Maps to the shared nodes:** `If`/`ElseIf`/`Else` (block and single-line
+  forms), `Select Case` (`Case Else` is the non-decision arm; a clause listing
+  several values — `Case 1, 2 To 5` — is one decision),
+  `For`/`For Each`/`Do … Loop`/`While`, each `Catch` clause (a `When` filter
+  scores inside it), `GoTo` (one flat cognitive point — like a labelled
+  jump), and `AndAlso`/`OrElse`.
+- The eager `And`/`Or` count like `AndAlso`/`OrElse` and join their runs
+  (`a And b AndAlso c` is one sequence): they are VB's original logical
+  operators and still common in conditions. `Not` and `Xor` add nothing.
+- `If(c, a, b)` scores as a conditional and `If(a, b)` as a coalescing
+  sequence. Each null-conditional access (`?.`, `?(…)`) adds one cyclomatic
+  path without adding cognitive complexity.
+- Legacy error handling counts as jumps: `On Error GoTo label`,
+  `On Error Resume Next`, and `Resume` each add one flat cognitive point
+  (`On Error GoTo 0` / `-1` only reset the handler and add nothing).
+  `Exit …` / `Continue …` add nothing.
+- Preprocessor conditionals (`#If`, chained via `#ElseIf`/`#Else`) score as
+  branches, like the C/C++/C# adapters. When their arms do not nest as
+  complete statements (e.g. two alternative signatures sharing one body),
+  only the first arm is parsed — as the compiler would with the symbol
+  defined — and the chain still scores. `#Region` adds nothing.
+- Recursion is matched case-insensitively, including VB's parenthesis-free
+  call of a parameterless `Sub` (a statement that is just `Walk`). Assigning
+  the function's implicit return variable (`Fact = …`) is not a call, and
+  `MyBase.M()` is not recursion.
+- XML literals are opaque: code inside `<%= … %>` embedded expressions does
+  not contribute to the score. Interpolated-string holes (`$"{…}"`) do.

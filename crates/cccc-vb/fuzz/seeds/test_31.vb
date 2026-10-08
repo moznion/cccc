@@ -1,0 +1,22 @@
+
+Interface I
+    Event Changed As EventHandler
+    Property Item(i As Integer) As String
+End Interface
+Structure S
+    Implements I
+    Public Event Changed As EventHandler Implements I.Changed
+    Default Public Property Item(Optional i As Integer = 0) As String Implements I.Item
+        Get
+            If i > 0 Then Return ""
+            Return Nothing
+        End Get
+        Set(value As String)
+        End Set
+    End Property
+    Public Property Items As New List(Of Integer) From {If(y, 1, 2)}
+End Structure
+Enum E
+    A = 1
+    B
+End Enum

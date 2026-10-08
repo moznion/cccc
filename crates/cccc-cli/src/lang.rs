@@ -155,6 +155,12 @@ pub const LANGUAGES: &[Language] = &[
         exts: cccc_cs::DEFAULT_EXTS,
         analyze: cccc_cs::analyze_source,
     },
+    Language {
+        name: "vbnet",
+        aliases: &["vb", "vb.net"],
+        exts: cccc_vb::DEFAULT_EXTS,
+        analyze: cccc_vb::analyze_source,
+    },
 ];
 
 /// Resolve the active languages from an `include` (`--lang`) and an `exclude`
@@ -324,6 +330,7 @@ mod tests {
                 "dart".to_string(),
                 "scala".to_string(),
                 "csharp".to_string(),
+                "vbnet".to_string(),
             ]),
         )
         .unwrap();

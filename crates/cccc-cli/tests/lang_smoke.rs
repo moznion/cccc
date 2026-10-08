@@ -130,3 +130,8 @@ fn scala_fixture_dispatches() {
 fn csharp_fixture_dispatches() {
     assert_sum_of_primes("sample.cs", "sumOfPrimes");
 }
+
+#[test]
+fn vbnet_fixture_dispatches() {
+    assert_sum_of_primes("sample.vb", "sumOfPrimes");
+}

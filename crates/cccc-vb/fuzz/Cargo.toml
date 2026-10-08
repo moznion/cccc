@@ -1,0 +1,24 @@
+[package]
+name = "cccc-vb-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2024"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+cccc-vb = { path = ".." }
+
+# Kept out of the main workspace: cargo-fuzz needs a nightly toolchain and
+# sanitizer flags that the pinned stable toolchain doesn't support.
+[workspace]
+members = ["."]
+
+[[bin]]
+name = "analyze_source"
+path = "fuzz_targets/analyze_source.rs"
+test = false
+doc = false
+bench = false

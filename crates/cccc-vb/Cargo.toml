@@ -1,0 +1,15 @@
+[package]
+name = "cccc-vb"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Visual Basic .NET adapter that lowers source into the cccc-core complexity IR"
+
+[dependencies]
+cccc-core = { workspace = true }
+# No parser dependency: no usable VB.NET grammar exists (every tree-sitter
+# grammar fails on most real files), so the adapter carries its own pure-Rust
+# lexer and parser — no C toolchain, cross-compilation stays clean.
