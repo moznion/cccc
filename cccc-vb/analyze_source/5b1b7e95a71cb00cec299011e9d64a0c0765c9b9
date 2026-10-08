@@ -1,0 +1,11 @@
+
+    Dim q = From c In customers, o As Order In orders
+            Join pn o.Pid Equals p.Id
+            Where c.Ok AndAlso o.Ok
+            Group By c.City Into Cood   Join p In prodals p.Id
+            Where c.Ok AndAlso o.Ok
+         Group unt()
+            Distinct
+               Group By c.CInto Co)n(
+ut            Dito Sum(x)
+    IDim 

@@ -1,0 +1,7 @@
+
+    Foo(a,       Dim xs(I&(b, 3, 4)) As Integer, ys()() Asth {.A = 2}
+    Using r As New Reader(     Return If(c, a, b)
+    En
+    ReDim Preserve xs(If(a, >, 6) 5, 6))
+    Erase xs, ys
+    handl End

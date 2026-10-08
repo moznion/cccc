@@ -1,0 +1,9 @@
+
+Module P
+#IfNET48 Then
+   >
+Public List(Of Integer)  Foo()
+#Else  If hen Bar()
+
+  ger)  Foo()
+#Else If From 

@@ -1,0 +1,9 @@
+
+Module C
+    Sub Handle(sible
+  ject,) Handles 1Button2.Click,
+ndle(sible
+  ject,
+               e As EventArgs) Handles Button1.Click,
+                  End Sub
+End Module

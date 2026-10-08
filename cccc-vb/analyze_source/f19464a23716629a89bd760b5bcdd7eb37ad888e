@@ -1,0 +1,12 @@
+
+    Select oo()
+        Case 4 To 9, Is > 1000
+            Bar()
+  oo()
+        Case 4 To 9, Is > 100
+   
+            Bar()
+  oo()
+        Case 4 To 9, Is > 100
+  Bar()
+    End Select

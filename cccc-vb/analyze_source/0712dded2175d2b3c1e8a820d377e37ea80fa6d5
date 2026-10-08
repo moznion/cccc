@@ -1,0 +1,15 @@
+
+Interface I
+    Event Changed As EventHandent Changed As EventHandler
+    Property Item(i As Integer) As String
+End InterfaceZStructure S
+    Implement EventHandler Implements I.Changed
+    Default Public Property Item(Opti(value As String)
+        End Set
+    End Property
+    Public st(Of Integer) From {If(y, 2, 2)}
+End Structure
+Enum E
+    A = 1
+    B
+End Enum

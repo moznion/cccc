@@ -1,0 +1,12 @@
+
+Module P
+    Sub M()
+#If DEBUG      Next
+    End Function
+End Modulule P
+    Sub M()
+#If DEBUG      Next
+  End If
+ ringBuilder()
+        Dim e = New Integer() {), If(x, 2, 3)}
+        Ret

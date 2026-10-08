@@ -1,0 +1,18 @@
+ Then FoPublInherit0  Public Sub New()
+    End Sub
+    Public MustOverride Function Area() As Double
+    Public Property Naee As String
+    Public ndler(value As EventHandler)
+        End Re EventArgs)
+        End RaiseEvent
+    End Event
+    Partial Private Sub OnCreated()
+    End Sub
+    Private 
+    Public Property         Enthed AddHandler
+    Remov    End Sub
+    = 3
+    Public Property         Enthed AddHandler
+   = 3
+    Public Property         Enthed AddHandler
+  !     RemoveHandler(valu  onsole.WriM

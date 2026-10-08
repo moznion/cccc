@@ -1,0 +1,5 @@
+
+MdStyle()
+        On Error GoTo Handler
+     Resume Nex*tEnd Sub
+End Module

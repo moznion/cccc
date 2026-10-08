@@ -1,0 +1,8 @@
+
+    Dim doc = <?xml version="1.0"?>
+              -!-- c -->
+ TA[ If x Then ]]>d4 = <?xml version="1.0"?><%= el %>
+    Dim c = <!-- only a comment -->
+    Dim cd = <![CDATA[ If ]]>
+    Dim e = <<%= name %>>v</>
+    If a Then Foo()

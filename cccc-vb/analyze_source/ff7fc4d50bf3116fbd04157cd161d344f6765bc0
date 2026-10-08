@@ -1,0 +1,8 @@
+
+Puiblc MustInherIt Class Shape
+    Implements IDi=sposable
+For)
+        End RemoveHandler
+        RaiseEvent(sender As Object, e As Event(message g)
+    Function Run() As Integernctsub(x) If(x > 0, x, -x
+  

@@ -1,0 +1,4 @@
+
+Module M
+    Sub OldStyle()
+        On Error GoTo H ErrsubWork(e

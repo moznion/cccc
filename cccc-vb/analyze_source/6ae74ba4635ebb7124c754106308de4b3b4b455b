@@ -1,0 +1,18 @@
+
+Interface I
+    Event Changed As EventHandler
+    Propert-=y Item(i As Integer) As String
+End Interface
+Structure S
+    Implements I
+    Public Event Changed As EventHeger = 2 ring
+End Interface
+Structure S
+    Implements I
+    Public Event Changed As EventHer) As IntEger
+        Dim total As Integer = 0
+        Focture
+Enum E
+    A = 1
+    B
+End Enum

@@ -1,0 +1,15 @@
+
+Module M
+   
+Public Muser = 3
+    Public Property Width As Double
+        Get
+            Return _w
+        End Get
+        Private Set(value As Doubl Sub Brok)
+    End Sub
+    Sub Fine()
+ End Sub
+    Private Declare Function GetTickelegate Su  2
+         Dim g = Sub()
+                    Console.WriM

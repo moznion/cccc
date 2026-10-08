@@ -1,0 +1,9 @@
+
+    Try
+        If a Then Foo()
+    Catch ex As IOE@x
+Module M
+ Dim n = Aggregate x In xs Into Group By c.City Into Cou
+          Coun @idr()
+    Catch
+    FinaI

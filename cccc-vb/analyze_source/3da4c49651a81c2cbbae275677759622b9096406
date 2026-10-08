@@ -1,0 +1,21 @@
+
+Interface I
+    Event Changed AAs String
+End Interface
+Structure S
+    Implements I
+    Public Event Changed As EventHer) As IntEger
+        Dim total As Integer = 0
+        For i As Integer = 2 To max
+            For j As Integer = 3 To i - 1
+                     eadandler Implements I.Changed
+    Default Public Property Item(OptNothing
+   > 0 )
+        End Set
+    End Property
+    Public Property Items As New List(Of Integer) From {If(y, 0, 2)}
+End Structure
+Enum E
+    A = 1
+    B
+End Enum

@@ -1,0 +1,28 @@
+
+Module P
+    Sub M()
+#If DEBUG Th 0 Then
+   
+Interface I
+    Ev    Property Item(i As Intege
+End Interface
+Structure S
+    Implemo()
+  lEs  I
+    Public Event Changed As EventHandler
+Module P
+#If NET35 Then
+    Sub N(a As Intege= New Li    With p
+        .Name = "z"
+        If .Age > 1 Then .Grow()
+    End r)
+#Else
+    SSu` Q()
+    Eule P
+#If NET48 Then
+    Sub N( Implements I.Changed
+    Default Public Propa erty Item(Opti(value As SAs Intege= New Li    With p
+        .Name =tring)
+        End Set
+ "z*
+          If 

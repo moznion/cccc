@@ -1,0 +1,9 @@
+
+Module P
+    Sub M()
+#If Dhen
+        Log("a")
+#ElseIf TRACE AndAlso Not RELEASE Then 
+       Log("b")
+#Else
+nddule

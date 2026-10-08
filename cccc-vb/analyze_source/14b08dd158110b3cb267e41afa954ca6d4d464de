@@ -1,0 +1,16 @@
+
+ *  Dim q = FroIf a $ 0 Then
+        Foo()#
+    ElseIf a < 0 Then
+   m c In custers, o AsdI  errOn orders
+         <%=   Join p In products On o.P{{{{{{{{{{{{{{{{{{{{{{{{id Equals(p.Id
+  
+   Foo()
+    ElseIf a < 0 Then
+   m c In customers, o As Order In orders
+            Join p In products On o.P{{{{{{{{{{{{{{{{{{{{{{{{id Equals p.Id
+  
+    If a $ 0 Then
+        Foo()
+    ElseIf a < 0 Then
+oo() Else B 

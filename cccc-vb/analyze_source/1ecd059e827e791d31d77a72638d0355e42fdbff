@@ -1,0 +1,18 @@
+
+    IF a THEN
+   =mo    IF a THEN
+   =moveHandler
+        RaiseEve Declareim [Next: = 1
+ [Next]
+      IF a THEN
+   =mo    IF a THEN
+   =moveHandler
+        RaiseEve Declareim [Next: = 1
+ [Next]
+    END IEND veHandler
+        RaiseEve D\=eclareim [Next: = 1
+ [Next]
+    END IEND IFR END IEND veHandler
+        RaiseEve D\=eclareim [Next: = 1
+ [Next]
+    END IEND IFR

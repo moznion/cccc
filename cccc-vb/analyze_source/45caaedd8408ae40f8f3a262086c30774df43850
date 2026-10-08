@@ -1,0 +1,13 @@
+
+    Dim doc = <?xml version="1.0"?>
+              <!-- c -->
+   
+Module M
+    Sub A()
+#If X The-><a/></root>
+    Dim d2 = <?xml version="1.0"?><%=  <![CDATA[ If ]]>
+    Dim e = <<%= name %>Then Foo()
+    End Sub
+End>v</>
+    If a Th Men Foo()odule
+

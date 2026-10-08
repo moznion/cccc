@@ -1,0 +1,3 @@
+
+    Dim p As q{ With {.A = 0}
+    Using r As New Reader(Is, ys

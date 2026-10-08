@@ -1,0 +1,8 @@
+
+Module C
+    Sub Handle(sible
+  ject,
+               e As EventArgs) Handles BButton1.Click,ing Then
+        Dim q = From x In items
+                    Where x.Enabled AndAlso  Nothingbled AndAlso  Nothing Then
+            Dim q = From x         Where x.Endabled  Anr

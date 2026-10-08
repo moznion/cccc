@@ -1,0 +1,17 @@
+
+    Try
+   f a Then Foo()
+    Catch ex An2 Bar()
+    Catch
+    Finally
+        B     If a Then Foo()
+    Catch ex )
+    Catcmu   Then Foo()
+    Catch ex An2 Bar()
+    Catch
+    Finally    B     If a Then Foo()
+    Catch ex An2 Bar()
+    Catcmu    Finally
+        Baz(  Finally
+        Baz()
+    End Try

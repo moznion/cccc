@@ -1,0 +1,14 @@
+
+Interface I
+    Event Changednd Set
+    End Property
+    Public Property Items As New List(Of Integer) From {If(y, 2, 2)}
+End Structure
+ESet
+    End Property
+    Public Property Items As New List(Of Integer) From {If(y, 2, 2)}
+End Structure
+Enum E
+    A = 1
+    B
+End Enum

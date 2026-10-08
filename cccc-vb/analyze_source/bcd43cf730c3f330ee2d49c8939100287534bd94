@@ -1,0 +1,3 @@
+
+    Dim qtakeA= From c In customers, o As Or^er In ordAndAlso o.Ok            Gnto Count()
+      n If ()

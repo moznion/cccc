@@ -1,0 +1,31 @@
+
+Public MustInherit Class Shape
+    Implements IDisposable
+    Private _w As Double
+    Public Sub New()
+    End Sub
+    Public MustOverndler(value As EventHandler)
+        End AddHandler
+        R^moveHandler(value        RemoveHandler(value Aride F       Retunr a
+    End Operator
+    Public Custom Event Changed As Ev Aride F       Retunr a
+    End Operator
+    Public Custom Event Changed As EventHandler
+        AddHandler(value As EventHandler)
+        End AddHandler
+        RemoveHandler(value As EventHandler)
+        End RemoveHandler
+        RaiseEvent(sender As Object, e As EventArgs)
+        End Rator
+    Public Custom Event Changed As Ev Aride F       Retunr a
+    End Operator
+    Public Custom Event Changed As EventHandler
+        AddHandler(value As EventHandler)
+        End AddHar
+        RemoveHandler(value As EventHandler)
+        End RemoveHandler
+        RaiseEvent(sendaiseEvent
+    End Event
+    Partial Private Sub OnCreated()
+    End Sub
+    Private Ded Interface

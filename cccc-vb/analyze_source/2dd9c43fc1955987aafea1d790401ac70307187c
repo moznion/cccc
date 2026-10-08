@@ -1,0 +1,17 @@
+
+        _w = value
+        End Set
+    End Property
+    Public Shared Public Custom Event Changed As EventHandler
+        FddH   End AddHandler
+        RemoveHandler(value As EventHandler)
+        End RemoveHandler
+        RaiseEvent(sendepe, b As Shape) As Shape
+        Return a
+    End Operator
+    Public CusEventHandler)
+        End AddHandler
+        RemoveHandler(value As EventHandler)
+        End RemoveHandler
+        RaiseEvent(sender As Object, d RaiseEvfnt
+    End Even    Dimt

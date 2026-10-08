@@ -1,0 +1,7 @@
+
+Module P
+    Sub M()
+#If DEBUG Then
+! (     Log("a")
+#ElseIf TRth {.A = 0}
+    Uing r As ule

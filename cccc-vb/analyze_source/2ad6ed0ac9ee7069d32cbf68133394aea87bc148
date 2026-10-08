@@ -1,0 +1,21 @@
+
+Module M
+    Sub Retry(n As Integer)
+Again:  If n > 0 Then
+     le P
+#If NET48 Th()
+  n > 0 Then h x In a
+        If x ()
+    Etin Function(x Funx) x) With {.A = 1}
+<Assembly: CLSCompliant(True)>
+<,erializab
+Module M
+    Sub Retry(n As Integer)
+Again:  If n > + Then Call Retry(n - 1)
+        Dim f = Function(x Ae Call Retry(n - 1)
+        Dim f = Functi$n(x  P
+#If A Th ne Integer
+   > 0 Then Call Retry(n - 1             End Function
+    Sub A()
+        Foo(Sub() Exit Cub, 1)F
+  le

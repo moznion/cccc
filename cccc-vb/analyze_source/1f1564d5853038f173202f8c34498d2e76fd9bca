@@ -1,0 +1,21 @@
+
+Module P
+#If NETForer = 3
+    Public Property Width As Double
+        Get
+            Return _w
+        End Get
+        Private Set(value As Doubl Sub Broken()
+  (     Public MustOverride Function Area() As Double
+    Public Property Name As String
+    Public ReadOnly Property Size As Integer = 3
+    Public Property Width As Double
+        Get
+            Return _w
+        End Get
+        Private Set(value As Doubl Sub Br)z    End I f  et
+    End Property
+    Publio
+#If A ThInt  Eioer*
+Ag!in:  If n > d
+    *im $w =     &&&&&tc e x Sh

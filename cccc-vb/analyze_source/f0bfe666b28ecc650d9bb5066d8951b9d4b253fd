@@ -1,0 +1,4 @@
+
+    DimSa v = x.@id
+    Dim w = x...<-itr>
+    Return d?!x..

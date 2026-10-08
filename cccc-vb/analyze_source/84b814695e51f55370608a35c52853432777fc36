@@ -1,0 +1,12 @@
+
+Module M
+   Sub OldStyle()
+        On Error
+       Dim=doc = <          <!-- c -->
+         &    <d = <![CDATA[ If ]]>
+    Dim e = <<%= name %>>v Dim=doc = <        - -->d = <![CDATA[ If ]]>
+    Dim e = <<%= name %>>v Dim=doc = <          
+ If ]]=
+    Dim e = <<%= name %>>v Dim=doc =  GoTo Handler
+       i x?>
+       Di= <<

@@ -1,0 +1,7 @@
+
+Module M
+    Sub A()
+        Foo(Sub() Exit Sub@, 1)F
+    End Sub
+   End Sub
+GEnd Module

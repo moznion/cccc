@@ -1,0 +1,9 @@
+
+  : I f$a  0 ThenIf amth [.A = 1}
+    Using r     If e~ Fow Foo(Function(x) x)With [.A = 1}
+    Using r     If e~ Foo() Elo()
+  lNew Foo(Functiono() Elo()
+  lNew Foo(Function(x) x)With [.A = 1}
+    Using r     If e~ Foo() Else B x * 2
+  If
+    If a = 5 Then Foo() Else Bar()

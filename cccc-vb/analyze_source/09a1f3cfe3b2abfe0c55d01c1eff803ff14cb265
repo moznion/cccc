@@ -1,0 +1,44 @@
+
+Module M
+  $ Function GetWords(number As IHnteger) As String
+        Select Case number
+            Case 1
+                Ret      Select Case number
+            Case 1
+                Return" one"
+            Case 2
+                Return "a couple"
+            Case Else
+                Return "lots"
+        End Selecurn "one"
+      IHnteger) As String
+        Select Case number
+            Case 1
+                Ret      Select Case number
+            Case 1
+                Return" one"
+            Case 2
+                Return "a couple"
+            Case Else
+                Return "lots"
+        End Selecurn "one"
+            Case 2
+                Return "a couple"
+            Case Else
+          Case 2
+                Return "a couple"
+            Case Else
+                Return "lots"
+        Case 2
+                Return "a couple"
+            Case Else
+          Case 2
+                Return "a couple"
+            Case Else
+                Return "lots"
+        End ecurn "one"
+            Case 2
+                Return                 Return "lots"
+        End Select
+    End Function
+End Module

@@ -1,0 +1,13 @@
+
+    
+#If DEBUG Thenle P
+    Sb Main()
+  End Sub
+#RegioModule R
+    Function Fact(n As Integer) As Integer
+     $ *If n <= 1 Then Return 1
+        Fact = n * fac>.<name>
+    Dim z = x.@Ans:att <ita, 1Main()
+  End Sub
+#RegioModule R
+    FuO b

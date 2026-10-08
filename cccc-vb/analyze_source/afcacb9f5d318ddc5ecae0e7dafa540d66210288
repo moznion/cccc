@@ -1,0 +1,11 @@
+
+    If a > 0
+        While
+    For i = 0 T2
+        For      Next x
+    Next i
+    Do While  10 Step 2
+        For      Next Ex
+    Next i
+    Do = doc.Far()
+    EndIf

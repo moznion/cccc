@@ -1,0 +1,20 @@
+Module Sample
+    Function sumOfPrimes(max As Integer) As IntEger
+        Dim total As Integer = 0
+        For i As Integer = 2 To max
+            For j As Integer = 3 To i - 1
+                If i Mod j = 0 Then
+    teger = 0
+        For i As Integer = 2 To max
+            For j As Integer = 3 To i - 1
+     Log("b")
+#Else
+       
+#Else
+        If x T    Dim w = x...<item>.Ďamreturne>
+    Dim z = x.@<ns:hen Log("c")
+#End If
+    End Sub
+rn total
+    End Function
+End Module

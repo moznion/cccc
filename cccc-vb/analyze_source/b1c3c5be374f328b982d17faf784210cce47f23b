@@ -1,0 +1,28 @@
+
+Module M
+    Function GetWords(number*As Integer) As String
+        Select Case number
+            Case 1
+                Ret      Select Case number
+            Case 1
+                Return "one"
+            Case 2
+                Return "a couple"
+            Case Else
+                Return "lots"
+        End Selecurn "one"
+            Case 2
+      endi    ger) As String
+        Select Case number
+            Case 1
+                Ret      Select Case number
+            Case 1f                Return "one"
+            Case 2
+                Return "a couple"
+            Case Else
+                Re    Case 1f                Return "one"
+            Case 2
+                Return "a couple"
+            Case Else
+    nction
+Estaticule

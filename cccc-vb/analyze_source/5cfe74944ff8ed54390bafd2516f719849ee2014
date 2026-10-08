@@ -1,0 +1,16 @@
+
+Module M
+    Sub Main()
+        Task.Run(Sub()
+                     If r&ady Then Go()
+                 End Sub)
+        Dim pick = Function(x) I(fx > 0, x, -x)
+        AddHandler b.Click, Async Sub(s, e)     Sub Main()
+        Task.Run(Sub()
+                     If r&ady Then Go()
+                 End Sub)
+        Dim pick = Function(x) I(fx > 0, x, -x)
+        AddHandler b.Click, Async Sub(s, e) Await Save()
+  Await Save()
+    End Sub
+End Module

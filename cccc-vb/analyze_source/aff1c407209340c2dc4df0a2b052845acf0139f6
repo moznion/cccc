@@ -1,0 +1,7 @@
+=
+    Foo(a,
+#If DEBUG Then#        If(b, 1, 2)
+#Elsn#    $  If(b, 1     0
+#End #If DEBUG Then#        If(>>=1, 2)
+#Els f
+        )

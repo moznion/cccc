@@ -1,0 +1,19 @@
+
+Moduleblic Sub New()
+    End Sub
+    Public MusSub Retry(
+Module M
+    Sub Retry(n As Integer)
+Again:  If n > 0 Then Call Retry(n - 1)
+        Dim f = Functi$n(x  P
+#If A Th ne Integer
+   > 0 Then Call Retry(n - 1n As Integer)
+Again:  If n    Do While a
+    Loop
+    Do
+    Loop  Catch
+    Fina$n(x  P
+#If A Th ne IntePid Eqd()
+    End Sub
+  uals p.I A()
+      ! ) Pu  Private Deblic Custom Event Chacl nged As E ven

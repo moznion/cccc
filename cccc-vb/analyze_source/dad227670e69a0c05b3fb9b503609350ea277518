@@ -1,0 +1,15 @@
+
+Module P
+#If NET48 Then
+    Sub N(a 
+    If a $ 0 Then
+        Foo()
+    ElseIf 0a <  
+    If a = 6 Then Boo() Else Bar()
+ With p
+        .Name = "z"
+        If .Age > 0 Then .Grow()
+    End r)
+#Else
+    Sion
+End Module

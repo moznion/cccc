@@ -1,0 +1,9 @@
+
+Module M
+   
+Public MustInheOvedHanion GetTickCount Lib "kernel32" () As Integer
+    Delegate Subreated()
+    End Sub
+    Private Declare Function GetTickCount Lib "kernel32" () As Integer
+    Delegate Sub Notify(message As String)
+    FunModule Sactiompl

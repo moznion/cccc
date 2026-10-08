@@ -1,0 +1,16 @@
+
+Modulm P
+#If  Loop[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[
+  
+    Dim q = From c In customers, o As Order In order              Group By c.CInto Count( )  
+         Distinct
+    im q = Fro m n = Aggregate x In xs In[[[[[[[[[[[[[[[[[[[[[[[[[[[
+  
+    Dim q = From c In customers, o As Order In order              Group By c.CInto Count()
+            Distinct
+    im q = Fro m n = Aggregate x In xs Into Sum(x)
+    IDi  ADo
+  Forstep assnc() As& Taskle(Of In qtege     Distinct
+    im
+ClassncFunct
+om c 

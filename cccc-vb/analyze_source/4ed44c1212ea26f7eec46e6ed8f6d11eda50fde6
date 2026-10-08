@@ -1,0 +1,10 @@
+
+Module P
+#If NET48 
+    Sub OldStyle()
+        
+        DoWorkext
+ ()
+        On Error GoTo 0    End Sub
+ Error Resume Next
+                .N W<i

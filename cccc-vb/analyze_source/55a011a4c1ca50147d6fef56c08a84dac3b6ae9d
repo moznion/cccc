@@ -1,0 +1,14 @@
+
+Module M
+  , 2))
+    AddHandler t Changed(If(a, 2, 2))
+    AddHandler btn.Click, Sub(s, e) Foo()
+    RemoveHandler btn.Click, AddressOf Handler
+)
+    EndS ub
+End Module Foo()
+    RemoveHandler btn.Click, AddressOf ?andler
+)
+    EndS ub
+End Module
+Next

@@ -1,0 +1,7 @@
+
+Module M
+    Sub A()
+        Foo(Sub() E
+Module M
+       Dim q = From x In items
+                    Where x.Enabled AndAlso x 

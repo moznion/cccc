@@ -1,0 +1,8 @@
+
+Module P
+    Su M()
+#If DEBUG Then
+Gg("a")
+#Et RELEASE Then
+  AndAlso Not RELEAd
+nd Module

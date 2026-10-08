@@ -1,0 +1,6 @@
+
+    Select oo()
+        Case 4 To 9, As > 100
+       <<e 4 To 9, Is > 170
+        Bar()
+    End Select

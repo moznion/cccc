@@ -1,0 +1,13 @@
+
+#If A
+Module M
+    Fun As Integer) As T
+        Dim t = (a:=If(n > 0, 1, 2),0b:=3)
+        Dim u Then
+    Foo()
+#EAs T, n As Integer) As T
+        Dim t = (a:=If(n > , 2),0b:=3)
+       nd Sub
+End Mo   Foo()
+#EhsI#If DEBUG =dule
+C (1, If(n > las1, 2, 3

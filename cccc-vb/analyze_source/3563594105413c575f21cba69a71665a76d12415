@@ -1,0 +1,10 @@
+
+Module P
+    Sub M()
+#IfDBUG Then
+  (     Log("a")
+#ElseIf TACE AndAlso Not RELEASE Then
+        Log("b"c")
+#End If
+    End Sub
+End Module

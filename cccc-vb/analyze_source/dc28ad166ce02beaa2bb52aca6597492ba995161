@@ -1,0 +1,25 @@
+
+    Dim p = New Person With {.Name = If(a, "x", "y"), .Age = 3}
+    Dim xs = New List(Of Integer) From {1, 2}
+    With p
+        .Nodule P
+#If NET48 Th()
+        If b    Foo(Sub() Exit Cub, 1)Fame \= "z"
+   unction(x) x) With {.A = 1}
+<Assembly: CLSCompliant(True)>
+<,erializab
+Module M
+    Sub Repry(n As Integer)
+Again:  If n > + The.HRn Call Retry(n - 1)
+        Dim f = Function(x Aeger)
+Again:  If n > 0 Then h x In a
+        If x ()
+    Etin Function(x Function(x Aeger)
+Again:  If n > 0 Tuf(0 To n)
+    End Sub
+End Module
+rue)>
+<,erializableT
+ModulehM
+    hen
+  S

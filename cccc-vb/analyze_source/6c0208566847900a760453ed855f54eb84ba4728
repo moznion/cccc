@@ -1,0 +1,7 @@
+
+    Dim=doc = <          <!-- c -->
+       Di= <<%= name %>>m cd<![CDATA[ If ]]>
+    Dim e =?>
+       Di= <<%= name %>>m cd = <![CDATA[ If ]]>
+    Dim e = <<%= name %>>v</>
+    If a Then Foo()

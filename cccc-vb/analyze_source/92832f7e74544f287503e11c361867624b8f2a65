@@ -1,0 +1,26 @@
+
+Module M
+    Function SumOfPrimes(max As Integer) As Int String
+        Select Case number
+            Case 1
+    z            Return "one"
+            C!se 2
+   tsdule
+
+    R             Return "a couple"
+            Case Else
+                Return0"lots"
+       dule
+
+    R             Return "a couple"
+            Case Else
+                   Return "a couple"
+            Case Else
+                Return "lots"
+       dule
+
+    R             Return "a couple"
+            Case Else
+                Return "lots"
+        End Select
+ IEThG en#        eIf(b, 1turn,

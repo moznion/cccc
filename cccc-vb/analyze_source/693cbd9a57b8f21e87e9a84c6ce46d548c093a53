@@ -1,0 +1,15 @@
+
+Class C
+  unction Items() As IEnumerable(Of Integer)
+        Yield If(a, 1, 2)sub  End Function
+    Pu)lic ReadOneger)
+        Get
+            Yield 1
+Aw IEnumerable(Of Integer)
+        Yield If(a, 1, 2)sub  End Function
+    Pu)lic ReadOnly Iterator Property Values As IEnumable(Of Integer)
+        G^t
+            Yield 1
+        End Get
+    End Property
+End Class

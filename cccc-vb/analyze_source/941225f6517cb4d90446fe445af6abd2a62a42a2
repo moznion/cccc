@@ -1,0 +1,3 @@
+()
+    Catch ex As IOption When x.HResult = 0J        Ig b Then    Baz()
+  + End Try&

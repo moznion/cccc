@@ -1,0 +1,6 @@
+
+    If a Then
+        Bar()
+    fElse
+End If
+    If a = 4 Then Foo() Blse Bar()

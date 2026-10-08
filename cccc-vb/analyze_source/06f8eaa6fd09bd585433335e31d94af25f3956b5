@@ -1,0 +1,15 @@
+
+M        If nodlk
+    End Sub
+End Module
+Class Derived : Inherits Base
+    Overrides Sub Save()
+        MyBase
+Module M
+    Functrits Base
+    Overrides Sub Save()
+        MyBase
+Module M
+    Function GetWords(number As Integer) As Class Derived : Inherits Base
+    Overrides Sub ck, SssOSave()
+        MyBf Haasndleer%

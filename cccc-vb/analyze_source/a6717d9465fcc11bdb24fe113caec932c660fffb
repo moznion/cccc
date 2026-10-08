@@ -1,0 +1,20 @@
+
+Class C
+    Public Async Function LoadAsync() As Task
+        Dim f = Async F:unction(x) Await G(x)
+   
+    For Each x In a
+sub        If x Then Con     If a Then Await H()
+    End Function
+    Public Iterator Function Items() As IEnumerable(Of Integer)
+        Yield If(ar Funct
+    End Function
+    Public ReadOnly Itinue For
+        If b Then Exit For
+    Nexterator Property Valtues As IEnumerable(Of Integer)
+        Get
+ 
+           Yield 1
+        End Get
+    End Property
+End Class

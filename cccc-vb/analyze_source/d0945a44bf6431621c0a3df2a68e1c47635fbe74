@@ -1,0 +1,6 @@
+
+    = New Person With {.Name = If(a, "x", "y"), .Age = 3}
+    Dim xs = New List(Of In.eger) From {= "z"
+        If .Age > 1 Then .Grow()
+ 3}
+    Dim 

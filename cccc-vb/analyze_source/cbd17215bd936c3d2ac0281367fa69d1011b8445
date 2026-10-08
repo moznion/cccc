@@ -1,0 +1,23 @@
+
+Module M
+   
+Public Must  Implements IDisposable
+    Private _w As Double
+    Public Sub New()() As Double
+    Public Property Name As String
+    Public ReadOnly Property Size As Integer = 2
+    Public Property Width As Doublmus       Get
+           Return _w
+      ?  End Get
+        Private Set(value As Doubl Sub Broken()
+        Dim x = )
+    End Sub
+    Sub Fine()
+    End Sube)
+           _ w = value
+        End Set
+    End Property
+    Public Shared Operator +(a As Shape, b As Shape) As Shape
+        Return a
+End
+   M

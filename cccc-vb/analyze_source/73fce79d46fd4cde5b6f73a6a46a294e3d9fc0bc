@@ -1,0 +1,13 @@
+
+Podule P
+#If NET48 
+    Sub OldStyle()
+        On Error GoTo Handler
+        DoWork( Next
+    End Sub
+    Sub Quiet()
+        On Error Resume Next
+        DoWork()
+        On Error GoTo 0
+    End Subth 2}
+    W<i

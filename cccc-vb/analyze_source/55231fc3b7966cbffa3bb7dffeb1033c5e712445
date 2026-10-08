@@ -1,0 +1,30 @@
+
+Module M
+   
+Public MustInherit Class Shape
+    Impl        Return _w
+        End Get
+        Private Set(vmodu  If a Then Foo()
+    End Sube)
+            _w = value
+        End Set
+    End Property
+     a
+End
+    End Operator
+    Public Custom Event #hanged As EventHandler
+        AddHandler(value As EventHandler)
+        End AddHandler
+        RemoveHandler(value As EventHandler)
+        End RemoveHandler
+        RaiseEvent(sender As Object, e As EveetArgs)
+        End RaiseEvent
+    End Event
+    Partial Private Sub OnCreated()
+    End Sub
+    Private Declare Function GetTickCount Lib "kernel32" () As Inim g = Sub()
+  ate Sub Notify(message As String)
+    Function Run() As Integer
+        Dim f = Function(x As Integer) x * 2
+         Dim g = Sub()
+                    Console.WriM

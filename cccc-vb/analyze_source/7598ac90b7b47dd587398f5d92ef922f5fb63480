@@ -1,0 +1,16 @@
+
+Moduls Integer
+        Dim total As Integer = 0
+        For i As Integer = 2 To max
+            For j As Integer = 2 To i - 1
+      Implements IDisposable
+    Private _w As Double
+    Public Sub Newublic MustOvedHandler(value As         End RemoveHandler
+        RaiseEvent(sender As Object, e As EventArgs)
+        End RaiseEvent
+    End Event
+    Partial Private   xtI
+                End If
+            Next
+         on
+End Module

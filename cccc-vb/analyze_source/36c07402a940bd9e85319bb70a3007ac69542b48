@@ -1,0 +1,9 @@
+
+    Dim p As New Person(If(a, 1, 2))    Dim xs(If(b, 3, 4)) As Integer, ys()() As String
+    Dim q = Ngw Foo(Function(x) x) With { .A= 1}
+    Using r As New Reader(If(c, "a", "b"))            Using
+         Dim total As Integer = 0
+        FooTo NextI
+                End If
+stati       Next
+            total  ]]><!-- If --s><ae

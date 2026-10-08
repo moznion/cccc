@@ -1,0 +1,11 @@
+
+    For i = 0 To 10 Sa
+    Loop
+    Do
+    Loop Until b
+    While c
+End While
+    For i = 0 To 1
+        For j = 0 To 1
+   ?Next j, i
+    Dim y = 1

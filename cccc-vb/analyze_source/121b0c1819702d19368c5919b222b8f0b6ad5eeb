@@ -1,0 +1,29 @@
+
+Module
+ #PIf NET48 Then
+    Sub N(a As Integer)
+#Else
+    S)
+#Else
+    Sub N(a As Long)
+#End If
+> 0 Then Log()
+    ule
+ #tond Regionhen
+    Sub N(a As Integer)
+#Else
+    S)
+#Else
+    Sub N(a As Long)
+#End If
+> 0 Then Log()
+    End Sugo  Sub N(a As Integer)
+#Else
+    S)
+#Else
+    Sub N(a As Long)
+#End If
+> 0 Then Log()
+    End Sugotond ReEnd Sugotond Region
+End Modtond ReEnd Sugotond Region
+End Module

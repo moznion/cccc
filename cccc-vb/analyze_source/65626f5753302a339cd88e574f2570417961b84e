@@ -1,0 +1,23 @@
+
+       Dim=doc = <          <!-- c -->
+         &    <d = <![CDATA[ If ]]>
+    Dim e = <<%= name %>>v Dim=doc = <          <!-- c -->d = <![CDATA[ If ]]>
+    Dim e = <<%= name %>>v Dim=doc = <          
+         &   ?pi x?>
+       Di= <<%= name %->>m cd = <![CDATA[ If ]]>
+    Dim e = <<%= name %>>v Dim=doc = <          <!-- c -->d = <![CDATA[ If ]]>
+    Dim e = <<%= name %>>v Dim=doc = <          
+         &    <?pi x?>
+       Di= <<%= name %>>m cd =    <!-- c -->
+         &    <d = <![CDATA[ If ]]>
+    Dim e = <<%= name %>>v Dim=doc = <          <!-- c -->d = <![CDATA[ If ]]>
+    Dim e = <<%= name %>>v Dim=doc = <          
+         &   ?pi x?>
+       Di= <<%= name %->>m cd = <![CDATA[ If ]]>
+    Dim e = <<%= name %>>v Dim=doc = <          <!-- c -->d = <![CDATA[ If ]]>
+    Dim e = <<%= name %>>v Dim=doc = <          
+         &    <?pi x?>
+       Di= <<%= name %>>m cd = <![CDATA[ If ]]>
+   ATA[ If ]]>
+    Dim e = <<%= name %>>v</>
+    If a Then Foo()

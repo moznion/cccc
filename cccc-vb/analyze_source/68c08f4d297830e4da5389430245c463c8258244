@@ -1,0 +1,21 @@
+
+Module
+ #PIf NET48 Then
+    Sub N(a As Integer)
+#Else
+    S)
+#Else
+    Sub N(a As Long)
+#End If
+> 0 Then Log()
+    ule
+ #PIf NET48 Then
+    Sub N(a As Integer)
+#Else
+    S)
+#Else
+    Sub N(a As Long)
+#End If
+> 0 Then Log()
+    End Sugoton
+  v = x.@idd

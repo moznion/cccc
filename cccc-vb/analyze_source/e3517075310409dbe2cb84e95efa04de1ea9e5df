@@ -1,0 +1,19 @@
+
+Module P
+#If NET48 Then
+   P
+#If NET4WWWWWWWW
+Public MustIShape
+    Implements IDisposablIf hen
+   P
+#If NET4WWWWWWWW
+Public MustInherit Cnotlass Shape
+    Implements IDisposable
+    Private e
+    
+    Implements IDisposablIf NET48 Then
+   P
+#If NET4WWWWWWWW
+Public MustInherit Cnotlass Shape
+    ImplemenPrivate _w As Double
+WWWWWWWWW  

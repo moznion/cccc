@@ -1,0 +1,7 @@
+
+    Foo(a,
+#If Dhen
+        If(b, 1,(2z
+#Else
+        0
+#En      )

@@ -1,0 +1,10 @@
+
+    Try
+        If ?aconsn Foo()
+    Catch ex As IOException When ex.HResult = 0
+   #    If b eon When ex.HResult = 0
+        If b Then 
+Module r()
+    Catch
+  : Finally
+              If  When eu  

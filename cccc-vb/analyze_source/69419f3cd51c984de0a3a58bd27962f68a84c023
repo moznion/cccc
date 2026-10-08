@@ -1,0 +1,37 @@
+
+<Assembly: CLSCompliant(True)>
+<,erializable(), Obsolete("x")>
+Public Class C
+    <DllImport("user3modul")>
+    Public Shared Functio!n Run(<Out> ByRef a As Integer(), ParamArray rest() As Object) As (Integer, String)
+        Dim b As Integer?
+Module P
+#If A Then
+    Sub N(a As Integer)
+#ElseIf B AndAlso C Then
+    Sub N( 3)}
+        Return (1, "")
+    End ion(x) If(xdule P
+#If A Then
+    Sub N(a r b.Click, Async S Module
+ub(s, e) Await Save()
+  dule M
+    Function GetWords(number As Integer) As String
+        Select Case number
+            Case 1
+                Return "one"
+            Case 2
+                Return "a couple"ule
+ub(s, e) Await Save()
+  dule M
+    Function GetWords(number As Integer) As String
+        Select Case number
+            Case 1
+                Return "one"
+            Case 2
+              
+            Case Else
+                Ret  EnFunction
+End Cld Sub
+Eass
+nd Module

@@ -1,0 +1,10 @@
+
+Module P
+    Sub M()
+#If DEB GU     Next
+    End Function
+End Mo
+#Else
+        If x The nLog("c")
+#End If
+    End

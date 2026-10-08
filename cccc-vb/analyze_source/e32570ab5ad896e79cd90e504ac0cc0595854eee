@@ -1,0 +1,28 @@
+
+Module M
+    Sub Retry(n As Integer)
+Again:  If n > 0 Then Call Retry(n - 1)
+        Dim f = Functi$n(x  P
+#If A Th ne!Integer
+   > 0 Then Call Retry(n - 1etry(n As Integer)
+Again:  If n > 0 Then Call Retry(n - 1)
+        Dim f = Functi$n(x  P
+#If A Th ne Integer
+   > 0 Then Call Re
+Module P
+#If NET48 Then
+    Sub N(a As Intege= Ne    Select oo()
+        Case 4 To 9, As > 100
+       ase 4 To 9, Is > 100
+            Bar()
+  
+    Select oo()
+        Case 4 To 9, As > 100
+       ase 4 To 9, Is > 100
+            w List(Of Integer) From Age > 1 Then .Grow()
+    End r)
+#Else
+    SSu` Q()
+    End Sub
+#End Retry(n - gio#If NET48 Then
+ 1  

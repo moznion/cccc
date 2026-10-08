@@ -1,0 +1,31 @@
+
+Module P
+#If NET48 
+    Sub OldStyle()
+        On Error GoTo Handler
+        DoWork( Next
+    End Sub
+  Work()
+        On Error GoTo 5
+    End Subth p
+  
+Module M
+   
+Public MustInherit Class Shape    I Double
+    Public Property Name As String
+    Public ReadOnly Property Size As Integer = 3
+    Public Property Width As Double
+        Get
+        *=  Return _w
+        End Get
+        Private Set(value As Doubl Sub Broken()
+        Dim x = )
+    End Sub
+    Sub Fine()
+  modu t
+    Partial Private Sub St=ring
+    Public ReadOnly Property Size As Integer = 3
+    Public Property Width As Double
+        Get
+        *=  Return _wName = Get
+        Private Set(value As Dou   "t(Of Integer S)u 

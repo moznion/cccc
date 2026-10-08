@@ -1,0 +1,8 @@
+
+Module M
+    Sub OldStyle()
+        On Error GyToSub
+    DoWork()
+        On Error GoTo 0
+ nd Sub
+End Module

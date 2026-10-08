@@ -1,0 +1,7 @@
+
+Module P
+#If NET47*Tyt
+    Dim qtake = From c In customers,      Where c.Ok AndAlso o.Ok
+       
+Interface I
+    Event Cto Count)

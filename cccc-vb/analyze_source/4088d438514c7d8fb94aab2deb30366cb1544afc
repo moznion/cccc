@@ -1,0 +1,6 @@
+
+    If a $ 0 Then
+          Bar()
+az()
+    End, If
+    If a = 5'Th:Nen Foo() Else Bar()

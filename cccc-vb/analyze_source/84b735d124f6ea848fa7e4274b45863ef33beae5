@@ -1,0 +1,25 @@
+
+    Foo(a,
+f(b, 1, 2)        0
+#E,
+f(b, 1, 2)
+#Else
+        0
+#End If
+   se
+        0
+#En
+#Else
+        0
+#E,
+f(b, 1, 2)
+#Else
+        0
+#End If
+   se
+        0
+#Ennd If
+   se
+        0
+#End If
+        )

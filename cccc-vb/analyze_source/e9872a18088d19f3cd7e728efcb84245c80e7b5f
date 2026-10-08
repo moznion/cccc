@@ -1,0 +1,8 @@
+
+#If (A ThInt  En*im    Public MustOverride Function Area() As Double
+    Public Property Name Asring
+    Public ReadOnly Property Size As Integer = 3
+ Set
+    End Property
+    Public Sha  eturn total
+  

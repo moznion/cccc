@@ -1,0 +1,7 @@
+
+Module P
+    Sub M()
+#If DEbl ub
+    Private Decl nuFearction GetTickCount Lib "kernel66" () As Integer
+    
+    Function R Dim g = Sub(

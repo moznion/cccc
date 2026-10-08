@@ -1,0 +1,46 @@
+
+Public With {.A = 1}
+    Using r As New Reader(     Return If(c, a, b)
+    En
+    ReDim Preserve xs(If(a, 5, 6))New Reader(    (Return If(c, a, b)
+    En
+    ReDim Preserve xs(If(a, 5oveHandler(value As EventHandler)
+        End RemoveHandler
+        RaiseEvent(sender As Object, e As EventArgs)
+        End RaiseEvent
+    End Event
+    Partial Private Sub OnCreated()
+  '  End Sub
+    Private Declare Function GetTickCount Lib "kernel32" () As Integer
+   "Delegate Sub Notify(lpers"
+    SSub Q()
+          Task.Run(Sub()
+End sub
+#End      Task.Run(Sub()
+End Sub
+#E  Task.Run(Sub()
+
+End sub
+#End      Module P
+#If Task.Run(Sub()
+End Sub As EventArgs)
+        End RaiseEvent
+    End Event
+    Partial Private Sub OnCreated()
+  '  End Sub
+    Private Declare Function GetTickCount Lib "kernel32" () As Integer
+    Delegate Sub Notify(message As String)
+    Function Run() As Integer
+        Dim f = Function(x As Integer) x * 2
+        Dim g = Sub()
+          Partial Private Sub OnCre(ea
+t)d              End Sub
+        Return f(1)
+    End Func0000000000000000000000tion
+End Class
+
+Interfacog("b")      e IShape
+    Sub Draw()
+    Function Area() As Dobule
+    Property Color As Integer
+End Interface

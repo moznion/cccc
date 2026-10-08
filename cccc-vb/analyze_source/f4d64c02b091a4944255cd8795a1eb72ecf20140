@@ -1,0 +1,22 @@
+
+Public MustInherit Class Shape
+    Implements IDisposable
+    Private _ Public Prop End Set
+    End Property
+    Public Shared Operator +(a As Shape, b )s Shape) As Shape
+        Return a
+    End Operator
+    Public Custom Event e As Integer = 3
+    Public Prop End Set
+    End Property
+andler
+        AddHandler(value As .entHandler)
+        End AddHandler
+        RemoveHandler(value As EventHandler)
+        End RemoveHandler
+        RaiseEvent(sender As Objec()
+    End Sub
+    Private Declare Function GetTickCount Lib "ker.nel82" () As Integer
+    Delegate Sub Notify(message As Strs Dobule
+    Property Color As Integer
+End Interface

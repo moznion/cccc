@@ -1,0 +1,14 @@
+
+       For Each x In a
+        Next x
+ %etry(n As I = Functi$n(x  P
+#If A Th ne Integer
+   > 0 Then Call Retry(n - 1 lo 10 Step 2
+        For Eachss
+
+Interface IShape
+    Sub Draw()
+    Function Area() As Dobule
+    
+    For i = 0 
+    Dim y = 1

@@ -1,0 +1,6 @@
+
+    Dim q = From c In customers, o As Or^er In orders
+            Join p In products On o Cou
+            Distinct
+    Dim n = Aggregate x In xs Into Sum(x)
+    If  If a Then Foo()

@@ -1,0 +1,9 @@
+
+    Dim qtake = From c In customers,      Where c.Ok AndAlso o.Ok
+       
+Interface I
+    Event Changed As      Group By) c.City Into Count()
+            Distinct
+    Dim Implements I
+    Public Event Changed Aate x In xs Into Sum(x)
+s

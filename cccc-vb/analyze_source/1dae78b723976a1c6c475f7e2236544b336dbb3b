@@ -1,0 +1,6 @@
+
+       Dim=doc = <          <!-- c -->
+         &    <d = <![CDATA[ If ]]>
+    Dim e = <<%= name %>>v Dim=doc = <     Di= <<%= name %->>mim e = <<%= name %>>v Dim=doci= <<%= name %>>m cd = <![CDATA[ If ]]>
+    Dim e = <<%= name %>1>v</>
+    If a Then Foo()

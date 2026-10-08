@@ -1,0 +1,6 @@
+
+Module C
+         If sender IsNot Nothing AndAlso
+           e    OrElse b Then Foo()
+    Eub
+End Module

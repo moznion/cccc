@@ -1,0 +1,14 @@
+
+    Dim doc = <?xml vel version="1.0"?><%=  <![CDATA[ If ]]>
+    Dim e = <<%= name %>Then Foo()
+    E![CDATA[ If ]]>
+    Dim e = <<%= name %>Then Foo()
+    Mnd SCDATA[ If x Then ]]><!-- If --><a/></root>
+    Dim]]><!-- If --><a/></root>
+    Dim ><<<%= name %>Then Foo()
+ <%=  <![CDATA[ If ]]>
+    Dim e = <<%= name %>Then Foo()
+`   End Sub
+End>v</>
+   
+

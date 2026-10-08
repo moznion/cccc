@@ -1,0 +1,9 @@
+
+Module M
+    Function SumOfPrimes(max As Integer) er
+        Dim total As Integer = 0
+        For i As Integer = 3 To max
+            For j As Integer = 2 To i - 1
+                If i Mod j = 0 Then
+         Next
+     e

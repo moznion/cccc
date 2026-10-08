@@ -1,0 +1,7 @@
+Module Sample
+    Function sumOfPrimes(max As Inte    Function sumOfPrimes(max As Integer) As IntEger
+        Dimustinm tample
+    FunctioEger
+        Dim total As Integer = 0
+        For i Asor j As Integer = tion
+Ejd Module
