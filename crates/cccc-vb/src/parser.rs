@@ -330,6 +330,10 @@ pub(crate) struct Parser<'a> {
     /// Groups whose arms do not nest as blocks: only the first arm is parsed
     /// (the others are skipped, like a compiler's inactive regions).
     flat: Vec<bool>,
+    /// Groups whose structured parse already failed. Not rewound with a
+    /// [`Checkpoint`]: re-parsing an enclosing group after its own attempt
+    /// failed must not retry these, or nested groups cost 2^depth.
+    structured_failed: Vec<bool>,
 }
 
 impl<'a> Parser<'a> {
@@ -349,6 +353,7 @@ impl<'a> Parser<'a> {
             groups: Vec::new(),
             group_of: Vec::new(),
             flat: Vec::new(),
+            structured_failed: Vec::new(),
         }
     }
 
@@ -384,10 +389,12 @@ impl<'a> Parser<'a> {
             }
         }
         let flat = vec![false; groups.len()];
+        let structured_failed = vec![false; groups.len()];
         Self {
             groups,
             group_of,
             flat,
+            structured_failed,
             ..Self::bare(src, toks)
         }
     }
@@ -786,15 +793,18 @@ impl<'a> Parser<'a> {
             self.bump();
             return;
         };
-        let checkpoint = self.checkpoint(g);
-        if let Some(branch) = self.try_structured_preproc(g)
-            && self.errors.len() == checkpoint.errors
-            && self.pending_next == checkpoint.pending_next
-        {
-            out.push(branch);
-            return;
+        if !self.structured_failed[g] {
+            let checkpoint = self.checkpoint(g);
+            if let Some(branch) = self.try_structured_preproc(g)
+                && self.errors.len() == checkpoint.errors
+                && self.pending_next == checkpoint.pending_next
+            {
+                out.push(branch);
+                return;
+            }
+            self.restore(checkpoint);
+            self.structured_failed[g] = true;
         }
-        self.restore(checkpoint);
         out.push(self.flat_preproc(g));
     }
 

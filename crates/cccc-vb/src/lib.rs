@@ -955,4 +955,15 @@ End Class
         let report = analyze(src);
         assert_eq!(function(&report, "B").cognitive, 1);
     }
+
+    #[test]
+    fn nested_flat_preproc_groups_parse_in_polynomial_time() {
+        // Each group opens a `Sub` its `#End If` does not close, so every
+        // structured attempt fails. Retrying the inner groups on each
+        // enclosing group's flat re-parse used to cost 2^depth (found by
+        // fuzzing).
+        let depth = 64;
+        let src = "#If A Then\nSub F()\n".repeat(depth) + &"#End If\n".repeat(depth);
+        assert!(!parse_errors(&src).is_empty());
+    }
 }
