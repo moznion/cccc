@@ -351,7 +351,7 @@ fn analyzes_all_languages_in_one_run() {
     // The fixtures dir holds one file per language; a single run dispatches each
     // by extension and reports them all together.
     let v = json(&["tests/fixtures"]);
-    let expected_files = if cfg!(feature = "kotlin") { 20 } else { 19 };
+    let expected_files = if cfg!(feature = "kotlin") { 21 } else { 20 };
     assert_eq!(v["summary"]["file_count"], expected_files);
     let paths: Vec<String> = v["files"]
         .as_array()
@@ -379,6 +379,7 @@ fn analyzes_all_languages_in_one_run() {
         "sample.dart",
         "sample.scala",
         "sample.cs",
+        "sample.vb",
     ];
     if cfg!(feature = "kotlin") {
         samples.push("sample.kt");
@@ -417,7 +418,7 @@ fn unknown_lang_is_an_error() {
 fn exclude_lang_drops_a_language() {
     // Excluding every language except ES and Rust leaves the .ts and .rs fixtures.
     let excluded = format!(
-        "go,php,ruby,scheme,commonlisp,emacslisp,clojure{KOTLIN},python,perl,zig,c,cpp,swift,java,dart,scala,csharp"
+        "go,php,ruby,scheme,commonlisp,emacslisp,clojure{KOTLIN},python,perl,zig,c,cpp,swift,java,dart,scala,csharp,vbnet"
     );
     let v = json(&["--exclude-lang", &excluded, "tests/fixtures"]);
     let mut exts: Vec<String> = v["files"]
@@ -464,7 +465,7 @@ fn excluding_every_language_is_an_error() {
         .args([
             "--exclude-lang",
             &format!(
-                "es,rust,go,php,ruby,scheme,commonlisp,emacslisp,clojure{KOTLIN},python,perl,zig,c,cpp,swift,java,dart,scala,csharp"
+                "es,rust,go,php,ruby,scheme,commonlisp,emacslisp,clojure{KOTLIN},python,perl,zig,c,cpp,swift,java,dart,scala,csharp,vbnet"
             ),
             "tests/fixtures",
         ])

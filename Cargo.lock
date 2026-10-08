@@ -245,6 +245,7 @@ dependencies = [
  "cccc-scala",
  "cccc-scheme",
  "cccc-swift",
+ "cccc-vb",
  "cccc-zig",
  "clap",
  "globset",
@@ -430,6 +431,13 @@ dependencies = [
  "cccc-core",
  "tree-sitter",
  "tree-sitter-swift",
+]
+
+[[package]]
+name = "cccc-vb"
+version = "1.7.1"
+dependencies = [
+ "cccc-core",
 ]
 
 [[package]]
