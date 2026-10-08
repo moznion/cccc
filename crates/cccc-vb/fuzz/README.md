@@ -18,6 +18,24 @@ cargo +nightly fuzz run analyze_source fuzz/corpus/analyze_source fuzz/seeds -- 
   from the crate's unit tests. Discoveries go to `corpus/` and failing inputs
   to `artifacts/` (both git-ignored).
 
+## CI and the shared corpus
+
+`.github/workflows/fuzz.yml` runs every target daily for 10 minutes. You can
+also start it by hand with a different duration. It resumes from the
+corpus on the `fuzz-corpus` branch (`<crate>/<target>/`), minimizes it with
+`cargo fuzz cmin`, and pushes it back, so the corpus keeps growing across
+runs. Pull requests touching this crate get a 2-minute smoke run against
+that corpus without writing back. Failing inputs are uploaded as a
+workflow artifact.
+
+To fuzz locally from the shared corpus:
+
+```sh
+git fetch origin fuzz-corpus
+git worktree add ../cccc-fuzz-corpus origin/fuzz-corpus
+cargo +nightly fuzz run analyze_source ../../../cccc-fuzz-corpus/cccc-vb/analyze_source fuzz/seeds
+```
+
 To reproduce or minimize a failure:
 
 ```sh

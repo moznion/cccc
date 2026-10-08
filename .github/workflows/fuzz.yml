@@ -1,0 +1,122 @@
+name: Fuzz
+
+# Runs the cargo-fuzz targets on a schedule and grows their corpora on the
+# `fuzz-corpus` branch (one directory per `<crate>/<target>`), so each run
+# resumes from everything earlier runs discovered. Pull requests touching a
+# fuzzed crate get a short smoke run against that corpus without writing back.
+on:
+  schedule:
+    - cron: "17 18 * * *" # daily, 03:17 JST
+  workflow_dispatch:
+    inputs:
+      seconds:
+        description: Fuzzing time per target, in seconds
+        default: "600"
+  pull_request:
+    paths:
+      - "crates/cccc-vb/**"
+      - ".github/workflows/fuzz.yml"
+
+# Runs that write the corpus branch must not race; PR smoke runs only read it.
+concurrency:
+  group: fuzz-${{ github.event_name == 'pull_request' && github.ref || 'corpus' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  CARGO_TERM_COLOR: always
+  CORPUS_BRANCH: fuzz-corpus
+
+jobs:
+  fuzz:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # to push the grown corpus to the fuzz-corpus branch
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - crate: cccc-vb
+            target: analyze_source
+    env:
+      FUZZ_DIR: crates/${{ matrix.crate }}/fuzz
+      CORPUS_DIR: corpus-store/${{ matrix.crate }}/${{ matrix.target }}
+      SECONDS_TO_FUZZ: ${{ github.event_name == 'pull_request' && '120' || inputs.seconds || '600' }}
+      # Only scheduled/manual runs on the default branch persist the corpus.
+      PERSIST: ${{ github.event_name != 'pull_request' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      # cargo-fuzz needs nightly (sanitizer flags); the pinned toolchain in
+      # rust-toolchain.toml stays the default for everything else.
+      - name: Install Rust toolchain
+        run: rustup toolchain install nightly --profile minimal
+      - uses: Swatinem/rust-cache@f0d9c3887740aee45f6153b24b3a6b815192ec16 # v2
+        with:
+          workspaces: ${{ env.FUZZ_DIR }} -> target
+          cache-bin: "true"
+      - name: Install cargo-fuzz
+        run: cargo install cargo-fuzz@0.13.2 --locked
+
+      # Check out the corpus branch as a worktree, creating it (orphan) on
+      # the first run.
+      - name: Check out the corpus branch
+        run: |
+          if git ls-remote --exit-code --heads origin "$CORPUS_BRANCH" >/dev/null; then
+            git fetch --depth=1 origin "$CORPUS_BRANCH"
+            git worktree add -B "$CORPUS_BRANCH" corpus-store FETCH_HEAD
+          else
+            git worktree add --orphan -b "$CORPUS_BRANCH" corpus-store
+          fi
+          mkdir -p "$CORPUS_DIR"
+          echo "corpus entries before: $(find "$CORPUS_DIR" -type f | wc -l)"
+
+      # New inputs land in the first directory (the corpus); seeds/ is read
+      # only. -timeout flags inputs slow enough to be a hang.
+      - name: Fuzz
+        working-directory: crates/${{ matrix.crate }}
+        run: |
+          cargo +nightly fuzz run "${{ matrix.target }}" \
+            "$GITHUB_WORKSPACE/$CORPUS_DIR" fuzz/seeds -- \
+            -max_total_time="$SECONDS_TO_FUZZ" -timeout=10 -max_len=4096 \
+            -print_final_stats=1
+
+      - name: Upload failing inputs
+        if: failure()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: fuzz-artifacts-${{ matrix.crate }}-${{ matrix.target }}
+          path: ${{ env.FUZZ_DIR }}/artifacts/
+          if-no-files-found: ignore
+
+      # Keep the corpus even when a failure was found (the failing input
+      # itself goes to artifacts/, not the corpus). cmin drops entries that
+      # add no coverage so the branch does not grow without bound.
+      - name: Minimize and push the corpus
+        if: ${{ !cancelled() && env.PERSIST == 'true' }}
+        run: |
+          if [ -z "$(ls -A "$CORPUS_DIR")" ]; then
+            echo "corpus empty, nothing to persist"
+            exit 0
+          fi
+          (cd "crates/${{ matrix.crate }}" &&
+            cargo +nightly fuzz cmin "${{ matrix.target }}" "$GITHUB_WORKSPACE/$CORPUS_DIR")
+          cd corpus-store
+          git add -A "${{ matrix.crate }}/${{ matrix.target }}"
+          if git diff --cached --quiet; then
+            echo "corpus unchanged"
+            exit 0
+          fi
+          echo "corpus entries after: $(find "${{ matrix.crate }}/${{ matrix.target }}" -type f | wc -l)"
+          git -c user.name="github-actions[bot]" \
+              -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+              commit -q -m "corpus: ${{ matrix.crate }}/${{ matrix.target }} (run ${{ github.run_id }})"
+          # Matrix jobs write disjoint directories, so on a concurrent push
+          # re-apply this commit onto the new tip (cherry-pick, as the shallow
+          # history has no merge base to rebase on).
+          ours=$(git rev-parse HEAD)
+          for _ in 1 2 3; do
+            git push origin "HEAD:$CORPUS_BRANCH" && exit 0
+            git fetch --depth=1 origin "$CORPUS_BRANCH"
+            git reset -q --hard FETCH_HEAD
+            git cherry-pick "$ours"
+          done
+          exit 1
