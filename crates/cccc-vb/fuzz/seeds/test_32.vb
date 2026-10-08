@@ -1,0 +1,11 @@
+
+Module M
+    Sub A()
+        End If
+        Foo(1, 2
+    End Sub
+    Sub B(ByVal a As Integer, 5)
+        If b Then Bar()
+    End Sub
+End Module
+Next

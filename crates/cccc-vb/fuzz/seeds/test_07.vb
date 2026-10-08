@@ -1,0 +1,7 @@
+
+    Select Case a
+        Case 1, 2, 3
+            Foo()
+        Case 4 To 9, Is > 100
+            Bar()
+    End Select

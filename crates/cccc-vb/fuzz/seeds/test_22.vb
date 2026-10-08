@@ -1,0 +1,6 @@
+
+#If A Then
+    Foo()
+#Else If B Then
+    Bar()
+#End If
