@@ -125,3 +125,8 @@ fn dart_fixture_dispatches() {
 fn scala_fixture_dispatches() {
     assert_sum_of_primes("sample.scala", "sumOfPrimes");
 }
+
+#[test]
+fn csharp_fixture_dispatches() {
+    assert_sum_of_primes("sample.cs", "sumOfPrimes");
+}

@@ -149,6 +149,12 @@ pub const LANGUAGES: &[Language] = &[
         exts: cccc_scala::DEFAULT_EXTS,
         analyze: cccc_scala::analyze_source,
     },
+    Language {
+        name: "csharp",
+        aliases: &["cs", "c#"],
+        exts: cccc_cs::DEFAULT_EXTS,
+        analyze: cccc_cs::analyze_source,
+    },
 ];
 
 /// Resolve the active languages from an `include` (`--lang`) and an `exclude`
@@ -317,6 +323,7 @@ mod tests {
                 "java".to_string(),
                 "dart".to_string(),
                 "scala".to_string(),
+                "csharp".to_string(),
             ]),
         )
         .unwrap();
@@ -356,7 +363,7 @@ mod tests {
         let map = build_dispatch(&all, &BTreeMap::new());
         let mut keys = vec![
             "ts", "rs", "go", "php", "rb", "scm", "lisp", "el", "clj", "py", "pyi", "zig", "c",
-            "h", "pl", "pm", "t", "swift", "java", "dart", "scala", "sc",
+            "h", "pl", "pm", "t", "swift", "java", "dart", "scala", "sc", "cs", "csx",
         ];
         if cfg!(feature = "kotlin") {
             keys.extend(["kt", "kts"]);
