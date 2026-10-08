@@ -1,5 +1,10 @@
 # Changelog
 
+## [v1.8.0](https://github.com/moznion/cccc/compare/v1.7.1...v1.8.0) - 2026-10-08
+
+- feat: C# adapter (cccc-cs) by @moznion in https://github.com/moznion/cccc/pull/143
+- feat: Visual Basic .NET adapter (cccc-vb) by @moznion in https://github.com/moznion/cccc/pull/145
+
 ## [v1.7.1](https://github.com/moznion/cccc/compare/v1.7.0...v1.7.1) - 2026-10-08
 
 - build(deps): bump taiki-e/install-action from 2.87.17 to 2.87.21 by @dependabot[bot] in https://github.com/moznion/cccc/pull/130
