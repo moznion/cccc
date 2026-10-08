@@ -516,6 +516,113 @@ mod tests {
     }
 
     #[test]
+    fn annotated_varargs_type_forms_parse_cleanly() {
+        let params = [
+            // guava's Objects.hashCode / Preconditions.checkArgument shape
+            "@Nullable Object @Nullable ... xs",
+            "String @A @B ... xs",
+            "String @Size(max = 3) @A(\"x\") ... xs",
+            "String @org.jspecify.annotations.Nullable ... xs",
+            "final @A String @B ... xs",
+            "java.util.List<String> @A ... xs",
+            "String @A [] @B ... xs",
+            "int @A ... xs",
+            "T @A ... xs",
+        ];
+        for param in params {
+            let src = format!(
+                r#"
+                class C {{
+                    <T> void f({param}) {{
+                        if (xs == null) {{
+                            return;
+                        }}
+                    }}
+                }}
+                "#
+            );
+            assert!(
+                parse_errors(&src).is_empty(),
+                "{param}: {:?}",
+                parse_errors(&src)
+            );
+            assert_eq!(cognitive_of(&src, "f"), 1, "{param}");
+            assert_eq!(cyclomatic_of(&src, "f"), 2, "{param}");
+        }
+    }
+
+    #[test]
+    fn annotated_varargs_in_every_declaration_kind_parses_cleanly() {
+        let src = r#"
+            class C {
+                C(String @A ... xs) {
+                    if (xs == null) {
+                        return;
+                    }
+                }
+
+                Object o = new Object() {
+                    void anon(String @A ... xs) {
+                        if (xs == null) {
+                            return;
+                        }
+                    }
+                };
+
+                F lam = (String @A ... xs) -> xs == null ? 0 : xs.length;
+            }
+
+            interface I {
+                // pgjdbc's QueryExecutor.createQuery shape
+                void abs(int a, String @Nullable ... columnNames);
+
+                default void dflt(String @A ... xs) {
+                    if (xs == null) {
+                        return;
+                    }
+                }
+            }
+
+            record R(String @A ... xs) {
+                R {
+                    if (xs == null) {
+                        throw new IllegalArgumentException();
+                    }
+                }
+            }
+
+            enum E {
+                X;
+
+                void inEnum(String @A ... xs) {
+                    if (xs == null) {
+                        return;
+                    }
+                }
+            }
+        "#;
+        assert!(parse_errors(src).is_empty(), "{:?}", parse_errors(src));
+        for name in ["C", "anon", "<lambda>", "dflt", "R", "inEnum"] {
+            assert_eq!(cognitive_of(src, name), 1, "{name}");
+            assert_eq!(cyclomatic_of(src, name), 2, "{name}");
+        }
+        assert_eq!(cognitive_of(src, "abs"), 0);
+        assert_eq!(cyclomatic_of(src, "abs"), 1);
+    }
+
+    #[test]
+    fn varargs_annotation_after_ellipsis_is_a_parse_error() {
+        // Not valid Java (JLS 8.4.1); the old tree-sitter-java grammar accepted
+        // only this order.
+        let src = r#"
+            class C {
+                void f(String ... @A xs) {}
+            }
+        "#;
+        assert!(!parse_errors(src).is_empty());
+    }
+
+    #[test]
     fn nested_if_adds_nesting() {
         let src = r#"
             class C {
