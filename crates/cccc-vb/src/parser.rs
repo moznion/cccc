@@ -648,9 +648,7 @@ impl<'a> Parser<'a> {
                                 if d.kind == DirKind::EndIf {
                                     self.bump();
                                 } else {
-                                    // Skip the inactive arms of a flat group.
-                                    self.pos = self.groups[g].end.unwrap_or(self.toks.len());
-                                    self.bump();
+                                    self.skip_inactive_arms(g);
                                 }
                             }
                             Some(g) if self.open.contains(&Block::Preproc(g)) => return out,
@@ -797,8 +795,15 @@ impl<'a> Parser<'a> {
             return;
         }
         self.restore(checkpoint);
-        self.flat[g] = true;
+        out.push(self.flat_preproc(g));
+    }
 
+    /// Parse group `g` flat from its `#If` at the cursor: only the first arm
+    /// is parsed in place (later arms are skipped when reached) and the chain
+    /// is scored without bodies.
+    fn flat_preproc(&mut self, g: usize) -> Node {
+        let start = self.pos;
+        self.flat[g] = true;
         let mut arms = vec![self.directive_cond(start)];
         let mut has_else = false;
         for k in 0..self.groups[g].arms.len() {
@@ -814,10 +819,31 @@ impl<'a> Parser<'a> {
             self.error_here();
         }
         self.bump();
-        out.push(branch_chain(
+        branch_chain(
             arms.into_iter().map(|test| (test, Vec::new())).collect(),
             has_else.then(Vec::new),
-        ));
+        )
+    }
+
+    /// Skip the inactive arms of flat group `g` from its `#ElseIf` / `#Else`
+    /// at the cursor, past its `#End If`.
+    fn skip_inactive_arms(&mut self, g: usize) {
+        self.pos = self.groups[g].end.unwrap_or(self.toks.len());
+        self.bump();
+    }
+
+    /// Directives inside an expression list (arguments, initializers): a
+    /// `#If` group there is parsed flat.
+    fn skip_inline_directives(&mut self, out: &mut Vec<Node>) {
+        while let Kind::Directive(d) = &self.cur().kind {
+            match (d.kind, self.group_of.get(self.pos).copied().flatten()) {
+                (DirKind::If, Some(g)) => out.push(self.flat_preproc(g)),
+                (DirKind::ElseIf | DirKind::Else, Some(g)) if self.flat[g] => {
+                    self.skip_inactive_arms(g);
+                }
+                _ => self.bump(),
+            }
+        }
     }
 
     fn checkpoint(&self, group: usize) -> Checkpoint {
@@ -2017,11 +2043,12 @@ impl<'a> Parser<'a> {
                     continue;
                 }
                 if matches!(p.cur().kind, Kind::Directive(_)) {
-                    p.bump();
+                    p.skip_inline_directives(&mut out);
                     continue;
                 }
                 let before = p.pos;
                 out.extend(item(p));
+                p.skip_inline_directives(&mut out);
                 if p.pos == before || !(p.at_punct(",") || p.at_punct(closer)) {
                     break;
                 }

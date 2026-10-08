@@ -624,6 +624,301 @@ End Module
     }
 
     #[test]
+    fn flat_preprocessor_chain_scores_elseif_conditions() {
+        let src = r#"
+Module P
+#If A Then
+    Sub N(a As Integer)
+#ElseIf B AndAlso C Then
+    Sub N(a As Long)
+#Else
+    Sub N(a As Short)
+#End If
+        Foo()
+    End Sub
+End Module
+"#;
+        assert_eq!(units(src), vec!["N:sub"]);
+        // #If(+1) #ElseIf(+1) AndAlso(+1) #Else(+1), at the module level
+        assert_eq!(analyze(src).cognitive, 4);
+    }
+
+    #[test]
+    fn two_word_else_if_directive() {
+        let body = r#"
+#If A Then
+    Foo()
+#Else If B Then
+    Bar()
+#End If
+"#;
+        assert_eq!(body_scores(body), (2, 3));
+    }
+
+    #[test]
+    fn unterminated_preprocessor_group_is_reported() {
+        let src = r#"
+Module M
+    Sub A()
+#If X Then
+        If a Then Foo()
+    End Sub
+End Module
+"#;
+        assert!(!parse_errors(src).is_empty());
+        // the (flat) #If chain(+1) and the If(+1) both sit inside A
+        assert_eq!(function(&analyze(src), "A").cognitive, 2);
+    }
+
+    #[test]
+    fn code_in_constructor_arguments_and_declarators_scores() {
+        let body = r#"
+    Dim p As New Person(If(a, 1, 2))
+    Dim xs(If(b, 3, 4)) As Integer, ys()() As String
+    Dim q = New Foo(Function(x) x) With {.A = 1}
+    Using r As New Reader(If(c, "a", "b"))
+    End Using
+    ReDim Preserve xs(If(a, 5, 6))
+    Erase xs, ys
+"#;
+        // four ternaries; the lambda is its own unit
+        assert_eq!(body_scores(body), (4, 5));
+    }
+
+    #[test]
+    fn event_statements_score_their_arguments() {
+        let body = r#"
+    RaiseEvent Changed(If(a, 1, 2))
+    AddHandler btn.Click, Sub(s, e) Foo()
+    RemoveHandler btn.Click, AddressOf Handler
+"#;
+        assert_eq!(body_scores(body), (1, 2));
+    }
+
+    #[test]
+    fn tuples_and_generic_calls() {
+        let src = r#"
+Module M
+    Function Pick(Of T)(x As T, n As Integer) As T
+        Dim t = (a:=If(n > 0, 1, 2), b:=3)
+        Dim u = (1, If(n > 1, 2, 3))
+        Return Pick(Of T)(x, n - 1)
+    End Function
+End Module
+"#;
+        // two ternaries + recursion through the generic call
+        assert_eq!(scores(src, "Pick"), (3, 3));
+    }
+
+    #[test]
+    fn async_and_iterator_members() {
+        let src = r#"
+Class C
+    Public Async Function LoadAsync() As Task
+        Dim f = Async Function(x) Await G(x)
+        If a Then Await H()
+    End Function
+    Public Iterator Function Items() As IEnumerable(Of Integer)
+        Yield If(a, 1, 2)
+    End Function
+    Public ReadOnly Iterator Property Values As IEnumerable(Of Integer)
+        Get
+            Yield 1
+        End Get
+    End Property
+End Class
+"#;
+        assert_eq!(
+            units(src),
+            vec![
+                "LoadAsync:function",
+                "<lambda>:lambda",
+                "Items:function",
+                "Values:getter"
+            ]
+        );
+        assert_eq!(scores(src, "LoadAsync"), (1, 2));
+        assert_eq!(scores(src, "Items"), (1, 2));
+    }
+
+    #[test]
+    fn query_clauses_across_lines() {
+        let body = r#"
+    Dim q = From c In customers, o As Order In orders
+            Join p In products On o.Pid Equals p.Id
+            Where c.Ok AndAlso o.Ok
+            Group By c.City Into Count()
+            Distinct
+    Dim n = Aggregate x In xs Into Sum(x)
+    If a Then Foo()
+"#;
+        // Where's AndAlso(+1), If(+1)
+        assert_eq!(body_scores(body), (2, 3));
+    }
+
+    #[test]
+    fn dictionary_null_guard_and_xml_axes() {
+        let body = r#"
+    Dim v = x.@id
+    Dim w = x...<item>.<name>
+    Dim z = x.@<ns:attr>
+    Return d?!key
+"#;
+        assert_eq!(body_scores(body), (0, 2));
+    }
+
+    #[test]
+    fn literal_and_identifier_forms() {
+        let body = "
+    Dim h = &HFF + &O17 + &B1010 + 1.5E+3 + 10UL + 2.5! + 7&
+    Dim s$ = \"x\" : Dim n% = 3
+    Dim u = \u{201c}smart \u{201c}\u{201c}quoted\u{201d}\u{201d} If\u{201d} \u{2018} comment If x Then
+    Dim \u{540d}\u{524d} = 1
+    If \u{540d}\u{524d} > 0 Then Foo()
+    Dim t = a _ ' comment after the continuation
+        + b
+";
+        assert_eq!(body_scores(body), (1, 2));
+    }
+
+    #[test]
+    fn xml_document_forms_are_opaque() {
+        let body = r#"
+    Dim doc = <?xml version="1.0"?>
+              <!-- c -->
+              <?pi x?>
+              <root><![CDATA[ If x Then ]]><!-- If --><a/></root>
+    Dim d2 = <?xml version="1.0"?><%= el %>
+    Dim c = <!-- only a comment -->
+    Dim cd = <![CDATA[ If ]]>
+    Dim e = <<%= name %>>v</>
+    If a Then Foo()
+"#;
+        assert_eq!(body_scores(body), (1, 2));
+    }
+
+    #[test]
+    fn interface_structure_enum_and_indexed_properties() {
+        let src = r#"
+Interface I
+    Event Changed As EventHandler
+    Property Item(i As Integer) As String
+End Interface
+Structure S
+    Implements I
+    Public Event Changed As EventHandler Implements I.Changed
+    Default Public Property Item(Optional i As Integer = 0) As String Implements I.Item
+        Get
+            If i > 0 Then Return ""
+            Return Nothing
+        End Get
+        Set(value As String)
+        End Set
+    End Property
+    Public Property Items As New List(Of Integer) From {If(y, 1, 2)}
+End Structure
+Enum E
+    A = 1
+    B
+End Enum
+"#;
+        assert_eq!(units(src), vec!["Item:getter", "Item:setter"]);
+        assert_eq!(scores(src, "Item"), (1, 2));
+    }
+
+    #[test]
+    fn stray_terminators_and_unclosed_brackets_recover() {
+        let src = r#"
+Module M
+    Sub A()
+        End If
+        Foo(1, 2
+    End Sub
+    Sub B(ByVal a As Integer, 5)
+        If b Then Bar()
+    End Sub
+End Module
+Next
+"#;
+        let errors = parse_errors(src);
+        for line in [4, 7, 11] {
+            let msg = format!("syntax error at line {line}");
+            assert!(errors.contains(&msg), "{msg} missing from {errors:?}");
+        }
+        let report = analyze(src);
+        assert_eq!(function(&report, "A").cognitive, 0);
+        assert_eq!(function(&report, "B").cognitive, 1);
+    }
+
+    #[test]
+    fn attributes_and_type_forms() {
+        let src = r#"
+<Assembly: CLSCompliant(True)>
+<Serializable(), Obsolete("x")>
+Public Class C
+    <DllImport("user32.dll")>
+    Public Shared Function Run(<Out> ByRef a As Integer(), ParamArray rest() As Object) As (Integer, String)
+        Dim b As Integer? = Nothing, c As Dictionary(Of String, List(Of Integer))()
+        Dim d As New System.Text.StringBuilder()
+        Dim e = New Integer() {1, If(x, 2, 3)}
+        Return (1, "")
+    End Function
+End Class
+"#;
+        assert_eq!(scores(src, "Run"), (1, 2));
+    }
+
+    #[test]
+    fn call_statement_labels_and_typed_lambdas() {
+        let src = r#"
+Module M
+    Sub Retry(n As Integer)
+Again:  If n > 0 Then Call Retry(n - 1)
+        Dim f = Function(x As Integer) As Integer
+                    Return If(x > 0, x, 0)
+                End Function
+        ReDim buf(0 To n)
+    End Sub
+End Module
+"#;
+        // If(+1) + recursion through `Call`(+1)
+        assert_eq!(scores(src, "Retry"), (2, 2));
+        let report = analyze(src);
+        assert_eq!(function(&report, "Retry").children[0].cognitive, 1);
+    }
+
+    #[test]
+    fn string_and_identifier_edge_forms() {
+        let body = "\u{feff}
+    Dim s = $\"say \"\"hi\"\" {If(a, \"x\", \"y\")} {New Integer() {1}(0)}\"
+    Dim f! = 1.0 : Dim l& = 2
+    Dim aVeryLongIdentifierNameIndeed = 1\u{3000}
+    Dim arrow = 1 \u{2192} 2
+    Return <a/>
+";
+        // the ternary inside the interpolation hole; `→` is a stray symbol
+        let src =
+            format!("Module M\nFunction F(a, b, c) As Object\n{body}\nEnd Function\nEnd Module\n");
+        let report = analyze(&src);
+        assert_eq!(function(&report, "F").cognitive, 1);
+    }
+
+    #[test]
+    fn preprocessor_group_inside_an_argument_list_parses_its_first_arm() {
+        let body = r#"
+    Foo(a,
+#If DEBUG Then
+        If(b, 1, 2)
+#Else
+        0
+#End If
+        )
+"#;
+        // #If(+1) #Else(+1), plus the ternary in the parsed first arm(+1)
+        assert_eq!(body_scores(body), (3, 3));
+    }
+
+    #[test]
     fn keyword_table_is_sorted_for_binary_search() {
         assert!(lexer::KEYWORDS.windows(2).all(|w| w[0] < w[1]));
     }
