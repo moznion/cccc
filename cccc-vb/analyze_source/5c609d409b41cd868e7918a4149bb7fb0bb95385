@@ -1,0 +1,9 @@
+
+Module M
+    Sub A()
+#If X Mhen
+ !    hre c.Ok AndAlso o.Ok
+           select Group             Tistinct
+ Foo()
+    End Sub
+End Module

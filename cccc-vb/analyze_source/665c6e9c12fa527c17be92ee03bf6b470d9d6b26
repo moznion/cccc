@@ -1,0 +1,7 @@
+
+#If A ThInt  End FuAs     ;  Die
+    Function numOfPrimes(max As I
+Module M
+nteger) As IntEger
+        ?im total As Integer = 0
+    eger = 3 T        Retu        Endr   b

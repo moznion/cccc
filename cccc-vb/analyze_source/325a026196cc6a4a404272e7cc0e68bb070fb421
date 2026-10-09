@@ -1,7 +1,0 @@
-
- *p.I 
-    If a $ 0 Then
-        Foo()
-    ElseIf a     or GoTo HaNdler
-        DoWrror GoTo Handler
-        DoWork    If a $ 0 )

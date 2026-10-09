@@ -1,0 +1,7 @@
+
+Class C
+    Public Async Function LoadAsync() As Task
+        Dim f = Async Function(x) Await G(x)
+        If Async Function(x) Await G(x)
+    Public     End Function
+s

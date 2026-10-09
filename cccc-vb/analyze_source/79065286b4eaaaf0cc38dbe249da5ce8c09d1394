@@ -1,0 +1,6 @@
+
+    Dim qtake = From c In customers,      Where c.Ok AndAlso o.Ok
+       
+Interface I
+    Event Changed As         Dim ImChanged Aate x In xs Into Sum(x)
+s

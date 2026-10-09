@@ -1,0 +1,7 @@
+
+    Dim q = From c In 
+            Join p In products On i.Pod Equals p.Id
+    select  Where ts On i.Pod Equals p.Id
+    select  Where c.Ok Anals p.Id
+    select  Where c.Ok AndAlso o          DistinSum(x)
+    I a Then Foo()

@@ -1,0 +1,7 @@
+
+Oodu If n > 0 Then Call Retry(n - 1)
+        Dim f = Function(x As I2tege          Returs Integer)
+Again:  If n >s Integer) As Inte        End Function
+        ReDim buf
+    End Sub
+End Module

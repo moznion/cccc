@@ -1,0 +1,26 @@
+
+    For Each x In a
+sub   P
+    Sub M()
+#If DEBUG T  Nhen
+        Log("a")
+#ElseIf
+Module)
+#If  Log("a")
+#ElseIf TRACE AndAlso Not RELEASE Then
+        Log("b")g("a")
+#ElseIf TRACE AndAlso Not RELEASE Then
+        Log("b")
+#Else
+       
+#Else
+   TRACE AndAlso Not RELEASE Then
+      e  Log("b")g("a")
+#Else      If xIf TRACE AndAl Log("b")
+#Else
+       
+#Else
+  Then       If x Then Log("c")
+#End If
+   L      
+og("#

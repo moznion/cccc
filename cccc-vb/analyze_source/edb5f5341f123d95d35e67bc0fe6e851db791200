@@ -1,7 +1,0 @@
-
-Module P
-#If NET48 Then
-    Sub N(a 8 Then
-    Sub N(a As Integer)
-#Else
-    SSubnd Ree

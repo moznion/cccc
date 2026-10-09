@@ -1,8 +1,0 @@
-
-  : I f$a  0 Thme As String
-    Public ReadOnly Proper
-Module P
-#If NET48 Then
-    Snd Sub
-#Region rty
-    Public Shared Operator +(a As Shape, b As Shape) 

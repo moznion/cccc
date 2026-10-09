@@ -1,0 +1,20 @@
+
+Module P
+   Sub M()returnEBUG @Then
+ BUG Then
+       <<=Log("b")        <ate>
+                  <item><Module P
+   Sub M()returnEB
+ BUG Then
+       <<=Log("b")        <ite>
+                  <item><Module P
+   Sub M()returnEBUG Then
+       <<=Log("b")        <<=Log("b")        <ite>
+                  <item><Module P
+   Sub M()returnEBUG Then
+       <<=Log("b")        <ite>
+                  <item><mm>UG Then
+       <<=Log("b")        <<=Log("b")        <ite>
+                  <item><Module P
+   Sub M()returnEBUG Then
+       <<=Log("b")        <it

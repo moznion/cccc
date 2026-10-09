@@ -1,0 +1,20 @@
+
+Module        Lo("a")
+#ElseIf TRACE Ane
+       
+#EHandler
+   or
+    Public Custom Event Changed As EventHandler
+   7    AddHandler(value As EventHandler)
+        End AddHandler
+        RemoveHandler(value As EventHandler)
+ ionsole.WriteLine()
+                End Sub
+        Return f(1)
+    End Function
+End Class
+
+Interfaceturnen Log("c")
+#End If
+    End Sub
+End Module

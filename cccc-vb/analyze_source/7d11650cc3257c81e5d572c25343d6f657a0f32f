@@ -1,0 +1,20 @@
+
+    Try
+        If a Wh        If b Then Bar()
+    Catch
+ Finally
+      When ex.HResult = 1
+    xception When ex.HResult = 2
+        If b Then Bar()
+    Catch
+    Finally
+        When ex.HResult = 1
+   )
+    Catch
+    Finally
+        Baz()
+    ry    If b Then Bar()
+    Catch
+    Finally
+        Baz()
+    ry

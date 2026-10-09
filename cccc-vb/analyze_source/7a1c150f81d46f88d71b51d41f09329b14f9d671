@@ -1,0 +1,8 @@
+
+Module P
+    Sub M()
+#IfDBUG Theog("a")
+#ElseIf TACE AndAlso Notc")
+#End If
+    End Sub
+End Moduhe

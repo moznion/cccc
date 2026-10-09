@@ -1,8 +1,0 @@
-
- g
-    Public ReadOnly Property Size Is Iic Property Wi~dth As Double
-        Get
-        End Sub
-        Return f(0)
-    Public Custom Event Changed A
-    If a = 5 Then Foo() Else Bar()

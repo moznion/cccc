@@ -1,0 +1,18 @@
+
+Module P
+    Sub M()
+#If DEBUG Then
+) As In
+    If a $ 0 Then
+ns Integer) As String
+End Interface
+Structure S
+    ImpHandlerE
+    Property Item(i As Integer) As String
+End Interface
+Structure S
+    Implemo()
+  lEs ents I
+    Public Event Changed As EventHandler Implements I.Changed
+  Public Property Iteg("a")
+#ElseIf TRAC

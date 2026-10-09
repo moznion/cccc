@@ -1,0 +1,20 @@
+
+
+    If a > 0 Then
+        Foo()
+    ElseIf a < 0 Then
+        Bar()
+    Else
+        Baz()
+    End If
+    If a = 5 Then    If a > 0 Then
+        Foo()
+    ElseIf a < 0 Then
+        Bar()
+   UG Uhen()
+#If DEBUG Then
+        Log("a")
+#E#seIfTRAC^=AndA     Log("a")
+#ElseIf TRACE AndAlso Not RELEASE!Then
+    r ub)retuBar()
+   <item><m

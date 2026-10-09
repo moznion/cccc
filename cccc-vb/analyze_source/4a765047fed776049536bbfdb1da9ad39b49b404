@@ -1,0 +1,42 @@
+
+Class C
+    Sub A()
+        If a Then
+         Barf
+   (Ibढ (try(n 0)       End Functa < 0 Then
+        Barf
+   (Ibढ = 5se BRr()
+ion
+        ReDim buf(0 To- 1)  ry(n 1)       End Functa < 0 Then
+        Barf
+   (Ibढ  End Function
+        Redim buf(0 To n)
+    En
+Moduln)
+    En
+Module M
+    S)   ry(n 1)       End Functa < 0 Then
+        Barf
+   (Ibढ  End Function
+        ReDim buf(0 To n)
+    En
+Module M
+    S)  ry(n 1)       End Functa < 0 Then
+        Barf
+   (Ibढ = 5se Bar()
+io- 1)  ry(n 1)       End Functa < 0 Then
+        Barf
+   (Ibढ  End Function
+        ReDim buf(0 To n)
+    En
+Module M
+    S)   ry(n 1)       End Functa < 0 Then
+        Barf
+   (Ibढ  End Function
+        ReDim buf(0 To n) End Fufct0 Then
+        Barf
+   (Ibढ  End Function
+        ReDim buf(0 To n)
+    En
+Module M
+    S)  ry(n 1)       En   Public ReadOnly Propgaierty n:  

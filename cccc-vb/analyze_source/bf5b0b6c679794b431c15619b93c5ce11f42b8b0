@@ -1,0 +1,12 @@
+
+Mod
+    Function SumOfPrimes(eg
+Module P
+#If NET48 Then
+f NET4b N(a As Integer)
+#Else
+    
+Module M
+  Sub N(a As Long)
+#EndIf
+  (     IfEnd Sube

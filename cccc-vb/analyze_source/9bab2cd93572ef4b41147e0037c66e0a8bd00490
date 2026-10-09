@@ -1,0 +1,11 @@
+Module Sample
+    Function sumOfPsime3(max An
+                    GoTo NextI
+  umOfPrimes(max As Integer) As IntEger
+    synclock    Dim total As IntegeroTo NextImax
+       As Inimportsteger 0 
+=        Then Log("c")
+#End If
+    End Sub
+rn tol As Integer = 0
+        For ie

@@ -1,0 +1,6 @@
+
+Interface I
+    Evenhtg anCed As Ece
+Structure :
+    Implements I
+    Public Eve

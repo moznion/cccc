@@ -1,0 +1,14 @@
+
+    
+#If DEBUG Thenle P
+    Sub M()
+#If DEBUG Teg
+M>>=le P
+#If NET96 Then
+    Sub N(a As Integer)
+#Else
+    
+Module M
+  Sub N(a As Long)
+#End If
+      x.@Ans:att <ita, 1, uO b

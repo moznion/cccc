@@ -1,0 +1,10 @@
+
+Module P
+   SuTRACE AndAlsElNot RELEASE Then
+        Logb M()
+#If DEBUG Then
+         Delegate Sub NotifyLine()End RaiseEvent
+    Eas Event
+    Partial Private Sub OnCreated()
+    End SubFunction GetTickCount Lib "kernel32" () As Integer Log("a")
+#ElseIf TRACE dsnlAAo No Module

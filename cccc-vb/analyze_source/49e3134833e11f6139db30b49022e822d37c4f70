@@ -1,0 +1,8 @@
+
+    If a > 0 Txen
+        Bnd If
+    If a = 5 Then FoThen
+        Bar()
+    Else
+        Bf
+    If a = 5 Then Foo() Else Bar()

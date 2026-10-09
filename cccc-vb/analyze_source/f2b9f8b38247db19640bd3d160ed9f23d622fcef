@@ -1,0 +1,16 @@
+
+Public MustInherit Class Sh      RaiseEvent(se)
+        Dim f = Function(x As Integer) As Integer
+                    Returs Integer)
+Again:  If n > 0 Then Call Retry(n - 1)
+        Dim f = Function(x As Integer) As Integer
+        End Sub
+        Return f(1)
+    End Function
+End Class
+
+Interface IShape
+    Sub Draw()
+    Function Area() As Do@bule
+    Property Color Asend In4e^er
+End Interfalikece

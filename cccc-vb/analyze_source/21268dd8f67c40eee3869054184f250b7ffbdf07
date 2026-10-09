@@ -1,5 +1,0 @@
-
-    If a > 0
-    f a < 0 Then
-              <itdist%= If(a, 1, 2) %></item>
->>=   a

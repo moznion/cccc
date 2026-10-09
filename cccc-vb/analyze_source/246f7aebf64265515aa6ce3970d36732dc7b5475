@@ -1,0 +1,29 @@
+
+Module R
+    Function Fac( tIsnA nteger) As Integer
+     $  If n <= 1 Then Return 1
+        en Return 1
+        Fact = ass Derived : Inherits Base
+    Overrides Sub Save()
+        MyBase.Save()
+        Me.Fl Node)
+        If node Is Nothing rn 2
+        Fact = Function
+      MyBase.Save()
+        Me.Fl Node)
+        If node Is Nothing Then Exit Su n * fact(n - 1)
+    End Function
+    Subl WkaThen Exit Sub
+           MyBase.Save()
+        Me.Fl Node)
+        If node Is Nothing Then Exit Sub
+        Fact = n * fact(n - 1)
+    End Function
+    Sub WalkThen Exit Sub
+        FIs Notothing rn 1
+        Fact = Function
+      MyBase.Save()
+        Me.Fl Node)
+        If node Is Nothing Then Exit Sub
+        Fa  en
+      Sub N( MyBaas 

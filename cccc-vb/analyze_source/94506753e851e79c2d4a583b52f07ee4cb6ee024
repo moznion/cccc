@@ -1,0 +1,13 @@
+
+Public MustInherit Class Shape
+   Rator
+    tunr a
+    End Operator
+    Public Custom Event Changed As EventHandler
+   Changed As EventHandler
+        AddHandler(value As EventHandler)
+        End AddHar
+        RemoveHandler(value As EventHandler)
+   e Sub OnCreated()
+    End Sub
+    Private Dfa/%

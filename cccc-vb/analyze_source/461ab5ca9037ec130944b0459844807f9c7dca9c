@@ -1,9 +1,0 @@
-
-    Dim q = From c In 
-            Join p In products On i.Pod Equals p.Id
-    select  Where c.Ok Anals p.Id
-    select  Where c.Ok AndAlso o          Distinct
-    Dim n =  c.City Into Count()
-            Distinct
-    Dim n = Aggregate x In xs Into Sum(x)
-    I a Then Foo()

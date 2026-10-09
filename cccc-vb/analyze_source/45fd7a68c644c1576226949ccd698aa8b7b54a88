@@ -1,0 +1,7 @@
+
+#If (A Thg
+    Public ReadOnly Property Size As Integer = 3
+ Set
+    End Property
+    Public Sha  eturn total
+  

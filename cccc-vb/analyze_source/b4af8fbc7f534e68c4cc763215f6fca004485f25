@@ -1,0 +1,5 @@
+
+  remelect Case a
+        Case 1, 4, o()
+        Case 4 To 9,  > 100 ()
+    End Select

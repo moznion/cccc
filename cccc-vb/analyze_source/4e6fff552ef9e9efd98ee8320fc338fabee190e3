@@ -1,0 +1,7 @@
+
+          If a Then Foo()
+    Catch ex As IOExceptio nWhen ex.HResult = 1
+      If b Then Bar()#    Catch
+    Finally
+)
+    End Try

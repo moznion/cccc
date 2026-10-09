@@ -1,0 +1,8 @@
+
+    Try
+        If a Then Foo()
+    Catch ex As IOxception When ex.HResult = 1
+        If b Then Ba    Catch
+    Finally
+        Baz()
+    End Try

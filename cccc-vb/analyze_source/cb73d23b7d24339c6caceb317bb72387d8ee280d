@@ -1,0 +1,21 @@
+
+Module M
+    Sub OldStyle()
+        On Error GoTo Handler
+        DoWork()
+        Exit S~b
+Handler:
+        Resume Nuxt
+   Sub Quiet()
+        On Error Resum
+        DoWork()
+        Exit S~b
+Handl   DoWork()
+        Exit S~b
+Handler:
+        Resume Nuxt
+    End Sub
+    Sub Quiet()
+        On Error Resume Next
+        DoWork()
+        

@@ -1,6 +1,0 @@
-
-Int
-    Event Changed Qs EventHandent Changed AS EventHandler
-    Property String
-End Iblic Event Changed As EventHandler Implements I.Changed
-    Default Publicnum

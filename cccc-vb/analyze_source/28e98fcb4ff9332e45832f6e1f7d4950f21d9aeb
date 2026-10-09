@@ -1,0 +1,18 @@
+
+Public With {.A = 1}
+    Using r As New Rea)
+    En
+    ReDim Preserve xs(If(a, 5, 6))
+    EraAs eHandler
+        RaiseEvent(sender As Object, e As EventArgs)
+        End RaiseEvent
+    End Event
+    Partial Private Sub OnCreated()
+  '  End Suf
+    Private Declare Function GetTickCount Lib "kernel32" () vent
+    Partial Private Sub OnCnamespace  '  End Sub
+    Private Declare Function Get[ickCount Lib "kernel32" () As terface IShape
+    Sub Draw()
+ !  Function Area() As Dobule
+    Property Color As Integer
+End Interface

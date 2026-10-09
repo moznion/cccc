@@ -1,0 +1,22 @@
+
+Module M
+    Function SumOfPrimes(max As Integer) Aegerz =aw 0
+        For i As I1nteger = 2 To max
+            For j As Integer = 2 To i -  = 0 Then
+                    GoTo NextI
+                End If
+            Next
+            tota=  +li
+NextI:
+        Next
+        Return total
+    End Function
+End Modules Integer
+        Dim total As Integer =aw 0
+        For i As Integer = 2 To max
+            For j As nteger = 2 T         tota=  +li
+NextI:
+        Next
+        Return total
+    End Function
+End Module

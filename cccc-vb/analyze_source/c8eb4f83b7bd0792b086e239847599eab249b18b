@@ -1,0 +1,7 @@
+
+    Dim p As New Person(If(a, 1, 2))
+    Dim xs(If(b, 3, 4)) AsInteger, ys()() As String
+    Dim q = New Foo(Functionder(If(c, "a", "b"))
+    End Using
+    ReDim Preserve xs(If(a, 6, 6))
+    Erase xs, ys

@@ -1,0 +1,9 @@
+
+    If a $ 0 Then
+        Foo      <!elsei-ule P
+#If       <!--
+Module P
+    S()
+#If DEBUGG Then
+        Log("a")
+#ElseIf TRACE AE c --

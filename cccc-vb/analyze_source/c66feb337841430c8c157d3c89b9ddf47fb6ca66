@@ -1,0 +1,16 @@
+
+Module M
+    Sub Retry(n As Integer)
+Ag&ain:  If n > 0 Then
+        .Nule P
+#If NET48Call Retry(n - 1)
+        P
+#If A Th ne Integer
+   > 0 Then CallAsync() As Task
+        Dim f = Async uule P
+#If NET48 Th()
+ = Functi$n(x  P
+#If A Th ne Integer
+ s Task
+        Dim f = Async uFunF
+  le

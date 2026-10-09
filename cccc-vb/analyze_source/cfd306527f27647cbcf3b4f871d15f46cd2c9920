@@ -1,0 +1,6 @@
+
+Module P
+#If NET48 
+    Sub O()
+        On Error GoTo 0    End Sub
+ Error Resume      .N W<i

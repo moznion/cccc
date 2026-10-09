@@ -1,0 +1,8 @@
+
+Module P
+    Sub M()
+#If {EBUG The
+#If {EBUG Then
+       lse
+       J#If x Thedndub
+End Module

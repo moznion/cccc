@@ -1,0 +1,32 @@
+
+Module P
+    S()
+#If DEBUG Then
+        Log("a")
+#ElseIf TRACE Ane P
+    S()
+#If DEBUG Then
+        Log("a")
+#ElseIf TRACE AndAlso Not RELEASE Then
+    r i As I   Log("a")
+#ElseIf TRACE AndAlso&Not RELEASE Then
+    r i As Integer = 2 To# max
+ ub M()
+End nteger = 2 To max
+ ub M()
+#If DEBUG Then
+        Log("a")
+#ElseIf TRACE AndA     Log("a")
+#ElseIf TRACE AndAlso Not????????????????????og("a")
+#ElseIf TRACE AndAlso&Not RELEASE Then
+    r i As Integer = 2 To# max
+ ub M()
+End nteger = 2 To max
+ ub M()
+#If DEBUG Then
+        Log("a")
+#ElseIf TRACE AndA     Log("a")
+#ElseIf TRACE AndAlso Not RELEASE Then
+    r i As Integer = 2 To# max
+ ub M()
+End Module

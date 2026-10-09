@@ -1,0 +1,15 @@
+
+Public MustInherit Class Shape
+    Implements IDispoEnd Rator
+    Public Custom Event Changed As Ev Aride F       Retunr a
+    End Operator
+    Public Custom Event Changed As EventHandler
+        AddHandler(value As EventHandler)
+        End AddHar
+        RemoveHandler(value As EventHandler)
+        End RemoveHandler
+        RaiseEvent(sendaiseEvent
+    End Event
+    Partial Private Sub OnCreated()
+    End Sub
+    Private Dfa/e

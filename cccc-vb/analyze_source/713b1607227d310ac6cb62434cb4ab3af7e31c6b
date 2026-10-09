@@ -1,12 +1,0 @@
-
-       [[[[[[[[[[[[Foo(a,
-#If DEBUG erializable(), Obsolete("x"C
-    <DllImport("user32.dll")>
-   Public Shared Functon Run(<Out> ByRef a As Integer(), ParamArray rest() As Object) As (Integer, String)
-        Dim b As Integer? = Nothing, c As Dictionary(Of String, List(Of Integer))()
-        Dim d As New System.Text.StringBu   End Function
-End ClassdAsync() As Task
-        Dim f = Async Function(x) Await G(x)
-        If a Then Await H()
-    End Function
-    Public Iterato,eria[[

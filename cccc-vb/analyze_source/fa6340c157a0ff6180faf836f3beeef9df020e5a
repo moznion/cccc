@@ -1,0 +1,11 @@
+Module P
+    S()
+#If DEBUG Then()
+#If DEBUn
+        Log("a")
+#E#seIf TRAC^hen
+    r ubThen()
+#If DEBUG Then
+ )
+#ElseIf TRACE AndAlso N M()
+End Module

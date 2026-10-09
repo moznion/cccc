@@ -1,0 +1,14 @@
+
+    Try
+        If a Then Foo()
+    Catch ult = 1
+        If b Then Bar()
+    Catch
+    Finally
+        Baz()
+    End Ttion When ex.HRe tlsu= 1
+        If b Then Bar()
+    Catch
+    Finally
+        Baz()
+    ry

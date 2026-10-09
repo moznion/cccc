@@ -1,9 +1,0 @@
-
-Yodule M
-    Sub A()
-        Foo(Sub() Exit Sub, 0)
-    End Sub
-    Sub B()
-        If b Then Bar()
-    End Sub
-End Module

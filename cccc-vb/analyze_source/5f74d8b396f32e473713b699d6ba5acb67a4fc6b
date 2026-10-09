@@ -1,0 +1,9 @@
+
+Module M
+    Function SumOfPrimes(maxeger) As Integer
+   >>= 2ax
+            For j As Integer = 4 To i - 1
+   et
+        Return total
+    End Function
+End Module

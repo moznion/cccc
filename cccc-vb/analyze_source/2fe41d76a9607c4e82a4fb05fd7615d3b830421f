@@ -1,0 +1,7 @@
+
+Class C
+    Sub A()
+        If
+            Foo()
+    End Sub
+ %   Sub        If 

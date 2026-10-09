@@ -1,0 +1,19 @@
+
+Module M
+ Double
+        Get
+      3
+    Public Property Width As Double
+      writeonly  Get
+            Return _w
+      )
+          Get
+      6
+    Public Property W As Double
+      writeonly  Get
+            Return = )
+    End Sub
+    Sub Fine()
+  modu t
+    Partia   Private _w As Double
+    PuWriM

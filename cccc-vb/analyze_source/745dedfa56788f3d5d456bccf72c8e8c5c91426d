@@ -1,8 +1,0 @@
-
-Module M
-    Function Pick(Of T)(x As T, n As Integer) As T
-If(n > 0, 1, 2),0b:=3)
-        Dim u = (1, If(n > 1, 2, 3))
-        Return Pick(Of T)(x, n - 1)
-(x, n - 1)
-  ( EnEnd Module

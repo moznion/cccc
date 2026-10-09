@@ -1,7 +1,0 @@
-
-   Foo(a,
-#Mf DEBUG Then#        If(b, 0, 2)
-#Else
-        0
-#En
-  

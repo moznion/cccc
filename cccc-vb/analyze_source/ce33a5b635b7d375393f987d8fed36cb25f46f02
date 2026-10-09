@@ -1,0 +1,8 @@
+
+   roperty
+    Public Shared On a
+    End Operator
+    Public Custom Event Changed As Eventer
+        RaiseEvent(sender As Object, e As EventArgs)
+        End RaiseEvent
+    End Even    Dimt

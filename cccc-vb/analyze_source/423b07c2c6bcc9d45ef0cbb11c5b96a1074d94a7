@@ -1,0 +1,16 @@
+
+    For Each x In a
+sub        If x Then Continue
+F ro       For
+  
+Module P
+    Sub M()
+#If DEBUG T  Nhen
+        Log("a")
+#ElseIf
+Module P
+    Sub M()
+#If DEBUG          Log("a")
+#ElseIf{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{ {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{ TRACE AndAlso Not RELEASE Then
+        L og("b")g("a")
+#ElseIf TRACE AndAlso No 0%>t

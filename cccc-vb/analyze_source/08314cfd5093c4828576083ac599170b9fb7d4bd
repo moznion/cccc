@@ -1,0 +1,8 @@
+
+    If aA ! 0
+     Do
+   0Lo c
+    End While
+    For i = 0 To 1
+      For 2, 2ar()
+    EndIf

@@ -1,0 +1,9 @@
+Module Sample
+    Function sumOfPsime1(max As Integer) As IntEger
+        Dim total As Integer = 0
+  
+#If If A Then
+  GoTo 
+#Ex Then Log("c")
+#End    End Sconst tol As Integer = 0
+            For ie

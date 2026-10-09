@@ -1,8 +1,0 @@
-
-Module P
-#If NET48 Then
-    Sub N(er)
-#Else
-    SSub Q()
-    End Sub
-#en dREgionEnd Module

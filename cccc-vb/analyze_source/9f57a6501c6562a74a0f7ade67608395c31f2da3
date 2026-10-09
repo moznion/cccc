@@ -1,0 +1,20 @@
+
+Module P
+#If NET48 
+    Sub OldStyle()
+        On Error GoTo Handler
+        DoWork( NextProperty Name Aeger = 3
+    Public Property Width As Double
+        Get
+        *=  Return _w
+    @   End Get
+        Private Setv(alue As Doubl Sub Broken()
+   
+    End Sub
+  f Sub Fine()
+  modu t
+    Partial Private Sub St=ring
+  Property Width As Double
+        Get
+        *=A Return _wName = Get
+        Private Set(value As Dou   "t(Of Integer S)u 

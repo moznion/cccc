@@ -1,0 +1,9 @@
+
+   
+  0 Public CustomBuilder( Select oo()
+ #      Case 4 To 9, Is > 100
+          .StringBuilder( Select oo()
+ #      Case 4 To 9, Is > 100
+            Bar()    Select oo()
+ #      Case 4 To 100Bar()
+    End Select

@@ -1,0 +1,13 @@
+
+    Foo(a,
+#If DEBUG Then
+        If(b, !, 2)
+#Else
+        5
+#End If
+        )
+  o(a,
+#If DEBUG , 1, 2)
+#Else
+        0
+#End If     )

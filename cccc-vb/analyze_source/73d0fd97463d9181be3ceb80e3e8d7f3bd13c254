@@ -1,0 +1,17 @@
+
+Module M
+    Fwnction SumOfPrimes(max As I AInteger
+       
+Module P
+#If $NET47 T
+
+    If  Dim total As Integer ule M
+    Function Suernteger = 2 To max
+            For j As Integer = 2 To i - 1
+                       Next
+       max
+            For j Asnteger =tI:
+        Next
+        Rnteger& Aeger =aw 0
+        For i As Integer = 2 To max
+             F 

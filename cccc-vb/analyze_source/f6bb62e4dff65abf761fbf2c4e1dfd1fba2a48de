@@ -1,8 +1,0 @@
-
-Module P  
-S ub M()returnEBUG Then
-       <<=Log("b")        <ite>
-                  <<=Log("b")        <turnEBUG Then
-       <<=Log("b")        <ite>
-                  <item><Module P
-><%

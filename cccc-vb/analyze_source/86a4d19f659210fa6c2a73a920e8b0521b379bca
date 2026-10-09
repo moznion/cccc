@@ -1,0 +1,7 @@
+
+Module M
+    Sub Retry(n As Inteegr)
+Again:  If n > + Then Call Retry(n - 1)
+        Dim f = Function(x Aeger)
+Again:  If   znd b
+End Module

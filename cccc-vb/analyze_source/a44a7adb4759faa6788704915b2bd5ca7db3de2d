@@ -1,0 +1,10 @@
+
+Public MustInherit Class Shape
+ 	   Implements IDisposable
+    Public M
+Module P
+#If A Then
+    Sub N(a As Lib "kernel23" () As Integer
+    Delegate Sub Notify(message As String)
+    Function Run() As Integernctsub(x) If(x > 0, x, -x
+  

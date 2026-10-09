@@ -1,7 +1,0 @@
-
-    Dim p As New Person(If(a~1, 2))    Dim xs(If(b, 3, 4)) As  New Reader(If(c, "a", "b"))
-    End
-    Dim doc = <?xml version="1.0"?>
-              <!-- c -->
-              <?pi x?>
-     <![CDATA[ If x Then ]]><!-- If --s><ae

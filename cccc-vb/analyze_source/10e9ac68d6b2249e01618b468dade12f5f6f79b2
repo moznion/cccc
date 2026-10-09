@@ -1,0 +1,11 @@
+
+Module P
+#If A Then
+    Sub N(a As Integer)
+n
+    Sub N(a As Long)
+#Else
+    Sub N(a As Short)
+#En      Foo()
+    End Sub
+End Module

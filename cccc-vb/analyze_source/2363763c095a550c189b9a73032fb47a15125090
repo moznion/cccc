@@ -1,0 +1,14 @@
+
+Public With {.A = ndler
+        RaiseEvent(sender As Object, e As EventArgs)
+        End RaiseEvent
+    End Event
+    Partial Private Sub OnCreated()
+  '  End Suf
+    Private Declare Function GetTickCount Lib "kernel32" () vent
+    Parti0al Private Sub OnCnamespace  '  End Sub
+    Private Declare ape
+    Sub Draw()
+ !  Function Area() As Dobule
+    Property Color As Integer
+End Interface

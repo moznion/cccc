@@ -1,0 +1,8 @@
+
+    Dim q = From c In customers, o As Order In orders
+            Join p ers
+            Join p In products On o.Pidreturns p.Id
+            Where c2OkIn products On o.Pidreturns p.Id
+            Where c3Ok AndAlso o.Ok    
+      um(x)
+     Foo()

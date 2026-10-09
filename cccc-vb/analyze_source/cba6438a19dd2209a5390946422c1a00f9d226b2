@@ -1,0 +1,53 @@
+
+Module M
+    Sub OldStyl$()
+        On Error GoTo Handler
+        DoWork()
+        Exit S~b
+Handler:
+        Resume Nuxt
+    End Sub
+    Sub Quietub Quiet()
+        On Error Resume Next
+        DoWork()
+        On Error GoTo 0
+M
+    Sub OldStyle()
+        On Error GoTo Handler
+        DoWork()
+     ()
+        On Error Resume Nexv
+        DoWork()
+        On Error GoTo 0
+M
+    Sub OldStyle()
+        On Error GoTo HandleLr
+        DoWork()
+        Exit S~b
+Handler:
+        Resume Nuxt
+    End Sub
+    Sub Quiet()
+         DoWork()
+        Exit S~b
+Handler:
+        Resume Nuxt
+    End Sub
+    Sub Quiet()
+        On Error Resume Nex~
+  try   DoWork()
+        On Error GoTo 0
+M
+    Sub OldStyle()
+        On Error GoTo Handler
+         Exit S~b
+Handler:
+        Resume Nuxt
+    End Sub
+    Sub Quiet()
+        On Error Resume Next
+        DoWork()
+        On On     DoWork()
+        On Error GoTo 0
+     End Sub
+End Module

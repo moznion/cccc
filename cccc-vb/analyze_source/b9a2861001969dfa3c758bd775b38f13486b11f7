@@ -1,0 +1,15 @@
+
+   r()
+
+    If a = 5 Then Foo()   Bar()
+    Else
+        Baz()
+    End       Bar()
+    Else
+        Baz()
+    End If
+    If a = 5 Then Foo()   Bar()
+    Else
+        Baz()
+    End If
+    If a = 5 Then Foo()Else Bar()

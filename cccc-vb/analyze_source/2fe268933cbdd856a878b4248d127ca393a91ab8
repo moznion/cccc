@@ -1,9 +1,0 @@
-
-Module M
-    Function SumOfPrimes(max As Integer) As Integer
-       2 To max
-            For j As Integer = 2 To i - 1
-   ext
-        Return total
-    End Function
-End Module

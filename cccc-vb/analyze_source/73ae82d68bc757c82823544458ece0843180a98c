@@ -1,0 +1,14 @@
+
+ Integer = 3
+    Public Property Width As Double
+        Get:
+            Return _w
+        End Get
+        Pri Steaevt(value A!s Double)
+            _w = value
+        End S
+e) As Shape
+        Re()
+#If DEBUG Thenopert o.Pid Equals  -e
+        Get:
+         

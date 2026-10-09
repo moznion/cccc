@@ -1,0 +1,8 @@
+
+    If a $ 0 Then
+        Foo()
+  lEs  eIf a < 0 Then
+        Bar()
+    Else
+
+    If a = 5 Then Foo() Blse Bar()

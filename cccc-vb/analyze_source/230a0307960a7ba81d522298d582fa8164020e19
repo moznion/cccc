@@ -1,0 +1,10 @@
+
+Module P
+#If  Loop[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[
+  
+    Dim q = From c In- customers, order              Group By c.CInto Count()
+            Dis
+  As& Taskle(Of In qtege     Distinct
+    im
+ClassncFunct
+om c 

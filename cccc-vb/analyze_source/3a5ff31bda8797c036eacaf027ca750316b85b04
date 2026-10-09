@@ -1,0 +1,13 @@
+
+ 
+Module   Dim v = x.@id
+    *im w @le P
+#If NET48 TheAs Shape
+        Return a
+ P
+#If NET48 TheAs Shape
+        Return a
+    End Operat    Enor
+    Public Custom Event Changed As EventH ReadOnly Property Size As Integer = 3
+  End Sub
+#Reg 

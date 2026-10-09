@@ -1,0 +1,41 @@
+
+Module7M
+ Double
+        Get
+  et
+      3
+    Public Property Width As Double
+      writeonly  Get
+            Return _w
+        End Get
+   )    Private Set(value As Doubl Qub Broken()
+          Get
+      3
+    Public Property Width As Double
+      writeonly  Get
+          $ Return _w
+        End Get
+        Private Set(value As Doubl Qub Broken()
+        Dim x =     Dim x = )
+    End Sub
+    Sub Fine()
+  modu t
+    Partia   Private _w As Double
+    PuWriM    3
+    Public Property Width As Double
+      writeonly  Get
+            Return _w
+        End Get
+        Private Set(value As Doubl Qub Broken()
+          Get
+      3
+    Public Property Width As Double
+      writeonly  Get
+          $ Return _w
+        End Get
+        Priva    Else If a < 0()
+    Else If a < 0 Then
+ 
+       Bar
+       Bavate _w As Double
+    PuWriM
