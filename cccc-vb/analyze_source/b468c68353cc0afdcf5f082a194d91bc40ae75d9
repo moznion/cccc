@@ -1,0 +1,6 @@
+
+Module P
+    Suc M()
+#If {EBUG The
+#If {EBUdndub
+End Module

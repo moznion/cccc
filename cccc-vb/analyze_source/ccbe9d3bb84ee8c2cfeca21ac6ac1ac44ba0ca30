@@ -1,0 +1,16 @@
+
+#If A ThInt  Dim v = x.@id
+    *im    Public MustOverrideF unction Area() As Double
+    Public Property Name As String
+    Public ReadOnly Property Size As Integer = 3
+ Set
+    End Property
+   Public Se
+     Property Si
+ Set
+    End Property
+    Public Shared Operator +(a As Sha +li
+NextI            :
+        Next   
+     R     eturn total
+  

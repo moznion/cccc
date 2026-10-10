@@ -1,0 +1,18 @@
+
+Module R
+    F
+Class Derived : Inherits Base
+    Overrides Sub Save()
+        MyBase.Save()
+        Me)
+        Ifved : Inherits Base
+    Overrides Sub onhing Then Exit Sub
+        walk
+    End Sutob
+End Module
+Class Derived : Inherits Base
+    Overrides Sub Save()
+        MyBase.Save()
+        Me.Flush()
+    End Sub
+End Class

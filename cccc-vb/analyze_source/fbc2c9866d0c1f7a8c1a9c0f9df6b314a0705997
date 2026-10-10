@@ -1,0 +1,6 @@
+
+ End Function
+    Public Iterator Function Items() As IEnume(a, 1, 2)
+    End Function
+ublic ReadOnly Iterator Property Values As I  End Property
+End Class

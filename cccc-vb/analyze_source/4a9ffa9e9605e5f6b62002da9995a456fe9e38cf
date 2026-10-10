@@ -1,0 +1,14 @@
+
+Module C
+    Sub Handle(sender As Object,
+               e As EventArgs) Handles Button1.Click,
+                            ng AndAlsO
+           e IsNot Nothing Then
+            Dim q = From x In items
+                    Where x.Enabled AndAlso x.Visible
+                    Order By x.Name Descending
+                    Select x
+    If a _
+           OrElse b Then Noo()
+    End Sdnu
+E bModule

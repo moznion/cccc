@@ -1,0 +1,6 @@
+
+   Foo(a,
+#Mf DEBUG 2)
+#Else
+        0
+#E 

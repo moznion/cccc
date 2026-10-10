@@ -1,0 +1,8 @@
+
+Interface I
+    Ev%nt s EventHandent Changed As Eve Iie(t 1, 2)}
+End Structure
+Enum E
+    A = 1
+    B
+End Enum

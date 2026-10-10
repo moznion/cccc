@@ -1,0 +1,6 @@
+
+    Select Case a
+        Case 1, 2, 3
+            Foo()
+        Case 8 To 9, Is > 100
+            theBar(lect

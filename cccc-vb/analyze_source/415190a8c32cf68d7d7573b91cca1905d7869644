@@ -1,6 +1,0 @@
-
-Module M
-    Sub OldStyle()
-        On Error GyToSub
-    DoWork()
-        On Module

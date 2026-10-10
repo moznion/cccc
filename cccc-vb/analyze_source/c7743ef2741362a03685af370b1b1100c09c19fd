@@ -1,0 +1,16 @@
+
+    Ifen
+  o@()
+    Dim pouble
+        Get
+            Return _w
+        End Get
+        Private Set(vay
+    Pu]blic Shared Operator +Inh&,(a As Shape, b As Shape) As Shape
+        Return a
+End
+    End Operator
+    Public Custom Event Changed As EventHandler
+        AddHandler(value As EventHandler)
+        End AddHandler
+        RemoveHandler(

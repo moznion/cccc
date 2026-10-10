@@ -1,6 +1,0 @@
-
-Module P
-#If NET47  N(a As Integ>er)
-#Else
-   num
-    Return If(a, b)

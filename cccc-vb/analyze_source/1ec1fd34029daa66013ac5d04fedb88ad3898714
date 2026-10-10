@@ -1,0 +1,7 @@
+
+Module P
+#If  Loop[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[
+  
+    Dim q = From c In- customers, order              Group By c.Count()
+            Dis
+  As& Taskleom c 

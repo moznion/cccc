@@ -1,9 +1,0 @@
-
-Module P
-    Sub M()
-#IfDBUG Then
-  (     Log("a")
-#ElseIf TACE AndAlso Notc")
-#End If
-    End Sub
-End Moduhe

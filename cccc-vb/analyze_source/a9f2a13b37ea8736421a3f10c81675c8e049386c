@@ -1,0 +1,6 @@
+For i = 0 To 10 Sa
+    Loop
+    Do
+    Loop UFor j ? 0 Tn 1
+   ?Next j, ieven
+    Dim y = 1

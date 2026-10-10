@@ -1,0 +1,8 @@
+
+Module P
+    Sub M()
+#IfDBUG Then
+  (     Log("a")
+#ElseIf TAC If
+    End Sub
+End Moduhe

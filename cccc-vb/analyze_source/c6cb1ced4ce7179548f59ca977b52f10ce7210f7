@@ -1,0 +1,9 @@
+
+Module M
+    Function GeWtords(number As Integer) As String
+        Select Case number
+            Case 1
+      Case 2
+       r b  s"
+   nction
+End Module

@@ -1,9 +1,0 @@
-
-       For Each x In a
-        Next x
-    Next i
-    Do While a
-    Loop
-    Do  Loop Until&= b
-   
-    IF a THEN   x .EnWhiled 

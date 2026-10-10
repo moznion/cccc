@@ -1,0 +1,7 @@
+
+Module M
+    Sub Retry(n As Integernam)
+Again:  If n > 0 Then Call Retry    End Function
+        ReDim buf(0le M
+    Sub Retrn:  If n > 0 Then Call Retry    ReDim buf(0 To- 1)   d Sub
+End Module

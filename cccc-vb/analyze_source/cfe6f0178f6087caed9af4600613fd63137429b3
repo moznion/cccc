@@ -1,6 +1,0 @@
-   SS()
-#If
-#If DEBUG ThenLog("a")
-#E&lseIfot RELEASE Then
-  i As Intege
-    Erase xs, ys
