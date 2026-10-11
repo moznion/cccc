@@ -966,4 +966,21 @@ End Class
         let src = "#If A Then\nSub F()\n".repeat(depth) + &"#End If\n".repeat(depth);
         assert!(!parse_errors(&src).is_empty());
     }
+
+    #[test]
+    fn directive_inside_an_interpolation_hole_is_a_stray_directive() {
+        // The unterminated hole's multi-line lambda runs onto the next
+        // lines, so its sub-parser (which has no preprocessor groups) meets
+        // the directives and used to index past its empty group table
+        // (found by fuzzing).
+        for src in [
+            "$\"{Sub\n#Else",
+            "$\"{Sub\n#If A Then",
+            "$\"{Sub\n#End If",
+            "Module M\nSub F()\nDim t = $\"{If(s, 1, (Sub()\n#Else\nEnd Sub\nEnd Module\n",
+        ] {
+            analyze(src);
+            assert!(!parse_errors(src).is_empty(), "{src:?}");
+        }
+    }
 }

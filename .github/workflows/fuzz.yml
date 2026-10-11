@@ -73,6 +73,12 @@ jobs:
       # only. -timeout flags inputs slow enough to be a hang.
       - name: Fuzz
         working-directory: crates/${{ matrix.crate }}
+        env:
+          # ASan records the stack of every allocation in a depot it never
+          # frees; the recursive-descent parser yields ever-new stacks, so RSS
+          # grew linearly past libFuzzer's 2 GB limit (a false OOM) while the
+          # live heap stayed ~50 MB. Crash reports keep their stack traces.
+          ASAN_OPTIONS: malloc_context_size=0
         run: |
           cargo +nightly fuzz run "${{ matrix.target }}" \
             "$GITHUB_WORKSPACE/$CORPUS_DIR" fuzz/seeds -- \

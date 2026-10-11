@@ -338,7 +338,9 @@ pub(crate) struct Parser<'a> {
 
 impl<'a> Parser<'a> {
     /// A parser over a token sub-list (interpolation hole, directive
-    /// condition), which never holds directives.
+    /// condition), with no preprocessor groups. A hole can still hold
+    /// directive tokens (a multi-line lambda in an unterminated string runs
+    /// onto the following lines); [`Self::group_at`] treats them as stray.
     fn bare(src: &'a str, toks: &'a [Token]) -> Self {
         Self {
             src,
@@ -397,6 +399,11 @@ impl<'a> Parser<'a> {
             structured_failed,
             ..Self::bare(src, toks)
         }
+    }
+
+    /// The preprocessor group of the directive at token `i`, if any.
+    fn group_at(&self, i: usize) -> Option<usize> {
+        self.group_of.get(i).copied().flatten()
     }
 
     /// Lower an expression token sub-list (interpolation hole, directive
@@ -650,7 +657,7 @@ impl<'a> Parser<'a> {
                 match d.kind {
                     DirKind::If => self.parse_preproc(&mut out),
                     DirKind::ElseIf | DirKind::Else | DirKind::EndIf => {
-                        match self.group_of[self.pos] {
+                        match self.group_at(self.pos) {
                             Some(g) if self.flat[g] => {
                                 if d.kind == DirKind::EndIf {
                                     self.bump();
@@ -789,7 +796,7 @@ impl<'a> Parser<'a> {
     /// arm is parsed in place and the chain is scored without bodies.
     fn parse_preproc(&mut self, out: &mut Vec<Node>) {
         let start = self.pos;
-        let Some(g) = self.group_of[start] else {
+        let Some(g) = self.group_at(start) else {
             self.bump();
             return;
         };
@@ -846,7 +853,7 @@ impl<'a> Parser<'a> {
     /// `#If` group there is parsed flat.
     fn skip_inline_directives(&mut self, out: &mut Vec<Node>) {
         while let Kind::Directive(d) = &self.cur().kind {
-            match (d.kind, self.group_of.get(self.pos).copied().flatten()) {
+            match (d.kind, self.group_at(self.pos)) {
                 (DirKind::If, Some(g)) => out.push(self.flat_preproc(g)),
                 (DirKind::ElseIf | DirKind::Else, Some(g)) if self.flat[g] => {
                     self.skip_inactive_arms(g);
@@ -911,7 +918,7 @@ impl<'a> Parser<'a> {
     /// The kind of the directive at the cursor if it belongs to group `g`.
     fn group_directive(&self, g: usize) -> Option<DirKind> {
         match &self.cur().kind {
-            Kind::Directive(d) if self.group_of[self.pos] == Some(g) => Some(d.kind),
+            Kind::Directive(d) if self.group_at(self.pos) == Some(g) => Some(d.kind),
             _ => None,
         }
     }
