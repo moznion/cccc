@@ -31,6 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write # to push the grown corpus to the fuzz-corpus branch
+      issues: write # to report fuzz failures
     strategy:
       fail-fast: false
       matrix:
@@ -70,14 +71,17 @@ jobs:
           echo "corpus entries before: $(find "$CORPUS_DIR" -type f | wc -l)"
 
       # New inputs land in the first directory (the corpus); seeds/ is read
-      # only. -timeout flags inputs slow enough to be a hang.
+      # only. -timeout flags inputs slow enough to be a hang. The log is kept
+      # for the failure report below.
       - name: Fuzz
+        id: fuzz
         working-directory: crates/${{ matrix.crate }}
         run: |
+          set -o pipefail
           cargo +nightly fuzz run "${{ matrix.target }}" \
             "$GITHUB_WORKSPACE/$CORPUS_DIR" fuzz/seeds -- \
             -max_total_time="$SECONDS_TO_FUZZ" -timeout=10 -max_len=4096 \
-            -print_final_stats=1
+            -print_final_stats=1 2>&1 | tee "$RUNNER_TEMP/fuzz.log"
 
       - name: Upload failing inputs
         if: failure()
@@ -86,6 +90,42 @@ jobs:
           name: fuzz-artifacts-${{ matrix.crate }}-${{ matrix.target }}
           path: ${{ env.FUZZ_DIR }}/artifacts/
           if-no-files-found: ignore
+
+      # Report only failures of the fuzzer itself (not of setup or the corpus
+      # push), and only from runs on the default branch; PR runs show up in
+      # the PR checks. An open issue for the same target gets a comment
+      # instead of a duplicate, so a crash left unfixed does not open one
+      # issue per day.
+      - name: Report the failure as an issue
+        if: ${{ failure() && steps.fuzz.outcome == 'failure' && env.PERSIST == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          LABEL: fuzz-failure
+          TITLE: "Fuzz failure: ${{ matrix.crate }}/${{ matrix.target }}"
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          {
+            echo "Run: $RUN_URL"
+            echo "Artifact: \`fuzz-artifacts-${{ matrix.crate }}-${{ matrix.target }}\`"
+            echo
+            echo "Failing inputs:"
+            find "$FUZZ_DIR/artifacts" -type f -printf '- %P\n' 2>/dev/null || true
+            echo
+            echo '```'
+            tail -n 60 "$RUNNER_TEMP/fuzz.log"
+            echo '```'
+          } > "$RUNNER_TEMP/issue-body.md"
+          gh label create "$LABEL" --color B60205 \
+            --description "Found by the scheduled fuzz workflow" 2>/dev/null || true
+          existing=$(gh issue list --label "$LABEL" --state open \
+            --search "\"$TITLE\" in:title" --json number,title \
+            --jq "map(select(.title == \"$TITLE\")) | .[0].number // empty")
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body-file "$RUNNER_TEMP/issue-body.md"
+          else
+            gh issue create --title "$TITLE" --label "$LABEL" \
+              --body-file "$RUNNER_TEMP/issue-body.md"
+          fi
 
       # Keep the corpus even when a failure was found (the failing input
       # itself goes to artifacts/, not the corpus). cmin drops entries that
