@@ -1,0 +1,9 @@
+  Sub Hf sInto Count()
+            Distinct
+     .City Into Count()
+            Distinct
+    im q = From c In customers, o As Order In orders
+           Count()
+            Distinct
+    orders
+         scendPr

@@ -1,0 +1,18 @@
+
+Public MustInherit Class Shape
+    Implements IDisposable
+    Private _ Public Property
+    Public Shared Operator +(a As Shape, b )s Shape) As Shape
+        Return a
+    End Operator
+    Public Custom Event e As Integer = 3
+    Public End Set
+    End Property
+andler
+        AddHandler(value As .entHandler)
+        End AddHandler
+        RemoveHandler(value As EventHand|er)
+        End RemoveHandler
+        RaiseEvent(sende
+#If A ThF e( eF(n
+r As o

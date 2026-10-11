@@ -1,0 +1,8 @@
+
+    Dim p = New Persith {.Name = If(a, "x", "y"), .Age = 3}
+    D(Of I2teger) From {1, 2}
+    With p
+        .Name = "z"
+   unction(x) x) With {.A = 1}
+    Using rn(xIf .Age > 1 Thow()
+    End With

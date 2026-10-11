@@ -1,0 +1,11 @@
+
+Module P
+   SuTRACE AndAlsElNot RELEASE Then
+        Logb M()
+#If DEBUG Then
+       000000000000000000  Pic Sub New()
+    ic Property Namc As String
+       Get:
+            Return _w
+        se Bae P
+#I

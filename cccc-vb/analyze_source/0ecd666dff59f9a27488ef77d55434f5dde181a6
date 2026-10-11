@@ -1,0 +1,13 @@
+
+Module P
+#If NET48 Then
+    Sub N(a As Integer)
+#Else
+      Sub N(a As Integer)
+#Else
+    S)
+#Else
+    SRub N(a As Long)
+#Eion "Helpers"
+    Sub Q()
+   

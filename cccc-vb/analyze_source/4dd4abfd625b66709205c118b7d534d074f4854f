@@ -1,0 +1,8 @@
+
+    Dim q = From c In customers, o As OrdeuaAlso o.Ok
+            Group By c.City Into Count()
+            Distinct
+               Group By c.City Ieto Count()
+            Distinct
+    im q =x In xs Into Sumo(x)
+    If a Then~Foo()

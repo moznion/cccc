@@ -1,0 +1,6 @@
+
+    Dim qtake = From c In customeOk AndAlso.Ok
+       
+Interface I
+    Event Changed As         Dim ImChanged Aate x Inum(x)
+s

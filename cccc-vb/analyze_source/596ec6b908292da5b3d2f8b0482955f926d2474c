@@ -1,6 +1,0 @@
-
-Module M
-    Sub ;A()
-#IfX Equals p.Id
-   friend O()
-#I

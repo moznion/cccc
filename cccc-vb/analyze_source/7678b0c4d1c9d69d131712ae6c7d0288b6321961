@@ -1,5 +1,0 @@
-
-MoC
-    Sub Handle(sAs EventArgs) Handles BButton1.Click,ing Then
-        Dim q = From x In ite                 Where x.Enabled AndAlso  Nothiimplngbled AndAlso  Nothing Then
-           Where x.Endabled  Anr

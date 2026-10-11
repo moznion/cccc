@@ -1,0 +1,4 @@
+
+    Dim q = From c In customers
+            Join p In products On o.Pid Equals p.Id
+            Where c.Ok AndAlso If a Then Foo()

@@ -1,0 +1,9 @@
+
+Inface
+Structure S
+    Implements I
+   lements I.Changed
+    
+    A = 1
+    B
+End Enum

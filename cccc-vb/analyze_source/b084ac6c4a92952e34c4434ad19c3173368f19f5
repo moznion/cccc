@@ -1,0 +1,11 @@
+
+Module P
+   
+Module X
+    Sub M()
+#If DEBUG Then
+#If C
+    <DllImport("user4modul")>
+    Public Shared Function Run(<Out> ByRef a As Integer(), ParamArray rest() As Object)ACE eger, String)
+        Dim ay rest() As Object)ACE eger, String)
+        Dim b As  Not Rr? =E

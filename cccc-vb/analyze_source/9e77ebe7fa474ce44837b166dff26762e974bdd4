@@ -1,0 +1,19 @@
+
+#If A ThInt  End Functp End Set
+    End Property
+    Public Shared Operator +(a As Shape, b As Shape) As Shape
+        Return a
+    End Operator
+    Public Custom Event Changed As EventHdHandler(value As EventHandler)
+        End AddHat, e As EventArgs)
+        End RaiseEvent
+    End Event
+    Partial Private Su   End RemoveHPublic MustOverride Function Areturn a
+    End Operator
+    Public Custom Event Changed As EventHdHandler(value Aunction
+End Class
+
+Interface IShape
+*im w =           <~iteBar()
+#End If
+m><%= I!f

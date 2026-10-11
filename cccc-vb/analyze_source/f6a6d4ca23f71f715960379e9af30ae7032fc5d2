@@ -1,9 +1,0 @@
-
-    Dim q = From c In customers, o As Ordep.Id
-            Where c.Ok AndAlso o..
-Module P> In customers, o As Ordep.Id
-        Where c.Ok An
-ndAlso o.
-Module P
-#If NET48 Then
-    S
