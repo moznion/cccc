@@ -337,10 +337,7 @@ pub(crate) struct Parser<'a> {
 }
 
 impl<'a> Parser<'a> {
-    /// A parser over a token sub-list (interpolation hole, directive
-    /// condition), with no preprocessor groups. A hole can still hold
-    /// directive tokens (a multi-line lambda in an unterminated string runs
-    /// onto the following lines); [`Self::group_at`] treats them as stray.
+    /// A parser without preprocessor groups; [`Parser::new`] fills them in.
     fn bare(src: &'a str, toks: &'a [Token]) -> Self {
         Self {
             src,
@@ -410,7 +407,9 @@ impl<'a> Parser<'a> {
     /// condition) with the enclosing unit names lent for recursion
     /// detection. Returns the nodes and the sub-list's syntax errors.
     fn sub_expr(&mut self, toks: &'a [Token]) -> (Vec<Node>, Vec<u32>) {
-        let mut sub = Parser::bare(self.src, toks);
+        // A hole can hold a multi-line lambda whose body holds directives,
+        // so the sub-list gets its own preprocessor groups.
+        let mut sub = Parser::new(self.src, toks);
         sub.units = std::mem::take(&mut self.units);
         sub.nested = 1;
         let nodes = sub.parse_expr();
