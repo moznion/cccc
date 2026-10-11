@@ -919,6 +919,36 @@ End Module
     }
 
     #[test]
+    fn preprocessor_group_inside_an_interpolated_lambda_is_a_branch() {
+        // The hole's sub-parser used to have no preprocessor groups, so a
+        // directive in a multi-line lambda body indexed out of bounds (found
+        // by fuzzing).
+        let src = r#"
+Module M
+    Dim t = $"{(Sub()
+#If DEBUG Then
+            If a Then Log()
+#Else
+            Log()
+#End If
+        End Sub)}"
+End Module
+"#;
+        // #If(+1) #Else(+1) + If nested in #If(+2), as outside a string
+        assert_eq!(scores(src, "<lambda>"), (4, 3));
+    }
+
+    #[test]
+    fn unmatched_directives_inside_an_interpolated_lambda_do_not_panic() {
+        for directive in ["#If DEBUG Then", "#ElseIf DEBUG Then", "#Else", "#End If"] {
+            let src = format!(
+                "Module M\n    Dim t = $\"{{(Sub()\n{directive}\n        End Sub)}}\"\nEnd Module\n"
+            );
+            analyze(&src);
+        }
+    }
+
+    #[test]
     fn keyword_table_is_sorted_for_binary_search() {
         assert!(lexer::KEYWORDS.windows(2).all(|w| w[0] < w[1]));
     }
