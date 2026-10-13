@@ -11,4 +11,4 @@ description = "Swift (tree-sitter) adapter that lowers source into the cccc-core
 [dependencies]
 cccc-core = { workspace = true }
 tree-sitter = "0.27"
-tree-sitter-swift = "0.7"
+tree-sitter-swift = "0.7.4"

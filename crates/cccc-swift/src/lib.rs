@@ -725,6 +725,18 @@ mod tests {
         assert_eq!(cyclomatic_of(src, "f"), 3);
     }
 
+    // `as?` binds tighter than `??`, so this is `(value as? Int) ?? 0`. The
+    // conditional cast itself is not a decision point; only the `??` scores.
+    #[test]
+    fn conditional_cast_with_nil_coalescing() {
+        let src = "func f(_ value: Any) -> Int { value as? Int ?? 0 }";
+        assert!(parse_errors(src).is_empty());
+        // one ?? run = +1 cognitive
+        assert_eq!(cognitive_of(src, "f"), 1);
+        // base 1 + (?? has 2 operands => +1) = 2
+        assert_eq!(cyclomatic_of(src, "f"), 2);
+    }
+
     // `open` is a contextual keyword (access modifier) but valid as a method
     // name; a guard with a conditional cast nests inside the switch case.
     //
