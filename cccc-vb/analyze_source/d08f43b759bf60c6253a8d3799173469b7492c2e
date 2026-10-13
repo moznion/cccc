@@ -1,0 +1,7 @@
+
+Inface
+Structure S
+    Impem    
+    A = 1
+    B
+End Enum

@@ -1,0 +1,6 @@
+
+2      = Aggregate x In xs I0
+on
+  Dim n = Aggregate x In xs I0
+on
+ 

@@ -1,0 +1,15 @@
+
+    Try
+        If ()
+    Catch
+    Finally
+        Ba:::::::::::::::::::::::::::     If b Then Bar()
+    Catch
+    Finally
+        Baz()
+    Enar()
+          If b Then 
+    Catch
+    Finally
+        Baz()
+    ry

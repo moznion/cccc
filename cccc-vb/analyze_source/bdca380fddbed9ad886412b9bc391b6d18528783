@@ -1,6 +1,0 @@
-
-    Foo(A,
-#If DEB
-#Else
-#End If
-        )

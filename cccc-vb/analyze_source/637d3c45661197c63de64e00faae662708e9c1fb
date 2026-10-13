@@ -1,5 +1,0 @@
-le P
-#If  Loop[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[
-  
-    Dim q = From c In- customers, order              Group By c.Count()
-  om c 

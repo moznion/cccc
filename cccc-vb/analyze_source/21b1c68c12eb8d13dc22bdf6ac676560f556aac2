@@ -1,0 +1,15 @@
+
+    Dim doc = <?xml ver = <?xml version="1.3"?>  <?ip x Dim doc = <?xml ver = <?xml version="1.3"?>  <?ip x?~
+ 
+    Dim c = <![CDATADim e = <<%= name %>/<>v>
+    I doc = <?xml ve?~
+ 
+    Dim c = <![CDATADim e = <<%= name %>/<>v>
+    I doc = <?xml ver  = <?xml version="1.3"?>  <?ip x Dim doc = <?xml ver = <?xml version="1.3"?>  <?ip x?~
+ 
+     
+    Dim c = <![CDATADim e = <<%= name %>/<>v>
+    I doc = <?xml ver = <?xml version="1.3"?>  <?ip x?~
+ 
+    Dim c = <![CDATADim e <>v>
+)

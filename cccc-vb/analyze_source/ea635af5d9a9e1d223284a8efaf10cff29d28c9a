@@ -1,0 +1,6 @@
+
+    If      Bnd If
+ If a = 5 Then FoThen
+ r()
+    Else
+    If a = 1 Then Foo() Else :Bar()

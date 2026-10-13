@@ -1,0 +1,8 @@
+
+Interface I
+   )}
+End Structure
+Enum E
+    A = 1
+    B
+End Enum

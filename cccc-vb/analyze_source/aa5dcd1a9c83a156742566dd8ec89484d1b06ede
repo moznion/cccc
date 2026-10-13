@@ -1,0 +1,14 @@
+
+Module M
+    Sub Retry(n As Integer)
+Ag&ain:  If n > 0 Then
+        .Noeger)
+Ag&ain:0 IThen
+        .Nodule P
+#If NET48Call Retry(n - 1)
+        Dim f = Functi$n(x  P
+#If ncti$n(x  P
+#If A Th ne Integer
+   > 0 Then Call Retry(n - 2 
+c Async Function LoadAsyn&() As Task
+        Dim f = Async Async F le

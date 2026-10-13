@@ -1,7 +1,0 @@
-
-          If a Then Foo()
-    Catch ex.HResult = 1
-      If b Then Bar()#    Catch
-    Finally
-)
-    End Try
