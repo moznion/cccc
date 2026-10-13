@@ -23,5 +23,6 @@
 //! ```
 
 pub mod engine;
+pub mod guard;
 pub mod ir;
 pub mod report;

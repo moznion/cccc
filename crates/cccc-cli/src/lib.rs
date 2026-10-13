@@ -48,8 +48,28 @@ const PARALLEL_THRESHOLD: usize = 16;
 /// the relevant adapter (e.g. `cccc_es::analyze_source`).
 pub type AnalyzeFn = fn(&Path, &str) -> FileReport;
 
+/// Stack size for every thread that analyzes files or handles reports: the one
+/// [`run`] works on and each rayon worker. It covers what adapters are
+/// guaranteed ([`cccc_core::guard::STACK_SIZE`]), so they run in place instead
+/// of switching stacks per file, plus room for the reports they return: those
+/// nest functions up to [`cccc_core::guard::MAX_NESTING_DEPTH`] deep, and
+/// caching, rendering and dropping them all recurse per level — too much for
+/// the 2 MiB rayon default or a 1 MiB Windows main thread. Reserved, not
+/// committed: idle threads cost address space, not memory.
+const STACK_SIZE: usize = cccc_core::guard::STACK_SIZE + (64 << 20);
+
 /// Run the CLI end to end and return a process exit code.
 pub fn run() -> i32 {
+    std::thread::Builder::new()
+        .name("cccc".into())
+        .stack_size(STACK_SIZE)
+        .spawn(run_on_current_thread)
+        .expect("failed to spawn the main cccc thread")
+        .join()
+        .unwrap_or_else(|panic| std::panic::resume_unwind(panic))
+}
+
+fn run_on_current_thread() -> i32 {
     let command = Cli::command()
         .name("cccc")
         .bin_name("cccc")
@@ -237,7 +257,11 @@ pub fn run() -> i32 {
     let pool = if jobs <= 1 || files.len() <= PARALLEL_THRESHOLD {
         None
     } else {
-        match rayon::ThreadPoolBuilder::new().num_threads(jobs).build() {
+        match rayon::ThreadPoolBuilder::new()
+            .num_threads(jobs)
+            .stack_size(STACK_SIZE)
+            .build()
+        {
             Ok(pool) => Some(pool),
             Err(e) => {
                 eprintln!("cccc: failed to start thread pool: {e}");
@@ -314,14 +338,14 @@ pub fn run() -> i32 {
     if let Some(cache_file) = cache_path.as_deref()
         && !cache_is_current
     {
-        let store = || {
-            cache::store(cache_file, &entries, &|p| {
+        let store = |parallel| {
+            cache::store(cache_file, &entries, parallel, &|p| {
                 lang_for(&dispatch, p).map(|l| l.name)
             })
         };
         match &pool {
-            Some(pool) => pool.install(store),
-            None => store(),
+            Some(pool) => pool.install(|| store(true)),
+            None => store(false),
         }
     }
 

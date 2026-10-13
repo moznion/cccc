@@ -25,7 +25,7 @@
 
 use std::path::Path;
 
-use cccc_core::engine;
+use cccc_core::guard;
 pub use cccc_core::ir::{LogicalOp, Node, SwitchCase};
 pub use cccc_core::report::{FileReport, FunctionReport};
 pub use lispexp::{Datum, DatumKind, Delim, Options, Region, Walk, parse, walk_regions};
@@ -213,8 +213,9 @@ pub fn analyze(
     path: &Path,
     source: &str,
 ) -> FileReport {
-    let (nodes, parse_errors) = lower(options, lower_list, logical_op, source);
-    engine::analyze(&path.display().to_string(), &nodes, parse_errors)
+    guard::analyze(path, source, |_, source| {
+        lower(options, lower_list, logical_op, source)
+    })
 }
 
 /// The symbol text of a datum, if it is a symbol.

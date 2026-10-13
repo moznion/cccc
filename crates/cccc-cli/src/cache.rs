@@ -382,29 +382,34 @@ impl Cache {
 /// Signatures come from the caller — hashed from bytes it already had in
 /// memory, never by re-reading here — and an entry without one (its read-time
 /// stat failed), or whose language `lang_for` can't name, is simply not
-/// cached. Encoding fans out on the current rayon pool; a failed write only
+/// cached. With `parallel`, encoding fans out on the current rayon pool —
+/// callers without a pool of their own pass `false` rather than wake rayon's
+/// global one, whose small default stacks the CLI avoids. A failed write only
 /// costs the next run its warm start, so it warns rather than failing the
 /// process.
 pub fn store(
     path: &Path,
     entries: &[(FileReport, Option<Sig>)],
+    parallel: bool,
     lang_for: &(dyn Fn(&Path) -> Option<&'static str> + Sync),
 ) {
-    let encoded: Vec<(String, IndexEntry, Vec<u8>)> = entries
-        .par_iter()
-        .filter_map(|(r, sig)| {
-            let sig = (*sig)?;
-            let lang = lang_for(Path::new(&r.path))?;
-            let blob = bincode::serialize(&to_cache(r)).ok()?;
-            let entry = IndexEntry {
-                lang: lang.to_string(),
-                sig,
-                offset: 0, // fixed up below, once concatenation order is known
-                len: blob.len() as u64,
-            };
-            Some((r.path.clone(), entry, blob))
-        })
-        .collect();
+    let encode = |(r, sig): &(FileReport, Option<Sig>)| {
+        let sig = (*sig)?;
+        let lang = lang_for(Path::new(&r.path))?;
+        let blob = bincode::serialize(&to_cache(r)).ok()?;
+        let entry = IndexEntry {
+            lang: lang.to_string(),
+            sig,
+            offset: 0, // fixed up below, once concatenation order is known
+            len: blob.len() as u64,
+        };
+        Some((r.path.clone(), entry, blob))
+    };
+    let encoded: Vec<(String, IndexEntry, Vec<u8>)> = if parallel {
+        entries.par_iter().filter_map(encode).collect()
+    } else {
+        entries.iter().filter_map(encode).collect()
+    };
 
     let mut index = Vec::with_capacity(encoded.len());
     let mut blobs = Vec::new();
@@ -510,6 +515,7 @@ mod tests {
         store(
             cache_file,
             &[(sample_report(&src.display().to_string()), Some(sig))],
+            false,
             &move |_| Some(lang),
         );
     }
@@ -591,7 +597,9 @@ mod tests {
         assert_eq!(hit.report.cognitive, 3);
 
         // Re-storing with the refreshed signature turns it back into a stat hit.
-        store(&cache_file, &[(hit.report, Some(hit.sig))], &|_| Some("es"));
+        store(&cache_file, &[(hit.report, Some(hit.sig))], false, &|_| {
+            Some("es")
+        });
         let hit = load(&cache_file).unwrap().lookup(&src, "es", None).unwrap();
         assert!(!hit.refreshed, "refreshed mtime now stat-hits");
 

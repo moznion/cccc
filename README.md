@@ -455,6 +455,12 @@ cccc: warning: 1 parse error(s) in 1 file(s); results for those files may be inc
 cccc:   src/broken.py (1)
 ```
 
+A file nested more than 1000 levels deep — by `()`/`[]`/`{}` brackets, or by
+functions defined inside functions — is skipped with a parse error such as
+`line 1: nested deeper than 1000 levels; file skipped` rather than analyzed.
+Such depth only occurs in generated or adversarial input, and analyzing it
+could overflow the stack and abort the whole run.
+
 > Note: the top level is an object (`{ files, summary }`), so to post-process
 > the per-file array with `jq`, start from `.files` — e.g.
 > `cccc src/ | jq '.files | sort_by(-.cognitive)'`.

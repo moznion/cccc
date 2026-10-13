@@ -10,3 +10,5 @@ description = "Language-agnostic Cognitive (SonarSource) and Cyclomatic (McCabe)
 
 [dependencies]
 serde = { workspace = true }
+# Runs adapters on a dedicated large stack (see `guard`).
+stacker = "0.1.25"

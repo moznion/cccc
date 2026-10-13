@@ -31,7 +31,7 @@
 use std::path::Path;
 
 use cccc_clike::{Language, SharedBuilder, collect_errors};
-use cccc_core::engine;
+use cccc_core::guard;
 use cccc_core::ir::Node;
 use cccc_core::report::FileReport;
 
@@ -48,8 +48,7 @@ pub const DEFAULT_EXTS: &[&str] = &["cpp", "cc", "cxx", "hpp", "hh", "hxx", "h++
 /// This is the convenience entry point used by the CLI; for the raw IR (e.g. to
 /// feed a different consumer) use [`to_ir`].
 pub fn analyze_source(path: &Path, source: &str) -> FileReport {
-    let (nodes, parse_errors) = to_ir(path, source);
-    engine::analyze(&path.display().to_string(), &nodes, parse_errors)
+    guard::analyze(path, source, to_ir)
 }
 
 /// Parse `source` and lower it to the complexity IR, returning the module-level
