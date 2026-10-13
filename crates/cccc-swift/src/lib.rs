@@ -726,6 +726,38 @@ mod tests {
         assert_eq!(cyclomatic_of(src, "f"), 3);
     }
 
+    // `open` is a contextual keyword (access modifier) but valid as a method
+    // name; a guard with a conditional cast nests inside the switch case.
+    //
+    // Known grammar bug (tree-sitter-swift <= 0.7.4): inside a switch case, a
+    // call `open(..)` on a line after another statement is misread as the
+    // `open` visibility modifier of the next switch entry, producing a syntax
+    // error. Scores are unaffected here. When the grammar is fixed, this
+    // assertion fails; flip it to `is_empty()`.
+    #[test]
+    fn guard_with_conditional_cast_in_switch_case() {
+        let src = r#"
+            struct Example {
+                func open(_ value: [String: Any]) {}
+                func run(_ input: [String: Any]) {
+                    switch 1 {
+                    case 1:
+                        guard let params = input["params"] as? [String: Any] else { return }
+                        open(params)
+                    default: return
+                    }
+                }
+            }
+        "#;
+        assert_eq!(parse_errors(src), vec!["syntax error at line 8"]);
+        assert_eq!(cognitive_of(src, "open"), 0);
+        assert_eq!(cyclomatic_of(src, "open"), 1);
+        // switch(+1) + guard nested in case(+2) = 3
+        assert_eq!(cognitive_of(src, "run"), 3);
+        // base 1 + 1 non-default case + guard = 3
+        assert_eq!(cyclomatic_of(src, "run"), 3);
+    }
+
     #[test]
     fn optional_chain_guards_add_only_cyclomatic_paths() {
         let src = r#"
