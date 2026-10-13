@@ -366,7 +366,8 @@ fn lower_guard(b: &mut Builder, items: &[Datum]) {
     b.lower_seq(items.get(2..).unwrap_or(&[]));
     if let Some(DatumKind::List { items: spec, .. }) = items.get(1).map(|d| &d.kind) {
         let body = b.collect(|b| {
-            if let Some(node) = lower_cond_clauses(b, &spec[1..]) {
+            // An empty spec, `(guard () …)`, has no variable and no clauses.
+            if let Some(node) = lower_cond_clauses(b, spec.get(1..).unwrap_or(&[])) {
                 b.emit(*node);
             }
         });
@@ -581,6 +582,13 @@ mod tests {
         assert_eq!(cognitive_of(src, "safe"), 3);
         // base 1 + catch + one handler clause = 3
         assert_eq!(cyclomatic_of(src, "safe"), 3);
+    }
+
+    #[test]
+    fn guard_with_an_empty_spec_does_not_panic() {
+        // Found by fuzzing: slicing past the missing variable panicked.
+        let src = "(define (safe thunk) (guard () (thunk)))";
+        assert_eq!(cognitive_of(src, "safe"), 1);
     }
 
     #[test]
