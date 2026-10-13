@@ -1,5 +1,9 @@
 # Changelog
 
+## [v1.8.2](https://github.com/moznion/cccc/compare/v1.8.1...v1.8.2) - 2026-10-13
+
+- fix(ci): send a User-Agent on crates.io Trusted Publishing API calls by @moznion in https://github.com/moznion/cccc/pull/159
+
 ## [v1.8.1](https://github.com/moznion/cccc/compare/v1.8.0...v1.8.1) - 2026-10-13
 
 - fix(vb): handle #If directives inside interpolated-string lambdas by @moznion in https://github.com/moznion/cccc/pull/146
