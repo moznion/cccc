@@ -1,13 +1,13 @@
 {
   "repository": "moznion/cccc",
   "ref": "refs/heads/main",
-  "commit": "37b7ae376348617f8a1d2a3936834c5651ce5c80",
+  "commit": "72c18c1a263861c8bcf14eb8d51ca1b78aa7a0e9",
   "base_ref": "refs/heads/main",
   "coverage": {
     "type": "loc",
     "format": "LCOV",
-    "total": 16799,
-    "covered": 15968,
+    "total": 16800,
+    "covered": 15969,
     "files": [
       {
         "type": "loc",
@@ -2066,8 +2066,8 @@
         "type": "loc",
         "file": "/home/runner/work/cccc/cccc/crates/cccc-cli/src/cache.rs",
         "normalized_path": "crates/cccc-cli/src/cache.rs",
-        "total": 485,
-        "covered": 467,
+        "total": 486,
+        "covered": 468,
         "blocks": [
           {
             "type": "loc",
@@ -4663,104 +4663,83 @@
             "type": "loc",
             "start_line": 678,
             "end_line": 678,
-            "count": 4,
-            "count_u64": 4
+            "count": 5,
+            "count_u64": 5
           },
           {
             "type": "loc",
             "start_line": 679,
             "end_line": 679,
-            "count": 4,
-            "count_u64": 4
+            "count": 5,
+            "count_u64": 5
           },
           {
             "type": "loc",
             "start_line": 680,
             "end_line": 680,
-            "count": 4,
-            "count_u64": 4
+            "count": 5,
+            "count_u64": 5
           },
           {
             "type": "loc",
             "start_line": 681,
             "end_line": 681,
-            "count": 4,
-            "count_u64": 4
+            "count": 5,
+            "count_u64": 5
           },
           {
             "type": "loc",
             "start_line": 682,
             "end_line": 682,
-            "count": 4,
-            "count_u64": 4
+            "count": 5,
+            "count_u64": 5
           },
           {
             "type": "loc",
             "start_line": 683,
             "end_line": 683,
-            "count": 4,
-            "count_u64": 4
+            "count": 5,
+            "count_u64": 5
           },
           {
             "type": "loc",
             "start_line": 684,
             "end_line": 684,
-            "count": 4,
-            "count_u64": 4
+            "count": 5,
+            "count_u64": 5
           },
           {
             "type": "loc",
             "start_line": 685,
             "end_line": 685,
-            "count": 4,
-            "count_u64": 4
+            "count": 5,
+            "count_u64": 5
           },
           {
             "type": "loc",
             "start_line": 686,
             "end_line": 686,
-            "count": 4,
-            "count_u64": 4
+            "count": 5,
+            "count_u64": 5
           },
           {
             "type": "loc",
             "start_line": 687,
             "end_line": 687,
-            "count": 4,
-            "count_u64": 4
+            "count": 5,
+            "count_u64": 5
           },
           {
             "type": "loc",
             "start_line": 689,
             "end_line": 689,
-            "count": 4,
-            "count_u64": 4
+            "count": 5,
+            "count_u64": 5
           },
           {
             "type": "loc",
             "start_line": 690,
             "end_line": 690,
-            "count": 1,
-            "count_u64": 1
-          },
-          {
-            "type": "loc",
-            "start_line": 691,
-            "end_line": 691,
-            "count": 1,
-            "count_u64": 1
-          },
-          {
-            "type": "loc",
-            "start_line": 692,
-            "end_line": 692,
-            "count": 1,
-            "count_u64": 1
-          },
-          {
-            "type": "loc",
-            "start_line": 693,
-            "end_line": 693,
             "count": 1,
             "count_u64": 1
           },
@@ -4822,6 +4801,13 @@
           },
           {
             "type": "loc",
+            "start_line": 702,
+            "end_line": 702,
+            "count": 1,
+            "count_u64": 1
+          },
+          {
+            "type": "loc",
             "start_line": 703,
             "end_line": 703,
             "count": 1,
@@ -4843,29 +4829,22 @@
           },
           {
             "type": "loc",
-            "start_line": 712,
-            "end_line": 712,
+            "start_line": 707,
+            "end_line": 707,
             "count": 1,
             "count_u64": 1
           },
           {
             "type": "loc",
-            "start_line": 713,
-            "end_line": 713,
+            "start_line": 708,
+            "end_line": 708,
             "count": 1,
             "count_u64": 1
           },
           {
             "type": "loc",
-            "start_line": 714,
-            "end_line": 714,
-            "count": 1,
-            "count_u64": 1
-          },
-          {
-            "type": "loc",
-            "start_line": 715,
-            "end_line": 715,
+            "start_line": 709,
+            "end_line": 709,
             "count": 1,
             "count_u64": 1
           },
@@ -4892,6 +4871,20 @@
           },
           {
             "type": "loc",
+            "start_line": 719,
+            "end_line": 719,
+            "count": 1,
+            "count_u64": 1
+          },
+          {
+            "type": "loc",
+            "start_line": 720,
+            "end_line": 720,
+            "count": 1,
+            "count_u64": 1
+          },
+          {
+            "type": "loc",
             "start_line": 721,
             "end_line": 721,
             "count": 1,
@@ -4899,8 +4892,8 @@
           },
           {
             "type": "loc",
-            "start_line": 723,
-            "end_line": 723,
+            "start_line": 722,
+            "end_line": 722,
             "count": 1,
             "count_u64": 1
           },
@@ -4908,13 +4901,6 @@
             "type": "loc",
             "start_line": 725,
             "end_line": 725,
-            "count": 1,
-            "count_u64": 1
-          },
-          {
-            "type": "loc",
-            "start_line": 726,
-            "end_line": 726,
             "count": 1,
             "count_u64": 1
           },
@@ -4948,13 +4934,6 @@
           },
           {
             "type": "loc",
-            "start_line": 732,
-            "end_line": 732,
-            "count": 1,
-            "count_u64": 1
-          },
-          {
-            "type": "loc",
             "start_line": 733,
             "end_line": 733,
             "count": 1,
@@ -4969,8 +4948,29 @@
           },
           {
             "type": "loc",
+            "start_line": 735,
+            "end_line": 735,
+            "count": 1,
+            "count_u64": 1
+          },
+          {
+            "type": "loc",
             "start_line": 736,
             "end_line": 736,
+            "count": 1,
+            "count_u64": 1
+          },
+          {
+            "type": "loc",
+            "start_line": 737,
+            "end_line": 737,
+            "count": 1,
+            "count_u64": 1
+          },
+          {
+            "type": "loc",
+            "start_line": 738,
+            "end_line": 738,
             "count": 1,
             "count_u64": 1
           },
@@ -4983,22 +4983,22 @@
           },
           {
             "type": "loc",
-            "start_line": 741,
-            "end_line": 741,
+            "start_line": 744,
+            "end_line": 744,
             "count": 1,
             "count_u64": 1
           },
           {
             "type": "loc",
-            "start_line": 742,
-            "end_line": 742,
+            "start_line": 745,
+            "end_line": 745,
             "count": 1,
             "count_u64": 1
           },
           {
             "type": "loc",
-            "start_line": 743,
-            "end_line": 743,
+            "start_line": 746,
+            "end_line": 746,
             "count": 1,
             "count_u64": 1
           },
@@ -5011,22 +5011,15 @@
           },
           {
             "type": "loc",
-            "start_line": 748,
-            "end_line": 748,
+            "start_line": 751,
+            "end_line": 751,
             "count": 1,
             "count_u64": 1
           },
           {
             "type": "loc",
-            "start_line": 758,
-            "end_line": 758,
-            "count": 1,
-            "count_u64": 1
-          },
-          {
-            "type": "loc",
-            "start_line": 761,
-            "end_line": 761,
+            "start_line": 752,
+            "end_line": 752,
             "count": 1,
             "count_u64": 1
           },
@@ -5034,20 +5027,6 @@
             "type": "loc",
             "start_line": 762,
             "end_line": 762,
-            "count": 1,
-            "count_u64": 1
-          },
-          {
-            "type": "loc",
-            "start_line": 763,
-            "end_line": 763,
-            "count": 1,
-            "count_u64": 1
-          },
-          {
-            "type": "loc",
-            "start_line": 764,
-            "end_line": 764,
             "count": 1,
             "count_u64": 1
           },
@@ -5076,29 +5055,29 @@
             "type": "loc",
             "start_line": 768,
             "end_line": 768,
-            "count": 4,
-            "count_u64": 4
+            "count": 1,
+            "count_u64": 1
           },
           {
             "type": "loc",
             "start_line": 769,
             "end_line": 769,
-            "count": 4,
-            "count_u64": 4
+            "count": 1,
+            "count_u64": 1
           },
           {
             "type": "loc",
             "start_line": 770,
             "end_line": 770,
-            "count": 4,
-            "count_u64": 4
+            "count": 1,
+            "count_u64": 1
           },
           {
             "type": "loc",
             "start_line": 771,
             "end_line": 771,
-            "count": 4,
-            "count_u64": 4
+            "count": 1,
+            "count_u64": 1
           },
           {
             "type": "loc",
@@ -5151,6 +5130,13 @@
           },
           {
             "type": "loc",
+            "start_line": 779,
+            "end_line": 779,
+            "count": 4,
+            "count_u64": 4
+          },
+          {
+            "type": "loc",
             "start_line": 780,
             "end_line": 780,
             "count": 4,
@@ -5160,29 +5146,22 @@
             "type": "loc",
             "start_line": 781,
             "end_line": 781,
-            "count": 1,
-            "count_u64": 1
+            "count": 4,
+            "count_u64": 4
           },
           {
             "type": "loc",
             "start_line": 782,
             "end_line": 782,
-            "count": 1,
-            "count_u64": 1
-          },
-          {
-            "type": "loc",
-            "start_line": 783,
-            "end_line": 783,
-            "count": 1,
-            "count_u64": 1
+            "count": 4,
+            "count_u64": 4
           },
           {
             "type": "loc",
             "start_line": 784,
             "end_line": 784,
-            "count": 1,
-            "count_u64": 1
+            "count": 4,
+            "count_u64": 4
           },
           {
             "type": "loc",
@@ -5242,6 +5221,13 @@
           },
           {
             "type": "loc",
+            "start_line": 793,
+            "end_line": 793,
+            "count": 1,
+            "count_u64": 1
+          },
+          {
+            "type": "loc",
             "start_line": 794,
             "end_line": 794,
             "count": 1,
@@ -5263,6 +5249,13 @@
           },
           {
             "type": "loc",
+            "start_line": 798,
+            "end_line": 798,
+            "count": 1,
+            "count_u64": 1
+          },
+          {
+            "type": "loc",
             "start_line": 799,
             "end_line": 799,
             "count": 1,
@@ -5272,20 +5265,6 @@
             "type": "loc",
             "start_line": 800,
             "end_line": 800,
-            "count": 1,
-            "count_u64": 1
-          },
-          {
-            "type": "loc",
-            "start_line": 801,
-            "end_line": 801,
-            "count": 1,
-            "count_u64": 1
-          },
-          {
-            "type": "loc",
-            "start_line": 802,
-            "end_line": 802,
             "count": 1,
             "count_u64": 1
           },
@@ -5333,6 +5312,13 @@
           },
           {
             "type": "loc",
+            "start_line": 809,
+            "end_line": 809,
+            "count": 1,
+            "count_u64": 1
+          },
+          {
+            "type": "loc",
             "start_line": 810,
             "end_line": 810,
             "count": 1,
@@ -5354,29 +5340,22 @@
           },
           {
             "type": "loc",
-            "start_line": 818,
-            "end_line": 818,
+            "start_line": 814,
+            "end_line": 814,
             "count": 1,
             "count_u64": 1
           },
           {
             "type": "loc",
-            "start_line": 819,
-            "end_line": 819,
+            "start_line": 815,
+            "end_line": 815,
             "count": 1,
             "count_u64": 1
           },
           {
             "type": "loc",
-            "start_line": 820,
-            "end_line": 820,
-            "count": 1,
-            "count_u64": 1
-          },
-          {
-            "type": "loc",
-            "start_line": 821,
-            "end_line": 821,
+            "start_line": 816,
+            "end_line": 816,
             "count": 1,
             "count_u64": 1
           },
@@ -5396,6 +5375,13 @@
           },
           {
             "type": "loc",
+            "start_line": 824,
+            "end_line": 824,
+            "count": 1,
+            "count_u64": 1
+          },
+          {
+            "type": "loc",
             "start_line": 825,
             "end_line": 825,
             "count": 1,
@@ -5410,6 +5396,13 @@
           },
           {
             "type": "loc",
+            "start_line": 827,
+            "end_line": 827,
+            "count": 1,
+            "count_u64": 1
+          },
+          {
+            "type": "loc",
             "start_line": 829,
             "end_line": 829,
             "count": 1,
@@ -5419,20 +5412,6 @@
             "type": "loc",
             "start_line": 830,
             "end_line": 830,
-            "count": 1,
-            "count_u64": 1
-          },
-          {
-            "type": "loc",
-            "start_line": 831,
-            "end_line": 831,
-            "count": 1,
-            "count_u64": 1
-          },
-          {
-            "type": "loc",
-            "start_line": 832,
-            "end_line": 832,
             "count": 1,
             "count_u64": 1
           },
@@ -5461,6 +5440,34 @@
             "type": "loc",
             "start_line": 836,
             "end_line": 836,
+            "count": 1,
+            "count_u64": 1
+          },
+          {
+            "type": "loc",
+            "start_line": 837,
+            "end_line": 837,
+            "count": 1,
+            "count_u64": 1
+          },
+          {
+            "type": "loc",
+            "start_line": 838,
+            "end_line": 838,
+            "count": 1,
+            "count_u64": 1
+          },
+          {
+            "type": "loc",
+            "start_line": 839,
+            "end_line": 839,
+            "count": 1,
+            "count_u64": 1
+          },
+          {
+            "type": "loc",
+            "start_line": 840,
+            "end_line": 840,
             "count": 1,
             "count_u64": 1
           }
@@ -8568,8 +8575,8 @@
             "type": "loc",
             "start_line": 353,
             "end_line": 353,
-            "count": 643,
-            "count_u64": 643
+            "count": 633,
+            "count_u64": 633
           },
           {
             "type": "loc",
@@ -10205,8 +10212,8 @@
             "type": "loc",
             "start_line": 13,
             "end_line": 13,
-            "count": 10460,
-            "count_u64": 10460
+            "count": 11066,
+            "count_u64": 11066
           },
           {
             "type": "loc",
@@ -117928,6 +117935,6 @@
       }
     ]
   },
-  "test_execution_time": 15000000000,
-  "timestamp": "2026-10-13T02:12:32.515420572Z"
+  "test_execution_time": 10000000000,
+  "timestamp": "2026-10-13T02:13:41.413878376Z"
 }
