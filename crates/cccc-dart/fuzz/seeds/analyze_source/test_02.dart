@@ -1,0 +1,12 @@
+
+            int get top => 1;
+            set top(int value) {}
+            class C {
+              C() {}
+              factory C.named() => C();
+              int get value => 1;
+              set value(int value) {}
+              C operator +(C other) => this;
+              void method() { var callback = () { if (true) {} }; }
+            }
+        

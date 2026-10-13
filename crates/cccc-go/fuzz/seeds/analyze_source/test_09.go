@@ -1,0 +1,10 @@
+
+            package p
+            func f(a, b bool) {
+                if a && b {
+                    for i := 0; i < 1; i++ {
+                    }
+                } else if b {
+                }
+            }
+        

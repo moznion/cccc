@@ -1,0 +1,7 @@
+
+            fun f(a: Boolean, items: List<Int>) {
+                while (a) { }
+                for (i in items) { }
+                do { } while (a)
+            }
+        

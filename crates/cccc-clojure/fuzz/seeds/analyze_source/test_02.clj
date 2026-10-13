@@ -1,0 +1,5 @@
+
+            (defn greet
+              ([] (greet "world"))
+              ([name] (if name (str "hi " name) "hi")))
+        

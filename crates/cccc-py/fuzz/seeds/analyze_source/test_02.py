@@ -1,0 +1,6 @@
+
+def f(a, b, c):
+    if a:
+        if b:
+            if c:
+                pass

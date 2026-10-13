@@ -1,0 +1,11 @@
+
+            package p
+            func a(x bool) {
+                if x {
+                }
+            }
+            func b(y bool) {
+                if y {
+                }
+            }
+        

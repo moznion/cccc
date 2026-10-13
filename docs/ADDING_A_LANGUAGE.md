@@ -260,6 +260,15 @@ Test the two concerns **separately** — this is the payoff of the IR seam:
    add a case to `crates/cccc-cli/tests/lang_smoke.rs` (it dispatches each
    fixture by extension through `cargo_bin("cccc")`).
 
+4. **Robustness** — a panic anywhere in the adapter aborts the whole run (the
+   release profile is `panic = "abort"`), so give it a cargo-fuzz target. Copy
+   another adapter's `fuzz/` directory (e.g. `crates/cccc-py/fuzz/`), rename
+   the crate and the dependency, and point the target at your
+   `analyze_source` with one of your extensions. Seed
+   `fuzz/seeds/analyze_source/` with your fixture and test snippets. The fuzz
+   workflow finds the new target by itself, so it runs daily and on pull
+   requests that touch your crate.
+
 Then:
 
 ```sh
@@ -314,6 +323,7 @@ Rules to respect when lowering:
 - [ ] New entry in `cccc-cli`'s `lang::LANGUAGES` (name + aliases + `DEFAULT_EXTS` + `analyze_source`); adapter added as a `cccc-cli` dependency. Extensions disjoint from existing languages.
 - [ ] Adapter crate added to root `[workspace] members` and `[workspace.dependencies]`.
 - [ ] Adapter tests assert scores on real source (anchor on SonarSource examples); a fixture + `lang_smoke.rs` case for the unified binary.
+- [ ] `crates/cccc-<lang>/fuzz/` cargo-fuzz crate with an `analyze_source` target and seeds.
 - [ ] `cargo build` / `cargo clippy --all-targets` / `cargo test` all green.
 
 [`cccc_core::ir::Node`]: ../crates/cccc-core/src/ir.rs

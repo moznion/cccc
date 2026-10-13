@@ -1,0 +1,5 @@
+
+            fn f(a: bool, b: bool) {
+                if a && b { for _ in 0..1 {} } else if b {}
+            }
+        
