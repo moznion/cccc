@@ -1,0 +1,11 @@
+
+    {.Name = If(a, "x", "y"), .Age = 3}
+a As Shape, blc Custom Event Changed As EventHandler
+        AddHandler(value As EventHandler)
+        End AddHand
+        AddHandler(value As subntHandler)
+        End AddHandler
+        RemoveHandler(value As EventHandler)
+        End RemoveHandler
+        RaiseEvent(sender As Object, d RaiseEvent
+    Eimt

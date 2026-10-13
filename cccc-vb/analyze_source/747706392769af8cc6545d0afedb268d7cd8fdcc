@@ -1,7 +1,0 @@
-
-Module P
-#IfNET96 (Of IntPger)  Foo()
-#Else  If()()
-
- Foo()
-#Else If From 

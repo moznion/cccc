@@ -1,7 +1,0 @@
-
-#If 
-
-#If DEBU
-    IF a THEN
- esIF
-    Return a ANDALSO b

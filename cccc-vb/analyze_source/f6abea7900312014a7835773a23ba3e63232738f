@@ -1,0 +1,5 @@
+
+    I f $ 0a     B f AThn
+
+#If DEBUEnd0If
+    If a = 5 Then Foo() Else:Bar()

@@ -1,9 +1,0 @@
-
-Module P
-    Sub& M()
-#If Dhen
-        Log("a")
-#ElseIf TRACE AndAlso NoE Then 
-      g("b")
-#Else
-nddule

@@ -1,7 +1,0 @@
-
-#If
-#If DEBUG )
---    EndIf  End Sub
-
-   Public MustOverride Property
-    Pub&

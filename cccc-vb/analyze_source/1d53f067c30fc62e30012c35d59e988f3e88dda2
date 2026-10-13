@@ -1,0 +1,5 @@
+  Catch ex.HResult1
+      If b Then Bar()#    Catchr
+    Finally
+)
+    End Try

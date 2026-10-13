@@ -1,0 +1,10 @@
+
+  : I f$a  0 ThenIf a< AndAlEB+
+#If DEBUG( Then
+        Lo#("a")
+#El&DeleThen
+ RACE M(/
+#If DEBUG( Then
+        Log("a")
+#El&Delegate Sub Notify(message As
+    FunBar()

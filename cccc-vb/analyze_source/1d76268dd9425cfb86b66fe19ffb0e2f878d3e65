@@ -1,0 +1,9 @@
+
+Interface I
+  ) As String
+End Interface
+Structure S
+    c Event Changed As EventIeger = 2 ring
+End Interface
+Structure    B
+End Enum

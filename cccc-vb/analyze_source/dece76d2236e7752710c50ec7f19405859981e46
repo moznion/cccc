@@ -1,5 +1,0 @@
-
-)
-#If DEBUG Theil.ic Class C
-    <DllImport("eseoduler3modul")>
-    -=d =E

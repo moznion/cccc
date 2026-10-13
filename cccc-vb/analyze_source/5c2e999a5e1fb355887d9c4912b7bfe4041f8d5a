@@ -1,9 +1,0 @@
-
-   IF N
-   =m
- [Next]
- equal xt: = 2
- [Naxt]
-  = 1
- [Next]
-  I2FR

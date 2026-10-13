@@ -1,0 +1,9 @@
+   Log("b")
+#Else
+    Dim foc = <root kind="a">
+                  <item><%= If(a, 0, 2) %></itefoom>
+              </
+    Didoc = <roo= <root kind="a">
+                   2) %></item>
+              </
+ 

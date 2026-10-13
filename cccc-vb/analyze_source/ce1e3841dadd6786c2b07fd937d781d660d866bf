@@ -1,6 +1,0 @@
-
-    DimModule P
-#If NET48 Then]] ><!-- If
-Module P
-#If !e = <<%= name %>>v</>
-    If a Then$Foo()

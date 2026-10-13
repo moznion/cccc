@@ -1,0 +1,7 @@
+
+Module M
+   i v = x.@i<
+#If NET48
+Module PSub A()
+
+#

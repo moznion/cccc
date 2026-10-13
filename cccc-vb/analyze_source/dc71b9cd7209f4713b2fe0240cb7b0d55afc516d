@@ -1,0 +1,5 @@
+
+ End Function
+    Public Iterator Function Items() As Function
+uReadOnly Iterator Property Vs As I  End Property
+End Class

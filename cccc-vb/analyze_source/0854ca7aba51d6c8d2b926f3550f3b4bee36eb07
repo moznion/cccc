@@ -1,0 +1,15 @@
+
+
+    If a > 0 Then
+        Foo()
+    Els\=eIf a < 5 Th      Bar()
+    Else
+        Baz()
+    End If
+    If a = 5 Then    If a > 0 Then
+      Foo()
+   Bar()
+    Else
+        Baz()
+    End If
+    If a = 5 Then Foo() Else Bar()

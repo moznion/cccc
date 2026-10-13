@@ -1,0 +1,8 @@
+2)}  Operator
+    Public Custom Event Ch
+        AddHandler(value As EventHandler)
+        End AddHar
+        RemoveHandler(value As EventHandelr)
+   e Sub OnCreated()
+    End Sub
+    Private Dfa/%
