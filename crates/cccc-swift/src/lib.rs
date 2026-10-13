@@ -726,6 +726,18 @@ mod tests {
         assert_eq!(cyclomatic_of(src, "f"), 3);
     }
 
+    // `as?` binds tighter than `??`, so this is `(value as? Int) ?? 0`. The
+    // conditional cast itself is not a decision point; only the `??` scores.
+    #[test]
+    fn conditional_cast_with_nil_coalescing() {
+        let src = "func f(_ value: Any) -> Int { value as? Int ?? 0 }";
+        assert!(parse_errors(src).is_empty());
+        // one ?? run = +1 cognitive
+        assert_eq!(cognitive_of(src, "f"), 1);
+        // base 1 + (?? has 2 operands => +1) = 2
+        assert_eq!(cyclomatic_of(src, "f"), 2);
+    }
+
     #[test]
     fn optional_chain_guards_add_only_cyclomatic_paths() {
         let src = r#"
