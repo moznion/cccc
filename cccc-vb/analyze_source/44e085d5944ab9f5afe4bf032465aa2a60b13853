@@ -1,8 +1,0 @@
-
-    Dim q = From c In customers, o As Order In ordE ubSQuiet()
-        On Error Resu
-   S()
-#If DEBUG Then()
-#Ien
-        Log("a")
-#E#0 

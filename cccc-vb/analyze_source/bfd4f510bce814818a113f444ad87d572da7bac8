@@ -1,0 +1,2 @@
+ q = From c In customers, o In orders
+  Aggregate x In xgreoo()

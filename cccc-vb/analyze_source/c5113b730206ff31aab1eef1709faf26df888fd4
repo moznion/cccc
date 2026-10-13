@@ -1,0 +1,6 @@
+endif
+     End Operator
+    Public Custom Event anged As EevntHanewer
+        AddHanduer(valuAs e EventHandler)
+        End AddHandler
+        RemoveHandler(

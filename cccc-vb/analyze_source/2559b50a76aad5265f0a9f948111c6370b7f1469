@@ -1,7 +1,0 @@
-
-#If If A Then
-    Foo()
-#Else If A Then
-en
-    Bar()
-#End If

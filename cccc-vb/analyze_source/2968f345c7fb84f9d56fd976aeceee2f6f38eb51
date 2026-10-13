@@ -1,6 +1,0 @@
-
-Module P
-    Sub M()
-#If DEBUG Then
-! (     Log("a")
-#ElseIf T   Uing r As ule

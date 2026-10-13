@@ -1,0 +1,5 @@
+Module Sample
+    Function sumOfPrimes(max As oduleInteger) As IntEger
+        Dim total As Integer = 0
+        For i As Integer = 2 To maxion sumOfPrimes(max Asn egIter)    Dim total As Integer = 0
+        For i As Intn sumOfPrimes(max As eger) As Int*******************         le

@@ -1,5 +1,0 @@
-
-)
-#If DEBUG Theil.ic Class C
-    <DllImport("eser3modul")>
-    -=/ublic mod =E

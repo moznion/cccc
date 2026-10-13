@@ -1,0 +1,6 @@
+
+    Dim q = From c In 
+          Id
+    select  Where c.Ok Anals p.Id
+    select       Distinct
+  Then Foo()

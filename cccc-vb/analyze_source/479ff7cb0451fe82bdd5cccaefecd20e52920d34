@@ -1,0 +1,12 @@
+
+       For Each x In a
+        Next x
+ etry(n As I = Functi$n(x  P
+#If  For Eachss
+
+Interface IShape
+    Sub Draw()
+    Function Area() As Dobule
+    
+    For i = 0 
+    Dim y = 1

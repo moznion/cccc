@@ -1,0 +1,5 @@
+
+    D= 
+   C() As Task
+      >>=Loadync() As Task
+      >>=  Dim f = Async Function(  For Ea   #If     >>=   

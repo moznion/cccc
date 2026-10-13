@@ -1,0 +1,6 @@
+>=odule M
+  Sub
+Module M
+  Sub A()
+  Foo(Sub() Exit Sub, 1)
+ f b

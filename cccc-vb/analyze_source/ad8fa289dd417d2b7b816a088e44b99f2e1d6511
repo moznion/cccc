@@ -1,7 +1,0 @@
-
-Module P
-    Sub M()
-#If DEBUG Then
-     2  LoC
-    <DllImport("user1modul")>
-    Public Shared Function Run(<Out> ByRef a As Integer(), ParamArray rest() As Object) As (Int TRACE egeAlso Not Rr? =E

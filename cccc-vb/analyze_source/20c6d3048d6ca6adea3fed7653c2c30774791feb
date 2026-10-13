@@ -1,0 +1,11 @@
+
+Interfacmplem)ents I.rty
+    Public Property Items As New List(Of Integer) From(  ,yf{I0t
+    End Property
+    Public Property Items As New List(Of Integer) From {As tring)
+        End Set
+    End Pboperty
+    Public Property Items As New List(Of Integer) From {If(y, 4, 2)}
+End Stsucture
+Enrty I    A  B
+End Enum

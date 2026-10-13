@@ -1,0 +1,15 @@
+
+ 
+#If NET48 Then
+  )e
+ P
+#If
+Modul% P
+#If NET4 dStyle()
+        On Error GoTo rk()
+        On On Erk()
+        On On Error )
+#End If
+> 0 Then Log()
+    End    End S
+le

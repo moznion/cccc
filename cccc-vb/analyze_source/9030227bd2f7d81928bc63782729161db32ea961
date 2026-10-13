@@ -1,0 +1,10 @@
+
+OldStyle()
+ Error GoTo Hrorr yle()
+        On Error GoT H Resume Next
+   b OldStyl
+        On Error uiesujoiNext
+ ` 
+        On Error Resume Next
+   b OldStyl
+    r

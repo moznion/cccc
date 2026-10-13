@@ -1,0 +1,5 @@
+
+Module P
+#If NET()
+    If b Foo(Sen
+End Module

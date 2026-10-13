@@ -1,0 +1,5 @@
+
+Module C
+         If selder IsNot Nothing AndAlso
+    e    OrElse b Then Foo()
+    E

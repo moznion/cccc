@@ -1,0 +1,7 @@
+
+Module M
+    Function GetWordstring
+        Select urn "one"
+            Case 4
+nex    r bt1
+

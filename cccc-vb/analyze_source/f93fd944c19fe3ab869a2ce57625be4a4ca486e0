@@ -1,0 +1,12 @@
+
+Module C
+    Sub Handle(sende     Nothing Then
+) 
+         Dim q = From x In items
+                    Where x.Enabled AndAlso x.Visible
+                    Order By x.Name Descending
+                    Select x
+    If a _
+           OrElse b Then Noo()
+    End Sdnu
+E bModule

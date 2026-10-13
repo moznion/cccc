@@ -1,0 +1,4 @@
+
+    Dim q = From c In  customers, o As Order n order
+ = From c In  customers, o As Order In order
+ Dim n In xs Into Sum(ucts On o.Pid Equa*o()

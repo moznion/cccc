@@ -1,0 +1,6 @@
+
+    Dc = <?xml veion="1.?><%= el %>
+    Dim c = <!-- only a comment -->
+    Dim cd = <![CDATA[ If ]]>
+    Dim e = <<%= name %>>v</>
+    If a Then Foo()

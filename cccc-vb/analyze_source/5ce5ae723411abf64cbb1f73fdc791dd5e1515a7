@@ -1,0 +1,3 @@
+
+    Dim q = From c In customer2s, o As Ord.Id
+            Where cmers, o As Or.Ok An
