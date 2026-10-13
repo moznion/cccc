@@ -72,11 +72,14 @@ published() {
 }
 
 tokens_endpoint=https://crates.io/api/v1/trusted_publishing/tokens
+# crates.io rejects API requests without a descriptive User-Agent (curl's
+# default gets 403), so every call to its API identifies this script.
+user_agent="cccc-release (https://github.com/moznion/cccc)"
 
 # Revoke the current Trusted Publishing token, if any.
 revoke_token() {
     if [ -n "${tp_token:-}" ]; then
-        curl -fsS -X DELETE -H "Authorization: Bearer $tp_token" \
+        curl -fsS -A "$user_agent" -X DELETE -H "Authorization: Bearer $tp_token" \
             "$tokens_endpoint" >/dev/null || echo "warning: failed to revoke token" >&2
         tp_token=
     fi
@@ -91,7 +94,7 @@ refresh_token() {
         "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=crates.io" |
         python3 -c 'import json, sys; print(json.load(sys.stdin)["value"])')
     tp_token=$(printf '{"jwt":"%s"}' "$jwt" |
-        curl -fsS -X POST -H 'Content-Type: application/json' --data-binary @- \
+        curl -fsS -A "$user_agent" -X POST -H 'Content-Type: application/json' --data-binary @- \
             "$tokens_endpoint" |
         python3 -c 'import json, sys; print(json.load(sys.stdin)["token"])')
     echo "::add-mask::$tp_token"
