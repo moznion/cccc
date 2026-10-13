@@ -145,6 +145,9 @@ jobs:
       && (needs.tagpr.outputs.tag != '' || github.event_name == 'workflow_dispatch')
     permissions:
       contents: read
+      # crates.io Trusted Publishing: the script exchanges the job's OIDC token
+      # for short-lived crates.io tokens, so no long-lived secret is needed.
+      id-token: write
     runs-on: ubuntu-latest
     # New crates are rate-limited by crates.io; the script waits out 429s.
     timeout-minutes: 240
@@ -165,5 +168,3 @@ jobs:
 
       - name: Publish crates
         run: .github/scripts/publish-crates.sh
-        env:
-          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
