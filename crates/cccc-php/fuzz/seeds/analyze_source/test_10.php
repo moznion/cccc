@@ -1,0 +1,9 @@
+<?php
+            function f($x) {
+                return match ($x) {
+                    1, 2 => "a",
+                    3 => "b",
+                    default => "c",
+                };
+            }
+        

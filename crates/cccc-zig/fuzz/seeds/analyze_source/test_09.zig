@@ -1,0 +1,4 @@
+
+comptime {
+    if (enabled()) generate();
+}

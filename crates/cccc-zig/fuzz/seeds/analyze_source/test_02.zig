@@ -1,0 +1,10 @@
+
+fn choose(a: bool, b: bool) void {
+    if (a) {
+        useA();
+    } else if (b) {
+        useB();
+    } else {
+        useDefault();
+    }
+}

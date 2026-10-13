@@ -2,8 +2,11 @@ name: Fuzz
 
 # Runs the cargo-fuzz targets on a schedule and grows their corpora on the
 # `fuzz-corpus` branch (one directory per `<crate>/<target>`), so each run
-# resumes from everything earlier runs discovered. Pull requests touching a
-# fuzzed crate get a short smoke run against that corpus without writing back.
+# resumes from everything earlier runs discovered. Pull requests get a short
+# smoke run against that corpus, without writing back, of the targets whose
+# crate (or a workspace crate it depends on) they touch. The targets are found
+# under crates/*/fuzz by .github/scripts/fuzz-matrix.py, so adding one needs
+# no change here.
 on:
   schedule:
     - cron: "17 18 * * *" # daily, 03:17 JST
@@ -14,8 +17,12 @@ on:
         default: "600"
   pull_request:
     paths:
-      - "crates/cccc-vb/**"
+      - "crates/**"
+      - "Cargo.lock"
+      - "Cargo.toml"
+      - "rust-toolchain.toml"
       - ".github/workflows/fuzz.yml"
+      - ".github/scripts/fuzz-matrix.py"
 
 # Runs that write the corpus branch must not race; PR smoke runs only read it.
 concurrency:
@@ -27,17 +34,41 @@ env:
   CORPUS_BRANCH: fuzz-corpus
 
 jobs:
+  plan:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - name: Select fuzz targets
+        id: matrix
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+        run: |
+          if [ -n "$BASE" ]; then
+            git diff --name-only "$BASE...HEAD" > "$RUNNER_TEMP/changed"
+            matrix=$(python3 .github/scripts/fuzz-matrix.py "$RUNNER_TEMP/changed")
+          else
+            matrix=$(python3 .github/scripts/fuzz-matrix.py)
+          fi
+          echo "$matrix"
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+
   fuzz:
+    needs: plan
+    # A pull request that touches no fuzzed crate selects no targets.
+    if: ${{ fromJSON(needs.plan.outputs.matrix).include[0] != null }}
     runs-on: ubuntu-latest
     permissions:
       contents: write # to push the grown corpus to the fuzz-corpus branch
       issues: write # to report fuzz failures
     strategy:
       fail-fast: false
-      matrix:
-        include:
-          - crate: cccc-vb
-            target: analyze_source
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
     env:
       FUZZ_DIR: crates/${{ matrix.crate }}/fuzz
       CORPUS_DIR: corpus-store/${{ matrix.crate }}/${{ matrix.target }}
@@ -78,14 +109,14 @@ jobs:
         working-directory: crates/${{ matrix.crate }}
         env:
           # ASan records the stack of every allocation in a depot it never
-          # frees; the recursive-descent parser yields ever-new stacks, so RSS
+          # frees; recursive-descent parsers yield ever-new stacks, so RSS
           # grew linearly past libFuzzer's 2 GB limit (a false OOM) while the
           # live heap stayed ~50 MB. Crash reports keep their stack traces.
           ASAN_OPTIONS: malloc_context_size=0
         run: |
           set -o pipefail
           cargo +nightly fuzz run "${{ matrix.target }}" \
-            "$GITHUB_WORKSPACE/$CORPUS_DIR" fuzz/seeds -- \
+            "$GITHUB_WORKSPACE/$CORPUS_DIR" "fuzz/seeds/${{ matrix.target }}" -- \
             -max_total_time="$SECONDS_TO_FUZZ" -timeout=10 -max_len=4096 \
             -print_final_stats=1 2>&1 | tee "$RUNNER_TEMP/fuzz.log"
 

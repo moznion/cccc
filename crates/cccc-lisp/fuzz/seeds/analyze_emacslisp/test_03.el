@@ -1,0 +1,7 @@
+
+            (defun kind (x)
+              (pcase x
+                (1 "one")
+                (2 "two")
+                (_ "many")))
+        

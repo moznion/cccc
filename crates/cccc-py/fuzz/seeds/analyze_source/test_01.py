@@ -1,0 +1,9 @@
+
+def get_words(n):
+    match n:
+        case 1:
+            return "one"
+        case 2:
+            return "a couple"
+        case _:
+            return "lots"

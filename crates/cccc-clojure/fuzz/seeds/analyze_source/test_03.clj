@@ -1,0 +1,7 @@
+
+            (defn classify [n]
+              (cond
+                (< n 0) :neg
+                (= n 0) :zero
+                :else :pos))
+        

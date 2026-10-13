@@ -1,0 +1,7 @@
+
+            void f(Object? value, List<int>? values) {
+              value?.toString();
+              values?[0];
+              value?..toString()..hashCode;
+            }
+        

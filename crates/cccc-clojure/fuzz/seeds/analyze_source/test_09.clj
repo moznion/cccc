@@ -1,0 +1,4 @@
+
+            (defn host [items]
+              (map (fn [x] (if x 1 0)) items))
+        
