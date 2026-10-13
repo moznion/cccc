@@ -1,5 +1,17 @@
 # Changelog
 
+## [v1.8.1](https://github.com/moznion/cccc/compare/v1.8.0...v1.8.1) - 2026-10-13
+
+- fix(vb): handle #If directives inside interpolated-string lambdas by @moznion in https://github.com/moznion/cccc/pull/146
+- ci: open an issue when a scheduled fuzz run finds a failure by @moznion in https://github.com/moznion/cccc/pull/147
+- fix(fuzz): stop ASan false OOM; test directives in unterminated VB holes by @moznion in https://github.com/moznion/cccc/pull/148
+- test(swift): cover a guard with `as?` before an `open(..)` call in a switch case by @moznion in https://github.com/moznion/cccc/pull/153
+- fix: keep deeply nested input from overflowing the stack by @moznion in https://github.com/moznion/cccc/pull/154
+- test(cache): make the git-index test immune to ctime drift by @moznion in https://github.com/moznion/cccc/pull/155
+- fix(swift): bump tree-sitter-swift to 0.7.4 to parse `as? T ?? x` by @moznion in https://github.com/moznion/cccc/pull/152
+- ci: attest release binaries and publish them as immutable releases by @moznion in https://github.com/moznion/cccc/pull/156
+- ci: publish to crates.io via Trusted Publishing instead of a long-lived token by @moznion in https://github.com/moznion/cccc/pull/157
+
 ## [v1.8.0](https://github.com/moznion/cccc/compare/v1.7.1...v1.8.0) - 2026-10-08
 
 - feat: C# adapter (cccc-cs) by @moznion in https://github.com/moznion/cccc/pull/143
