@@ -1,0 +1,141 @@
+name: Release build
+
+# Builds the unified `cccc` binary archives of a release tag for every target
+# and attests their build provenance (SLSA, via actions/attest). Called from
+# tagpr.yml; the caller downloads the `cccc-<target>` artifacts and attaches
+# them to the GitHub Release.
+#
+# Kept as a reusable workflow so the provenance names this file as the signer
+# (SLSA Build L3 isolation), which lets users pin it on verification:
+#
+#   gh attestation verify cccc-<tag>-<target>.tar.gz --repo moznion/cccc \
+#     --signer-workflow moznion/cccc/.github/workflows/release-build.yml
+#
+# The build jobs only get a read-only token; the signing permissions are
+# confined to the `attest` job, which runs no project code.
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        description: Release tag (e.g. v1.2.3)
+        required: true
+        type: string
+
+permissions: {}
+
+jobs:
+  build:
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        # One asset per target of the single unified `cccc` binary; the
+        # `include` entries attach the runner OS to each target. Mirrors the
+        # matrix in cross-build.yml.
+        target:
+          - x86_64-unknown-linux-musl
+          - aarch64-unknown-linux-musl
+          - x86_64-apple-darwin
+          - aarch64-apple-darwin
+          - x86_64-pc-windows-msvc
+        include:
+          # The two musl targets build the vendored Prism C sources for a
+          # foreign libc, so they cross-compile with cargo-zigbuild (zig provides
+          # the target C toolchain + linker); the rest build natively with cargo.
+          - target: x86_64-unknown-linux-musl
+            os: ubuntu-latest
+            build-tool: cargo-zigbuild
+          - target: aarch64-unknown-linux-musl
+            os: ubuntu-latest
+            build-tool: cargo-zigbuild
+          - target: x86_64-apple-darwin
+            os: macos-latest
+            build-tool: cargo
+          - target: aarch64-apple-darwin
+            os: macos-latest
+            build-tool: cargo
+          - target: x86_64-pc-windows-msvc
+            os: windows-latest
+            build-tool: cargo
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: refs/tags/${{ inputs.tag }}
+          persist-credentials: false
+
+      # Installs the toolchain pinned in rust-toolchain.toml; the build action
+      # then adds the target to it.
+      - name: Install Rust toolchain
+        shell: bash
+        run: rustup toolchain install
+
+      # cccc-rb builds Ruby's Prism from vendored C via bindgen, which needs
+      # libclang on the host that runs the build.
+      - name: Install libclang (bindgen)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y libclang-dev
+
+      - name: Set up Zig (cargo-zigbuild cross C toolchain)
+        if: matrix.build-tool == 'cargo-zigbuild'
+        uses: mlugg/setup-zig@d1434d08867e3ee9daa34448df10607b98908d29 # v2.2.1
+        with:
+          version: 0.16.0
+
+      - name: Point bindgen at the preinstalled libclang (Windows)
+        if: runner.os == 'Windows'
+        shell: bash
+        run: echo "LIBCLANG_PATH=C:\\Program Files\\LLVM\\bin" >> "$GITHUB_ENV"
+
+      # Build and archive only (dry-run): uploading to the release is left to
+      # the caller, so this job needs no write token.
+      - id: build
+        uses: taiki-e/upload-rust-binary-action@83da96bda7236fccb55e1886b220e1115df5f1a8
+        with:
+          bin: cccc
+          target: ${{ matrix.target }}
+          build-tool: ${{ matrix.build-tool }}
+          # Build exactly the dependency versions recorded in Cargo.lock.
+          locked: true
+          # Archive name: cccc-<tag>-<target>.{tar.gz,zip}
+          archive: $bin-$tag-$target
+          # Bundle docs/license alongside the binary in the archive.
+          include: README.md,LICENSE
+          # Emit a .sha256 file next to each asset.
+          checksum: sha256
+          ref: refs/tags/${{ inputs.tag }}
+          dry-run: true
+          dry-run-intended: true
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: cccc-${{ matrix.target }}
+          path: |
+            ${{ steps.build.outputs.tar || steps.build.outputs.zip }}
+            ${{ steps.build.outputs.sha256 }}
+          if-no-files-found: error
+          retention-days: 1
+
+  attest:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      attestations: write
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: cccc-*
+          path: dist
+          merge-multiple: true
+
+      - uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
+        with:
+          subject-path: |
+            dist/*.tar.gz
+            dist/*.zip
