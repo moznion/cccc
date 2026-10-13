@@ -133,7 +133,18 @@ assert_eq!(report.functions[0].cognitive, 1);  // one `if`
 ## Install / build
 
 Prebuilt binaries for Linux, macOS, and Windows are attached to each
-[GitHub Release](https://github.com/moznion/cccc/releases). To build from source:
+[GitHub Release](https://github.com/moznion/cccc/releases). They are built on
+GitHub Actions with signed build provenance, and releases are immutable, so you
+can check that an archive was built from this repository's release workflow:
+
+```sh
+gh attestation verify cccc-<tag>-<target>.tar.gz --repo moznion/cccc \
+  --signer-workflow moznion/cccc/.github/workflows/release-build.yml
+# and that it is the asset of that (immutable) release
+gh release verify-asset <tag> cccc-<tag>-<target>.tar.gz --repo moznion/cccc
+```
+
+To build from source:
 
 ```sh
 cargo build --release

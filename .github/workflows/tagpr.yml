@@ -1,16 +1,18 @@
 name: tagpr
 
 # Keeps a release pull request open for the unreleased changes on main. Merging
-# it makes tagpr tag the merge commit and create the GitHub Release, then the
-# `release` job builds the unified `cccc` binary for every target and attaches
-# the archives to that release.
+# it makes tagpr tag the merge commit and create a *draft* GitHub Release; the
+# `build` job (release-build.yml) builds the unified `cccc` binary for every
+# target and attests its provenance, then the `release` job attaches the
+# archives to the draft and publishes it. The repository has immutable releases
+# enabled, so a published release (its assets and tag) can no longer change.
 #
 # The tag is pushed with GITHUB_TOKEN, which does not trigger `on: push: tags`
 # workflows, so the assets are built in this workflow directly. The `publish`
 # job then publishes the workspace crates of the same tag to crates.io.
-# Run it manually with a tag to (re)upload the assets of an existing release or
-# to resume a failed crates.io publish (versions already there are skipped);
-# the tagpr job is skipped in that case.
+# Run it manually with a tag to finish a release left as a draft (e.g. a failed
+# build) or to resume a failed crates.io publish (versions already there are
+# skipped); the tagpr job is skipped in that case.
 
 on:
   push:
@@ -51,89 +53,49 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  release:
+  build:
     needs: tagpr
     # Runs after tagpr cut a tag, or on a manual dispatch (tagpr skipped).
     if: >-
       !cancelled() && !failure()
       && (needs.tagpr.outputs.tag != '' || github.event_name == 'workflow_dispatch')
     permissions:
+      attestations: write
+      contents: read
+      id-token: write
+    uses: ./.github/workflows/release-build.yml
+    with:
+      tag: ${{ needs.tagpr.outputs.tag || inputs.tag }}
+
+  release:
+    needs: [tagpr, build]
+    if: >-
+      !cancelled() && !failure()
+      && (needs.tagpr.outputs.tag != '' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
       contents: write
-    strategy:
-      fail-fast: false
-      matrix:
-        # One asset per (binary × target). There is a single unified `cccc`
-        # binary; the `include` entries attach the runner OS to each target.
-        bin:
-          - cccc
-        target:
-          - x86_64-unknown-linux-musl
-          - aarch64-unknown-linux-musl
-          - x86_64-apple-darwin
-          - aarch64-apple-darwin
-          - x86_64-pc-windows-msvc
-        include:
-          # The two musl targets build the vendored Prism C sources for a
-          # foreign libc, so they cross-compile with cargo-zigbuild (zig provides
-          # the target C toolchain + linker); the rest build natively with cargo.
-          - target: x86_64-unknown-linux-musl
-            os: ubuntu-latest
-            build-tool: cargo-zigbuild
-          - target: aarch64-unknown-linux-musl
-            os: ubuntu-latest
-            build-tool: cargo-zigbuild
-          - target: x86_64-apple-darwin
-            os: macos-latest
-            build-tool: cargo
-          - target: aarch64-apple-darwin
-            os: macos-latest
-            build-tool: cargo
-          - target: x86_64-pc-windows-msvc
-            os: windows-latest
-            build-tool: cargo
-    runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
-          ref: refs/tags/${{ needs.tagpr.outputs.tag || inputs.tag }}
+          pattern: cccc-*
+          path: dist
+          merge-multiple: true
 
-      # Installs the toolchain pinned in rust-toolchain.toml; the upload action
-      # then adds the target to it.
-      - name: Install Rust toolchain
-        shell: bash
-        run: rustup toolchain install
-
-      # cccc-rb builds Ruby's Prism from vendored C via bindgen, which needs
-      # libclang on the host that runs the build.
-      - name: Install libclang (bindgen)
-        if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install -y libclang-dev
-
-      - name: Set up Zig (cargo-zigbuild cross C toolchain)
-        if: matrix.build-tool == 'cargo-zigbuild'
-        uses: mlugg/setup-zig@d1434d08867e3ee9daa34448df10607b98908d29 # v2.2.1
-        with:
-          version: 0.16.0
-
-      - name: Point bindgen at the preinstalled libclang (Windows)
-        if: runner.os == 'Windows'
-        shell: bash
-        run: echo "LIBCLANG_PATH=C:\\Program Files\\LLVM\\bin" >> "$GITHUB_ENV"
-
-      - uses: taiki-e/upload-rust-binary-action@83da96bda7236fccb55e1886b220e1115df5f1a8
-        with:
-          # The unified cccc binary.
-          bin: ${{ matrix.bin }}
-          target: ${{ matrix.target }}
-          build-tool: ${{ matrix.build-tool }}
-          # Archive name: cccc-<tag>-<target>.{tar.gz,zip}
-          archive: $bin-$tag-$target
-          # Bundle docs/license alongside the binary in the archive.
-          include: README.md,LICENSE
-          # Emit a .sha256 file next to each asset.
-          checksum: sha256
-          ref: refs/tags/${{ needs.tagpr.outputs.tag || inputs.tag }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+      # Attach the assets to tagpr's draft and only then publish it, since an
+      # immutable release rejects asset changes once published.
+      - name: Upload assets and publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ needs.tagpr.outputs.tag || inputs.tag }}
+        run: |
+          if [ "$(gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json isDraft --jq .isDraft)" != true ]; then
+            echo "::notice::release $TAG is already published; its assets are immutable, so leaving them as is"
+            exit 0
+          fi
+          gh release upload "$TAG" dist/* --repo "$GITHUB_REPOSITORY" --clobber
+          gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --draft=false
 
   # cccc-kt is not published (its Kotlin grammar is a git dependency), so the
   # crates.io cccc-cli is built without Kotlin; see .github/scripts/publish-crates.sh.
