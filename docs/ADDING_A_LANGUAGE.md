@@ -79,14 +79,20 @@ pub const DEFAULT_EXTS: &[&str] = &["py", "pyi"];
 
 /// Parse `source` (named by `path`) and produce its scored [`FileReport`].
 pub fn analyze_source(path: &Path, source: &str) -> FileReport {
-    let (nodes, parse_errors) = to_ir(path, source);
-    cccc_core::engine::analyze(&path.display().to_string(), &nodes, parse_errors)
+    cccc_core::guard::analyze(path, source, to_ir)
 }
 ```
 
+> Go through `cccc_core::guard::analyze` rather than calling
+> `cccc_core::engine::analyze` yourself: it refuses pathologically nested input
+> and runs your parser and lowering on a large stack, so a deeply nested file
+> cannot overflow the stack and abort the whole run. The regression test in
+> `crates/cccc-cli/tests/deep_nesting.rs` covers every registered language and
+> fails until you add a nested-`if` template for yours.
+
 > `analyze_source`'s signature **must** be `fn(&Path, &str) -> FileReport` — that
-> is `cccc_cli::AnalyzeFn`. `analyze` itself is generic over languages; you only
-> supply the `Vec<ir::Node>`.
+> is `cccc_cli::AnalyzeFn`. `guard::analyze` itself is generic over languages;
+> you only supply the `to_ir` that produces the `Vec<ir::Node>`.
 
 Optionally also expose `to_ir(path, source) -> (Vec<Node>, Vec<String>)` (the IR
 plus parser-error strings) for embedders who want the raw IR — `cccc-es` does.
