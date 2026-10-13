@@ -680,6 +680,10 @@ mod tests {
             );
         };
         run_git(&["init", "-q"]);
+        // Dropping read permission below moves the file's ctime; if a second
+        // boundary falls between that and the index refresh, git would see a
+        // stat mismatch, fail to re-read the file and call it dirty.
+        run_git(&["config", "core.trustctime", "false"]);
         run_git(&["add", "."]);
         run_git(&[
             "-c",
