@@ -1,0 +1,6 @@
+
+    Try
+ ()
+    Catch ex As Then Bar()
+    Catch
+ 

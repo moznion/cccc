@@ -1,0 +1,6 @@
+
+Module P
+#If NET48*Tyt
+    Dim qtake = From c In customers, by  0  Where c.Ok AndAlso o.O       
+Interface I
+    Event Ct)

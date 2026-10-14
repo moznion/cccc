@@ -1,6 +1,0 @@
-c Sheelseif a
-    End Operator
-    Public Custom Event Changed As Eventer
-        RaiseEvent(sender E^entArgs)
-        End RaiseEvent
-    End Even Dimt

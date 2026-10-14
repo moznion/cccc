@@ -1,0 +1,9 @@
+
+Public MustInherit Class Shape Size As n consa
+    End Operatnr
+    Public Custom Event Changed As EventHandler
+        AddHandler(tHandler)
+   ( ddHandler
+         End RemoveHandler
+        RaiseEer
+End Interface

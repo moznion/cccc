@@ -1,6 +1,0 @@
-
-Module P
-    Su M()
-#If DEBUG TLEASE Then
-  AndAlso Not RELEAd
-nd Module

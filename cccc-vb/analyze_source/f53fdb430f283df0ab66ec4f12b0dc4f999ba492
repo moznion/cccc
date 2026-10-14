@@ -1,8 +1,0 @@
-
-#If A Then
-    F
-#If A Then
-    For()
-#End If
-or()
-#End If

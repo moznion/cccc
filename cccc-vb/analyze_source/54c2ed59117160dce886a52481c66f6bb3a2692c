@@ -1,10 +1,0 @@
-
-Module P
-   SuTRACE AndAn
-        Logb M()
-#If DEBUG Then
-       t
-    Eas Event
-    Partial Private Sub OnCreated()
-    End SubFunction GetTickCount Lib"a")
-#ElseIf TRACE dsnlAAo No Module

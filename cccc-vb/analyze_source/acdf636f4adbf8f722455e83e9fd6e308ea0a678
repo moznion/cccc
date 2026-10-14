@@ -1,3 +1,0 @@
-
-    Dim q = From c In cust
-    select  Where 

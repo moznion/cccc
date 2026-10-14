@@ -1,0 +1,6 @@
+
+    Try
+     Then  Bar()
+    Catch
+   ()
+    Catch  T!

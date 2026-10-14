@@ -1,6 +1,0 @@
-
-Module M
-    Function GetNordstring        Select urn "one"
-            Case 4
-nex    r bt1
-

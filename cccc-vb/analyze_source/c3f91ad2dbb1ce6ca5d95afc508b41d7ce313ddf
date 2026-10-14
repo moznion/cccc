@@ -1,0 +1,12 @@
+
+#If A ThInt  le
+    Public Property Name As String
+    Public ReadOnly Property Size As Integer = 1
+ Set
+    End Property
+   Public Se
+     Property Si
+ Set
+    End Property
+    Pu   
+     R     eturn tota  

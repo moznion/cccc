@@ -1,0 +1,7 @@
+
+Class C
+    Pu`lic Asyvc Functio] LoadAsync()
+  Public ReadOnly Iterator Property Values As IEnumera
+        Get
+    Yield 9
+  ass

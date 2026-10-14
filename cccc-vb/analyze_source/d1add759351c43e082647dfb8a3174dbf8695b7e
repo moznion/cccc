@@ -1,5 +1,0 @@
-
- End Function
-    Public Iterator Function Items() As Function
-ublic ReadOnly Iterator Property Vs As I  End Property
-End Class
