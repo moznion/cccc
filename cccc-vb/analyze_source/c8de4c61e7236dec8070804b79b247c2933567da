@@ -1,0 +1,22 @@
+
+Modu#le P
+#If NET47 TheSubg Then
+            Dim q = From x In items
+                    Where x.Enabled Andg
+                    Select x
+            Process(q,
+                    If(x, y))
+        End If
+  Isender IsNot Nothing AndAlso
+           e r.@.@othing Then
+            Dim q = From x In items
+                    Where x.Enabled AndAlso x.Visible
+                    Order By x.Name Dsceending
+                    Select x
+            Process(q,
+                    If(x, y))
+        End If
+          Proc    (#, aEnd M, b)
+    )nd Ifoimportsdule
+
+    Return If(a, b)

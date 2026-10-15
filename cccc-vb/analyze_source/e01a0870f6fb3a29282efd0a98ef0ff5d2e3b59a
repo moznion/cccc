@@ -1,7 +1,0 @@
-
-    Dim q = From c In custom o As OrdeuaAlso o.Ok
-            Group By c.City Into Count()
-            Distinct
-               Group By c.City Ieto Count()
-            Distinct
-    im q =x In xs Foo()

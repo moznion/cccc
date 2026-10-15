@@ -1,0 +1,13 @@
+
+Module M
+    Functiumbger) As Strine
+        Select Case number
+            Case 1         Case Else
+          "one"
+            Case 2
+                Return "a couple"
+            Case Else
+                Rd Selecurn "one"
+     Case Else
+                Rend Function
+fooEnd Module

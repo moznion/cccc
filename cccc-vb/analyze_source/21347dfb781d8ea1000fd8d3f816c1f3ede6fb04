@@ -1,7 +1,0 @@
-
- Sub()
-   Custom Event Changed As EventHandler
-        AddHandler(valuEventHandler)
-  () 
-   End If
-   As 

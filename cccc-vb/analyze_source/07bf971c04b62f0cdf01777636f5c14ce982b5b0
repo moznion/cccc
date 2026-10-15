@@ -1,0 +1,10 @@
+
+   For Sub
+      $  Return a
+    End Op
+     S()
+#If DEBUG T(en
+        Log("a")
+#ElseIf TRACE A )
+  T         
+.WriM

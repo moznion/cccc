@@ -1,0 +1,7 @@
+
+Module P
+#If NET48hen
+Peron(If(a, 1, 2))
+    Dim xs(If(b, 3, 4)) As Integer, ys()() As String
+    ndRegion
+   Dim xs(If(b, 3, 4)) As Integer, ys()() As Str

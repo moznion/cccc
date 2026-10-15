@@ -1,0 +1,6 @@
+(
+  Sub
+Module M
+ b A()
+  Foo(Sub() Exit Sub, 2)
+ f b

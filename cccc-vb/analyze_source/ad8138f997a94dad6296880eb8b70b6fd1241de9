@@ -1,0 +1,12 @@
+
+Module P
+#If NEProperty Name = 3
+    Public Property Width As Double
+        Get
+        *=  Return _w
+    @   End Get
+        Private Setv(alue artial Private Sub St=ring
+  Property Width As Double
+        Get
+        *=A Return _wName = Get
+        Private Set(value As Dou   "t(Of Integer S)u 

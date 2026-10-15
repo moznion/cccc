@@ -1,6 +1,0 @@
-M
-  Sub
-Module M
-  Sub A()
-  Foo(Sub() Exit Sub, 2)
- f b

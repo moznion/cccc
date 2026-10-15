@@ -1,5 +1,0 @@
-
-Module P
-#If NET48 Then
-    Sub
-Public MustInherit Class S    blic P SSro

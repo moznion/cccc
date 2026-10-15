@@ -1,8 +1,0 @@
-
-Module P
-    Sub& M()
-#If Dhen     Log("a")
-#ElseIf TRACE A^dAlso NoE Then 
-      g("b")
-#Else
-nddule
