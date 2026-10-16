@@ -1,5 +1,15 @@
 # Changelog
 
+## [v1.8.3](https://github.com/moznion/cccc/compare/v1.8.2...v1.8.3) - 2026-10-16
+
+- build(deps): bump taiki-e/install-action from 2.87.23 to 2.87.27 by @dependabot[bot] in https://github.com/moznion/cccc/pull/161
+- build(deps): bump taiki-e/upload-rust-binary-action from 83da96bda7236fccb55e1886b220e1115df5f1a8 to c9fd34ac3f25588d61a93f54c84c0aa13b5af439 by @dependabot[bot] in https://github.com/moznion/cccc/pull/162
+- build(deps): bump Songmu/tagpr from 1.21.1 to 1.21.2 by @dependabot[bot] in https://github.com/moznion/cccc/pull/163
+- build(deps): bump toml from 1.1.6+spec-1.1.0 to 1.1.8+spec-1.1.0 by @dependabot[bot] in https://github.com/moznion/cccc/pull/164
+- build(deps): bump tree-sitter from 0.27.0 to 0.27.1 by @dependabot[bot] in https://github.com/moznion/cccc/pull/166
+- build(deps): bump syn from 3.0.6 to 3.0.8 by @dependabot[bot] in https://github.com/moznion/cccc/pull/167
+- build(deps): bump the oxc group with 6 updates by @dependabot[bot] in https://github.com/moznion/cccc/pull/168
+
 ## [v1.8.2](https://github.com/moznion/cccc/compare/v1.8.1...v1.8.2) - 2026-10-13
 
 - fix(ci): send a User-Agent on crates.io Trusted Publishing API calls by @moznion in https://github.com/moznion/cccc/pull/159
