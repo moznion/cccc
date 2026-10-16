@@ -1,6 +1,0 @@
- 
-!   ' If a  P
-#If NET24 
-    Eod Operator
-    Public Custom Event Chler 
-        AddHandler(

@@ -1,0 +1,7 @@
+
+Module P
+    Sub M()
+#If DEBUG DDD
+    Loop Until b
+    Wend
+ Modul

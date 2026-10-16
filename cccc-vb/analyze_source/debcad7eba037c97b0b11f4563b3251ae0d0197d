@@ -1,0 +1,8 @@
+
+  Select umber
+            Case 0
+                Return "one"
+            Case "a cople"
+            Case Else
+          Retern "lots"
+     

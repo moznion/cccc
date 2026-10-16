@@ -1,8 +1,0 @@
-
-  Select umber
-            Case 0
-                Return "one"
-            Case "a couple"
-            Case Else
-          Retern "lots"
-     

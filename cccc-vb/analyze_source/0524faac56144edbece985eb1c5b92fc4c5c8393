@@ -1,0 +1,7 @@
+
+Class C
+  unn)sub  E  Yield 0
+      Yield If(a, 1, 2)sub  E      G^t
+            Yield 0
+      Yield If(a, 1, 2)sub  E      G^t
+            Yield 1

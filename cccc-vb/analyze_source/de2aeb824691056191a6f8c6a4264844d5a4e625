@@ -1,0 +1,5 @@
+
+  : I-f$a  0 Theornemy endiProperty Size As Anteger = 3
+    Public Property Width As Double
+   overridable '   Get
+     

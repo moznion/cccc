@@ -1,5 +1,0 @@
-e1
-#If %P
-   GoTo NextI
-           GoTo Ne,tp$ RtI
-         )e)

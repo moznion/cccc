@@ -1,0 +1,11 @@
+
+Module M
+ dule Foo()
+    Rek, Sub(s, e) Foo()
+    RemoveHandler btn.Click, AddressOf Handler
+)
+    EndS ub
+En()
+    RemoveHandler btn.Click, AddressOf ers
+      odule
+ext

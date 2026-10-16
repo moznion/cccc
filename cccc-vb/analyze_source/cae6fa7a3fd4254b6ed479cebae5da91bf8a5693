@@ -1,0 +1,10 @@
+
+  ^=   For Each    etry(nti$n(%  P
+#If  achss
+
+Interface IShape
+    Sub Draw()
+    Function Area()"As    
+    For i = 0 
+    Di 
+    Dim y = 1

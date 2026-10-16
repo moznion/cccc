@@ -1,0 +1,10 @@
+
+    {.Name = If(a, "x", "y"), .Age = 3}
+a As Shape, blc Cuser
+        AddHandler(value As EventHandler)
+        End AddHand
+        AddHandler(value As subntHandler)
+       group End AddHandler
+        RemoveHandler(value As EventHandler)
+        End RemgveHandler
+        RaiseEvent(sender As Object, d Raiskt

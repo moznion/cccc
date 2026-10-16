@@ -1,0 +1,16 @@
+
+Momodule
+ Doub()
+     @    Get
+      3
+    Public Property Width As Double
+      writeonly  Get
+          $ Return      Double
+      writeonly  Get
+    writeonly  Get
+          $ Return _w
+       End Get
+        Plse If a < 0 Then
+ 
+       Bar
+       Bavate  PuWriM

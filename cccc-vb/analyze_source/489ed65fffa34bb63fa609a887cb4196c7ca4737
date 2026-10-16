@@ -1,0 +1,8 @@
+
+Module P
+#If N P
+#If NET48 Then
+ Resume Next
+        DoWor()
+        On Error GoTo 1
+S)

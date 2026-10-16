@@ -1,6 +1,0 @@
-
-    If nd If
- If = 5 Then FoThen
-!r()
-    Else
-    If a = 0 Then Foo() Else :Bar()
