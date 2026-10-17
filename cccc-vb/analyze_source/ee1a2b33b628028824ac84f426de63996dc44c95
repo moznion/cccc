@@ -1,8 +1,0 @@
-
-ule MStyle()
-        On Error G&oTo Hanlde
-   n ErrZor G&oT   On Error G&oTror GdStyle()
-        On ErrZor G&oTo()
-        On Error GoTo 5
-    End Sub
-Endle

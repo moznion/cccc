@@ -1,0 +1,3 @@
+
+    Dim q = From c In customer
+            Join On o.Pid Equals p

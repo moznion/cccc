@@ -1,2 +1,0 @@
-e M
-       Dim q = From x In     Where x.Enabled AndAlso x 

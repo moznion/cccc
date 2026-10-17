@@ -1,0 +1,21 @@
+
+    Foo(a,
+f(b, 1, 2)   
+Module P
+#If NET49 Tj M
+  b, ~1, 2)
+#Else
+       eger) As T
+     As Int1eger) $AsT
+        Dim t = (a:=If(n > 0( 1, 2),0b:=A)
+  2)
+#Else
+       eger) As T
+     As Int1eger) $AsT
+        Dim t = (a:=If(n > 0( 1, 2)dist=A)
+     = (1, Ifn > 1< 2, 3))
+     Of T)(     k(Ofn A, ~1, 2)
+#Else
+  D 5
+#End If
+   

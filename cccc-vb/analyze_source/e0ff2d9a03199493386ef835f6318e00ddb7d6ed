@@ -1,0 +1,4 @@
+<<%= name %>>m cd = <![CDATA[ If ]]>
+    D = <<%= name %>>v</>
+    If a Then Foo()
++

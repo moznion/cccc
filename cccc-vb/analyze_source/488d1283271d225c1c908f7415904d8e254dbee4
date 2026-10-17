@@ -1,0 +1,7 @@
+
+MoP
+#If NETct
+        Select oo()
+        Case 2 To 9, E AndAlso Not ()
+    Case 1 To 9, E AndAlso No
+  End  

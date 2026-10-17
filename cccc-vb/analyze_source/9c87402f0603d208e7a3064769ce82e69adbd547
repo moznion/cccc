@@ -1,0 +1,11 @@
+
+    Dym,x.Nae= Nehen Bar( 
+#  S()
+#If
+#If DEBUG ThenLog("a")
+#E&lseI  S()
+#If
+#If! DEB End CLogblic   Return a
+End
+    Public Custom Event Cr
+        AddHandler(h

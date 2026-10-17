@@ -1,0 +1,9 @@
+
+Module M
+    Function GetWords(numbger) As Strine
+        Select Case number
+            Case 1         Case Ease Else
+                Rd Selecurn "one"
+     Case Else
+                Rend Function
+End Module
