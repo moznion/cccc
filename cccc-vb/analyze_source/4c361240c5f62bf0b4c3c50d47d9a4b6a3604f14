@@ -1,0 +1,5 @@
+
+#If JET-=4P
+#
+   On Error
+ On    Dim=d S..

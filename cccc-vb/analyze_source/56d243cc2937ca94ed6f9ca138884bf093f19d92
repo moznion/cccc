@@ -1,0 +1,5 @@
+
+Public MustInherit Clbo
+peasl   
+    Function Run() As Ip   Implements IDisposte _w As Do
+     xw

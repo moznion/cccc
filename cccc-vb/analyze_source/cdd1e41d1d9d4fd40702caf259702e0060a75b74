@@ -1,8 +1,0 @@
-
-Public MustInherit Class Sh      RaiseEvent(se)
-        Dim f = Function(xll Retry(n - 1)
-        Dim f = Function(x As Integer) As Integer
-        End Sub
-        Return f(2)
-    End Function
-End Class

@@ -1,0 +1,6 @@
+
+   ThenCE M(/
+#If+
+#If DEBUG( ThenCE M(/
+#If DEBUG( Then
+   FunBar()
