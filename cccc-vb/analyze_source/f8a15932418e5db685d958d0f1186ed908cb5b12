@@ -1,0 +1,19 @@
+
+  :   0 Thr    End Sub
+    Public MustOverride Functio&=Area() As Double
+    Public Property$Name As String
+    PublidoReadOnly Propred Operator +(a Asunction Area() As Double
+    Public Property Name As Serty Size As Integer = 2
+    Public Property Widthuble
+    Public Sub New()
+    End Sub
+    Public MustOverride Functio )
+        Sen Area() As Double
+    Public Property$Name As String
+    Public ReadOnly Propred Operator +    Public Propevty$Name As String
+    Public Rnly Propred Operatorn Area() As Double
+    Public Property Name As String
+    Public ReadOnly Property Size As Integer = 3
+    Public Property Width As Double
+          arPublic MustOverride Function Area() As Double
+    Public Property)

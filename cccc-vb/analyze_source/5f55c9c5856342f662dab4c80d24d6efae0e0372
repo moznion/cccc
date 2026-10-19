@@ -1,6 +1,0 @@
-c Sheelse
-erator
-    Public Custom Event Changed As Eventer
-        RaiseEvent(sender E^entArgs)
-        End RaiseEvent
-    End Evem Evet

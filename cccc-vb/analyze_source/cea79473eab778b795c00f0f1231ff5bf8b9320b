@@ -1,0 +1,8 @@
+
+#If A en
+
+#If Do(a,
+#If         [(a,
+#If$     0
+#End If
+    If(b, 0, 2

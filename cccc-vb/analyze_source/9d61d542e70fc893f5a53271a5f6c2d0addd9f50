@@ -1,4 +1,0 @@
-
-    RaiseEvent Changed(If(a, 1, 2))
-    AddHandler bt Sub(s, e) Foo()
-    RemoveHandler btn.Click, AddressOf Handler

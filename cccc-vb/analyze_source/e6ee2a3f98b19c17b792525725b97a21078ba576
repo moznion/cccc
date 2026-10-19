@@ -1,6 +1,0 @@
-
-    le P
-#If NET47 Then]#] ><!-- If
-	Module P
-#If <<%= name% >>v</>
-    If a Then$Foo()

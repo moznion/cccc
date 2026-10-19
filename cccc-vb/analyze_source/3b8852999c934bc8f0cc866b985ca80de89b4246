@@ -1,0 +1,6 @@
+
+Module M
+    Function GetWords(numbger) As Strine
+        Select Case number
+            Case 1         Case Eunction
+End Module

@@ -1,0 +1,6 @@
+ Then Foo()
+  = 6
+
+#If Ded AddHandler
+    Public Property       Elthed AddHandler
+    WriM

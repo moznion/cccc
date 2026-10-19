@@ -1,0 +1,10 @@
+
+    Foo(a,
+#If DEBUG The 2)
+#Else
+     5
+#End If
+ #If DEBUG <<=, 2)
+#Else
+        0
+#End If    1)

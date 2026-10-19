@@ -1,0 +1,3 @@
+
+    Dim q = From c In custo
+     On Error EBUG#E#5 

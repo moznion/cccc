@@ -1,4 +1,0 @@
-
-    Dim q = From c In custo
-     On Error RS()
-#If DEBUG#E#0 

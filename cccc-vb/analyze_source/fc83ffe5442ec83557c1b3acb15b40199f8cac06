@@ -1,0 +1,4 @@
+2)}  Operator
+    Public Custom Event Ch
+        AddHandler(value As EventHler)     Sub OnCreated()End Sub
+    Private Dfa/%
