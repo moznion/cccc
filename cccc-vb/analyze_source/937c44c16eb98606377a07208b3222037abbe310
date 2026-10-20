@@ -1,7 +1,0 @@
-
- Sub()
-   Custom Event Changed As EveHkntandler
-        AddHandler(vventHandler)
-  () 
-   End If
-   As 
