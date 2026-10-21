@@ -15,6 +15,8 @@
 //! implicit line continuation. A multi-line lambda resets the depth for its
 //! body, so statements inside it end at line breaks again.
 
+use std::collections::HashMap;
+
 use cccc_core::ir::{LogicalOp, Node, SwitchCase};
 
 use crate::lexer::{DirKind, EOF, KEYWORDS, Kind, Token};
@@ -297,6 +299,10 @@ struct Group {
     end: Option<usize>,
 }
 
+/// A sub-list's identity (start address and length) plus the enclosing unit
+/// names its lowering depends on.
+type SubKey = (usize, usize, Vec<String>);
+
 /// Parser state to rewind to when a speculative `#If` parse fails.
 struct Checkpoint {
     pos: usize,
@@ -334,6 +340,11 @@ pub(crate) struct Parser<'a> {
     /// [`Checkpoint`]: re-parsing an enclosing group after its own attempt
     /// failed must not retry these, or nested groups cost 2^depth.
     structured_failed: Vec<bool>,
+    /// Lowered sub-lists (see [`Parser::sub_expr`]), shared with nested
+    /// sub-parsers. Rewinding re-parses the same holes, and each hole's own
+    /// `#If` retries start over in a fresh sub-parser, so without this
+    /// nested holes cost 2^depth.
+    sub_cache: HashMap<SubKey, (Vec<Node>, Vec<u32>)>,
 }
 
 impl<'a> Parser<'a> {
@@ -353,6 +364,7 @@ impl<'a> Parser<'a> {
             group_of: Vec::new(),
             flat: Vec::new(),
             structured_failed: Vec::new(),
+            sub_cache: HashMap::new(),
         }
     }
 
@@ -407,14 +419,22 @@ impl<'a> Parser<'a> {
     /// condition) with the enclosing unit names lent for recursion
     /// detection. Returns the nodes and the sub-list's syntax errors.
     fn sub_expr(&mut self, toks: &'a [Token]) -> (Vec<Node>, Vec<u32>) {
+        let key = (toks.as_ptr() as usize, toks.len(), self.units.clone());
+        if let Some(cached) = self.sub_cache.get(&key) {
+            return cached.clone();
+        }
         // A hole can hold a multi-line lambda whose body holds directives,
         // so the sub-list gets its own preprocessor groups.
         let mut sub = Parser::new(self.src, toks);
         sub.units = std::mem::take(&mut self.units);
+        sub.sub_cache = std::mem::take(&mut self.sub_cache);
         sub.nested = 1;
         let nodes = sub.parse_expr();
         self.units = sub.units;
-        (nodes, sub.errors)
+        self.sub_cache = sub.sub_cache;
+        let result = (nodes, sub.errors);
+        self.sub_cache.insert(key, result.clone());
+        result
     }
 
     /// Parse a whole file into its module-level nodes.
