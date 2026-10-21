@@ -1,0 +1,31 @@
+[package]
+name = "cccc-lisp-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2024"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+cccc-lisp = { path = ".." }
+
+# Kept out of the main workspace: cargo-fuzz needs a nightly toolchain and
+# sanitizer flags that the pinned stable toolchain doesn't support.
+[workspace]
+members = ["."]
+
+[[bin]]
+name = "analyze_commonlisp"
+path = "fuzz_targets/analyze_commonlisp.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "analyze_emacslisp"
+path = "fuzz_targets/analyze_emacslisp.rs"
+test = false
+doc = false
+bench = false

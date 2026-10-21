@@ -1,0 +1,7 @@
+<?php
+            function f($value) {
+                $value?->property;
+                $value?->method();
+                $value?->child?->run();
+            }
+        

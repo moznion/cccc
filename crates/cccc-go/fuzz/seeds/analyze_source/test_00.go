@@ -1,0 +1,16 @@
+
+            package p
+            func sumOfPrimes(max int) int {
+                total := 0
+            OUT:
+                for i := 2; i <= max; i++ {
+                    for j := 2; j < i; j++ {
+                        if i%j == 0 {
+                            continue OUT
+                        }
+                    }
+                    total += i
+                }
+                return total
+            }
+        

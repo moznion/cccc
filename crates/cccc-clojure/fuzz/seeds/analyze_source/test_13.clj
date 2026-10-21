@@ -1,0 +1,4 @@
+
+            (defmethod area :circle [shape]
+              (if (valid? shape) (* 3.14 (:r shape)) 0))
+        

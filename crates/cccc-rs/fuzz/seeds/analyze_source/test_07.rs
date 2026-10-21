@@ -1,0 +1,8 @@
+
+            struct S;
+            impl S {
+                fn walk(&self, n: u64) -> u64 {
+                    if n == 0 { 0 } else { self.walk(n - 1) }
+                }
+            }
+        

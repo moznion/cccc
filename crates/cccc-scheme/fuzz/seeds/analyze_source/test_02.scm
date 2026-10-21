@@ -1,0 +1,7 @@
+
+            (define (name n)
+              (case n
+                ((1) "one")
+                ((2 3) "few")
+                (else "many")))
+        
