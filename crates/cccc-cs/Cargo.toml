@@ -11,4 +11,4 @@ description = "C# (tree-sitter) adapter that lowers source into the cccc-core co
 [dependencies]
 cccc-core = { workspace = true }
 tree-sitter = "0.27"
-willbooster-tree-sitter-c-sharp = "=2.0.2"
+willbooster-tree-sitter-c-sharp = "=6.0.1"
