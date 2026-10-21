@@ -1,9 +1,9 @@
 {
   "repository": "moznion/cccc/complexity",
   "ref": "refs/heads/main",
-  "commit": "f8e8bfed1cb4ce5a36d9eec6221d0ffa35f2e599",
+  "commit": "8d352731334de850fc96623824c56609d7c8d259",
   "base_ref": "refs/heads/main",
-  "timestamp": "2026-10-21T02:05:13.81889857Z",
+  "timestamp": "2026-10-21T02:42:02.780319036Z",
   "custom_metrics": [
     {
       "key": "code_complexity",
@@ -12,12 +12,12 @@
         {
           "key": "function_count",
           "name": "Function count",
-          "value": 2429
+          "value": 2978
         },
         {
           "key": "cognitive_sum",
           "name": "Cognitive: total",
-          "value": 2423
+          "value": 3484
         },
         {
           "key": "cognitive_max",
@@ -37,7 +37,7 @@
         {
           "key": "cyclomatic_sum",
           "name": "Cyclomatic: total",
-          "value": 4624
+          "value": 6030
         },
         {
           "key": "cyclomatic_max",
