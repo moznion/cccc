@@ -28,7 +28,7 @@ members = [
 resolver = "2"
 
 [workspace.package]
-version = "1.8.3"
+version = "1.8.4"
 edition = "2024"
 rust-version = "1.95.0"
 license = "MIT"
@@ -36,29 +36,29 @@ repository = "https://github.com/moznion/cccc"
 homepage = "https://github.com/moznion/cccc"
 
 [workspace.dependencies]
-cccc-core = { path = "crates/cccc-core", version = "1.8.3" }
-cccc-es = { path = "crates/cccc-es", version = "1.8.3" }
-cccc-rs = { path = "crates/cccc-rs", version = "1.8.3" }
-cccc-go = { path = "crates/cccc-go", version = "1.8.3" }
-cccc-php = { path = "crates/cccc-php", version = "1.8.3" }
-cccc-rb = { path = "crates/cccc-rb", version = "1.8.3" }
-cccc-scheme = { path = "crates/cccc-scheme", version = "1.8.3" }
-cccc-clojure = { path = "crates/cccc-clojure", version = "1.8.3" }
-cccc-lisp-kit = { path = "crates/cccc-lisp-kit", version = "1.8.3" }
-cccc-lisp = { path = "crates/cccc-lisp", version = "1.8.3" }
-cccc-kt = { path = "crates/cccc-kt", version = "1.8.3" }
-cccc-py = { path = "crates/cccc-py", version = "1.8.3" }
-cccc-zig = { path = "crates/cccc-zig", version = "1.8.3" }
-cccc-clike = { path = "crates/cccc-clike", version = "1.8.3" }
-cccc-c = { path = "crates/cccc-c", version = "1.8.3" }
-cccc-cpp = { path = "crates/cccc-cpp", version = "1.8.3" }
-cccc-pl = { path = "crates/cccc-pl", version = "1.8.3" }
-cccc-swift = { path = "crates/cccc-swift", version = "1.8.3" }
-cccc-java = { path = "crates/cccc-java", version = "1.8.3" }
-cccc-dart = { path = "crates/cccc-dart", version = "1.8.3" }
-cccc-scala = { path = "crates/cccc-scala", version = "1.8.3" }
-cccc-cs = { path = "crates/cccc-cs", version = "1.8.3" }
-cccc-vb = { path = "crates/cccc-vb", version = "1.8.3" }
+cccc-core = { path = "crates/cccc-core", version = "1.8.4" }
+cccc-es = { path = "crates/cccc-es", version = "1.8.4" }
+cccc-rs = { path = "crates/cccc-rs", version = "1.8.4" }
+cccc-go = { path = "crates/cccc-go", version = "1.8.4" }
+cccc-php = { path = "crates/cccc-php", version = "1.8.4" }
+cccc-rb = { path = "crates/cccc-rb", version = "1.8.4" }
+cccc-scheme = { path = "crates/cccc-scheme", version = "1.8.4" }
+cccc-clojure = { path = "crates/cccc-clojure", version = "1.8.4" }
+cccc-lisp-kit = { path = "crates/cccc-lisp-kit", version = "1.8.4" }
+cccc-lisp = { path = "crates/cccc-lisp", version = "1.8.4" }
+cccc-kt = { path = "crates/cccc-kt", version = "1.8.4" }
+cccc-py = { path = "crates/cccc-py", version = "1.8.4" }
+cccc-zig = { path = "crates/cccc-zig", version = "1.8.4" }
+cccc-clike = { path = "crates/cccc-clike", version = "1.8.4" }
+cccc-c = { path = "crates/cccc-c", version = "1.8.4" }
+cccc-cpp = { path = "crates/cccc-cpp", version = "1.8.4" }
+cccc-pl = { path = "crates/cccc-pl", version = "1.8.4" }
+cccc-swift = { path = "crates/cccc-swift", version = "1.8.4" }
+cccc-java = { path = "crates/cccc-java", version = "1.8.4" }
+cccc-dart = { path = "crates/cccc-dart", version = "1.8.4" }
+cccc-scala = { path = "crates/cccc-scala", version = "1.8.4" }
+cccc-cs = { path = "crates/cccc-cs", version = "1.8.4" }
+cccc-vb = { path = "crates/cccc-vb", version = "1.8.4" }
 serde = { version = "1", features = ["derive"] }
 
 [profile.release]
