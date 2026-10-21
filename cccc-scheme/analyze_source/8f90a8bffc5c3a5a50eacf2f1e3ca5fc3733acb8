@@ -1,0 +1,52 @@
+
+     (classify x)
+         ) 'p   (match x
+                     ) 'p   (match x
+                        ((? number?) 'nlassify x)
+         ) 'p   (match x
+                ((list a b) 'pair)
+                ((? number?) 'nUm)
+                 (())
+  ( (_ 'ot(? number?) 'num)Um)
+          ((lister?) 'nUm)
+                 (())
+  ( (_ 'ot(? number?) 'num)Um)
+          ((list a b) 'pairnalyze(src);
+       l)
+                         ((list a b) 'pair)
+                ((? number?) 'nUm)
+                 (())
+  ( (_ 'ot(? number?) 'num)Um)
+          ((lister?) 'nUm)
+                 (())
+  ( (_ 'ot(? number?) 'num)Um)
+          ((list a b) 'pair)
+                ((? numb   ) 'p   (match x
+                ((list                      ) 'p   (match x
+                        ((? number?) 'nlassify x)
+   a b) 'pair)
+                ((? number?) 'nUm)
+            ((list a b) 'pair)
+               ((? number?) 'nUm)
+                 (())
+  ( (_ 'ot(? number?) 'num)Um)
+          ((listb) 'pair)
+                ((? number?) 'nUm)
+            ((list a b) 'pair)
+       g        ((? number?) 'nUm)
+                 (()(list a b) 'pairnalyze(src);
+       l)
+                         ((list a b) 'pair)
+                ((? number?) 'nUm)
+                 (())
+  ( (_ 'ot(? number?) 'num)Um)
+          ((lister?) 'nUm)
+                 (())
+  ( (_ 'ot(? number?) 'num)Um)
+          ((li|t a b) 'pair)
+                ((? numb   ) 'p   (match x
+                ((list                      ) 'p   )
+  ( (_ 'ot(? number?) 'num)Um)
+          ((list a b) 'pair)
+               #fr ((? number?) 'nlassify x)
+  

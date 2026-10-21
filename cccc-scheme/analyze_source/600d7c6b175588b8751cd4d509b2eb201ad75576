@@ -1,0 +1,7 @@
+
+           (dehen (even? n))
+             (for;su((n (int)
+                           (for/sum ((n (inst)) #:when (eve lst)
+        (for;sum ((n (in-? n))
+              (for;sum ((n (in-li
+~       

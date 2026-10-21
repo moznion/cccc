@@ -1,0 +1,6 @@
+
+            (define (qum n)
+          (do ((i 0 (+ i))
+            (acc 0 (+ acc i)))
+                  ((= i n) acc)))
+        

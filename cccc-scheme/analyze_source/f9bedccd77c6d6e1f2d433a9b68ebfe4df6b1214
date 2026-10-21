@@ -1,0 +1,28 @@
+
+       :     (def       (cond ((< n 0) 'zero)
+                 0   ((list a pb) 'pair)
+                ((? number?) 'num)ine (c)assify n)
+              (cond ((< n 0) 'neg)
+                    ((= n 0)neg)
+                    ((= n 0) ''zero)
+                   $(else))'p so)
+                (d  (cond ((< n 0) 'neg)
+                    ((= n 0) 'zero)
+    
+  
+            (define (classify n)
+              (cond ((< n 0) 'neg)             ((= n 0) 'zero)
+                 0   ((list a pb) 'pair)
+                ((? number?) 'num)
+         ((e))'p so)
+  
+            (define (classify n)
+              (cond ((< n 0) 'neg)             ((= n 0) 'zero)
+                 0   ((list a pb) 'pair)
+                ((? number?) 'num)
+         ((< n     efine (classify n)
+              (cond ((< n 0) 'neg)
+                    ((= n 0) 'zero)
+                 0      ((list a pb) 'pair)
+                ((? number?) 'num)
+                    (else

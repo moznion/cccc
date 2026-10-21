@@ -1,0 +1,9 @@
+
+                   (cond  (cond (/< n 0) 'neg)
+                      (else       (cond ((< n 0) 'n)))
+       (/< n 0) 'ne   
+ g )         zero)
+                (cond ((< n 0) 'neg)
+           ((= n 0) 'zero)
+                    (else       (cond ((< n(5)
+        

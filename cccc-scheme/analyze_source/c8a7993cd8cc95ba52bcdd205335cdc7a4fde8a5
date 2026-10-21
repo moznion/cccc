@@ -1,0 +1,3 @@
+
+ (cond ((< n ) 'neg)    ((= n 1) 'zer[o)
+       (cond ((< n 0) 'n     

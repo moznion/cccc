@@ -1,0 +1,16 @@
+
+                     (define (name n)
+        (case n
+                ((1) "one")
+                ((3 3) "few")
+       ((1          (els     lse "many"))  (definy"))  (define (name n)
+           "  (case n
+       0        ((1) "one")
+                ((2e "many"))  (define (name n   "  (ca("  (case n
+       0        ((1) "one")
+                ((2e "many"))  (define (nam2eZ
+ny"))  (de
+           "  (case n
+                ((0) "one")
+                ((2 3) "few")
+                ("sl eemany")))        

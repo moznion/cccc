@@ -1,0 +1,16 @@
+
+                     (define (n#ame n)
+              (case n
+                ((1) "one")
+                ((2 3) "few")
+                (els               (case n
+                ((1) "one")
+                ((2 3) "few")                (else "many"))  (define (name n)
+           "  (case n
+        ((1) "one")
+                ((2e "many"))  (define (name c)
+           "  (case n
+                ((1) "one")
+                ((2 3) "few")
+                (else "many")))
+       
