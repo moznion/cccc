@@ -1,5 +1,17 @@
 # Changelog
 
+## [v1.8.4](https://github.com/moznion/cccc/compare/v1.8.3...v1.8.4) - 2026-10-21
+
+- build(deps): bump moznion/cccc-action from 1.1.1 to 1.1.2 by @dependabot[bot] in https://github.com/moznion/cccc/pull/170
+- build(deps): bump Songmu/tagpr from 1.21.2 to 1.21.3 by @dependabot[bot] in https://github.com/moznion/cccc/pull/171
+- build(deps): bump taiki-e/install-action from 2.87.27 to 2.87.29 by @dependabot[bot] in https://github.com/moznion/cccc/pull/172
+- build(deps): bump rust-toolchain from 1.99.0 to 1.99.1 by @dependabot[bot] in https://github.com/moznion/cccc/pull/173
+- build(deps): bump the oxc group with 6 updates by @dependabot[bot] in https://github.com/moznion/cccc/pull/174
+- build(deps): bump syn from 3.0.8 to 3.0.9 by @dependabot[bot] in https://github.com/moznion/cccc/pull/175
+- build(deps): bump serde_json from 1.0.151 to 1.0.154 by @dependabot[bot] in https://github.com/moznion/cccc/pull/177
+- fix(vb): avoid exponential re-parsing of nested interpolation holes by @moznion in https://github.com/moznion/cccc/pull/180
+- test: add cargo-fuzz targets for every language adapter by @moznion in https://github.com/moznion/cccc/pull/158
+
 ## [v1.8.3](https://github.com/moznion/cccc/compare/v1.8.2...v1.8.3) - 2026-10-16
 
 - build(deps): bump taiki-e/install-action from 2.87.23 to 2.87.27 by @dependabot[bot] in https://github.com/moznion/cccc/pull/161
