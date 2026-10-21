@@ -997,6 +997,17 @@ End Class
     }
 
     #[test]
+    fn nested_interpolation_holes_parse_in_polynomial_time() {
+        // Each unterminated hole's lambda holds an unclosed group and the
+        // next hole. Every failed structured attempt re-parses the holes
+        // after it, and each hole's sub-parser used to retry its own groups
+        // from scratch, costing 2^depth (found by fuzzing).
+        let depth = 64;
+        let src = "#If A Then\nx = $\"{Sub()\n".repeat(depth);
+        assert!(!parse_errors(&src).is_empty());
+    }
+
+    #[test]
     fn unbalanced_directive_inside_an_interpolation_hole_does_not_panic() {
         // The unterminated hole's multi-line lambda runs onto the next
         // lines, so its sub-parser meets unbalanced directives, which used
