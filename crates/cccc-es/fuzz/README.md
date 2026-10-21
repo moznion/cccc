@@ -15,6 +15,8 @@ cargo +nightly fuzz run analyze_source fuzz/corpus/analyze_source fuzz/seeds/ana
   lower, score) and checks that every input finishes without a panic, stack
   overflow, or hang. `-timeout` reports a slow input as a hang. The adapter parses by file extension, so the first input byte
   picks one (see `EXTS` in the target) and the rest is the source.
+  TypeScript-mode inputs with more than `MAX_TS_L_ANGLES` `<` are skipped until
+  oxc-project/oxc#27637 (exponential parse time in `oxc_parser`) is fixed.
 - `seeds/<target>/`: the starting corpus — the CLI fixture plus the snippets
   from the crate's unit tests. Discoveries go to `corpus/` and failing inputs
   to `artifacts/` (both git-ignored).
