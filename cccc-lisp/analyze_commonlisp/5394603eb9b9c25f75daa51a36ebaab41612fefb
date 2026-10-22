@@ -1,0 +1,3 @@
+
+ (defun sum (n)
+    (dum (t   (acc 2 (pos) 

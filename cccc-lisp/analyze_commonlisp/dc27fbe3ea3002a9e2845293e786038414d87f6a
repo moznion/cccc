@@ -1,0 +1,3 @@
+(ecase)) ())
+   (ecase)) (ecase)))))
+(ecase   #t 

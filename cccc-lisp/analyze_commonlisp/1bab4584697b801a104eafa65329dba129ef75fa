@@ -1,0 +1,5 @@
+
+                 (handler-case (funcall thunk)
+    :           (error (e)
+             psetq     (if (recover             (if (recoverab(handler-case (funcall thunkcall thunk)
+       se (fundefu nhoscalt ()

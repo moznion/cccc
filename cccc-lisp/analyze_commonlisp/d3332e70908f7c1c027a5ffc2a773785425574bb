@@ -1,0 +1,3 @@
+
+        (defmethod handle :before ((obj apsetft) amount)    (when (minusp amount)n error "no")))
+        

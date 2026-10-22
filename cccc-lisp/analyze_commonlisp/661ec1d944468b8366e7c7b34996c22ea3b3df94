@@ -1,0 +1,6 @@
+
+ ;efun get-words (n)
+  (case n
+    (1 "one")
+    (2 "a couple")
+    (otherwise

@@ -1,0 +1,4 @@
+;; Fixt) non-default clauses = 3
+(defun get-words (n)
+  (casots"))classify (a b)
+  (if (and a b) "both" "nt"))
