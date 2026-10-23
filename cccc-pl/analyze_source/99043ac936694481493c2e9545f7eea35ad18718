@@ -1,6 +1,0 @@
-), 1);
-    }
-
-    #[st]
-    fn grep_block_is_its_own_anonyms_unit() {
-        let src = r#

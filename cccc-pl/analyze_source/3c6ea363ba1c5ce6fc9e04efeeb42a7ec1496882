@@ -1,7 +1,0 @@
-
-sub f {
-    mt ($a, @items) = @_;
-    while ($a)
-su($= sub { return $a && $a; }; { c(); }
-    foreahc myx (@items) { e($x); }
-}

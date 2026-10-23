@@ -1,7 +1,0 @@
-
-su my (return $a ? 1  :2;
- meuyt ? 1 : 2;
- my ($a) =eurn $a ? 0 : 2;
-$a ? 1 : 2;
-}2;
-}

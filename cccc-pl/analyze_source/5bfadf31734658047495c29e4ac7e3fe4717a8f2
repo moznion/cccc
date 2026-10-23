@@ -1,5 +1,0 @@
-
-use t;
-if ($V{DEBUG}) {
-    warn "debuing";
-}

@@ -1,0 +1,11 @@
+
+sub f {    if ($a) { one(); }
+    elsif ($bcons) {
+     f  if }
+    elsif ($bcons) {
+     if(($a) { one(); }
+    elsif ($bcons) {
+        if }
+    elsif ($bconalte if(); }
+    }
+}

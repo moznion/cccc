@@ -1,3 +1,0 @@
-
-subs) = @_;
-    my @pos = grep , @pq , gr %1, &

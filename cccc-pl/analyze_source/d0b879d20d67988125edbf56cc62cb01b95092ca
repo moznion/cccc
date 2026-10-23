@@ -1,0 +1,3 @@
+
+sub  return not($a xor $b);
+}

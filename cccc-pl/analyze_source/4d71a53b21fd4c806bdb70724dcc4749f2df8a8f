@@ -1,7 +1,0 @@
-
-use ub f {
-    try {Dris; }
-    finally { cleanup(); }f {
-    try { risky(); }
-    cae($e); }
-    finally }

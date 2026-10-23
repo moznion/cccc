@@ -1,5 +1,0 @@
-
-sub f {
-    my ($a;
-do { step(); } while ($a);
-}

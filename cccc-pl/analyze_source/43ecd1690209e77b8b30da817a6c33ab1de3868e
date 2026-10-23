@@ -1,8 +1,0 @@
-
-sub f {
-   @_;
-    if ($a)(); }
-    else { t @_;
-if ($a) { }
-    else { th; }
-}
