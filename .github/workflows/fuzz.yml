@@ -169,6 +169,13 @@ jobs:
       # add no coverage so the branch does not grow without bound.
       - name: Minimize and push the corpus
         if: ${{ !cancelled() && env.PERSIST == 'true' }}
+        # Set via env (not `git -c`) so the identity also covers the
+        # cherry-pick in the retry loop below.
+        env:
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
         run: |
           if [ -z "$(ls -A "$CORPUS_DIR")" ]; then
             echo "corpus empty, nothing to persist"
@@ -183,15 +190,15 @@ jobs:
             exit 0
           fi
           echo "corpus entries after: $(find "${{ matrix.crate }}/${{ matrix.target }}" -type f | wc -l)"
-          git -c user.name="github-actions[bot]" \
-              -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
-              commit -q -m "corpus: ${{ matrix.crate }}/${{ matrix.target }} (run ${{ github.run_id }})"
+          git commit -q -m "corpus: ${{ matrix.crate }}/${{ matrix.target }} (run ${{ github.run_id }})"
           # Matrix jobs write disjoint directories, so on a concurrent push
           # re-apply this commit onto the new tip (cherry-pick, as the shallow
-          # history has no merge base to rebase on).
+          # history has no merge base to rebase on). Every matrix job finishes
+          # at about the same time, so retry generously with jitter.
           ours=$(git rev-parse HEAD)
-          for _ in 1 2 3; do
+          for _ in $(seq 10); do
             git push origin "HEAD:$CORPUS_BRANCH" && exit 0
+            sleep $((RANDOM % 10 + 1))
             git fetch --depth=1 origin "$CORPUS_BRANCH"
             git reset -q --hard FETCH_HEAD
             git cherry-pick "$ours"
