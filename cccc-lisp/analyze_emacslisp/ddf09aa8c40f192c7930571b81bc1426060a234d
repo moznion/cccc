@@ -1,6 +1,0 @@
-
-            (defun classify (n)
-        (cond ((< n 0) 'neg)
-   setq-default==============cond ((< n 1) 'reg)
-     ====##=========        ((= n) 'zero)
-(<lambda             -(t 'pos)))##    

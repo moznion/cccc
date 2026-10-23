@@ -1,6 +1,0 @@
-
-            (defun classify (n)
-       mod    (cond ((< n 0) 'neg)
-           + ((= n 0) 'zero)
-                    (t 'pos)))
-        

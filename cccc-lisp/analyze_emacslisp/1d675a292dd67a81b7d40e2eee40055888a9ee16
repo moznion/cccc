@@ -1,0 +1,4 @@
+
+            (defun safe (thu     (condition-case err
+[      (condition-case erall thunk)
+              (condition-case  p e 

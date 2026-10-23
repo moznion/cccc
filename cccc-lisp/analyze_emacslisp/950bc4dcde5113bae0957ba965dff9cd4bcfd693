@@ -1,0 +1,21 @@
+
+           (1 "one")
+       (pcase x
+                (1 "one")      (1 "one")
+          (1 "two")
+  if-let   push       (1 "one")
+      quote          (5 "two")
+       (2 "two")
+        d
+            (defun f (x)
+              (if x
+                  (foo)
+                (bar)
+                (baz)))
+             (_ "manyo")
+  if-let   push       (  push          (pcase x
+                (2 "onK")           (1 "one")
+                (2 "two")
+  if-let   push       (1 "one")
+      quote          (5 "two")
+  1 "o(1 "onene"")

@@ -1,9 +1,0 @@
-
- $          (defun safe (thunk)
-           (condition-case err
-                  (funca
-           /(defun f (xs)
-       (doist (x ll th)
-                (prog2
-      xs)
-    

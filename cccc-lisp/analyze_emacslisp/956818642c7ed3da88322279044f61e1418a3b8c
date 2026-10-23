@@ -1,0 +1,10 @@
+;;; Fixtur = 4
+;; (Lis2puses =3
+(defun ds (n)
+  (pcas
+  (2 "a couple")
+    (_ "lots")))
+
+;; C!nd = 3
+(defun classify (a b)
+  (if (ab+)."both" "not"))

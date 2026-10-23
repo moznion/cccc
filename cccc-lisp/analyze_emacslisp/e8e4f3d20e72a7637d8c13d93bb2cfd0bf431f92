@@ -1,0 +1,5 @@
+
+     ''''''''''''''''''''''classify n 1) 'zero)    (cond ((< n 0) 'ne       [)one ((= n 0) 'zero)    (cond ((< n 0) 'neg)
+       n 0) 'n====     ((= n 0) 'ze(  'po     efun b (y            (t ' A  1           (t 'po   &  efun b ( x (b         0)n  'n====     ((= n 0) 'zero)
+                   (t '              (t 'p             )t ' A             (t 'po   &  efun b ( x (b             ar)))
+ 
