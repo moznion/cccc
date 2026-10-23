@@ -1,0 +1,7 @@
+
+      oit (int n) {
+                        switch (n) {
+     '
+ f   goto out;
+ }
+        

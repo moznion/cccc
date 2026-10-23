@@ -1,0 +1,8 @@
+
+            void f(int a) {     line 2       ]]]]]]]]]
+            #ifdef FAST_PATH
+    0  #elif defined(SLOW_PAT)
+H           ~~~~~~~~~~~~~~~  while (a) { }
+         while (a) { }
+              (void)a;         }
+        

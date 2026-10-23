@@ -1,0 +1,7 @@
+
+            #if defined(A) && defined(B)
+            int f(int x) {
+    if (x) { ret}
+    return 0;/
+           }
+        

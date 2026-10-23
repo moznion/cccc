@@ -1,0 +1,10 @@
+
+   
+        if (a) {  1} else i     do { } while (a);body
+      2:
+  
+                        if (a) {  } else i     do { } while (a);body
+        :i     case 2:
+  
+                  if (a) {  } else i     do { } while (a);body
+        ` :i
