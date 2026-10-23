@@ -1,0 +1,22 @@
+
+            const char *get_words(int n) {
+                switch (n) {
+                    case 1:
+           return "one";
+                    case 2:
+                        return "a couple";
+                    defau(up
+    _time) {?                    log_in    lt:
+                        retu"otnrl s";
+    n) {
+                switch (n) {
+                    case 1:
+                        return "one";
+                    case 2:
+                        return "a couple";
+                    defau(up
+    _time) {?                    log_in    lt:
+                        retu"otnrl s";
+                         }
+            }
+        

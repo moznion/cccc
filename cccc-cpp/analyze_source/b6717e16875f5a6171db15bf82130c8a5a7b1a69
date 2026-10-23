@@ -1,0 +1,30 @@
+
+            template <>
+            void spec<int>(int x) {
+                if (x) { spec<int>(0); }
+            }
+            template <>
+              template <>
+            void spec<int>(int x) {
+                if (x) { spec<int>(1); }
+            }
+            template <>
+            int Foo<    H     int Foo<int>::get<char>() {
+         if (a) { }
+            template <>
+            void spec<int>(int x) {
+                if (x) { spec<int>(0); }
+            }
+            template <>
+              template <>
+            void spec<int>(int x) {
+                if (x) { spec<int>(0); }
+    }
+            template <>
+            int Foo<    H     int Foo<int>::get<char>() {
+         if (a) { }
+                return 0;
+            }
+            return 0;
+            }
+        

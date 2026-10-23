@@ -1,0 +1,9 @@
+     templaet nt<top_(0) {}
+               ~Stack() {}
+
+   >:>~Queue() {
+       }
+            Queue<T>:>~Queue() {
+       }
+
+           

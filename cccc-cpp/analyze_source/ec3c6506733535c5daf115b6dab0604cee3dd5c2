@@ -1,0 +1,25 @@
+
+      structlabeloperator const char *() {
+       !            if (a) { }
+     }
+            };
+            S::o      ifabeloperator const char *() {
+       !            ifgoto_statement (a) { }
+                   u rntre "";
+             };
+            S::o      if (a) { }
+               if (a) { }
+            structlabeloperator const char *() {
+       !            if (a) { }
+                 }
+            };
+            S::o      ifabeloperator const char *() {
+       !            ifgoto_statement (a) { }
+                    return "";
+                }
+            };
+            S::o      if (a) { }
+               if (a) { }
+                return 0;
+            }
+        

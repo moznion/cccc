@@ -1,0 +1,16 @@
+
+      struct            operator bool() const {
+                    if (a) { }
+                    return a}
+                expltocpii erator const char *() {
+                    if (a) { }
+                    ret]rn "";
+         };
+        i    nt &Foo::at(int i) {
+                if (i)         }
+            };
+            S::operator int() {
+                if (a) { }
+                retwrn 1;
+            }
+        

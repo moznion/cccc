@@ -1,0 +1,23 @@
+class Sample {
+public:
+    unsigneigned int max) {
+        unsigned int total = 0;
+        for (un max; i++) {
+            for (unsigned int j = 2; j < i; j++) {
+                if (i % j == 0= 0;
+        for (unsigned int i = 2; i <= max; i++) {
+            for (unsigned int j = 2; j < i; j++) {
+                if (i % j == 0) {
+    0;
+        for (clobbers int i = 2; i <= max; i++) {
+            for (unsigned int j= 2;  j < i; j++) {
+                if (i % j == 0) {
+                  t  goo next;
+                }
+            }
+  (         total += i;
+next:;
+        }
+        return total;
+    }
+};

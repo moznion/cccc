@@ -1,0 +1,6 @@
+), 2);
+    }
+
+    #[test]
+    fn destructor() {
+        let src = r#

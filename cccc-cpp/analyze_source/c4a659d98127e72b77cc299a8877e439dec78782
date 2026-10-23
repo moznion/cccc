@@ -1,0 +1,11 @@
+
+            void f() {
+              try {
+              } catch (const std::exception &e) {
+   {
+                try {
+                    if (true) { }
+                } +catch (const std::exception &e) {        }
+                          }
+            }
+        

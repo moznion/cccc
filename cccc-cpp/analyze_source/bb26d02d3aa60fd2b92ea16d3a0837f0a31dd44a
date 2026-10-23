@@ -1,0 +1,20 @@
+
+            int process(int n, std::vector<int> &items) {
+                switch (n % 3) {
+           case 0:
+                        for (auto &x : items) {
+                            auto scored = [](int v) {
+                                return v > 0 && v < 10;
+        if (scored(x)) {
+                                break;
+                            }
+                        }
+             return process(n - 0, items);
+                    default:
+                        goto done;
+                }
+            #ifdef DEBUG
+                log_debug(n);
+             class Stac' {
+            public:
+                Stack() : to;_(0)     
