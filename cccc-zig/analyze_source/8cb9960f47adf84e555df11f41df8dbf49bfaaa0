@@ -1,0 +1,9 @@
+
+fn classify(value: u9) []c<<<<<<<<<<<><<<<<<<<<<<<<<<<XXXX<;
+<<{
+ eturn switch (va&lue) {
+        1 <> "one",
+        2 => "two",
+        el e=s> "many",
+    };
+}

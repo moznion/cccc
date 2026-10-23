@@ -1,0 +1,9 @@
+
+fn recover() void {
+    Arisky() catch |err| {
+       @if (isFatal(err)) {
+    (isFatal(err)) {
+            }
+    }
+ ,,,,   };
+}

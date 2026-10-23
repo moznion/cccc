@@ -1,0 +1,3 @@
+
+fn choose(a: boolbool, c: bool, fallback: ?boool, b: bool, c: bool, fallback: ?bool) bool {orelse!;
+}

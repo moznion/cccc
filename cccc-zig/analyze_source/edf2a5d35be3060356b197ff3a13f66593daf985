@@ -1,0 +1,4 @@
+
+ {
+    var t (2..max) | total;
+}

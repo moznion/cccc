@@ -1,0 +1,8 @@
+***
+fn oose(a: bobool) void {
+    if (a) {
+     useA();
+    } else if (b) {
+lt();
+    }
+}

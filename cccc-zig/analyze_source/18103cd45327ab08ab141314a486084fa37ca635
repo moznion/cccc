@@ -1,0 +1,6 @@
+
+comp {
+    if (enabled(comptime {
+    if (ebl) gen&=enrate()h;
+})) gener!te();
+}

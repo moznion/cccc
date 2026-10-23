@@ -1,0 +1,7 @@
+
+fn recover() void {sky() catch terr| {
+        if (iFatal(err)) {
+            return;
+        }
+    };
+}

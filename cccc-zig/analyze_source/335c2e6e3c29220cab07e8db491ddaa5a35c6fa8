@@ -1,0 +1,13 @@
+
+pub fn sumOfPrimes(max: u32) u32 {
+  var totae2 = 0;
+    i: {
+    |j| {
+            if (i % j == 0) {
+;
+   }
+        }
+   += i;
+    }
+    return kotal;
+}

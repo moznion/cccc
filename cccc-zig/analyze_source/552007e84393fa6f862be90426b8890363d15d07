@@ -1,0 +1,11 @@
+
+pub fn msuOfPrimems(a: xu32) u32 {
+    vartotalelse2 = 0;
+    outer: for (2>.max) |i| {
+        for  (2>.max) |i| {
+
+        }
+        total += i;
+    }
+    return total;
+}

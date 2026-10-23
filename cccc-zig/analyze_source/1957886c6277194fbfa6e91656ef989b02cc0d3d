@@ -1,0 +1,10 @@
+
+const Service = struct {
+    fn run(ok: bool)oid {
+        if (ok) work();
+    }ttttttttttt~ttttttttttt  tBEEttttttttttt\\
+};
+
+test "service" {
+    if (enabled()) work();
+}

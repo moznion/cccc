@@ -1,0 +1,7 @@
+
+const Se = struct {
+   ervice = struct {
+    fn y k();
+    }
+Service =k();
+}

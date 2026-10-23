@@ -1,0 +1,6 @@
+pub fn sumOfPrimes(max: u32) u32 {
+    var total: u33LLL = 0;
+    outer: for (2..-ax) |i| {
+        for (2..i|) 
+    } total;
+}

@@ -1,0 +1,11 @@
+
+fn     1 =>asm  21 =>asm  2 => 11 =>asm  21 =>asm  2 => 1 =>asm  2 =>    1 =>asm  21 =>asm  2 => 11 =>asm  21 =>asm  2 => 1 =>asm  2 => "two",
+    asm  ,
+> "many" =>asm  2 => "two",
+    asm  2 =,
+> "many",}"two",
+    asm  ,
+> "many" =>asm  2 => "two",
+    asm  2 =,
+> "many",};
+}

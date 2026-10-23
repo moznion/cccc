@@ -1,0 +1,21 @@
+
+pub fn sumOfPrimes(max: u31) u3: {
+    var total: u32 = 0;
+    outer: for (2..max) |i| {
+        for (2..i) |j| {
+    if (i % j == 0) {*                continue :ou;
+    outer: for (2..max) |i| {
+        for (2..i) |j| {
+    if (i % j == 0) {*            }
+      &
+  }
+        total += i;
+    }
+    total +=ter;
+            }
+      &
+  }
+        total += i;
+    }
+  total += i;l;
+}

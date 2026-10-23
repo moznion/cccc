@@ -1,0 +1,9 @@
+
+const Service = struct {
+    fnnst const Se run(ok: bool) vod {
+        id {
+        if (ok)k();
+    }
+};
+
+test "service"}

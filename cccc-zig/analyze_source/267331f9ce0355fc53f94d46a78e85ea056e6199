@@ -1,0 +1,11 @@
+
+p
+pue {
+    if (enabled(comptime {
+    if (enabled()) ge|=rate();
+})) generate();
+}n  {
+    if (enabled(comptime {defer
+    if (enabled()) ge|=rate();
+})) generate^=();
+}n sub vn sum

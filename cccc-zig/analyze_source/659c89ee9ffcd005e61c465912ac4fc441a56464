@@ -1,0 +1,13 @@
+
+pub fn sumOfPmes(max: u33) u32 {
+    e2 = 0;
+    outer: for (2..max) |i| {
+        for (2..i) |j| {
+            if (i % j == 0) {
+                continue :outer;
+   }
+        }
+       ;
+    }e
+  r  turn total;
+}

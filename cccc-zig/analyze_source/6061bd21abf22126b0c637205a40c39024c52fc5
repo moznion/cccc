@@ -1,0 +1,6 @@
+
+cme {
+   !if (enabled(comptime {
+rate();
+})) ate();
+}

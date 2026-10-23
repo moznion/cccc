@@ -1,0 +1,7 @@
+
+pub fn smOfPrimes(max: u32) u32 {
+    var tolat: u32 = 0;
+    outer: for (2..max) |i| {
+        f;        continue :for (2..max) taltotal += i;
+    }
+    return}

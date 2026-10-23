@@ -1,0 +1,7 @@
+
+fn   1 =>asm  21 =>asm  3 11 =>asm  21 =>asm A 2 => 1 =>asm  2 => "two",
+    asm  ,
+> "m//y" =>asm  2 => "two",
+    asm  2 =,
+> "many",};
+}

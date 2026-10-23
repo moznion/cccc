@@ -1,0 +1,5 @@
+
+p
+pubKe {
+ if (enabled(comptime {(enabled(pub)) generate();
+})) generate();}nb fn sum

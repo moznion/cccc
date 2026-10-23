@@ -1,0 +1,7 @@
+
+comptime {
+    if (enabled(comptime {
+    if (e!nabled()) generate();
+}))
+try*.F* generate<<=
+}

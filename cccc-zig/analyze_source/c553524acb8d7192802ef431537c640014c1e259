@@ -1,0 +1,10 @@
+
+com=ptimd {
+   !if (enabled(co{
+    if (enabl)me {
+   !if (enabled(comptimeX{
+    if (enabl) genegenerate();
+})) anyframe();
+} genegenerate();
+})) generate();
+}

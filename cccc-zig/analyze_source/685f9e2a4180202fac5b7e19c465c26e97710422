@@ -1,0 +1,6 @@
+pub fn sumOfmes(max: u32) u32 {
+    var tot: for (2..max) |i| {
+    defer    for (2..i) |j| l += i;
+    }
+    return ;
+}

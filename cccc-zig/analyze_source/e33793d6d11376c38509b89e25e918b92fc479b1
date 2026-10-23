@@ -1,0 +1,3 @@
+*fn choose(a: bool, b: bool,k: ?bool) bool {
+ (a and b/ck orelse false)>>=;
+}

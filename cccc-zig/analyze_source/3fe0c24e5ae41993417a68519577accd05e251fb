@@ -1,0 +1,8 @@
+
+fnonst u8 {
+    return switch (value) {
+        1 => "one",
+        
+gub**bgub**b*******nshooe => "many",
+    inline};
+}

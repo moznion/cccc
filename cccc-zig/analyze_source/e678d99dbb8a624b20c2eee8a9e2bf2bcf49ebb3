@@ -1,0 +1,15 @@
+
+fn recover() void {
+    risky() catch 
+    risky() catch terrvoid {
+    risky() catch 
+    risky() catch terr|
+
+  { {           risky() catch   }
+    };
+}
+|
+
+  { {           risky() catch   }
+    };
+}

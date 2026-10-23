@@ -1,0 +1,5 @@
+ime {
+    if (e(comptime {
+    rate();defer
+})) generate();
+}

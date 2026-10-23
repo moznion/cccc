@@ -1,0 +1,7 @@
+
+f void {
+ h |err| {
+        if (isFatal(err)) {
+            }
+,,,,,,,,,,,,,   };
+}

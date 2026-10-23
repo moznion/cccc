@@ -1,0 +1,9 @@
+
+\\fn<<<z<<<<<<;<<<<<<<<<<;
+<<{
+    return switch (v^lwe) {
+ oe,        2 => "two",
+        else => "many"       else => "many",
+     2 => "two",
+        else => "many" <<   };
+}

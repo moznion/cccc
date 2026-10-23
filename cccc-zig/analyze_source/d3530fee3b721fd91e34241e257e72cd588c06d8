@@ -1,0 +1,6 @@
+
+comptim {
+    if (enabled(comptime {
+ne<<|=ra
+})) generate();
+}%

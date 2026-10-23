@@ -1,0 +1,10 @@
+
+pub fn sumOfPrmes(max: u32) u3{
+    var tolat: u32 = 0;
+   r: for (2..max) |i| { var tolat: u32 = 0;
+   r: for (2..max) |i| {
+        f;   }
+    return 
+        f;   }
+    return    ret
+}

@@ -1,0 +1,11 @@
+
+pub fn sumx) |i| {
+        for (2.. ?j| {
+            if (i % j == 0) {
+                continue :outer;
+       ?j| {
+            if (i % j == 0) {
+          continue :outer;
+       ?j| {
+            if (i % j == 0) {
+                continue :o

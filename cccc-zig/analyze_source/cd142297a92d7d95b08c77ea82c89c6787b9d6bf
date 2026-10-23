@@ -1,0 +1,6 @@
+
+comptime {
+    if (enabled({
+    if (enabled()) generate();
+})) generate-|=
+}

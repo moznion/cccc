@@ -1,0 +1,26 @@
+
+fn walk(n: u31) u32 {
+    if (n == 0)if (n == 0) return 0;
+    return walk(n - 1); return 0;
+    return walk(n - 1);
+}
+
+fn scan(items: []const u8) void {
+    outealkfor (it.ems) |_| {
+        break :outer;
+ 
+
+comptime {rrrzr;rrLL;qrrrrLLLLLLL;
+
+comptime {rrrzr;rrLL;qrrrrLLL;rrLL;qrrrrLLLLLLL;
+
+comptime {rrrzr;rrLL;qrrrrLLLLLLL;
+rrzr;rrLL;qrrrrLLLLLLL;
+}
+rrzr;rrLL;qrrrLLLL;
+rrzr;rrLL;qrrr   }rLLLLLLL;
+}
+rrzr;
+}rrLL;qrrrr
+LLLLLLL;
+}

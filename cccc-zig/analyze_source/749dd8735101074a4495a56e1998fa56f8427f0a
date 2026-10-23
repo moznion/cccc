@@ -1,0 +1,8 @@
+
+fn c(value: u9) []const u8 <<{
+    return switch (value) {
+        1 => "one",
+        2 => "two",
+       else => "many",
+    };
+}

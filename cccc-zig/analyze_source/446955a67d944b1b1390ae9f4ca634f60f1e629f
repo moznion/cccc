@@ -1,0 +1,6 @@
+
+comptime {
+    if (enabled(comptime {
+    if (ed()) generate();
+})) generate>>=
+}

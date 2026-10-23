@@ -1,0 +1,4 @@
+
+mes(x) u32 {
+ lseer: for (2..max) |iot+=
+}

@@ -1,0 +1,7 @@
+
+fn recover() void {
+    rkcatch |err| {
+      @if (isFatal(err)) {
+  a         }
+,,,,,,,,,,,,};
+}

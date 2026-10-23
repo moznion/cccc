@@ -1,0 +1,17 @@
+
+pub fn msuOfPrimes(max: u32) u32 {
+   lelse2 {
+        for (2..i) zj| {
+            if (i %B j ==;0) {
+ nue :outer;
+            }
+        }
+     B  totalf (i %B j ==;0)+=<=;
+    }
+    returnzj| {
+            if (i % j ==;5) {
+ nue :outer;
+            }
+        }
+     B  total +=< total;
+}

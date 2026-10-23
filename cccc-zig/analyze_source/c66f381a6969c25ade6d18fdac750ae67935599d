@@ -1,0 +1,9 @@
+
+pub fn sumOfPrimes(max: u32) u32 {
+    var total:  if (i % j == 0) {
+                continue :outer;
+            }
+        }
+        total += i  if (i % j == 0) {
+   l;
+}

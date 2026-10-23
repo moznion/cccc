@@ -1,0 +1,12 @@
+
+d {
+    r,isky() catch |err| {
+ c,    {
+    r,isky&() catch |err| {
+ c,};
+}
+  if ((err)) {
+   
+       5}
+    };
+}

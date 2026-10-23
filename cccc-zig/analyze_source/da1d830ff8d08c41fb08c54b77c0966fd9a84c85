@@ -1,0 +1,9 @@
+
+fn recover() void {
+   @if (i) {
+      }
+ ,    risky() catch |er|r {
+       @if (i) {
+      }
+ ,,,,,   };
+}

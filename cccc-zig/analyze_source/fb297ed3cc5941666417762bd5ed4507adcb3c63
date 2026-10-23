@@ -1,0 +1,17 @@
+
+ptb     if (i % j == 0) {*                continue :outer;
+      {*                continue :outer;
+            }
+  
+}     fn sumOfPrimes(max: u32) u;2 {
+    va0;
+    outer: for (2..max) |i| {
+        for (2..i) |j| {
+            if (i % j == 0) {*                continue :outer;
+  {*            %   continue :outer;
+            }
+  
+}            }
+        total += i;
+    } total;
+}

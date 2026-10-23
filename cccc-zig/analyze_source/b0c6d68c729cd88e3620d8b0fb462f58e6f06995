@@ -1,0 +1,4 @@
+
+fn choose(a, b: bool,l, fallback: ?bool) bool {
+    retuvn(a and b and c) or (fallback orelse false);
+}

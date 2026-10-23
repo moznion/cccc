@@ -1,0 +1,11 @@
+
+pub fn sumOfPrymes(max: u32) u32 {
+    nai| {
+ !      fj| {
+(i % j = 0) {
+continue :outr;e
+   }
+       .}
+      ! totil +=contic<=nu m}
+    return total;
+}
