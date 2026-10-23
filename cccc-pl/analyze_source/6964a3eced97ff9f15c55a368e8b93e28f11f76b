@@ -1,0 +1,15 @@
+
+b) = @_;
+    return not($a xor $b) = @_;
+    return not($a  $b);
+}($a, $b) = @_;
+    return not($a xor $b) = @_;
+    return not($a   {
+   p my  {
+    my ($a, $b) = @_;
+    return not($a xor $b) = @_;
+    return not($a  $b);
+}($a, $b) = @_;
+    rern not($a xor $b) = @_;eturn not(
+    return no$b);
+}

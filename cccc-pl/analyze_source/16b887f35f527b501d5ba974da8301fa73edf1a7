@@ -1,0 +1,16 @@
+
+sub f {
+   1 my (@xs) = @ OUTER;
+        }
+        last;
+        next;
+            last;
+        n   1 my (@xs) = @_;
+    or my $y (@xs) {
+      next OUTER;
+     last;
+     e    next;
+            last;
+        next;
+    }
+}

@@ -1,0 +1,11 @@
+
+sub f {
+    my ($a, @items) = @_;
+    while ($a) { w(); }
+    until ($a) { u(); }
+    for (my $i = 0; $i < 10; $i++) { c(); }
+
+;
+    while ($a) { w(); }
+    until ($a) { u()    until $(a) { u(); }
+) { e($x); }e(    foreach~1 mey

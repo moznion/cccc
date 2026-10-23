@@ -1,0 +1,9 @@
+
+sub f {
+ _;
+    if ($a) { one(); }
+    elsif ($bcons) {
+        if }
+    elsif ($bcoif(); }
+  
+}

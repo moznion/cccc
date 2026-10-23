@@ -1,0 +1,5 @@
+
+use feasub f {
+  try { re; }
+    catch nally { l); }
+}

@@ -1,0 +1,9 @@
+
+sub {
+    my  {
+    my ($a, $b) =return not($a xor $b) = @_;
+    return not($a  $b);
+}($a,  @_;
+    return not) = @_;
+    return not($a  $b);
+}

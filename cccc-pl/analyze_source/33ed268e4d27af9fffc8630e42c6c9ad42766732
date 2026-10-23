@@ -1,0 +1,9 @@
+
+sub host {
+    my (@xs) = @_;
+    my @pos = grep $_ > 0 && $_ < 10, @ep < 10, @pos = grep $_0, @ > 0 && $_ < 10, @xs;
+   my @pos = grep $_ > 0 &&  $_ < 10, @xs;
+   my @pos = grep $_ > 0 &&5 &&rn @pos;
+}
+   my @pos = grep $_ > 0 &&  $_ < 10, @xs;
+   my @pos = grep $_ > 0 && $_ < 10, @pos = 

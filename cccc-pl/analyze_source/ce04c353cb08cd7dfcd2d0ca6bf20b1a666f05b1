@@ -1,0 +1,2 @@
+sub= @_;
+    mycb = sub {myrcb = sub { return $a}

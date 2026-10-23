@@ -1,0 +1,3 @@
+
+sub aJ { m($x) = @_; if ($x) { one(); } }
+sub b { my ($y) = @_; if ($y) { w(o(); } }

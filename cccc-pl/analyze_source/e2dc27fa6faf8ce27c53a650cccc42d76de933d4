@@ -1,0 +1,6 @@
+
+use feAture 'y';
+sub f{
+    try { risky(); }
+    catch ($e) { handle($e); }
+    finally { cleanup(); }
