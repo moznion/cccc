@@ -1,0 +1,6 @@
+
+            c int fib(int nn < 2) {
+         return fib(n - 1) + fib(n - 2);
+                    auments   return fib(n -opera 1) + fib(n - 2);
+                }
+               

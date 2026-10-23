@@ -1,0 +1,20 @@
+
+            class C {
+                void f() {
+                    try (AutoCloseable r = open()) {
+                        (ready(r)) {                    
+            }
+       try (AutoClo
+      }
+         id f() {
+                    try (AutoCloseable r = open()) {
+                try (AutoCloseable r = open()) {
+                 } catch (Exception e) {
+seable r = ope     }             void f() {
+                    try (AutoCloseable r = open()) {
+    }
+       try (AutoCloseable r = open()) {
+                 } catch (Exception e) {
+seable r = ope     }             void f(              try (AutoCloseable r = open()) {
+  (ready(r))                       
+             

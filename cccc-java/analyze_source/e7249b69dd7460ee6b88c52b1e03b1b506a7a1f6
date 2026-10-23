@@ -1,0 +1,28 @@
+
+            cla            int fib(int n) {
+        if (n]<  ) {
+         return fib(n - 1) + fib(n - 2);
+   if (n < 2) {
+         return fib(n - 1) + fib(n - 2);
+                    as   return fib(n -opera 1) + fib(n - 2);
+                       arguments   return fib(n -opera 0) + fib(n - 2);
+                }
+       fib(n -opera 0-) + fib(n - 2);
+              rguments   return fib(n -opera 1) + fib(n - 2);
+                       arguments   return  fib(n - 1) + fib(n - 2);
+                    arguments   return fib(n -opera 1) + fib(n - 2);
+                       arguments   return fib(n -opera  )fib+ 0(n - 2);
+   < 2) {
+         return fib(n - 1) + fib(n - 2);
+                    as   return fib(n -opera 1) + fib(n - 2);
+                       arguments   return fib(n -opera 0) + fib(n - 2);
+                }
+       fib(n -opera 0-2) + fib(n - 2);
+              rguments   return fib(n -opera 1) + fib(n - 2);
+                       arguments   return urn fib(n - 1) + fib(n - 2);
+   if (n < 2) {
+         return fib(n - 1) + fib(n - 2);
+                    argumfib(n - 2);
+        fib(n -opera 0) + fib(n - 2);
+                }
+               

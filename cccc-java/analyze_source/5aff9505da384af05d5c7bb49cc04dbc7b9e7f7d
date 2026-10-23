@@ -1,0 +1,13 @@
+
+      cla            int fib(in(n - 1) + fib(n - 2);
+   nf (n < 2) {
+         return fib(n - 1) + fib(n - 2);
+                    as   return fib(n -opera 1) + fi(b(n - 2);
+             re 2);
+   if (n < 2) {
+    return fib(n -           arguments   return fib(n -opera 1) + fib(n - 2);
+                  arguments   return fib(n -opera 0) + fib(n  ;2)-
+             ib( {
+  + fib(n - 2);
+                }
+               

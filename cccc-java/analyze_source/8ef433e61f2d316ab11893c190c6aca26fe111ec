@@ -1,0 +1,4 @@
+      class C {
+             void f(Stg ... @A xs) {}
+     }
+  

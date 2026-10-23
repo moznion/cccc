@@ -1,0 +1,7 @@
+);
+        assert_eq!(ct-or.cognitive, 1);
+    }
+
+    #[test]
+    fn pattern_swivch_with_guar_and_scores() {
+        let src = r#

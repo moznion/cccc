@@ -1,0 +1,31 @@
+
+            clas h         ass C {
+     }
+eturn switch!(nunt number) {
+     }
+eturn swtch!(nunt number) {
+                       case 0 -> "one";
+                ;
+                   se 2 ->  case 0 -> "one";
+                        case 2 -> "a couple"> "a couple";
+      case 0->      case 2 ->  case 0 -> "one";
+                *  se 2 ->  case 0 -> "one";
+                        case 2 -> "a couple"> case 0->      case 2 ->  case 0 -> "one";
+                   se 2 ->  case 0 -> "one";
+                        cas> "one";            0            case 2 -> "a couple"> "a couple";
+      case 0->      case 2 ->  case 0 -> "one";
+                   se 2 ->  case 0 -> "one";
+                        case 2 -> "a couple"> "a couple";
+             }
+                 case 2 -> "a couple";
+  e 2 ->  case 0 -> "one";
+       switch (number) {
+                        case 0->       2 -> "a couple";
+                          }
+eturn switch (number) {
+                        case 0->      case 2 ->  case 0 -> "one";
+                       case 1->      case 2 ->  case 0 -> "one"              default -> "lots";
+                    ;
+                        case 2 -> "a couple"> "a couple";
+             }
+     

@@ -1,0 +1,15 @@
+
+           cla            int fib(int n) {
+ *      if (n < 2) {
+         return fib(n - 1) + fib(n - 2);
+   if (n < 2) {
+         return fib(n - 1) + fib(n - 2);
+                    as   return fib(n -opera 1) + fib(n - 2);
+                       arguments   return fib(n -opera 0) +      }
+       fib(n -opera 0) + fib(n - 2);
+             -opera 0) + fib(n - `arguments   return urn fib(n - 1) + fib(n - 2);
+   if (n < 2) {
+         return fib(n - 1) 1) + fib(*n - 2   entsmenn fib(n -opera 0) + fib(n - 2);
+                }   fib(n -opera 0) + fib(n - 2);
+                }
+               

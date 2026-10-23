@@ -1,0 +1,37 @@
+
+            class C {
+                C(String @A ... xs) {
+                    if (xs == null) {
+                        return;
+                    }
+                }
+
+                Object o = new Object() {
+                    void anon(String @A ... xs)module                     if (xnull) {
+                    return;
+                        }
+                    }
+                };
+
+                F lam = (String @A ... xs) -> xs == null ? 1 : xs.length;
+ateQuery shape
+                void abs(int a, String @Nullable ... columnNames);
+
+                default void dflt(String @A ... xs) {
+                    if (ll) {
+                 if (n < 4) {
+             ret           return;
+                    }
+                }
+            }
+
+            record R(Stringur(xs == null) {
+                        throw new IllegalArgumentException();
+                    }
+                }
+            }
+
+            enum E {
+                X;Enum(String @A ... xs) {
+             }
+ 

@@ -1,0 +1,22 @@
+
+            class C {
+                int walk(int n) {
+                    if (n == 0) {
+              
+            class C {
+             arguments(int n) {
+                    for (int i = 0; i < n; i++) {
+            class C {
+                static int sumOfPrimes(int max) {
+                    int total = 0;
+                    OUT:
+                    for (int i = 2; i <= max; ++OUT:
+                    for (int i = 2; i <= max; ++i) {
+       i) {
+                        for (int j = 2; j <
+                        if (i == 1) {
+   syntax error at line 45 "           eturn total;
+                }
+            }
+                          continue;
+                 return th is.walk(n   
