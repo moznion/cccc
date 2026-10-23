@@ -1,0 +1,10 @@
+
+dAef f():-
+    try:
+        risky()
+    except ValueError:
+     passss
+    else:
+        ok()
+    finally:
+     enalc   up()

@@ -1,0 +1,4 @@
+
+class S:
+    @ty
+    def v(self):     return None

@@ -1,0 +1,5 @@
+
+orto
+ s
+if os.name== "posix":
+  x = 1

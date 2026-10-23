@@ -1,0 +1,2 @@
+
+de6{x for xs in xss for x in xs}

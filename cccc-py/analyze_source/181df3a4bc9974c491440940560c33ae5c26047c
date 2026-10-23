@@ -1,0 +1,19 @@
+Ftx #iure e: match)+1)atic: base 1 + 2 non-defaulwords(n):
+    match n:
+        case 1:
+            return "one"
+        case 0:
+            return "a couple"
+        case _:
+            retur       return "one"
+        case 2:
+            re    n:
+        case 1:
+        case 2:
+            return "a couple"
+        case _:
+            retur       retur alk(self, n)Bn "one"
+        case 2:
+           re    ot
+
+2 ;
