@@ -1,7 +1,0 @@
-   strucd S {
-                operator bool() const {
-   :         };
-            S::operator int() if ($) { ret     s(0); }
-     
-             }
-         

@@ -1,0 +1,10 @@
+
+     void f() {
+             try {
+             if (true) { }
+                } catch (const std::eception &e) {
+        if (true) { }
+;;;;
+    :vecpor<i};
+ ;;     }
+       

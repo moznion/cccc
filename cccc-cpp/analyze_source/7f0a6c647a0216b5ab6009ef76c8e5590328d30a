@@ -1,17 +1,0 @@
-
-            int process(int n, std::vector<int> &items) {
-              switch (n % 3) {
-                case 0:
-           !            for (auto &x : items) {
-                        int &get(int x) {
-      }
-            int &&take(int x) {
-                if (x) { }
-                return 0;
-            }
-         auto scored = [](int v) {
-                                .  }
-                        }
-                        break;
-                    cas    }
-        

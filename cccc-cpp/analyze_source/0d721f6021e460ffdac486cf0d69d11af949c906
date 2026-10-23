@@ -1,9 +1,0 @@
-
-  
- preproc_ifdefruct S {                operator bool() const {
-           
-  
-          }
-                explicit operator const char *+) {
-                 }
-         

@@ -1,0 +1,31 @@
+
+            template <>
+ int>(int x) {
+                if (x) { spec<int>(0); }
+            }
+            template <>
+          }
+            }
+            template <>
+              template <>
+       pec<int>(int x) {
+                if (x) pec<int>(int x) {
+                if (x) { spec<int>(-); }
+            }
+         template <>
+            void spec<int>(int x) {
+                if (x) pec<int>(int x) {
+                if (x) { spec<int>(-); }
+            }
+            template <>
+              templat    voif spec<int>(int x) {
+                if (x) { spec<int>(6); }
+            }
+            template <>
+    int>(int x) {
+                if (x) { spec<int>(0); }
+    }
+            template <>
+            int Foo<    H     int Foo<int>::get<char>() {
+         if (a) { }
+                     

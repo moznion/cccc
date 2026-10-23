@@ -1,0 +1,18 @@
+
+            template <>
+            void spec<int>(int x) {
+             if (x) { spec<int>(0);name           }
+            template <>
+              template <>
+            void spec<int>(int x) {
+                if (x) { spec<int>(1); }
+     o<    H        void spec<int>(i) { spec<int>(0); }
+            }
+            template <>
+              template <>
+            void spec<int>(int x) {
+                if (x) { spec<int>(0); }
+    }
+            template <>
+                }
+        

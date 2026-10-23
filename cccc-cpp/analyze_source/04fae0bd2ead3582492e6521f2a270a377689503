@@ -1,9 +1,0 @@
-
-    :< 09;
-        *                    $  #ifdef DEBUG
-         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                         $  #ifdef DEBUG
-          j     log_d0ebug;;;;;;;;;;;;;;;?;;;;;;;;;;;;;;;;;      #endif
-     )       datm <      #endif
-            do   return v;
-    

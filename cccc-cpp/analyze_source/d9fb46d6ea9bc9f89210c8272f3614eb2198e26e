@@ -1,0 +1,3 @@
+
+                  t fact() {
+N) { return N * fact<N - 1>(); }alternati;   

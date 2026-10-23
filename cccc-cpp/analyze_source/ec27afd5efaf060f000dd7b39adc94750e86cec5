@@ -1,6 +1,0 @@
-
-            template <int N>
-          t fact() {
-                if (N) { return N * fact<N - 1>(); }return 1;
-     }
-        

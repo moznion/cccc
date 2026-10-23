@@ -1,0 +1,17 @@
+
+   #ifdef D.EBUG
+             #endif
+       turn x ?   `    (x) { r  #ifdef DEBUG
+             #endif
+         }
+            #ifdef DE,UG
+             #endif
+       turn x ?        #endif
+            #ntpera    g               }
+            #ifdef DE,UG
+             #endif
+       turn x ?     ret eturn 0;             }
+            #ifdef DE,UG
+             #endif
+       turn x ?     ret a, igu1 : 0;  }(
+    )) {

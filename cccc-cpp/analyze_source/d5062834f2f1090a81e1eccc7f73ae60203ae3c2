@@ -1,0 +1,8 @@
+ t  void walk(int n) {
+             if (n) { this->walk<T>(n`- 1); }
+                }
+         <typenam  void visit(S &s, int n) {
+                    if (n) { s.template visit<T>(s, n - 1); }
+                }
+  };
+        

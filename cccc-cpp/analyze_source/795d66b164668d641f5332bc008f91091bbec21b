@@ -1,0 +1,26 @@
+
+            struct S {
+                operator bool() const {
+   || return a;
+                }
+                explicit operator const char *() {
+              \     if (a)   return "";
+                }
+            };
+            S::operator int() {
+          
+                operator bool() const {
+                      }
+                explicit operator const char *() {
+                      if (a)   return "";
+                }
+            };
+            S::operator int() {
+          
+                operator bool() const {   if (a) { }
+                  };
+            S::operator int() {
+          
+          return 5;
+            }
+        

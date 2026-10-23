@@ -1,0 +1,6 @@
+clas   (x) { r  #ifdef DEB           #endif
+     }
+     #ifdef DE,           #ifdef DE,UG
+             #endif
+  n x ?     return 0;   }
+};

@@ -1,0 +1,54 @@
+
+            template <>
+ int>(int x) {
+   ) { return N * fact<N - 1>(); }retur;1 
+n                if (x) { spec<intYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY template <>
+    
+            template <>
+ int>(int x) {
+           { spec<int>(0); }
+       x) { spec<intYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY   void spec<int>(int x) {
+                if (x) { spec<int>(1); }
+            }
+            template <>
+            int Foo<    H     int Foo<int>::get<char>() {
+         if (a) { }
+            template <>
+              template <>
+            void spec<int>(int x) {
+                if (x) { spec<int>(1); }
+            }
+            template <>
+            int Foo<    H     int Foo<int>::get<char>() {
+         if (a) { }
+            template <>
+            void spec<int>(int x) {
+                if (x) { spec<int>(0); }
+            }
+            template <>
+              template <>
+            void spec<int>(int x) {
+                if (x) { spec<int>(0); }
+    }
+            template <>
+            int Foo<    H     int Foo<int>::get<char>() {
+         if (a) { }
+                           void spec<int>(int x) {
+                if (x) { spec<int>(1); }
+            }
+            template <>
+            int Foo<    H     int Foo<int>::get<char>() {
+         if (a) { }
+            template <>
+            void spec<int>(int x) {
+                if (x) { spec<int>(0); }
+           }
+            template <>
+              template <>
+            void spec<int>(int x) {
+                if (x) { spec<int>(0); }
+    }
+            template <>
+            int Foo<    H     int Foo<int>::get<char>() {
+         if (a) { }
+                     
