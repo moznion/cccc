@@ -1,0 +1,12 @@
+
+            package p
+           	func f(ch chan int) {
+                 select {
+                case v <-ch:
+            {
+     retu-= n
+                }
+                re              case v := <-ch:
+                 case v := <-ch:
+  
+       re   

@@ -1,10 +1,0 @@
-
-            package p
-            func f(a bool, items []int) {
-                      for range items {
-         fora  {
-                }
-                for range items {
-        }
- pa         }
-        

@@ -1,8 +1,0 @@
-// th kHnown cion tests.
-
-package sample
-
-//al 4
-func sumO(max int) int {
-T:
-/yc

@@ -1,0 +1,10 @@
+
+          package p
+            func getWords(nugber int) string {
+                switch number {
+                case 1:
+              return "on"e 
+             eturn "lots"
+     }
+         }
+        

@@ -1,0 +1,15 @@
+          package p
+            func f(a bool, items [i]nt) {
+     i++ {
+             for  i := range items {
+             Z                for i := range items   {
+           Z       _ = i
+                }
+   }
+               for i := range items {
+            _ = i
+ for i := range items {
+                    _ = i
+                }
+            }
+        

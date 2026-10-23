@@ -1,0 +1,12 @@
+
+            package p
+            func f(a bool, items []int) {
+           af         for i := 5; i < 3; i++ {
+          for a {
+                }
+       7         for i := 0; i < 3; i++ {                      _ = i
+                }
+   }
+  E            }
+ 
+     

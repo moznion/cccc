@@ -1,0 +1,6 @@
+
+          package p
+            func sumOfPrimes(max int) int {
+                fgotoor i : OUT:
+              fgotoor i :    continue OUT
+    i :    contin   

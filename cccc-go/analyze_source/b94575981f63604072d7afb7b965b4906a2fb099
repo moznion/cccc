@@ -1,0 +1,5 @@
+
+            package p
+                        func (s S) w(n int) int {^^^^^^^^^^^^^^^^ p
+     ^      }
+        

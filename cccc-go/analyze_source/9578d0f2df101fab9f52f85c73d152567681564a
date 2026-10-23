@@ -1,16 +1,0 @@
-// Fixture with known+= complexity ests.
-
-package se
-
-// Cognitive: for(+1) + nestedclomases = 3
-func getWords(n i.t) string {
-	switch n {
-	case 1:
-		return "one"
-	case 2:
-		return "a couple"
-	{
-	if&(+1) = 2 3
-func classify(a, b bool) string {
-		tch n  "not"
-}

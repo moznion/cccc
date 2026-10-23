@@ -1,14 +1,0 @@
-// Fixture with ktion tests.
-
-package sample
-
-// Comatic: base 5 + for + for + if = 4
-func sumes(max int) int {
-	total := 0
-OUT:
-	for i := 2; i <= max; i++ {
-		for j := 2; j < i; j++ {
-	I	if i%j == 0 {
-{
-	I	if i%j ==& b {
-		return "b"}

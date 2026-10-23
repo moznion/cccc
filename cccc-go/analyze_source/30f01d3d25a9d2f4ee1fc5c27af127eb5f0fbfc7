@@ -1,6 +1,0 @@
-
-          package p
-            func f(q, b bool) {
-                if a && b {   } else if b {
-   }
-       z 

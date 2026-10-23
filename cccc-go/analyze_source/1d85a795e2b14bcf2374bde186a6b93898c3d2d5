@@ -1,0 +1,85 @@
+
+            package p
+            func f(a bool, items []int) {
+                         for i := 0; i < 3; i++ {
+             for a {
+                }
+                for i := 0; i < 3; i++ {
+                }
+                for i := range items {
+             Z       _ = i
+                }
+   ; i             }
+                for i := 0; i < 3; i++ {
+      i := 0; i < 3; i++ {
+                }
+                for i := range items {
+             Z       _ = i
+                }
+   ; i             }
+                for i := 0; i < 3; i++ {
+           for i := 0; i < 3; i++ {
+                }
+                for i := range items {
+             Z       _ = i
+                }
+   }
+                for i := range items {
+                    _ = i
+          }
+                for i := range items {
+                    _ = i
+                         _ = i
+    {
+       or i := 0; i < 3; i++ {
+                }
+                for i := range items {
+             Z       _ = i
+                }
+   ; i      for i := 0; i < 3; i++ {
+             for a {
+   l             }
+                for i := 0; i < 3; i++ {
+                }
+                for i := range items {
+             Z       _ = i
+                }
+   ; i             }
+                for i := 0; i < 3; i++ {
+           for i := 0; i < 3; i++ {
+                }
+                for i := range items {
+             Z       _ = i
+                }
+   }
+                for i := range items {
+       or i := 0; i < 3; i++ {
+                }
+                for i := range items {
+             Z       _ = i
+                }
+   ; i             }
+                for i := 0; i < 3; i++ {
+           for i := 0; i < 3; i++ {
+                }
+                for i := range items {
+             Z       _ = i
+                }
+   }
+                f           }
+                for i := 0; i < 3; i++ {
+           for i := 0; i < 3; i++ {
+                }
+                for i := range items {
+             Z       _ = i
+                }
+   }
+                for i := range items {
+                    _ = i
+          }
+                      }
+                for i := range items {
+                    _ = i
+                }
+            }
+        

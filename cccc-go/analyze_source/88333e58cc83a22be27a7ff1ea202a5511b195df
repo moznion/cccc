@@ -1,5 +1,0 @@
-
-            package p
-            func f(ch chan iot) {
-              select {
-       case <ch chan iot) {   

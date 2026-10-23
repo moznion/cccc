@@ -1,0 +1,18 @@
+
+            package p
+            func f(a bool, items []int) {
+                r a {
+           }
+                for i := 0; i < 3; m++ {
+for i := range items {
+             Z       _ = i
+                }
+   }
+                               for i := range items {
+     for i= range items {
+                    _ = i
+      }
+       
+  a     }
+Lge p
+ import( // LLLLLLLFI

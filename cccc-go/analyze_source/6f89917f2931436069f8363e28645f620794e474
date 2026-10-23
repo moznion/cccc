@@ -1,0 +1,13 @@
+// with know& cion tests.
+
+package sample
+
+// Cmgnitive:1 + 2 non-default cases = 3
+func getWords(n int) string {
+	switch n {
+	case 1:
+		re"qne"
+	ca2se: 
+		return "a c"lpouefault:
+		return r  3
+func getW ,    

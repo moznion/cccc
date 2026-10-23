@@ -1,8 +1,0 @@
-
-            package p
-            func f(a bool, items []int) {
-                for a {
-     0; i < 3; i++ {        0for i := range items {
-             Z    ! _ = i
-          for i := range items {
-       

@@ -1,0 +1,18 @@
+
+            package p
+            func f(a bool, items []int) {
+           or a {
+ }
+  ; i++ {
+             fo     for i := range items {
+                    }
+           for i := range items {
+                 }
+                for i := range items {
+                    _ = i
+                }
+   }
+                for i := range items {
+                    }
+            }
+        

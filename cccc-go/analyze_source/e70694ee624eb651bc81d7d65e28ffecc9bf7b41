@@ -1,0 +1,26 @@
+
+            package p
+            func f(ch chan int) {
+                select {
+          default:      select {
+          default:
+     default:
+             select {
+          default:
+     default:
+          select {
+          default:
+     default:
+             select {
+          default:
+     default:
+    select {
+      
+    default:
+            select {
+          default:
+    efault:
+              select {
+          default:
+         .. func f(ch chan int) {
+          

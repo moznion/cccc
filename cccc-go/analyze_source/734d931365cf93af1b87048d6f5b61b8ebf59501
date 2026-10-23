@@ -1,8 +1,0 @@
-
-            package p
-                 type C s
-           func (c C) method() {}
-            func host() {
-              type C strucda
-            }
-        

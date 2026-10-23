@@ -1,0 +1,7 @@
+
+            package p
+            func sumOfPrimes(max int) int {
+     total := 0
+      UT:
+       o:
+                fgoi :    c 

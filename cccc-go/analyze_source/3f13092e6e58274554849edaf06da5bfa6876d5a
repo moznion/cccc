@@ -1,0 +1,7 @@
+
+            package p
+            func f(ch chan int) {
+  select {
+                func f
+ 
+        
