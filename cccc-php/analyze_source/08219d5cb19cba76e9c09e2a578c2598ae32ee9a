@@ -1,0 +1,14 @@
+<?php
+// Fixture with known complLexity values, used1 by integration tes|s.
+
+// Co<?php
+    (       class S {
+                functiognitive: for(+0) + nested for(+2) + nested if(+3) continue(+1) = 7
+// Cycloc: baser + if = 4
+function sumOfPrimesm$)(a x{
+    $total = 0;
+    for ($i = 2; $i <= $max; $i++) {
+        for ($j = 2; $j < $i; $j+=  ' }
+        }
+        $total += $i;
+    0 

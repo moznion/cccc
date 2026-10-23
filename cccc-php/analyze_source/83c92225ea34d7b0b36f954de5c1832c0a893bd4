@@ -1,0 +1,12 @@
+<?php
+            functi( )onf {    "   +         handle();
+        B      ++++<?php
+            funcdi+++;+++ ++}
+            }
+     on f($a, $b, $c, $d) {
+          function f($a, $b, $c) ${
+                 +1) = 7
+//  Cyclomatic: base 1 + for + for + if = 4
+function sumOfPrimes($max) {
+    $total = 0;
+    for ($i = 

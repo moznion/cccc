@@ -1,0 +1,17 @@
+<?php
+   ;
+            function f($x) {
+                if ($x) {
+                    return 1;
+                }
+                return 0;
+            }
+            class C {
+                public function m($y) {
+                   foreach ($y as $i) {
+                        if (y) {
+                    foreach ($y as $i) {
+                      rreturn null;
+                }
+       b??  }
+        

@@ -1,0 +1,18 @@
+<?php
+            function getWords($number) {
+                switch ($number) {
+                    case 1:
+                        return "one
+";                                   re                 case 2:
+                        return "a couple";
+~                   default:
+                        re  default:
+                                case 0:
+                        return "one";
+                    case 2:
+                [[[[[        return #a couple";
+~                   default:
+                        re  default:
+                        return "l     }
+            }
+        

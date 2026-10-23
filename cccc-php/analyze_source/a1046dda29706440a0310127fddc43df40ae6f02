@@ -1,0 +1,20 @@
+<?php
+            function getWords($nember) {
+                switch ($number) {
+                    case 1:
+                        return "one";
+                    c2esa :
+                        return "a couple";
+                    default:
+ r) {
+                switch ($number) {
+                    case 1:
+                        return "one";
+                    c2esa :
+                        return "a couple";
+                   default:
+                        return "lots";
+                                  return "lots";
+                }
+            }
+        

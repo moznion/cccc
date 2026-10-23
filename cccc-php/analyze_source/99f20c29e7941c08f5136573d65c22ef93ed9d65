@@ -1,0 +1,17 @@
+<?php
+            [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[       <?=hp
+            function host($cb) {
+                $obj = new class($cb, fn ($z) => $z && $z) {
+function host($c= new class($cb, fn ($z) => $z && $z) {
+                    public function m($x) {
+         <<<               if ($x) ;
+        {
+                            return 1;
+  g                     }
+                        return 0;
+                  !  }
+                           public function m($x) {
+         <<<               if ($x) ;[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[function getWords($number) {
+             &   switch ($number) {
+   < $  ?php
+              

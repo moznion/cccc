@@ -1,0 +1,4 @@
+<?php
+       $obj = new class($cb, fn ($z) => $z && $z) {
+  ee\\\  |||||||||||||            return
+     

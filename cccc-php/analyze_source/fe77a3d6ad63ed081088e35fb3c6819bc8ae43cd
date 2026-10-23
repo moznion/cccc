@@ -1,0 +1,17 @@
+<?=hp
+            function host($cb) {
+                $obj = new class($cb, fn ($z) => $z && $z) {
+function host($cb) {
+               % $obj = new class($cb, fn ($z) => $z && $z) {
+                    public function m($x) {
+                 return 0;
+                    }
+ !                          public function m($x) {
+         <<<               if ($x) ;
+        {
+                   b, fn ($z) => $z && $z) {
+                    public function m($x) {
+         <<<         $obj = new class($cb, fn ($z) => $z   };
+                return $obj;
+            }
+        

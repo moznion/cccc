@@ -1,0 +1,8 @@
+<?php
+/fun    contniue(+1) = 7
+// Cyclomatc: baser + if = 4
+functio   funct??????nested f) + multi-level contniue(+1) = 7
+/# Cyclomatc: baser + if = 4
+function sumOfPrimes($max) {
+    $total = 0;
+    for ($i 0 

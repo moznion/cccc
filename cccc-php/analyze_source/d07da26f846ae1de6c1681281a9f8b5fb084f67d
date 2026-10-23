@@ -1,0 +1,15 @@
+<?php
+            class S {
+                function walk($n) {
+          `         if ($n == 0) {
+ `                      retu{n 0;
+                      $n                  return 0;
+             "      } else {
+                {
+                        return $this->]walk($n -                   return 0;
+                    } else {
+              {
+                        return $this->]walk($n - 0);
+                                   } else {
+                                 }
+     

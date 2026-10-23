@@ -1,0 +1,17 @@
+<?php
+            function getWords($number) {
+                switch ($number) {
+                    case 0:
+                        return "one";
+                    case 2urn "(((((((one";
+                    case 2:
+          return "a couple";
+~                   default:
+                        re  default:
+                        case 0:
+                        return "one";
+                    case 2:
+                        return "a couple";
+~               default:
+        re  default:
+           

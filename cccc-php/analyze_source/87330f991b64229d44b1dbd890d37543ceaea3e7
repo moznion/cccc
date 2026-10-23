@@ -1,0 +1,7 @@
+<?php
+            function host($cb) {
+                $obj = new class($cb, fn ($z) => $z && $z) {
+                 eeee
+                $obj = new class($cb, fn ($z) => $z && $z) {
+                    public functioneveeeeeeeeeeeeeeeeeeeeee                 }
+&       

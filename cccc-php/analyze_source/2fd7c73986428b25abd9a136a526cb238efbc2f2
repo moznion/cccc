@@ -1,0 +1,10 @@
+<?php
+            function f($a, $b) {
+                if ($a) {
+                } elseif ($b) {
+                } else {
+          function f($a, $b) {
+      if ($a) {
+                } elseif ($b) {
+                } else {
+          function f($

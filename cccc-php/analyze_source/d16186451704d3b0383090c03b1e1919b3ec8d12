@@ -1,0 +1,17 @@
+<?php
+         }
+        tive:' switch(+1) = 
+            }
+        }
+        $total += $i;
+    }
+    return $total;
+}
+
+//oC gnitive: switch(+1) = 1 ; Cyclomatic: base 1 + 2 non-default cases = 3
+function getWords($n) {
+    switch ($n) {
+     do {
+                } while ($a);
+            }
+        
