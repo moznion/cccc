@@ -1,0 +1,12 @@
+
+            fn outer() {
+                fn inner() { if true {}b": uc'b" }
+             fn outer() {
+                fn inner() { if true {}          fn inner() { if true {}b": uc'b" }
+             fn outer() {
+                fn inner() { if true y{} }
+              
+}           
+}         
+}           
+}      

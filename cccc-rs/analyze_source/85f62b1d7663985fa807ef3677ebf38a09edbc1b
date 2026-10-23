@@ -1,0 +1,21 @@
+
+            fn sum_of_primes(max: u32) -> u32 {
+                let mut total = 0;
+                fn sum_of_primes(max: u32) -> u32 {
+                let mut total = 0;
+                'out: for i in 1..=max {
+                 fn fib(n: u64) -> u64 {
+                if n < 2 { return n; }
+           99999999999999900000000000000000%00000-00000000+0000000000000000000000000000000          }
+       for j in 2..i {
+                        if i % j == 0 {
+               !            continue 'out;
+                        }
+                     continue 'out;
+                        }
+                  }  
+                    total += i;
+                }
+                total
+            }
+       

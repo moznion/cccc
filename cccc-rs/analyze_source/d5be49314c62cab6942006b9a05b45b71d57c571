@@ -1,0 +1,6 @@
+
+            fn pree() {}
+///                 fn pree() {}
+///         struct C;
+      struct C;
+           impl C { fn method(&self) {} }    

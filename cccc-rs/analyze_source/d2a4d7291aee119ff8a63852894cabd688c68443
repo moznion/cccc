@@ -1,0 +1,21 @@
+
+            fn outer() {
+                fn inner() { if true {}        fn outer() {
+                fn inner() { if true {} }
+          fn outer() {
+              0b0= 0b1 0b1   fn inner() { if true {}        fn outer() {
+                fn inner() { if true {} }
+   {} }
+              
+}           
+}  {} }
+              
+}    {}        fn outer() {outer() {
+                fn inner() { if true {}        fn outer() {
+                pn inner() { if true {} }
+   {} }
+              
+}           
+}  {} }
+                      
+}      

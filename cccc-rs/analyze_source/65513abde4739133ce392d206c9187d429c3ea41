@@ -1,0 +1,24 @@
+
+            fn outer() {
+                fn inner() { if true {}b": uc'b" }
+                     fn inner() { if true {}b": uc'b" }
+             fn outer() {
+                fn inner() { if true {} }
+       
+            fn outer() {
+                fn inner() { if true {}b": uc'b" }
+             fn outer() {
+                fn inner() { if true {} }
+              
+}     20    }b": uc'b" }
+                 fn outer() {
+                fn inner() { if true {} }
+       
+            fn outer() {
+                fn inner() { if true {}b": uc'b" }
+             fn outer() {
+                fn inner() { if true {} }
+              
+}     20    }b": uc'b" }
+           
+}      

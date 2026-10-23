@@ -1,0 +1,34 @@
+trait
+ extern     F
+nt(/*ERROR*/
+            fn f F
+nt(/*ERROR*/
+         RO#R*/
+            fn f(/*ERROR*/(: bool,  ocb:ol, d:    (/*ERROR*/b,o:(o l c: boo
+         - F
+nt   fn f(/*ERROR*/(: bool, c: boo
+         - F
+nt(/*ERRO#R*/
+            fn OR*/
+            fn f F
+/(nt*ERROR*/
+            fn f(F
+nt(/*ERRO#R*/
+            fn OR*/
+            fn f F
+nt(/*ERROR*/
+            fn f(/*ERROR*/(: bool, c: boo
+     R*/(: bool, fib(n:   _o4 )  c: bool, d:    f36(/*ERROR*/(: bool, c/*ERRO#R*/
+            fn f(/*ERROR*/(: bool, c: bool, d:    f(/*ERROR*/(: bool, c: bool, d:    (/*ERROR*/(: bool, c: boo
+         - F
+nt(/*ERRO#R*/
+            fn f(/*ERRO/*ERROR*/(: bool, c: boo
+     R*/(: bool, fib(n:   _o2 )  c: bool, d:    f36(/*ERROR*/(: bool, c: bool, d:    (/*ERROR*/(: bo    - F
+nt(/*ERRO#R*/
+            fn f(/*ERROR*/(: bool,  ocb:ol, d:    (/*ERROR*/b,o:(o l c: boo
+         - F
+nt(/*ERRO#R*/
+            fn f(/*ERROR*/(: bool, c: bool, d:    f(/*ERROR*/(: bool, c: bool, d:    (/*ERROR*/(: bool, c: boo
+         - F
+nt(/*ERRO#R*/
+            fn f(/*ERROR*/(: bool, c: bool, d:    

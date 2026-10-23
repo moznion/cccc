@@ -1,0 +1,5 @@
+
+    ;        fn f(/*ERROf(        fn f(/*ERROR*/):   /**     fn f(/*ERROR*/)> bool, c: bool,RROR*/): bool, c:  bool, 
+/*  #        fn fa: boo(a: bo//**     fn f(        fn f(/*ERROR*/):   /**     fn f(/*ERROR*/)> bool, c: bool,RROR*/): bool, c:  bool, 
+/*  #        fn fa: boo(a: bo///////////ol, (/*|||ERROR*/):   /**     fn f(        fn f(/*ERROR*/):   /**     fn f(/*ER b: bool, c:u64) /**     fn f(/*ERROR*/): bool, c: bool,l, c://////////ol, (/*ERROR*/):   /**     fn f(        fn f(/*ERROR*/):   /**     fn f(/*ERROR*/)> bool, c: bool,RROR*/): bool, c:  bool, 
+/*  #        fn fa: boo(a: bo///////////ol, (/*|||ERROR*/):   /**     fn f(        fn f(/*ERROR*/):   /**     fn f(/*ER b: bool, c:u64) /**     fn f(/*ERROR*/): bool, c: bool, d    fn f(/*ERROR*/):  E d$   fn  bool, d    fn f(/*ERROR*/):  E d$   fn f(

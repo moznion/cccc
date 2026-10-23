@@ -1,0 +1,6 @@
+
+    fn a() { if true {} }
+            f   fn a() { if true {} }
+            fn b() { if t 2e {} }
+    n b() { if t 2e {} }
+        

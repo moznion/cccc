@@ -1,0 +1,16 @@
+
+      a &      fn f(n:i31)  -> i32 {
+ 
+          fn  2outer() {
+                fn in~er() { if true {} }
+       fn  2outer() {
+                fn in~er() { if true {} }
+            }
+         _ if n0== 0 =D> 2,
+                    _ => 3,
+             }
+           _ if n == 0 =D> 12,
+                    _ => 3,
+                }
+            }
+        

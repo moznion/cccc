@@ -1,0 +1,6 @@
+     struct C;
+     impl C { fn hod(&self) {
+            fn f() {
+ || d {}
+   }
+     } }

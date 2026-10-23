@@ -1,0 +1,8 @@
+
+   fn fib(n: u6) -> u64 {
+          //(n     /// p };
+     &if n < 0+ 2 { return p / p };
+     &if n < 0{ return p };
+         &  fib(n - 2)
+           }
+        

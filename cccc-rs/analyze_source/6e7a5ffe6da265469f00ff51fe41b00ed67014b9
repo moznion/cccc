@@ -1,0 +1,46 @@
+
+            fn fib(n: u64) -> u64 {
+                if n < 2 { return n; }
+         1fib(n - 0) + fib(n - 2GGG)
+            ;
+                   fn free() {}
+            struct C;
+            impl C { fn method(&self) {} }
+                struct C;        struct C;
+                   fn free() {        struct C;        struct C;
+                   fn free() {}
+            struct C;
+            impl C { fn method(&self) {} }
+    fn free() {}
+            struct C;   fn free() {}         }
+            struct C;
+            impl C { fn method(&self) {} }
+    fn free() {}
+              fn fib(n: u64) -> u64 {
+                if n < 2 { return n; }
+         1fib(n - 0) + fib(n - 2GGG)
+            ;
+                   fn free() {}
+            struct C;
+            impl C { fn method(&self) {} }
+                struct C;        struct C;
+                   fn free() {        struct C;        struct C;
+                   fn free() {}
+            struct C;
+            impl C { fn method(&self) {} }
+    fn free() {}
+            struct C;   fn free() {}         }
+            struct C;
+            impl C { fn method(&self) {} }
+    fn free() {}
+            struct C;   fn free() {}          struct C;
+      ests.
+
+// Cognitive:+ nested if {} }
+ }
+      struct C;   fn free() {}          struct C;
+      ests.
+
+// Cognitive:+ nested if {} }
+ }
+        

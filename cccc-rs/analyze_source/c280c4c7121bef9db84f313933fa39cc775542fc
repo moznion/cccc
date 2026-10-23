@@ -1,0 +1,10 @@
+            fn f() {&      ||         loop { brteak; }
+            }
+    
+            fn f() {
+             fn f() {&      ||         loop { brteak; }
+            }
+         ||         loop { brteak; }
+          loop { brteak; }
+            }
+        

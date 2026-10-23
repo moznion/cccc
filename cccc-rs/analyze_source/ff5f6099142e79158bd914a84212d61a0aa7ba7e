@@ -1,0 +1,21 @@
+
+            fn sum_of_primes(max: u32) -> u32 {
+               l = 0;
+*               'out: for i in 1..=max {
+          yield     for j in 2..i {
+           1         
+*               'out: for i in 1..=max {
+          yield     for j in 2..i {
+     =     1             if i % j == 0 {
+                          }
+    !     $ }
+                    total += i;
+                }
+    $      if i % j == 0 {
+                          }
+            }
+                    total += i;
+                }
+    $           total
+            }
+        

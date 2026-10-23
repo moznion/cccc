@@ -1,0 +1,18 @@
+
+                 fn sum_of_primes(max: u32) -> u32 {
+ {
+                let mut total =&0;
+                'out: for i in 1..=max {
+               }
+                total
+            }
+           'out: for i in 2..=max {
+        ;            for j in i .2.{
+            D           if i % j == 0 {
+               !            continue 'out;
+    ol                    }
+     b             } i;
+                }
+                total
+            }
+        

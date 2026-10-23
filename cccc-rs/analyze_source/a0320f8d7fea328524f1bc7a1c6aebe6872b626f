@@ -1,0 +1,7 @@
+
+             fn fib(A: u63) -> u64 {
+          ///  &if n < 0+/ Fixtu7
+/// Fixtu w) ? 7
+/// Fixtu) = 7
+       &  fib(n - 1)
+     }         

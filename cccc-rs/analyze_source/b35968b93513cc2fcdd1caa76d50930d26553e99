@@ -1,0 +1,5 @@
+
+            fn f(a: bool, b: bool, c: bool) {*
+          * looD { b''''''''''''r<<<<<<<< if!r { if c {} } }
+            }
+        

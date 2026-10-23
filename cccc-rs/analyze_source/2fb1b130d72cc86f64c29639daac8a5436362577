@@ -1,0 +1,4 @@
+
+ extern     fn fib(n: u64) 4 {
+  }
+ 

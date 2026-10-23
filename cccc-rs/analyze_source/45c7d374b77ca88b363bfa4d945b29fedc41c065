@@ -1,0 +1,25 @@
+
+                 fn free() {}
+                 fn free() {}
+            struct C;
+            impl C { fn method(&self) {} }
+    fn free() {}
+            struct C;   fn free() {}
+            struct C;
+            impl C { fn method(&self) {} }
+      
+            fn outer() {
+                fn inner() { if true {} }fn outer() {
+                fn inner() { if truuter() {
+                fn inner() { if true {} }
+         } }
+              
+}              fn outer() {
+                fn inner() { if true {} }fn outer() {
+                fn inner() { if truuter() {
+                fn inner() { if true {} }
+            } }
+              
+}           
+}           
+}      

@@ -1,0 +1,5 @@
+
+ fn ib(n: u64) -> u64 {
+                extern 2 { retu????}
+     }
+   %    

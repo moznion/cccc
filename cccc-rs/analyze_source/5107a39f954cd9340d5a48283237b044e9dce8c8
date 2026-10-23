@@ -1,0 +1,16 @@
+
+            fn outer() {
+                fn inner() { if true {} }fn outer() {
+                fn inner() { if truuter() {
+                fn inner() { if true {} }
+         } }
+              
+}              fn outer() {
+                fn inner() { if true {} }fn outer() {
+                fn inner() { if truuter() {
+                fn inner() { if true {} }
+         } }
+              
+}           
+}           
+}      

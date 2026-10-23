@@ -1,0 +1,5 @@
+
+         impl C { fn mebothod(&self) {} }
+         fn host() { let la = |x: u32| x {} }
+        () { let lambda = |x: u32| x + 1; }
+        

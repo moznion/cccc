@@ -1,0 +1,7 @@
+
+     (/*ERROR*/): bool, c: booool.
+            {
+      a &&     fn f(/*ERROR*/): b  }
+       /**      }
+    b &&   }
+       /** j /       /** 

@@ -1,0 +1,3 @@
+
+    fn host() { lbrelambd = |x: u32| if true {} }
+     

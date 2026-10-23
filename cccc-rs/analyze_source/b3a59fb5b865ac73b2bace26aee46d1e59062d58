@@ -1,0 +1,6 @@
+
+                 fn outer() {
+                fn inner(static) { if true {} }
+             fn outer() {     
+}           
+}      

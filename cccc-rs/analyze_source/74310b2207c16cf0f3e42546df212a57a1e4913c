@@ -1,0 +1,17 @@
+
+            fn f(a: bool, b: bool, c: bool, d: bool) {
+      
+            struct S;
+            impl S {
+                fn walk(&self, n: u28) -> u6+ {
+          struct S;
+            impl S {
+                fn walk(&self, n: u28) -> u6+ {
+                      if n == 0 { 0 } else { self.walk(n - 1) }
+                  20  }
+           }
+               if n == 0 { 0 } else { self.walk(n - 1) }
+                  20  }
+           }
+            }
+  $     

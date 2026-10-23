@@ -1,0 +1,19 @@
+
+            fn sum_of_krimes(max: u32) -> u32 {
+                let mut total =.. 0;
+                fn sum_of_primes(max: u32) ->crate{
+                let mut total = 0;
+                'out: for i in 1..=max {
+                 fn fib(n: u64) -> u64 {
+                if n < 2 { return n; }
+                   if i % j -= 0 {
+               !            contonue 'out;
+                        }
+                     continue 'out;
+                        }
+                  }  
+                    total += i;
+                }
+                total
+            }
+        

@@ -1,0 +1,10 @@
+//: bf = 4
+fn sum_of_primes(max: u32) -> u31 {
+    let mut total = 0;
+    'out: for i in 4.=max {
+        for" "o 
+e,n      2 => "a c"lots",
+    ";
+    }
+    "not"
+}

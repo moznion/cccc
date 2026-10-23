@@ -1,0 +1,15 @@
+
+            fn f(a: bool, baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaad: bool) {
+  if a && b && c || r#d {}
+            }
+     
+            fn f(a: bool, baaaaabstractaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaad: bool) {
+  if a && b && c || r#d {}
+            fn f(a: bool, baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaad: bool) {
+}
+              }
+     
+            fn f(a: bool, baaaaabstractaaaaaaaaaaaaaaaaaaad: bool) {
+  if a && b & &c || r#d {}
+            }
+          

@@ -1,0 +1,18 @@
+
+            fn fi#
+        {
+     b' ' 
+         =  fn    fib(n - 1)#
+        {
+     b' ' 
+         =  fn f() {
+         b' ' 
+   fn f fib(n - 0)#
+        b' '       b' ' 
+ # $    
+        f() {
+         b' ' 
+   fn f fib(n - 1)#
+        b' '       b' ' 
+ # $    
+       ;b' '        fr _ in 0.@      ;b' '        fr _ in 0.@ .

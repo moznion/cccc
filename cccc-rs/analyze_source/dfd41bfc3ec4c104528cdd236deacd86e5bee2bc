@@ -1,0 +1,22 @@
+
+              f   fn a() { if tr { if t 2e {} }
+            fn a() { if true {} }
+            f   fn a() { if true {} }
+       fn b() { if t 2e {d }
+    ue {} }
+                   fn a() { if true {} 
+}            f   fn a() { if true {} }
+            f fn a() { if true {} }
+            f   fn a() { if tr { if t 2e {} }
+            fn a() { if true {} }
+            f   fn a() { if true {} }
+            fn b() { if t 2e {d }
+    n b() { if t 2e {} }
+        ue {} }
+            fn b() { if t 2e {} }
+    n b() { if t 2e {} }
+ f          fn a() { if true {} }
+            f   fn a() { if true {} }
+            fn b() { if t 2e {d }
+    n b() { if t 2e {} }
+        

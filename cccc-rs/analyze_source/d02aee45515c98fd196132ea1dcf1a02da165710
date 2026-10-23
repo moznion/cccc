@@ -1,0 +1,6 @@
+
+            fn fib(n: u64) -> u64 {
+           if n < 2 { return n; }
+             . 1fib(nG)2
+            }
+       

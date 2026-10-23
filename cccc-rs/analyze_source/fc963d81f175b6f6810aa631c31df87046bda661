@@ -1,0 +1,20 @@
+ F
+nt(/*ERROR*/
+            fn f F
+nt(/*ERROR*/
+          fn f(/*ERROR*/(: bool, c: boo
+         - F
+nt(/*ERRO#R*/
+            fn OR*/
+            fn f F
+nt(/*ERROR*/
+            fn f(/*ERROR*/(: bool, c: boo
+     R*/(  f(/*ERROR*/(: bool, c: bool, d:    (/*ERROR*/(: bo  r  - F
+nt(/*ERRO#R*/
+            fn f(/*ERROR*/(: bool, c: bool, d:    (/*ERROR*/b,o:(o l c: boo
+         - F
+nt(/*ERRO#R*/
+            fn f(/*ERROR*/(: bool, c: bool, d:    f(/*ERROR*/(: bool, c: bool, d:    (/*ERROR*/(: bool, c: boo
+         - F
+nt(/*ERRO#R*/
+            fn f(/*ERROR*/(: bool, c: bool, d:    

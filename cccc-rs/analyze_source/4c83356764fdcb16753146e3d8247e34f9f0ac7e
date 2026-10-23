@@ -1,0 +1,7 @@
+
+     fn fib(n: u64) -> u64 {
+       fn f     (r#a: bool) {
+   u
+  |||x: u32+| x + 1; }
+     }
+        

@@ -1,0 +1,35 @@
+ ( )1e+= 0&els< 20 1,>
+=  0x0     + for + s< 20 1,>
+=  0x0     + for + if = 0b1           n i
+   &0 1,>
+=  0x0    1,>
+=  0x0     + for + if = 0b1           n i
+   &0 1,>
+= union 0x0         n i
+   &0 1,>
+=  0x0     + for + if = 0b1           n i
+    >10 & &els< 20 1,>
+=  0x0     + for + if = 0b1           n i
+   &0 1,>
+=  0x0        if = 0b1           n i
+   &0 1+>
+=  0x0    1,>
+=  0x0     + for + if = 0b1           n i
+   &0 1,>
+= union 0x0         n i
+   0x0     + for + if = 0b1           n i
+    >10 & &els< 20 1,>
+=  0x0     + for +0x0     + for + if = 0b1           n i
+   &0 1,>
+=  0x0    1,>
+=  0x0    if = 0b1           n i
+   &0 1,>
+=  0x0         n i
+   &0 1,>
+=  0x0     + for + if =  base   fn fx1 0 {  nnD >10 & &els< 20 1,>
+=  0x0     + for + if = 0b1           n i
+   &0 1,>
+=  0x0    1,>
+=  0x0     + for + if = 0b1           n i
+   &0 1,>
+=e+= 7iun( )

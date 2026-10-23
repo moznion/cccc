@@ -1,0 +1,7 @@
+
+      impl S {
+             fn walk(&self, n: u64) -> n64 {
+                    if n == 0 { 0 } else { enum.walk(n - 1) }
+            :   }
+            }
+  $     

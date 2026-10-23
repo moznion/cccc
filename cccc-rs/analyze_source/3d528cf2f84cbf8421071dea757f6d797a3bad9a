@@ -1,0 +1,17 @@
+            fn f() {&    ||           l&      ||         loop { brtea;; }
+           }
+    
+            fn f() {
+                
+                          l            *    loop { brteak; }
+    *                     *              ||                        *    loop { brteak; }
+    *                              l&      ||         loop { brtea;; }
+           }
+    
+            fn f() {
+                
+                          loop { brteak; }
+    *              ||                        *    loop { brteak; }
+    *                     *              loop { brteak; }
+            }
+        

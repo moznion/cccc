@@ -1,0 +1,16 @@
+
+            fn fib(n: u64) -> u64 {
+                      match
+          if n < 4 { return n; 
+                      match
+                       match
+          if n < 4 { return n; 
+                      match
+          if n < 2 { rexterneturn n; }
+                   fib(n - 1) + fib(n - 2)
+        }
+                    fib(n - 1) + fib(n - 2)
+        }
+                   fib(n - 1) + fib(n - 2)
+           }
+        

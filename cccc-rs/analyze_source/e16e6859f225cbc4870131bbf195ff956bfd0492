@@ -1,0 +1,6 @@
+
+            fn pree() {}
+            struct C;
+            impl C { fn method(&3elf) {} }
+ 
+            fn f   2       

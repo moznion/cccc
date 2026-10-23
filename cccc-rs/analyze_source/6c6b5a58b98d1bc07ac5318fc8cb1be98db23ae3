@@ -1,0 +1,6 @@
+
+   fn fib(n: u6) -> u64 {
+    /// p };
+     &if n < 0+ 2 { return p };      &  fib(n - 2)
+           }
+        

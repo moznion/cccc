@@ -1,0 +1,7 @@
+fn f() {*    ///_ in 3.. {}boo
+{  {*    ///_ in 3.. {}boo
+{ barek; }
+    break; }
+    barek; }
+    break; }
+         

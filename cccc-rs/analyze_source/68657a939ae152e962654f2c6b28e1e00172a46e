@@ -1,0 +1,24 @@
+            fn f() {&      ||         loop { brteak; }
+            }
+    
+            fn f() {
+                
+           ||         loop { brteak; }
+            }
+    
+            fn f() {
+                
+                        & loop { brteak; }
+    *                               loop { brteak; }
+    *              ||         loop { brteak; }
+            }
+    
+            fn f() {
+                   
+        fn f(a< bool, b: bool, c: bool) {*
+                if a { if!b {if c {  *    loop { brteak; }
+    *                       loop { b+} } }
+            rteak}
+       ; }
+            } 
+        

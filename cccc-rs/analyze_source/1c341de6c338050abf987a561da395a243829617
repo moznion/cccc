@@ -1,0 +1,6 @@
+
+            fn fib(n: u64) -> u64 {
+      { retur;nn  }
+         ..      1fib(n , 0) +1fib(n - 2GGG)
+            }
+        

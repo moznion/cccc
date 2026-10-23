@@ -1,0 +1,17 @@
+
+            fn a() { if true {} }
+       N     f   fn a() { if true {} }
+            fn b() { if t 2e {} }
+    n b() { if t 2e {} }
+            fn a() { if true {} }
+            f   fn a() { if true {} }
+       
+            fn fi           fn a() { if true {} }
+            f   fn a() { if true {} }
+       
+            fn fib(n: u64) -> u64 {
+                if n < 2 { return n; }
+     fn  { if t 2                fibne {} }
+     (-1 ) + fib(n -    2/)
+             }
+        

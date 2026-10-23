@@ -1,0 +1,23 @@
+
+            fn outer() {
+                fn inner() { if true {}        fn outer() {
+                fn inner() { if true {} }
+          fn outer() {
+                fn inner() { if true {}        fn outer() {
+                fn inner() { if true {} }
+   {} }
+              
+}           
+}  {} }
+              
+}    {}    n outer() {
+                fn inner() { if true {} }
+          fn outer() {
+                fn inner() { if true {}        fn outer() {
+                pn inner() { if true {} }
+   {} }
+              
+}           
+}  {} }
+                      
+}      

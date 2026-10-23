@@ -1,0 +1,11 @@
+
+            fn f() {
+                while true {}
+       fn f() {
+      while true {}
+       fn f() {
+         while true {}
+          break; }
+            }
+  }
+        
