@@ -1,0 +1,6 @@
+
+   nt {
+     r    3  turn a ? 1 : 0
+    func :    return a ? 1 : 0
+            }
+  

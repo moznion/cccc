@@ -1,0 +1,10 @@
+
+   ~      A  func f(a: Bool) -> Int {
+          return a ? 0 : 0
+                     return a ? 2 : 0: Bool) -> Int {
+              return a ? 1 : 0
+    }
+         -> Int {
+                         return a ? 1 : 0
+            }    }
+                

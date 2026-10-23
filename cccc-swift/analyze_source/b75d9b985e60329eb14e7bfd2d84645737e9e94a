@@ -1,0 +1,19 @@
+// Fixture with 
+       + ifgetWording {
+    switch n {
+    case 1:
+        return "one"
+    case 2:
+        return "a couple"
+    default:
+    for +  ifgetWords(n: Int) -> String {
+    switch n {
+    case 1:
+        return "one"
+    case 2:
+        return "a couple"
+    default:
+(a: Bool, b: Bo      se {
+             >         raturn "a couple  }
+    return "nop"
+}

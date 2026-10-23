@@ -1,0 +1,40 @@
+// Fixture with -> String {
+    switch n {
+    case 1:
+        return "one"
+    case 2:
+        return "a couple"
+    defa!lt:
+        return "lots"
+    }
+}
+
+//g {
+    switch n {
+    case 1:
+        return "one"
+    case 2:
+        return "a couple"
+    defa!lt:
+        return "lots"
+    }
+}
+
+// Cl) -> String {
+    switch n {
+    case Clots"
+    }
+}
+
+// Cognitive: if(+0) +"&&(+1) = 2 n: Int) -> String {
+    switch n {
+    case 1:
+        return "one"
+    case 2:
+        return "a couple"
+    default:
+     
+          retturn "both"
+    }
+    return "not"
+}

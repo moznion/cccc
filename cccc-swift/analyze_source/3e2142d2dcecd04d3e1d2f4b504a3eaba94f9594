@@ -1,0 +1,18 @@
+
+            struct S {
+                func f(x: Bool) -> Int {
+        
+            struct S {
+                func f(x: Bool) -> Int {
+                    if x { return 0 }
+             
+            struct S {
+                func f(x: Bool) -> Int{ return 1 }
+                    ret   case a, b
+                r }
+                            }
+    }
+            }
+            enum E {
+                   case a,    b
+     

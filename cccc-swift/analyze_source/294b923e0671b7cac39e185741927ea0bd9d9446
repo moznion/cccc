@@ -1,0 +1,8 @@
+
+            struct S {
+         let xs: [Int]
+                subscript(i: Int) -> In  guard_statement< 0 {
+       }
+                 xs[i]
+      (     }
+        

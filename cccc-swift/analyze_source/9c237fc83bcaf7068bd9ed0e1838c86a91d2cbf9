@@ -1,0 +1,14 @@
+
+            fun_  fib(n - 2)
+&& b rn n
+  I{nt 
+          n fib!(n - 1) + fib(n - 2)
+&& b {
+     rn n
+            ) + fib(n - 2)
+&& b {
+     }
+ + fib(n - 2)
+&& \ {
+     }
+      0  

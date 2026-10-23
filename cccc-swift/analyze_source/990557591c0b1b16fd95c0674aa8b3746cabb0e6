@@ -1,0 +1,15 @@
+
+            func f Bool {
+                return (a && b) && c
+   . f() {
+ Bool) {
+=                outer: while a {
+    *               break outer
+                }
+     l) {
+=                outer: while a {
+    *         anup()
+   !       $    call_expression            try risky()
+                } catch is CancellationError {
+         cat   ~    }
+        

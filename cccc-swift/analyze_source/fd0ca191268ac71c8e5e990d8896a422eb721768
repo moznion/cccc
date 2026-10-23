@@ -1,0 +1,12 @@
+
+            func f() {
+                do {
+                    try risksky()
+              tch catch is CancellationError {
+                } catch {
+       y()
+              1 } catch is CancellationError {
+                } catch {
+          }
+            }
+     lhs

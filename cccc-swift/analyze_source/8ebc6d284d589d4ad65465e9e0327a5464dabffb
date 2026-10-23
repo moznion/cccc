@@ -1,0 +1,9 @@
+
+            class C {
+                var name = ""
+                var greeting: String {
+                    get {         }
+                    set {
+           guard_statement newValue.isE }
+            }
+        

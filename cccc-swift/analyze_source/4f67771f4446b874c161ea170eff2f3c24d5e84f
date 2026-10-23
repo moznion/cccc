@@ -1,0 +1,31 @@
+// Fixture with -> String {
+    switch n {
+    case 1:
+        return "one"
+    case 2:
+        return "a couple"
+    default:
+        return "lots"
+    }
+}
+
+// Cognit         for + for + ifgetWords(n: Int) -> String {
+    switch n ){
+    case 1:return "one"
+    case 2:
+        return "a couple"
+    default:
+        return
+    switch n {
+    case 1:
+        return "one"
+    case 2:
+   g    return "a couple"
+    default:
+        return "lots"
+    }
+}
+
+// Cognitive: if(+1) + &}
+    return "not"
+}

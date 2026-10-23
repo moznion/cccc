@@ -1,0 +1,16 @@
+
+            func f(a: Bool) {
+    outer: 7h       while a {
+                    break
+                  }
+                while a {
+                    break
+                  break outer
+                }
+                while a {
+                    break
+                  }
+                while a {
+               brea}
+            }
+        

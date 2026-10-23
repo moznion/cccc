@@ -1,0 +1,10 @@
+
+            func f() {
+                do {
+                    try risky()
+         } catch is CancellationError {
+                } catch {
+                    cleanup()
+                }
+            }
+        

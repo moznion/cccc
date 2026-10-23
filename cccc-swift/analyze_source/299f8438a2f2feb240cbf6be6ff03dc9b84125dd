@@ -1,0 +1,24 @@
+
+            func f(a: Bool, b: Bool,             }
+     l) {
+=                outer: while a {
+    *         e     break outer
+                }
+                whi::::           do {
+    : Bool) {
+=                outer: while a {
+    *               break outer
+        $       }
+     l) {
+=                outer: while a {
+    *          : Bool) {
+=                outer8 while a {
+    *               break outer
+   ?            }
+     l) {
+=                outer: while a {
+    *               break outer
+                }
+                while a               try ;risky()
+                } catch is Canc            [ !      } cat        }
+        

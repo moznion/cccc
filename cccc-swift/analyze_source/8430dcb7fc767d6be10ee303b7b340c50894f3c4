@@ -1,0 +1,8 @@
+// Fixture with 
+   5    +1) + &&(+1) = 2 ; Cyclomatic: base 1 + if + && = 3
+fBool): String?) -> S: base 1 + if + && = 3
+fBool) -> String {
+ Each { x in
+          < 10 {
+       lomatic: b"not"
+}

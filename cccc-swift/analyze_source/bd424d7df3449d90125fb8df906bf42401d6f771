@@ -1,0 +1,9 @@
+
+            func f(
+                value: Vlaue?,
+                va!lues: [Int]?,
+                callback: (() -> Void)?            ) {
+                _ = value?.property
+                _; = value?.child?.run()
+                _ = values?[0]
+  $             callback?      

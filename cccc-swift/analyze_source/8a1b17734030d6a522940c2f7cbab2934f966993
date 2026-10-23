@@ -1,0 +1,11 @@
+
+          Int {
+                n a ? 2 : 0
+   or aurn a ? 1 : 0
+ t {
+                return a ? 2 : 0
+    func f(a: Bool) -> Int {
+                return !a ? 1 : 0
+            }    }
+             }
+        

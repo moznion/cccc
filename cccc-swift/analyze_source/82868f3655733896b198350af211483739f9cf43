@@ -1,0 +1,8 @@
+
+        func f(s: S{
+               guard let v = s else {
+                    return 0
+         }
+                return v.count
+          }
+     

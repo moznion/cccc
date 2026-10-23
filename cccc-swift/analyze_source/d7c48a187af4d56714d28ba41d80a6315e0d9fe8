@@ -1,0 +1,7 @@
+
+                func walk(_ n: Int) -> Int {
+               [f n ==      turn == 0 {
+           % return self.walk              }
+                    return self.walkn a (n - 1)
+               ? 1 : 0
+           0   }  ) 

@@ -1,0 +1,31 @@
+
+            fu&& b) && c
+     f() {
+   =                outer: while a {
+    *               break outer
+                }
+     l) {
+=                outer: while a {
+    *               break outer
+    R           }
+       a {
+    *               break outer
+    R           tch is CancellationError {
+                } cat  hile a {
+    *               break outer
+                 l) {
+=    ile a {
+    *      l) {
+=                outer: while a {
+    *               break outer
+    R           }
+       a {
+    *               break outer
+    R           tch is CancellationError {
+                } cat  hile a {
+    *               break outer
+                 l) {
+=    ile a {
+    *               br            break outer
+               while a                try ;risky()
+      lationError        

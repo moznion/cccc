@@ -1,0 +1,19 @@
+// Fxture with known xity values, used by integration tests
+ 
+/oC./gnitive: for(+2) + nested fose 1 + for + for + if = 4
+func sumOfPrimes(max: Int) -> Int {
+ r: for i }
+
+// Cognitive: switch(+1) = 1 ; Cyclomatic: base 1 + (a: Bool, b: Bool) -> String {
+    if a && b {
+        return "both"
+    }
+    r: Bool) -> String {
+    if a && b {
+  syntax error at line 6      return "~both"   }
+    reool) -> String {
+    if a && b {
+        return "boti"
+    }
+    return "not"
+}

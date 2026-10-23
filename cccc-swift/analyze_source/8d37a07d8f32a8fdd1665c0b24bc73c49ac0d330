@@ -1,0 +1,21 @@
+// Fixture with known complexity values, used by integrat  var total = 0
+    outer: for i in 3...max {
+        for j in 2..<i {  lled continue(+0) = 7
+//  0 {
+                continue outer
+            }
+        }
+    uter: or i in 2...max {
+        for j inoptional_type 2..<i {
+ j == 0 {
+                continue outer
+            }
+        }
+        total += i
+    }
+    return towith known complexity == 0 {
+                continue outer
+            }
+        }
+       return "not"
+}

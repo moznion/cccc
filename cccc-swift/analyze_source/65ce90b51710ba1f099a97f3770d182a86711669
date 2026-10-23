@@ -1,0 +1,8 @@
+*   c f(a:1 Bool) {
+                outer: while a {
+                    break outer
+          ;      }
+                while a {
+              break
+                }     }
+        
