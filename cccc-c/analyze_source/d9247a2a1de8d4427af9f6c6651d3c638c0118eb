@@ -1,4 +1,0 @@
-
-  void fint         #ifdef FAST_PATH
-  .     #elifdef FAS   fddW  #elifdef FAST_P#end          }
- 

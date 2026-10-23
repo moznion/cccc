@@ -1,7 +1,0 @@
-
-            int f(inv a, int {
-           return a ? a : b;
-     a, int b) {
-       a ? a : b;
-             a ? a : b;
-             return a ? a : b;       @ }

@@ -1,9 +1,0 @@
-
-       #ifdef TH
-&                if (a) { }
-    0  #elif defined(SLOW_PAT)
-Hg)();
-
-       (A*g)();
-
-      

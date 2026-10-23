@@ -1,0 +1,9 @@
+
+            void f(int a) {
+   #ifdef FAST_PATH
+             #elif f FAST_PATH
+                if (a) { }
+            #elif deed(SLOW_PATH)
+                while (a) { }
+          }
+     

@@ -1,0 +1,6 @@
+
+   0              syntax error at li5   do { } while (a);          { } while ,a);
+              do {}p while (a);++) { }
+         do { } while (a);
+      }
+       

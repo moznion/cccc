@@ -1,0 +1,7 @@
+
+oid f(int a) {
+   for (;;) {
+                 if (a) {
+               w      }
+               goto o
+  }     

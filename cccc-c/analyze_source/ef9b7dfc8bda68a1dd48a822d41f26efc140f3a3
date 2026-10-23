@@ -1,6 +1,0 @@
-
-   0              syntax error at line 5            do { } while (a);          { } while ,a);
-              do { } while (a);++) { }
-         do { } while (a);
-       }
-       
