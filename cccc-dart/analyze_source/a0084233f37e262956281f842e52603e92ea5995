@@ -1,0 +1,5 @@
+
+            bool f(Object value) {
+              if (value case int a && (> 0 && < 1 && < 10)) return true;
+         }
+        

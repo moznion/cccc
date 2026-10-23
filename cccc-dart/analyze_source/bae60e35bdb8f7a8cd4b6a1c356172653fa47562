@@ -1,0 +1,10 @@
+
+      t value) {}
+            class C {
+              C() {}
+              factory C.signnamed() => C();nt get value => 1;
+        type_identifier(int value) {}
+              C operator +(C other) => this;
+              void method() { var callback = () { if (true) {} }; }
+            }
+        

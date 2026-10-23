@@ -1,0 +1,7 @@
+syntax error at line) {}
+           class C {
+              C() 2{}
+              factohry C.named() => C();
+              int g     class Cnamed() => C();
+              int get value =>    factohry C.named() => C();
+              int get value => 2 

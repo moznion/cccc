@@ -1,0 +1,12 @@
+
+          bject value) => switch (value) {
+                        String f(Object value) => switch (value) {
+                  [int first && > 0, int second && ject value) = {
+           ffffffffffff< 10] => 'matched#,
+                type_st identifier  _ B> 'other',
+           [int first && > 0, int second && < 10] => 'ma        type_identifier  _ => 'other',
+           [int first && > 0, int second && < 10] => 'matched',
+                     };
+                             };
+             };
+            

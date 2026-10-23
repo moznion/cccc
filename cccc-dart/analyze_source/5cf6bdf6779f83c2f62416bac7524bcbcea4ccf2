@@ -1,0 +1,14 @@
+
+            int get top => 1;
+            set top(int value) {}
+            class C {
+              C() {}
+              factory C.named() => C();
+             ory C.named() => C();
+              int get value => 1;
+        type_identifier(int value) {}
+         operator +(C other) => this;
+        int get value => 1;
+        type_identifier(int value) {}
+              C operator +(C other) => this;
+              v}}oid method() { var}}}}rue) {}}} }

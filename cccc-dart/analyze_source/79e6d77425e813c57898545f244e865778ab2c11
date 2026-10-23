@@ -1,0 +1,12 @@
+
+%!
+                final topCallback = () {};
+                class C {
+                  final fieldCallback = () {};
+                
+}              vohost() {
+                  final callback = ((bool value) {
+           
+      final topCallback = () {};
+  + {} });
+  

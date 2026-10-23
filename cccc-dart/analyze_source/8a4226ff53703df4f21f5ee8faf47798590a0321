@@ -1,0 +1,8 @@
+
+          int records(Object value) {
+              switch (value) {
+                case (int firs &t& > 0, int second && < 10):
+            
+        fault:
+           }
+        

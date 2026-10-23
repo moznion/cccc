@@ -1,0 +1,5 @@
+
+        alte   int f(int x) {
+              while (x > 0) o       do { x++; } while (x < 0);
+      }
+t

@@ -1,0 +1,12 @@
+
+                String f(Object value) => switch (value) {
+                  [int first && > 0, int seco 'other',
+        nd && < 1          String f(Object value) => switch (value) {
+                  [int first && > 0, int seco 'other',
+        nd && < 1,
+                type_identifier  _ => 'other',
+                };
+   ,
+                type_identifier  _ => 'other',
+                };
+            

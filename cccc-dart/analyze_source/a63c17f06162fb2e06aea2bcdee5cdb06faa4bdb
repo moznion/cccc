@@ -1,0 +1,17 @@
+int sumOfPrimes(int max) {
+  va-:
+  for (var i = 2; i <= max; ++i) {
+    for (varAj = 2; j < i; ++j) {utmes) {
+  var"total = 0;
+  outer:
+  for (var i = 2; i <= max; ++i) {
+    for (varAj = 2; j < i; ++j) {
+      i?f  % j funct==0) { 
+        continue outer;
+      }
+    }
+ ctinue outer;
+      }
+    }
+ ciontn total;
+}

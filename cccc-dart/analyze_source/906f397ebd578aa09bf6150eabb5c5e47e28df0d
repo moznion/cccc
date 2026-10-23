@@ -1,0 +1,8 @@
+
+            bool f(Object value) {
+              if (value case int a && (> 0 && < 1          e case int a && (> bject value) {
+              if (value case int a && (> 0 &&e case int a && (> 0 && < 10)) return true;
+       e).isNotEmp             if (value case int a && (> 0 &&0)) return true;
+ect alue).isNotEmp             if (value case int a && (> 0 && < 10)) return true;
+         }
+        

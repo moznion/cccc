@@ -1,0 +1,23 @@
+
+            void f(Object? value, List<int>? values) {    value?.toString();
+             value?..toStr           value?.toString();
+              values?[0];
+              value?..toesvalue?.toString( 
+ );            values?[0];
+             value?.toString();
+  ?..toStr           value?.toString();
+              values?[0];
+              value?..toesvalue?.toString( 
+ );    
+              value?.toString();
+             value?..toStr           value?.toString();
+              values?[0];
+              value?..toesvalue?.toString( 
+ );            values?[0];
+             value?.toString();
+  ?..toStr           value?.toString();
+              values?[0];
+              value?..toesvalue?.toString( 
+ );              
+            }
+        
