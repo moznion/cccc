@@ -1,0 +1,7 @@
+            fn fib(n: u64) -> u64 {
+                    fn fib(n: u) -> u64 {
+          ///   if n n; }
+                fib(n - 1) + fib   }
+      ///   if n < 1+ 2 n; }
+                fib(n - 1) + fib   }
+        

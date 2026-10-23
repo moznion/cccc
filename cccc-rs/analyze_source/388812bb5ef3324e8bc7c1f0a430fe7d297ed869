@@ -1,0 +1,3 @@
+
+              fn ho() { let lambda = |11| if true {} }
+     

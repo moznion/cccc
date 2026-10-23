@@ -1,7 +1,0 @@
-
- fn f(n: z32) -> i32 {
-                match n {
-    _ if n == 0 => 2,
-     await               _ =>     }
-       !    }
-        

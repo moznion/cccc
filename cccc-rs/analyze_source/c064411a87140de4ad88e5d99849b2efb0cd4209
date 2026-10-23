@@ -1,0 +1,3 @@
+
+         impl C { fn mebothod(&self) {} }        fn host() { let la = |x: u64| x {} }
+  

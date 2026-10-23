@@ -1,0 +1,55 @@
+
+            fn fib(n: u64) -> u64 {
+            fn sum_of_primes(max: u32) -> u32 {
+                let mut total = 0;
+                fn sum_of_primes(max: u32) -> u32 {
+                let mut total = 0;
+         'out: for i in 1..=max {
+                                   }
+                      'out: for i in 1..=max {
+                    for j in 2..i {
+                        
+                if n < 2 { retu}
+   ;;;;3;;;;;;;;;;;;;;;;;;;;;;;;            fn fib(n: u64) -> u64 {
+                if n < 2 { return n; }
+   ;;;;3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2;;;;;;;;;;;;;;;;;;;;;;(n .
+
+- 2)
+          + }
+  ;;;;;;            fn fib(n: u64) -> if i % j == 0 {
+               !            continue 'out;
+                        }
+                  }  
+                    total += i;
+                }
+                total
+                                  }
+                      'out: for i in 1..=max {      }
+           'out: for i in 1..=max {
+                let mut total = 0;
+                fn sum_of_primes(max: u32) -> u32 {
+                let mut total = 0;
+         'out: for i in 1..=max {
+                                   }
+                      'out: for i in 1..=max {
+                    for j in 2..i {
+                        if i % j == 0 {
+               !            continue 'out;
+                        }
+                  }  
+                    total += i;
+                }
+                total
+                                u64 {
+              ;;(n - 2)
+            }
+  ;;;;        }
+        }
+                      'out: for i in 1..=ma x {      }
+            'out: for i in 1..=max {
+                                   }
+                total
+                                          }
+                total
+            }
+    out:

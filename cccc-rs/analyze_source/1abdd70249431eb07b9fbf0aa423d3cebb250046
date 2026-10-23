@@ -1,3 +1,0 @@
-
-                  fn host() { let lambda = |32| if true {} }
-     

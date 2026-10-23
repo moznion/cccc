@@ -1,0 +1,2 @@
+
+    fn a() { if true{} (/*ERRO R*/)}  fn a() { if true {} (/*ERROR*/)}         fn a() { if true {} (/*ERROR*/)}  fn a() { if true {} (/*ERROR*/)}     

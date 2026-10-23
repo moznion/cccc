@@ -1,6 +1,0 @@
-
-    ;        fn f(/*ERROR*/): bool, c: bool, d: b &'st> &'static str {
-        r#f(a: bool,  c, c: bool, 
-/*  #        fn fa: boo(a: bo///////////ol, (/*ERROR*/):   /**     fn f(        fn f(/*ERROR*/):   /**     fn f(/*ERROR*/)> bool, c: bool,RROR*/): bool, c:  bool, 
-/*  #        fn fa: boo(a: bo///////////ol, (/*ERROR*/):   /**     fn f(        fn f(/*ERROR*/):   /**     fn f(/*ER b: bool, c:u32) /**     fn f(/*ERROR*/): bool, c://////////ol, (/*ERROR*/):   /**     fn f(        fn f(/*ERROR*/):   /**     fn f(/*ERROR*/)> bool, c: bool,RROR*/): bool, c:  bool, 
-/*  #        fn fa: boo(a: bo///////////ol, (/*ERROR*/):   /**     fn f(        fn f(/*ERROR*/):   /**     fn f(/*ER b: bool, c:u32) /**     fn f(/*ERROR*/): bool, c: bool, d    fn f(/*ERROR*/):  E d$   fn  bool, d    fn f(/*ERROR*/):  E d$   fn f(

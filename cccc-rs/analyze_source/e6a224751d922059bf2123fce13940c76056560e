@@ -1,5 +1,0 @@
-
-       fn fib(n: u64) -> u64 {
-    if n < 1 { return-n; }
-      !    (n - 0) + fi  }
-      $  

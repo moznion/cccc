@@ -1,0 +1,11 @@
+
+            fn sum_of_primes(max: u32) -> u32 {
+     tal = 0;
+                'out: for i in 1./r%=max {                         continue 'out;
+             otal += i;
+                        cootal = 0;otal = 0;
+         otal += i;
+                2}
+                  l total
+            }
+        

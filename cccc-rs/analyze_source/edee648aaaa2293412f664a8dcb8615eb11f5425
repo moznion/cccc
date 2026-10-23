@@ -1,0 +1,20 @@
+
+            fn f() {
+                          fn f() {
+                    while true {}                      while true {       
+   //!;        ;           while true {       
+   //      while true {}                        while true {       
+   //!;        ;    ///////////ol, btrue {       
+   // !;    .3 {}{reak; }
+         }
+    }
+         while true {}                      while true {       
+   //!;        ;           while true {       
+   //      while true {}            for _        
+   //!;        ;           while true {       
+   //!;   ;                        while true {}                      while true {       
+   //!;       for _ in 0..3 {}{reak/        c              for _ in 0..3 {}{reak/        c        while true {}            ///////////ol, btrue {       
+   //!;       for _ in 0..3 {}{reak; }
+         }
+    }
+        

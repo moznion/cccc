@@ -1,0 +1,8 @@
+
+fn sum_of_primes(max: u32) -> u32 {
+                letotal = 0;
+                'out: for i in 1..=max {                         abstract       += i;
+            }
+                potal
+            }
+    -   

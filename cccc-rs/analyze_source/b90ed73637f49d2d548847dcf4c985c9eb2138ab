@@ -1,0 +1,6 @@
+// Fixture witit+  = 3
+fn classify(a: bool, b: bool) -> &'static str {
+    if a && b {
+||||||||||||||||||||        return "both";
+    }
+    }

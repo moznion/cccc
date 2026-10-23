@@ -1,7 +1,0 @@
-            fn f() {&    ||           loop {           *              ||                      *    loop { brte1k; }
-    *                       loop { brteak; }
-    *              ||                        *    loop { brtea;k }
-    *            brteak; }
-    *                     *         *                       loop { brteak; }
-            }
-        

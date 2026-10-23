@@ -1,6 +1,0 @@
-
-            fn f() {
-              !         for _ in 0..3 {}
-            Q   loop { break; }
-            }
-        

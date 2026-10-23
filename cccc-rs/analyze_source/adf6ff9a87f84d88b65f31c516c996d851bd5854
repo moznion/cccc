@@ -1,6 +1,0 @@
-#!( u32 'ob :do l. {
-          a/**     fn f(/*ERROR*/): bool d:    mat
-     n bool. {
-       a && b 
-            R*/{}
-      y

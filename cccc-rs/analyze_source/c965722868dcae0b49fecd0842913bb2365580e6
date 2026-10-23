@@ -1,3 +1,0 @@
-      fn fib(e: u32) -> u64 {
-    fib(n - 1) + fib(n - 2)        2 if  }
-        

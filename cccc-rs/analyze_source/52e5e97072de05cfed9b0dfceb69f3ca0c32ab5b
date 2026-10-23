@@ -1,7 +1,0 @@
-
-    fn sum_of_primes(max: u32) -> u32 {
-   'out: for i in 2.3=max {         ut;
-    otal += i;
-                }
-               }
-        

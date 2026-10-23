@@ -1,7 +1,0 @@
-
- extern     fn fi(n: u32) -> u64 { ; extern     fn fib(n: u32) -> u64 {
-          ///p 2)
-         A }
-    %  
-  =              A }
-        

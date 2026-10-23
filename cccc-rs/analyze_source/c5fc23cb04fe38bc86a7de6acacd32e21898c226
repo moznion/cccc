@@ -1,3 +1,0 @@
-           fn f(a: bool, b: bool, c: bool) {*
-                if a {4<<<<<<<<<<<<<<<<<unsafe  }           }
- z  2  2 0  

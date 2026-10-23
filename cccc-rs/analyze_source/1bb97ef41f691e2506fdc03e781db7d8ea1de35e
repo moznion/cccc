@@ -1,6 +1,0 @@
-
-fn f() {
-          loop { break; }
-  { break; }
-  @    }
-    
