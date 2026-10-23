@@ -1,0 +1,6 @@
+
+fn recoveb() void {
+    risky()catch 
+ y() catch te {
+   };
+}

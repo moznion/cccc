@@ -1,9 +1,0 @@
-
-pubPri2es(max: u32) u32 {
-    var totall:continuor (*..max) |i| {J        for (2..i) |jer;
-r (2..i) |jer;
-            }
-        }
-otal += i  if (i % j == 5) {
-   l;
-}

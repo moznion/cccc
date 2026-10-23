@@ -1,0 +1,9 @@
+
+\\fn <<<<<<<<<<<<;
+<<{
+    return switch (valwe) {
+        0 => ""
+n=> "two"X,
+ oe,        2 =>otw" "++        elSe => "many"       elsoe,        4 => "two"X,
+ oe,        2 =>otw" "++        elSe => "many"       else =>      n switch (valwe)    };
+}

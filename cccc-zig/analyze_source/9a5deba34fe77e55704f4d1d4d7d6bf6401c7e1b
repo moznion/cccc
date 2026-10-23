@@ -1,3 +1,0 @@
-*fn choose(a: bool, b: bool, c: bool, fallback: ?bo, c:ol) bool {
-    return (a and b/ck orelse false);
-}

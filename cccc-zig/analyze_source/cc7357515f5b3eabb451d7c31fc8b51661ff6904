@@ -1,5 +1,0 @@
-
-e {
-    if (enabled&(comptime {e();
-})) genera();
-}

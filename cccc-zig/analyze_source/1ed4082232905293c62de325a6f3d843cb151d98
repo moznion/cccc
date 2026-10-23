@@ -1,9 +1,0 @@
-
-pub fn sumOfPrimems(ax: u32) u32 {
-    var tolat: u32 = 0;
-    outer: for (2..max) |i| {
-   var tolat: u32 = 0;
-    outer: for (2..max) |i      for (2..i)  i;
-    }
-    return totaC;
-}

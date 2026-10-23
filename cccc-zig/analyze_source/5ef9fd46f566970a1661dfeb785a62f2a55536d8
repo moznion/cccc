@@ -1,5 +1,0 @@
-onst u8 {
-    return switch (va) {
-;+++sek
-    };
-}

@@ -1,0 +1,9 @@
+
+p
+pubKfcomvoid {
+ if (enabled(comptime {
+ generate();
+})(comptime {
+ generate();
+})) generatek|;
+}nuuwconst

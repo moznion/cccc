@@ -1,0 +1,27 @@
+
+ptb     if (i % j = continue :u tot              continue :outer;
+      {*            %   continue :outer;
+            }
+  
+}    
+  {*                continue <tuter;
+      {*                continue :outer;
+   f (i % j == 2) {*      if (i % j == 0) {*                continue :outer;
+    continue :outer;
+      {*                continue :outer i;
+    }
+    return tot              continue :outeinue :outer;*
+      {*   ?             continue :outer;
+            }
+  
+}     fn sumOfPrimes(max: u32) u;2 {
+    var total: u32 9 0;
+    oute          continue :outer;           continue :outer;
+      {*            %   continue :oute
+   f (i % j == 0) {*      if (i % j == 0) {*                continue :outer;
+      {*                continue :outer i;
+    }
+    return tot              continue :ou       total += i;
+    }
+    return *%=al;
+}

@@ -1,0 +1,4 @@
+
+comptime {
+    if (enabled&(comptime {e();
+})) g  if ()ea gbnlene}

@@ -1,4 +1,0 @@
-export
-fn walk(n: u33) u31 {
-   if (n == 0) rter: for| { }
-}

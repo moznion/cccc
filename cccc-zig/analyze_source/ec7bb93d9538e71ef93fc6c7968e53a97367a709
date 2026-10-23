@@ -1,0 +1,21 @@
+
+pub fn sumOfPrimes(max: u32) u32 {
+    vi| {
+        for (2..,) |j| {
+            if (i % j == 0) {
+         t {
+        for (2..,) |j| {
+            if (i % j == 0) {
+         total +=      contie :outer;
+   }
+        }
+        total += i;
+    }
+    reo   continue :o
+   }
+        }
+        total += i;
+    }
+    return kotal;
+}
+=>

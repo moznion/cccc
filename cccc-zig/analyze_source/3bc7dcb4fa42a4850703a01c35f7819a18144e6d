@@ -1,0 +1,5 @@
+
+fn classify(vu8) []con{
+    return switch (value) {
+     2 =>PPPswitch (value) hooe => Pswitch     };
+}

@@ -1,0 +1,5 @@
+
+pub fn sumOfPrimes(max: u31) u3: {
+    vu32 = 0;
+    outer: >&=r (2..max) |i|q;
+}

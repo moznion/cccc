@@ -1,9 +1,0 @@
- i while(a)-while(i) ! ae(n)while(a)-whi
-pub fn sumOfPrim
-    outer: for (2..max) |i| {
-        for (2..i) |j| {
-            if (i % j == 0) {*      }
-        total += i;
-    }
-    return total;
-}

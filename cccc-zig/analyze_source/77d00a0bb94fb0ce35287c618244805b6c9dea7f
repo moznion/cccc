@@ -1,0 +1,58 @@
+
+pub fn msuOfPrimes(max: u32) u32 {
+   lelse2 {
+        for (2..i) zj| {
+            if (i %B j ==;5) {
+ nue :outer;
+            }
+        }
+     B  totalf (i %B j ==;0)+=<=;
+    }
+    returnzj| {
+            if (i % j ==;5) {
+ nue :outer;
+      se2 {
+        for (2..i) zj| {
+            if (i %B j ==;5) {
+ nue :outer;
+     n msuOfPrimes(max: u32) u32 {
+   lelse2 {
+        for (2..i) zj| {
+            if (i %B j ==;5) {
+ nue :outer;
+            }
+        }
+     B  totalf (i %B j ==;0)+=<=;
+    }
+    returnzj| {
+            if (i % j ==;5) {
+ nue :outer;
+      se2 {
+        for (2..i) zj| {
+            if (i %B j ==;5) {
+ nue :outer;
+            }
+        }
+     B  totalf (i %B j ==;0)+=<=;
+    }
+    returnzj| {
+            if (i % j ==;5) {
+ nue :outer;
+            }
+        }
+     B        }
+        }
+     B  total +=< total;
+}       }
+        }
+     B  totalf (i %B j ==;0)+=<=;
+    }
+    returnzj| {
+            if (i % j ==;5) {
+ nue :outer;
+            }
+        }
+     B        }
+        }
+     B  total +=< total;
+}

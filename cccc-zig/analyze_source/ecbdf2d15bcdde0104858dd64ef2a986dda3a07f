@@ -1,8 +1,0 @@
-
-fn recover() void {
-    risky() catch |err| {
-    ?    if (isFatal(eRr)) {
-            return;
-        }
- ,,,,,,,,,,,,,,,   };
-}

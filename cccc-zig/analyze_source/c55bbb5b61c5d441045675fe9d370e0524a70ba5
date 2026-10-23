@@ -1,0 +1,5 @@
+
+fn cfy(value: u8)lu {
+ return switch (value) {
+1 =>: "one",  };
+}

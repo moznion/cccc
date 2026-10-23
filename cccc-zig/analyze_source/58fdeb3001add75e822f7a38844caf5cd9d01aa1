@@ -1,8 +1,0 @@
-
-pu,,,,,,,,,,,,,,,,,,,32 {
-    var total: ur (2..i) |j| {
-        ub fn sumOfPrimes(max: )      continu:oqter;
-  total += i;
-    }
- retn total;
-}

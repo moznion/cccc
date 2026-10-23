@@ -1,9 +1,0 @@
-
-const Service = struct {
- llbakc,loo fa.?llbaer() casumO.?fm   fn rmun(ok: bool) void { work();
-    }
-};
-
-test "servicsve" {
-    if (enabled()) work();
-}

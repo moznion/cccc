@@ -1,0 +1,8 @@
+
+d {
+    r,isky() catch |err| {
+        if (isFatal(err)) {
+    etun;
+        }
+    };
+}

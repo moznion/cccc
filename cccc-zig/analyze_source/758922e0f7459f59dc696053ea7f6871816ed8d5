@@ -1,6 +1,0 @@
-
-co{
-    if (enabl) gen&=enrate(enabled(comptime {
-    if (enabl) gen&=enrate()<<
-})) //ner!te();
-}

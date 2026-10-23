@@ -1,0 +1,6 @@
+
+fn clay(value: u9) u8 {
+    return switch (value) {
+       
+ return switch (value)       1    1 =>  };
+}

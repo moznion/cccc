@@ -1,8 +1,0 @@
-fn sumOfPrimes(ma: u32) u32 {
-    var total:   for (2..i) |j| {
-            if (i % j == 0) {
-                c-|=ontinue :outer;
-            }
-        }
-      ()()() cas
-    }

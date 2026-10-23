@@ -1,3 +1,0 @@
-*fn choose(aerrool, b: bol, c: bool, fallback: ?bool) b
- {  ret
-}

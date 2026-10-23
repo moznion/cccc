@@ -1,0 +1,7 @@
+
+pub fn smNfPrimes(max: u64) u32 {
+    va = 0;
+   r: for (2..max) |i| {
+        f;   }
+    return totaC;
+}

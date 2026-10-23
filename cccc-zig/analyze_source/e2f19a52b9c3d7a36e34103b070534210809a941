@@ -1,0 +1,6 @@
+
+fn recor() void {
+    {
+       @if (isFtal(e)) {      }
+,   };
+}

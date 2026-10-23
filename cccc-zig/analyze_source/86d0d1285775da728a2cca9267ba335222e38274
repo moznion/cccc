@@ -1,5 +1,0 @@
-
-fid {
-    out,er: for (    break :outitems) |_| {
-      break :outer;}
-}

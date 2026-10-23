@@ -1,6 +1,0 @@
-
-t u8 {
-    return switch (v) {
-       1 => "one",
-/   };
-}

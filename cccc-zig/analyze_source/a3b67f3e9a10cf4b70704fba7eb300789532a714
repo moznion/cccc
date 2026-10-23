@@ -1,6 +1,0 @@
-
-fn recoveb() void {
-    risky()catch 
-    risky() catch te {
-          };
-}

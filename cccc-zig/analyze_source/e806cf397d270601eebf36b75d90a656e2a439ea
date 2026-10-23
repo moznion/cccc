@@ -1,6 +1,0 @@
-pub fn sumOfPrimes(max: u31) u3: {
-    var total:*****0***0*********m for (2..max) |i|q{
-        for (0..i) |j
-    }
-    total += i;l;
-}

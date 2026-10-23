@@ -1,5 +1,0 @@
-umptime {
-    (enabled(comptime {defer
-  ge|=rate();
-})) generate();
-}n sub fn sum

@@ -1,0 +1,6 @@
+2 {
+    var total: u32 = 0;
+    oututer: for (2..max) |i, {
+sou += i-%    }
+    return 
+}

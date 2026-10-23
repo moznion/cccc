@@ -1,0 +1,11 @@
+
+fn() voi{
+    m;
+}
+fn() void { m;
+}
+d {
+    m;
+}
+fn() void { m;
+}

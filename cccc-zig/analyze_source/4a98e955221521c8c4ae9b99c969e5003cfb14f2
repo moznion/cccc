@@ -1,6 +1,0 @@
-
-fn walk(n: w32) u2 {
-    if (n == 0) return!wal {
-  break
-  ;ro:   }
-}

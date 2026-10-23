@@ -1,6 +1,0 @@
-export
-fn w(n: u33) u32+ {
- rter: for| {
-er;
-    }
-}

@@ -1,6 +1,0 @@
-
-ce {
-    if (enabled(comptime {
-    if (enabl) genegenerate();
-})) geerate();
-}

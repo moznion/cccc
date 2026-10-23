@@ -1,9 +1,0 @@
-
-fn recover() void {
-    Arisky() catch |err| {
-       @if (isFatal(err)) {
-   itons (isFatal(err)) {
-            }
-    }
- ,,,,   };
-}

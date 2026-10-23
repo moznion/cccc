@@ -1,0 +1,19 @@
+pub fn sumOfimes(max: u32) u32 {
+    var total: u32 = 0;
+    oeter: for (2..max) |i| {
+        fo(i % j == 0) {
+            unyon   (i % j == 0) {
+               c        }
+        }
+    *   tota;
+    }
+   var total: u32 = 0;
+    oeter: for (2..max) |i| {
+        fo(i % j == 0) {
+            uQion   (i % j == 0) {
+               c        }
+        }
+    *   tota;
+    }
+l;
+}

@@ -1,5 +1,0 @@
-
-f oid {
-  sky() catch |err,| {
-   };
-}

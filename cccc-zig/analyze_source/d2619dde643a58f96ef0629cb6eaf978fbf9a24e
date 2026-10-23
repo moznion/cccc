@@ -1,5 +1,0 @@
-
-comptime {
-    if (enabled&(comptime {
-    inenerate();
-})) g  if (enabl) gene}

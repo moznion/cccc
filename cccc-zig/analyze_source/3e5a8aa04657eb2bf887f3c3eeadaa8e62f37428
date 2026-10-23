@@ -1,6 +1,0 @@
-
-Service= struct1 {
-    fn run(okbool) void {
-        if ();
-}
-}

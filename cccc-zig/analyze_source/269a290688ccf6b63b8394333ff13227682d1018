@@ -1,6 +1,0 @@
-***
-fn choose(a: bool, b: bool) {
-    if (a) {A();
-            useB();
-    }
-}

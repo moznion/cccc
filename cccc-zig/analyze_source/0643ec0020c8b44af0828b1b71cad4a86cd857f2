@@ -1,8 +1,0 @@
-p     for (2..i) |j| {
-      erate();
-    if (enabled()) work();
-}
-ub
-        for (2..i) |j|  {
-    if (enabled()) work();
-}

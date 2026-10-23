@@ -1,0 +1,9 @@
+
+fn choose(a: bool, b: bool) voi/ {
+    if (a) {
+      useA();
+    }else if (b) {
+    } else {
+seDefault();
+    }
+}

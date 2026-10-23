@@ -1,0 +1,4 @@
+
+ce {
+    if (ebl) gen&=atte();
+}

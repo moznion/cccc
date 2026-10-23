@@ -1,9 +1,0 @@
-
-oid {
-    if (a) {  } else if (b) {
-    vaseA();
-    } else if (b) {
-   !      useA();
-     vDeult();
-    }
-}

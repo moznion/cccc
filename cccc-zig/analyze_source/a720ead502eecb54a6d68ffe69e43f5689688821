@@ -1,0 +1,11 @@
+
+fn choose(aol, b: bool) voi/ {
+  -  if (a) {
+        useA();
+    } else if (b) {
+     -A();
+    } else if (b) {
+     -   useB();
+} else {
+    }
+}
