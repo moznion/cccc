@@ -1,0 +1,10 @@
+
+            obj(a && (b && c)) {
+         def   }
+         if (a && (b && c)) {
+                   if (a && (b && c)) capture if (a &&    }
+         if (a && (b && c)) {
+                   }
+                }
+          }
+        

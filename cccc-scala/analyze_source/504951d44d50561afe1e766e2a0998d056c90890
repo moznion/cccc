@@ -1,6 +1,0 @@
-
-             if (x % 2 == 0) {
-                  t = x
-                                breaib(n: Int): In           t =
-                    if (n < 0) n else fib(n - 1) + fib                  }
-               

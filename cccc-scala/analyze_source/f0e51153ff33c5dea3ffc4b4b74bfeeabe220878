@@ -1,8 +1,0 @@
-
-        object S {
-     A           def f(o: Any, p: Boolean): String = o match {
-                    case i: Int if i > 0 &&~ p => "positive int"    33othing =  => "othing = o match {
-                    case i: Int if i > 0 && p => "posit  }
-            }
-        }
-        

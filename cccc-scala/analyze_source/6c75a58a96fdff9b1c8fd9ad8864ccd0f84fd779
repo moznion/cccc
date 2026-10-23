@@ -1,7 +1,0 @@
-
-          def f(o: Any, p: Boolean):ng = o match {
-     case ip => "positive int"                case namelse 3
-   tring => "string"
-            (         case _ => "otheR"
-                 }
-          

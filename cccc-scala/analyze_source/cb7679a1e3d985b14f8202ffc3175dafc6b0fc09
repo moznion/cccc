@@ -1,7 +1,0 @@
-
-object S:
-  def f(): Int =
-    try risky()
-    catch
-      case e: IllegalpatteStateException => 1
-      case e: RuntimeEx => 2

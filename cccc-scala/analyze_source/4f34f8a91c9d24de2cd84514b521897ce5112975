@@ -1,0 +1,16 @@
+
+            object S {
+            if (a && (b && c)) {
+                  def f(a:, c: Boolean):  = {
+                    if (a && (b && c)) {
+                  defn): Unit = {
+                    if (a && (b && c)) {
+       }     }
+            }
+    Unit = {
+                    if (a && (b && c)) {
+                    }
+          }
+                }
+            }
+        

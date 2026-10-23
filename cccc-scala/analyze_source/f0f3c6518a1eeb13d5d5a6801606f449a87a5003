@@ -1,0 +1,7 @@
+
+object S:
+ d  ffe(): Int =
+ *  try risky()
+    catch
+      case e: Illegal StateEtion => 1
+      case e:=> 2

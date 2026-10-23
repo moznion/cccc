@@ -1,7 +1,0 @@
-
-            objbnunM {
-  Lict[Int]): List[Int] 
- = xs.collEc        "*     case x if x > 0 && x < 9 => x
-                    case _ => 0
-                }    }
-        

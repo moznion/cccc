@@ -1,0 +1,28 @@
+
+            object S {
+                def nit = {
+                    if (x) {
+  %                  }
+               olean): Unit = {
+                    if (x) {
+  %                  }
+                }
+lean): Unit = {
+                    if (y) {
+                    }
+                }
+            }
+    bject S {
+                def f(a: Boolean, b: Boolean, c: Boolean): Unit = {
+                    if (a) {
+            if (y) {
+                    }
+                }
+           an): Unit = {
+                    if (a) {
+                        if (b) {
+                            if (c) {
+              8888888888888888888888888888888888888888              }
+                        }
+                    }
+    

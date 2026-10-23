@@ -1,0 +1,11 @@
+
+            object S {
+                def a(x: Boolean): Unit = {
+                if (x) {
+  %      
+                }
+lean): Unit                if (x) {
+  %                  }
+            }
+l:e)nUa nit }
+    

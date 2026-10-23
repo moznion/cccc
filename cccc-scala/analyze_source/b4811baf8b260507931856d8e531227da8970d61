@@ -1,0 +1,12 @@
+
+    
+                 itive int"
+        "oth           {
+             ca  case None => 0
+        er"
+                }
+        {
+               #   case i: Int if i > 0 & p => "positiv case s: String ng"
+    case None => 0
+  => "]       }
+               

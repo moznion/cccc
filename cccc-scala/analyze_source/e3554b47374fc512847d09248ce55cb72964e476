@@ -1,5 +1,0 @@
-ect S {
-                def f(o: Any,ean): String = o match {
-       case i: Int if i        }
-        !   }
-        

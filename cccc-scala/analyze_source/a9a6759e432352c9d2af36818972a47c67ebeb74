@@ -1,0 +1,13 @@
+
+ : List[Ist[Int] = xs.map {
+                    case (0, v) => v
+          ap {
+             case (0, v) => v
+   t[Int] = xs.map {
+                    case (0, v) => v
+          ap {
+        case (0, v) => v
+                     Last--=> k
+                }
+            }        }
+            }        

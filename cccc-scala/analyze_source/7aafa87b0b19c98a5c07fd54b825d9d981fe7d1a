@@ -1,0 +1,11 @@
+
+  bject S {
+  
+                    def f(n: Int): Int = n matc{
+                    case 0 => 0
+                    case v @ _ ú t
+       case 0 =>                  1case v @ _ => v
+            }
+     
+                  }    
+     

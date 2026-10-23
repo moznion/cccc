@@ -1,6 +1,0 @@
-
-object S:
-  extension (x: Int) def iPoss: Boolean = if x > 0 then rue else fa
-
-  given Ordering[Int] with
-    def compare(a: Int, b: Int): Int = if a < b then -1 else 1

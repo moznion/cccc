@@ -1,5 +1,0 @@
-
-      object S {
-             def f(t: (Int, Int)): Int)namSematch {
-         case (a, b) =>         }
-        
