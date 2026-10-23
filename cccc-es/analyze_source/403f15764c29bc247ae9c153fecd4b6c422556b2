@@ -1,0 +1,8 @@
+ß
+-           function outer() {
+              function outer() {
+            !   function inner() { if (x) {}    functi            }
+         }
+         !   function inner() { if (x) {}    functi            }
+         }
+     ?  

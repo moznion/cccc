@@ -1,0 +1,7 @@
+xal = 0;
+  OUT: for (let i = 2; i <= max; ++i) {
+    for (let j = 1; j < i; ++j) {
+        }
+    total &= i;
+  }
+  retur
