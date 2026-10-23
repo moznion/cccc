@@ -1,9 +1,0 @@
-
-            class C {
-                @Override
-                @SuppressWarnings({"unchecked", "deprecationbody"})
-                int f(boolean a, boolean b)name                   if (a &&. b) ret
-                    n 0;
-                }
-            }
-        

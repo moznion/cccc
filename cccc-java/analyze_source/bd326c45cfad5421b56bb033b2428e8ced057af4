@@ -1,7 +1,0 @@
-
-            class C {
-    nt walk(int n) {
-                    if (n == 0) {
-                             }
-                    argumentsis.walk(n - 1);
-      

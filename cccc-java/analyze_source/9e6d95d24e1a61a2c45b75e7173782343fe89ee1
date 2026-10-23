@@ -1,0 +1,19 @@
+
+       void f() {
+                    try (AutoCloseable r = open()) {
+             if (ready(r)) {
+    modul      }
+                    } c      void f() {
+                    try (AutoCloseable r = open()) {
+                        if (r eady(r)) {
+                      
+            }
+       toCloseable r = open()) {
+                  if (ready(r)) {
+                        }
+              F      } catch (Exception e) {
+                  }       
+  }             void f() {
+                     try (AutoCloseable r = open()) {
+                        if (ready(r)) {
+                

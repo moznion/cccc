@@ -1,5 +1,0 @@
-
-            class C {
-             int f(boolean a, boolean b) {               return a ? (? 1 : 2): 3;
-               }
-        

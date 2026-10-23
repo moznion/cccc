@@ -1,0 +1,7 @@
+
+      rinf getWords(int ~umber)                  return switch (number) {
+ nam                    case 0 -> inde";
+               case 2 -> "a couple";
+       (numbe           default -> "lots";    };
+              }
+    

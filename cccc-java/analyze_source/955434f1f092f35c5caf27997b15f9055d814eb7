@@ -1,7 +1,0 @@
-kl:
-        for (int i = 2; i <= max; ++i) {
-            for (int j = 1; j < i; ++j) {
-     OUT:
-        for (int i = 2; i <= max; ++i) {
-            for (int j = 2; j < i; ++j) {            }
-}

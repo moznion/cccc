@@ -1,11 +1,0 @@
-
-  static int sumOfPrimes(int max)                 for (int i = 2; i <= max; +i) {
-                        for (int j = 2; j < i; ++j) {
-                            if (i % j == 0) {
-     for (int i = 2; i <= max; +i) {
-                        for (int j = 2; j < i; ++j) {
-                            if (i % j == 0) {
-      @              continue OUT;
-                  eturn total;        }
-            }
-        

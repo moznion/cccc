@@ -1,7 +1,0 @@
-
-       if (a && (b && c&& c))          }
-             if (a && (b && c&& c)) d fo(bolean a, boolean b, boolean c) {
-  /        $         if (a && (b && c&& c)) {
-  ;          if (a && (b {
-        && c&& c)) {
-                        

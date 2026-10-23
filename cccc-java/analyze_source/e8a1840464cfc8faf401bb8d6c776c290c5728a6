@@ -1,0 +1,17 @@
+
+            class C {
+              void f(boolean a, int[] items) {
+                    while (a) { }
+                    for (int i = 0; i <3;  i++) { }
+                 do { } while (a);
+ *      s) {
+                    while (a) { }
+                    for (int i = 0; i <3;  i++) { }
+ems) { }
+       0                 do { } while (a);
+ *  items)              do { } while (a);
+ *  items) { }
+                    do { } while (a);
+ *       }
+            }
+        
