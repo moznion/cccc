@@ -1,0 +1,2 @@
+
+def host(key=lambda x:if x else 0):turn key

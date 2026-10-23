@@ -1,0 +1,7 @@
+
+class S:
+    @property
+    def value(self):
+     @ self.raw:
+     .      return self.raw
+    @   return None

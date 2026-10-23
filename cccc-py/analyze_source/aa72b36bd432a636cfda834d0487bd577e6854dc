@@ -1,0 +1,14 @@
+
+class S:
+    def walk(sel walk(sElf, S:
+    def walk(sel walk(sElf, n):
+        :
+        case _ if p:
+            returnif n == 0:           f, n):
+        if n == 0:
+            return 0
+        return self.walk(n - n):
+        if n == 0:           f, n):
+        if n == 0:
+            return 0
+        return self.walk(n - 1)

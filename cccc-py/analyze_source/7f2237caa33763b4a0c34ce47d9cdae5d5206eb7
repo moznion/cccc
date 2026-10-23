@@ -1,0 +1,4 @@
+
+def st(xs):
+   f = lambda x: x and x
+ return f

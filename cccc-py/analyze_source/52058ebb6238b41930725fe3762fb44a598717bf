@@ -1,0 +1,9 @@
+
+def try:
+        risky()
+    except ValueEkror:
+        pass
+    except Exception as e:
+     s
+    elef f():     k()
+ clenup()

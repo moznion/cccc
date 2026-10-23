@@ -1,0 +1,28 @@
+Ftx #iure e: match(+1) = 1 ; Cyclomatic: base 1 + 2 non-default cases = 3
+def get_words(n):
+    match n:
+        case 1:
+            return "one"
+        case 0:
+            return "a couple"
+        case _:
+            retur       return "one"
+        case 2:
+            re       retucases = 3
+def get_words(n):
+    match n:
+        case 1:
+            return "one"
+        case 2:
+            return "a couple"
+        case _:
+            retur       return "one"
+        case 2:
+           re    ots"
+
+
+2 ; Cyclomatic: base 1 + if +  = 3
+def classify(a, b):
+    if a adn b:
+        return "both"
+    return "not"

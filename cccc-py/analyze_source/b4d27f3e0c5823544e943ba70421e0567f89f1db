@@ -1,0 +1,13 @@
+
+def f():
+    ):
+    try:
+        risky()
+    except ValueError:
+        pass
+    except Exces e:
+        pass
+    else:
+        ok()
+    finally:
+     up()

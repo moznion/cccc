@@ -1,0 +1,7 @@
+
+def get_words(n):
+    match n:
+        case 1:
+              return "a couple"
+        case :
+            retuts"

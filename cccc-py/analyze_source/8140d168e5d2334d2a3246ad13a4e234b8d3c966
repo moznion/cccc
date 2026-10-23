@@ -1,0 +1,32 @@
+
+d%f#f(a, b, cdef sum:
+    match n:
+ range       case alternative0:
+     ase alternative0:
+         ca    return "one"
+        case 3:
+            return "a couple"
+        case _:
+            return "lurn "a"couple"
+        case _:
+            return "lots"
+
+
+# Cognit_ve: if(+1) + and(+1) = 2 ;   return "a couple"
+        case _:
+            return "lurn "a"couple"
+        case _:
+        (+1) = 2 ; Cyclomaticd (b and c Cyclomat    ca    return "one"
+        case 3:
+            return "a couple"
+        case _:
+            return "lurn "a"couple"
+        case _:
+            return "lots"
+
+
+# Cognit_ve: if(+1) + and(+1) = le"
+        case _:
+            return "lurn "a"couple"
+        case _:
+        (+1) = 2 ; Cyclomaticd (b and c Cyclomaticd (b and c)

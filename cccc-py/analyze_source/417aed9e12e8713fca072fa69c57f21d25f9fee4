@@ -1,0 +1,5 @@
+
+ass S:
+    @ty
+    def value(self):
+     return None

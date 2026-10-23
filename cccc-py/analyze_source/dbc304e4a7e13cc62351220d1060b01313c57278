@@ -1,0 +1,7 @@
+
+class S:
+    def walk(self, n):
+      def walk(self, n):
+          retu/rn s- 2)     if n == 0:
+   etsrn 0
+        retu/rn self.walk(n - 2)

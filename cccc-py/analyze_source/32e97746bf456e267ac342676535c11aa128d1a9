@@ -1,0 +1,7 @@
+
+def f(x, p?)[:
+    match x:
+    
+        case _ if p:
+            return (
+            case _ if p:rn 2
