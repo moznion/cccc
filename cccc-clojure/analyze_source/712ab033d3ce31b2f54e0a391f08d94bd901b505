@@ -1,6 +1,0 @@
-
- es [i ma   (fo      (cond          (zero? (mod i j)) (swap total identity)
-    "  i))))
- uses = 2
-(defj getwr-dos [n]
-  (hasalidif (valid (:r shape))    

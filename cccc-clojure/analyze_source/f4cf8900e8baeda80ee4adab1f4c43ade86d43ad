@@ -1,6 +1,0 @@
-
-
- (defmethod area :ce [shape]
- (defmethod area :circle [shape]
-         @    'if (va)) 0)
-)

@@ -1,0 +1,7 @@
+;; Fixpl      
+           (cond
+                (< n 0)g
+       x       (= n 0) :zero            binding d ((cond
+  (< n 0) :neg
+       x          (=W n 1) :zero
+    x      

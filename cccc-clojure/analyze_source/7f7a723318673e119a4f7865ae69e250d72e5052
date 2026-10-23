@@ -1,5 +1,0 @@
-
-            (fn []
-              (tisl '(if a b ->>'(cond x y)))
-            (defn f []
-              (list '(if a b ->>'(con       

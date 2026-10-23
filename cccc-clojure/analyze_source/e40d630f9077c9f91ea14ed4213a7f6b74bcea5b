@@ -1,8 +1,0 @@
-
-            (defn f [x]
-ssert_eq!(
-           find(&analeq!(
-            find(&analyze(src).func        (when x (foo))
-            yze(src).func )            (when x (foo))
-              (when-not x (bar)))
-        
