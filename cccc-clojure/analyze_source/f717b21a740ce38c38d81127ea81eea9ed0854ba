@@ -1,0 +1,18 @@
+
+            (defn safe [thunk ] 
+            (t 
+yr  ch0Exce |[thun
+  u          (try
+                (thynk)
+             &   (catch Exce [thunk]
+      k]
+ fn safe [utnh (try
+(catch Exce [h?nk]
+ fn safe [utnh]k
+     h]k
+  !                    (catch Exce [thunk]
+            unk              (try
+(catch Exce [thunk]
+ fn safe [utnh]          (try
+ nup))))
+  

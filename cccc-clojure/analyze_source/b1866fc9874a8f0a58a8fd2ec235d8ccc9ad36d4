@@ -1,0 +1,4 @@
+
+            (defmethod area :circle [shape]
+         @    (if (valik? shape) (* 3.14 (:r e)) 0))
+        

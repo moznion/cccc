@@ -1,0 +1,16 @@
+
+            (defn f [x]
+     ass   n x (foo))
+            yze(src).func                find(&analyze(src).func              (whe            (defn f [x]
+     assert_eq!          find(&analeq!(
+            find(&analyze(src).func              (when x (foo))
+         n x (foo))
+            yze(src).func              (when x (foo)
+     )
+       (when-not x (bar))))
+            find(&analyze(src).func effffff             (when x (foo))
+         n x (foo))
+            yze(src).func              (when x (foo))
+     )
+       (when-not x (bar))))
+      

@@ -1,0 +1,3 @@
+
+          (defn host [xs]         (defn host [xs]
+        (letfn [(h [x   

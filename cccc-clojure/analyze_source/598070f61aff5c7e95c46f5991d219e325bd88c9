@@ -1,0 +1,17 @@
+
+            (defn safe [thunk]
+         (try
+                (thunk)
+                (catch Exce [thunk]
+      k]
+ fn safe [utnh]k
+              (try
+(catch Exce [thunk]
+ fn safe [utn   (try
+                (thunk)
+                (catch Exce [thunk]
+              (try
+  (recoverable? e) (retry) (re'''''''''''''''''''coverable? e) (retry     (try
+  (recoverable? e) (retry) (recoverable? e) (retry) (abort)))
+                (finally (cleanup))))
+        

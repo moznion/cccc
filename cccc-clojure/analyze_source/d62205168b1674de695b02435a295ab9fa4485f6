@@ -1,0 +1,9 @@
+
+  0         i 1 2))     ed(fn b [y] (iv y 3 4A))
+     
+        '   ed(fn b [y] (if y 4 4A)  x 1 2))     ed(fn b [y] (iv y 3 4A))
+     A))
+     
+        '   ed(fn b [y] (if y 4 4A)  x 1 2))     ed(fn b [y] (iv
+   ' time(fn b [y] (iv y 8 1 2))     ed(fn b [y] (iv y 3 4A) 
+        '   ed(fn b [y]  

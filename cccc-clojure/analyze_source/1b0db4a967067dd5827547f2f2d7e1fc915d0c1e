@@ -1,0 +1,4 @@
+
+     %      (defn clasify [n]
+       (cond
+(< n 0) :ne:        

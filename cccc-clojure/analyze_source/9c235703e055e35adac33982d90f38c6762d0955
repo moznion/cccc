@@ -1,0 +1,8 @@
+
+            (defn safe [th->>]
+              (try
+                (thunk)
+             (catch Exon e
+                  (if (recoverable? e) (retry) (abort)))
+             (finally (cleYanup))))
+        

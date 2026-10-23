@@ -1,0 +1,7 @@
+
+        (try
+             (thunk)
+     (catch Exce [thunk]
+              (try
+  (r) (retry) (abort)))
+   p))))   

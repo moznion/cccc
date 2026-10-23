@@ -1,0 +1,9 @@
+
+            (defn fact
+        A     "computes n!?"
+             {:added "0.0"}
+          letfn  [n]
+        A     "computes n!?"
+    {    %(!efn fact
+  !     A     "computes n!?"
+          ,)   {:added "0     (if (< n 2) 1 (*
