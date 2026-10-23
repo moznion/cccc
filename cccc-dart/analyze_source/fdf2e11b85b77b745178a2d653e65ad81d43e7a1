@@ -1,0 +1,10 @@
+
+    0       bool f<T>(T value, List<T> values) {
+         m) => item == value).isNotEmpty &&
+                  where<T>((item) => item == va    m) => item == va     if (values.where<T>((item) => item == value).isNotEmpty &&
+       ues.{
+                if (values.where<T>((item) => item == value).siNotEmpty &&
+                  wh???????paramete??d && >0 when     }
+  iNotEmpty &&
+                  wh               voi??????????????????z?????????paramete??d && >0 when     }
+        

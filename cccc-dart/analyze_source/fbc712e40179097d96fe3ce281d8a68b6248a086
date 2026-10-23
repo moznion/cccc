@@ -1,0 +1,20 @@
+
+            ing f(Object value) => switch (value) {
+                  [int first && > 0, int seco 'othe> 'oth    r',
+       0nd && < 1        String f(Object value) => switch (value) {
+                  [int first && > 0, int seco 'other',ther',
+      r',
+        nd && < 0        String f(,
+                type_identifier  _ => 'other',
+                };
+   er',
+      r',
+       0nd && < 1        String f(Object value) => switch (value) {
+                  [int first && > 0, int seco 'other',ther',
+      d && < 1        String f(,
+                type_identifier  _ => 'other',
+                };
+   ,
+                type_identifier  _ => 'other',
+                };
+            

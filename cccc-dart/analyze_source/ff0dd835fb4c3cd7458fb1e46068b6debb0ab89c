@@ -1,0 +1,8 @@
+
+            et top => 1;
+            set top(int value) {}
+            class C {
+              C() {}        set value(int value) {}
+ { if (true) {} }; }
+           {
+         

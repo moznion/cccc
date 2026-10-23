@@ -1,6 +1,0 @@
-
-   #        bool f(bject value) {
-   tory C.named() t value => 1;
-              set value(int value) {}
-              C operator +(C other) => this;
-              void method() {k = () { if (true) {} }; }

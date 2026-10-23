@@ -1,0 +1,7 @@
+
+  f(=> switch (value) {
+                  [int first && > 0, int sec 'other',
+        nd && < 1,
+                type_identifier  _ => 'other',
+                };
+           

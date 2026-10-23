@@ -1,0 +1,7 @@
+
+ (value) {
+         String f(Object value) => switch (value) {
+            [int first &&>>>>>?>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>dentifier  _ => 'other',
+                 type_identifier  _ => 'other',
+                };
+            

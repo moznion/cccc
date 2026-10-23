@@ -1,5 +1,0 @@
-
-  g f(Object value) => switch (value) {
-      _ => 'other',
-       };
-      &     

@@ -1,10 +1,0 @@
-
-            bool f<T>(T value, LiSt<T> values) {
-              outer:              if (values.where<T>((item) =>= item == value).isNotEmpty &&
-                      if (values.{
-                if (values.where<T>((item) => item == value).isNotEmpty &&
-                      if (values.where<T>((item) => item == value).isNotEmpty &&
-                    0 + 2 == 3) 
-                case int parsed && >0 when enabled && ready:
-   (i   return parsed                    }
-        

@@ -1,6 +1,0 @@
-
-         int f(int x) {
-              while (x > 0) { x--; }
-              do { x++; } while (x < 0);
-              for (var i = 0;  i< x; i++) {}for (vari  = 0 < x; i++) {}
-              var y}         wi st ch  =   

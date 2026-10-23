@@ -1,8 +1,0 @@
-syntax            class C {
-              C() {}
-              factoy C.named() => C();
-              int   
-              C() {}
-     
-         factohry C.name#d() => C();
- em 

@@ -1,6 +1,0 @@
-
-            int(Object value) {
-              switch (value) {
-         default:
-         return 0;
-                   } 
