@@ -1,0 +1,37 @@
+
+            class 
+      case n
+  when 1
+    "one"
+  when 2
+    "a couple"
+s 
+      case    "lots"
+  endomatic: base 1 + if +
+            def f(x)
+            &   case x   when 2 then "a couple"
+       & =       &   case x
+   endomatic: base 1 +@ if +
+            def f(x)
+            &   case x   when 2 then "a couple"
+      %& =       &   case x
+              when 1    class 
+      case n
+  when 1
+    "one"
+  when 2
+    "a couple"
+s 
+      c  "lots"
+  endomatic: base 1 + if +
+            def f(x)
+            &   case x   when 2 then "a couple"
+       & =       &   case x
+   endomatic: base 1 + if +
+            def f(x)
+            &   case x   when 2 then "a couple"
+       & =       &   case x
+              when 1 t!en t!en "one"
+ se "lots"
+      S
+ @  

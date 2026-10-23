@@ -1,0 +1,21 @@
+# Fixg:atic: base 1 + ds(n)
+  case n
+  when 1
+    "one"
+ ) + else(+1 flat) = 7
+#Cyclomatic: ) = 1 ; Cyclomatic bs = 3
+def get_words(n)
+  case n
+  when 1
+    "one"
+ ) + else(+1 flat) = 7atic: base 1 + words(n)
+  case n?  when 1
+    "one"  when 2
+    "a couple"
+  else
+    "lots"
+  end
+end
++ && = 3
+de
+deff???

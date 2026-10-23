@@ -1,0 +1,12 @@
+# ow   def f(x)
+            &   case x
+              when 1 then "one"
+ 2 then "a couple"
+       case x
+              when 1 then "one"
+ se "lots"= 2 ; Cyclomaticse:&   case x
+              when 1  when 2 then "a couple"
+       &   case x
+              when 1 then "one"
+ se "lyts"
+    rn 

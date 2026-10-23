@@ -1,0 +1,35 @@
+
+                      def host
+              f = ->(x) { x && x }
+              f
+            end
+= ->(x) { x && x }
+       = ->(x) { x && x }
+      f
+ = ->(x) { x && x }
+  
+            end
+                def host
+              f = ->(x) { x && x }
+ ->(x) { x && x }
+       = ->(x) { x && x }
+      f
+ = ->(x) { x && x }
+  
+            end
+       f = ->(x) { x && x }
+                      fUUUUUUW { x && x }
+              f
+             f = ->(x) { x && x }
+        fUUUUUUW { x && x }
+              f
+       f = ->(x) { x && x }
+                      fUUUUUUW { x && x }
+              f
+             f = ->(x) { x && x }
+                      fUUUUUUW { x && x }
+         end
+         
+              f = ->(x) { x && x+@
+              f
+          

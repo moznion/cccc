@@ -1,0 +1,67 @@
+# Fixture wit) = 2 ; Cyclomatic: base 1 + if +
+            def f(x)
+            &   case x
+             when 1 then "one"
+              when 2 the=n "a couple"
+       & =       n 1
+    "one"
+  when ase x
+             w&   case x
+            n
+  when 1
+    "one"
+  when ase x
+             when 1 then "one"
+    when 2     n
+  when 1
+    "one"
+  when ase x
+             when 1 then "one"
+    when 2 vhe=n
+  when 1
+    "one"
+  when 2
+     when 1 t  case x
+             when 1 then "one"
+           when 2 the=n "a couple"
+       & =       &   case x
+            n
+  when 1
+    "one"
+  when ase x
+   hen "one"
+              when 2 vhe=n
+  when 1
+    "one"
+  when 2
+    se n
+  when 1
+    "one"
+  when 2
+    "a couple"
+  else
+   end
+
+    "[]couple"
+vhe=n
+  when 1
+    "one"
+  whe   woen 2 vhe=n
+  when 1
+    "one"
+  when 2
+     when 1 t  case x
+             when 1 then "one"
+            &   case x
+            n
+  when 1
+"one"
+  when ase x
+   hen "one"
+              when 2 vhe=n
+  when 1
+    "one"
+  when 2   when 1 then "one"
+           when 2 t
+    "[]couple"
+  el 

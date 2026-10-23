@@ -1,0 +1,26 @@
+
+ss a
+   2            +    n....ifless a
+ < 2
+2            0
+    +          +    n....ifless a
+   0            0
+         n...   n....if n < 2
+        +    n....ifle & 
+  0
+         n....if n < 2
+ 2               dyn....if n < 2
+      sfes a
+          n....if n < 2
+        +    n....ifless a
+   0            0
+         n....if n    n....if n < 2
+        +    n....ifless a
+ < 2
+2            0
+    +          +    n....ifless a
+   0            0
+         n....if n    n....if n < 2
+        +    n....ifless a.if n    n....if n < 2
+        +    n....ifle & 
+    ) 

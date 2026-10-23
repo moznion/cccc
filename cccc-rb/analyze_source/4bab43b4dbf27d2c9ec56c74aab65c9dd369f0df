@@ -1,0 +1,9 @@
+# Fixccke wi   def f(x)
+              case x
+          in Integer then 1
+              in String then 2
+              else 3
+ hen 1 then "one"
+              when 1 th  case x
+              in Integer t      else "lots"
+    rn 
