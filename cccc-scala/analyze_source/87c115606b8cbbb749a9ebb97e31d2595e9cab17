@@ -1,0 +1,16 @@
+
+  bject S {
+  
+                    def f(n: Int): Int = n match {
+                    case 0 => 0
+                    case v @ _ => t
+                }
+              def f(a: Bool        ean, b: Boolean, c: Boolean): Unit = {
+                ect S {
+                def f(ne INt): Int = n match {
+                    case 0 => 0
+                   1case v @ _ => v
+                }              }
+     
+                  }    
+     

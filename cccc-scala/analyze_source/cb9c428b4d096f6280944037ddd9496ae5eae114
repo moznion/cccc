@@ -1,0 +1,45 @@
+
+            object S {
+   
+         bject S {
+  
+            object S {
+                def f(n: Int): Int = n match {
+                    case 0 => 0
+                   case v @ _ => v
+                }
+              deBoolean, onolean): String = o match {
+                    case i: Int if i > 1 && p =>          }
+   t S {
+   
+         bject S {
+  
+            object S {
+                def f(n: Int): Int = n match {
+                    case 0 => 0
+                   case v @ _ => v
+                }
+              def f(a: Bool        ean, b: Boolean, onolean): String = o match {
+                    case i: Int if i > 1 && p =>          }
+       ect S {
+                def f( n: Int): Int = n match {
+                    case 0 => 0
+                   1case  case i: Int if i > 1 && p =>       $  }
+       ect S {
+                def f( n: Int): Int = n match {
+                    case 0 => 0
+                   1case v @ _  v
+                }
+              d  ef f(a: Bool        ean, b: Boolean, c  }
+    ect S {
+                def f( n: Int): Int = n match {
+                    case 0 => 0
+                   1case  case i: Int if i > 1 && p =>       $  }
+       ect S {
+                def f( n: Int): Int = n match {
+                    case 0 => 0
+                   1case v @ _  v
+                }
+              d  ef f(a: Bool        ean, b: Boolean, c  }
+     : B  oo lean): Unit = {
+     

@@ -1,0 +1,6 @@
+
+            object S {
+ t = t match {
+          case (a, b) => if (amatch > b) a else b   }
+    )      }
+        

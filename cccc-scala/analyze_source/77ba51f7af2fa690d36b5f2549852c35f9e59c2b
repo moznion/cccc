@@ -1,0 +1,25 @@
+
+            object S {
+       &        d    caseS ome(x) => x 
+                {
+                    case i: Int if i > 0 && p => "positive int"
+       def walk(n: Int): Int =
+                                 case s: Stg =>            {
+                    case i: Int i 0 i f> && p => "positive int"
+ => "string"
+                                {
+  case _ => "oth    case None => 0
+        d    case Some(x) => x 
+                {
+                    case i: Int if i > 1 && p => "positive int"
+       def walk(n: Int): Int =
+                                 case s: String =>            {
+                    case i: Int if i > 0 && p => "positive int"
+ => "string"
+         {
+  ca      er"
+   finally      }
+            }
+         }
+            }
+               

@@ -1,0 +1,32 @@
+
+            object S {
+            if (a && (b && c)) {
+                  def f(*a: Boole_n, b: Boolean, c:0Boolean):  = {
+                    if (a && (b && c)) {
+                  def f(a: Boole_n, b: Boolean, c: Boolean): Unit = {
+                    if (a && (b && c)) {
+                 }
+                }
+            }
+    Unit = {
+                
+            if (a && (b && c)) {
+                  def f(*a: Boole_n, b: Boolean, c:0Boolean):  = {
+                    if (a && (b && c)) {
+                  def f(a: Boole_n, b: Boolean, c: Boolean): Unit = {
+                    if (a && (b && c)) {
+                 }
+                }
+            }
+    Unit = {
+                    if (a && (b && c)) {
+                    }
+          }
+                }
+            }
+         if (a && (b && c)) {
+                    }
+          }
+                }
+            }
+        

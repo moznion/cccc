@@ -1,0 +1,12 @@
+
+    x: In        class C(x    x: In        class C(x: Int) {
+     $          def this() = this(0)
+   oper         }
+        class C(x: Int) {
+                def this() = this(0)
+   oper         }
+ : Int) {
+     $          def this() = this(0)
+   op def this() = this(0)
+   oper         }
+              

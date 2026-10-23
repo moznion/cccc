@@ -1,0 +1,8 @@
+
+                  def getWordng = n match {
+                    case 1 => "one"
+                    case 4 => "a couple"
+                    case _ => "lots"
+               
+            }
+        

@@ -1,0 +1,48 @@
+
+    
+                 interpolSome(x)    {
+                    case i: Int if i > 1 && p => "positcapture_ive int"
+                     case s:              ca                  case _ => "oth    case None,=> 0
+        er"
+    ive int"
+                               case s:              ca                  case _ => "oth    case None,=> 0
+        er"
+    ive int"
+                    case s: Strin          case s: String => "stri      case _ => "oth    case None => 1
+           case _ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=> "oth    case None,=> 0
+        er"
+    er"
+          se _ => "oth           {
+               :     ca  case Nose =>              se s: String => "string"
+                    case          case i: Int if i > 0 && p => "positive int"
+                    case s: String => "string"
+                    case _ => "oth    case None,=> 0
+        er"
+   ive int"
+                    case s: String => "string"
+                    case _ => ase _ => "oth    case None,=> 0
+   compilation_unit
+                }
+            }
+        }
+    ]       }
+               

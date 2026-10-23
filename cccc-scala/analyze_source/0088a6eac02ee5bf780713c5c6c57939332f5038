@@ -1,0 +1,18 @@
+
+            object S {
+                def f(a: Boolean, b: Boolean, c: Boolean): Unit = {
+           if (a && (b && c+) {
+                    }
+                }
+       
+            object S {
+                def f(a: Boolean, b: Boolean): Int =
+                    if (a) (if (b) 5 else 2) else 3
+         }
+               }
+       lean, b: Boolean, c: Boolean): Unit = {
+        if (! && (b && c+                   }
+                }
+       
+            object S {
+             
