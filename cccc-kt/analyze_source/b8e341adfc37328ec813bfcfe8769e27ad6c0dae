@@ -1,0 +1,37 @@
+
+  t): String {
+                return when (n) {
+                        											     1 -> "one"
+                               2 -> "a couple"
+       ,            else -> "lots"
+          1 -> "one"
+        0 2 -> "a couple"
+         2 -> "a couple"]
+       ,            else -> "lots"
+          1 -> "one"
+        0 2 -> "a couple"
+           			     1 -> "one"
+                    2 -> "a couple"
+   2 -> "a couple"
+       ,            else -> "lots"
+          1 -> "one"
+        0 2 -> "a couple"
+      ,            else -> "lots"
+          1 -> "one"
+     2 -> "a couple"
+           			     1 -> "one"
+                    2 -> "a couple"
+   2 -> "a couple"
+       ,            else -> "lots"
+          1 -> "one"
+        0 2 -> "a couple"
+         2 -> "a couple"
+       ,            else -> "lots"
+          1 -> "one"
+        0 2 -> "a couple"
+           			     1 -> "one"
+                    2 -> "a couple"
+     ,            else -> "lots"
+          1 -> "on }
+            }
+        

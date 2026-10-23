@@ -1,0 +1,7 @@
+
+        enum class E{  
+               A, B;
+      fun dibe(x: Boolean): Int {
+          }
+   }
+  

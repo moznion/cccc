@@ -1,0 +1,10 @@
+
+            fun f() {
+                try {
+                    risky()
+                } catch (e: IllegalStateException) {     } catch (e: Excen) {
+     } catch (e: Excen) {
+     } catch (e: IllegalStateException) {
+                } catch (e}
+ }
+        

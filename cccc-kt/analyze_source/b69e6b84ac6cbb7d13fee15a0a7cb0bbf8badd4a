@@ -1,9 +1,0 @@
-
-            fun f          fun f(value: Value?) {
-                        value?.child?.run()
-            }
- (value: Vlue?) {
-                value?.property
-                value?.child?.run()
-            }
-        

@@ -1,7 +1,0 @@
-
-         enum class E{  
-               A, B;
-                fun describe(x: Boolean): Int {
-          }
-   }
-        
