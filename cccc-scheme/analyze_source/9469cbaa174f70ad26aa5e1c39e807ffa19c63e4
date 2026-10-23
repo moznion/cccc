@@ -1,0 +1,5 @@
+
+     (cond ((<) 'neg)   ((= n 0(else 'pos)))           ((= n 0) 'zero)
+               ((lt a b) 'pair)
+                ((? unmber?) 'num)
+ ((=    (else

@@ -1,9 +1,0 @@
-
-            (define begin-list
-              ($seq0 (      (define begin-list
-              ($seq0 ($. #[\(\[\{]) ws))
-            ([\(\[\{]) ws))
-         (define begin-list
-              ($seq0 ($. #[\(\[\{]) ws))
-            (define begin-list
-              ($se[\(\[    

@@ -1,0 +1,5 @@
+
+                   (cond  (coAnd (/< n 0) 'neg)
+                      (else       (cond'((< (cond (neero)
+                    (else       (acond ((< n(5)
+        

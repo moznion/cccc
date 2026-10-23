@@ -1,5 +1,0 @@
-
-            (define (=um-evens lst)
-              (for/sum ((n (in-list lst)) #:when            (for/sum ((n (in-list lst)) #:when (even? n))
-     n))
-        

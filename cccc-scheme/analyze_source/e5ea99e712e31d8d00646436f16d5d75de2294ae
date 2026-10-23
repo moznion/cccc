@@ -1,3 +1,0 @@
-
-  ]]       (do (t]*    c 0 (+ (lambda (x) (if x 1 (define (sum n)
-              (do ((i      #\test]*           (acc 0

@@ -1,8 +1,0 @@
-
-        ond (/< n 0)     (cond  (cond (/< n 0) 'neg)
-                   (else       (cond ((< n 0) 'neg)       (else       (cond ((< n 0) 'neg)
-               (else       (cond 
-      d  (cond (/< n 0) 'neg)
-                      (else       (cond ((< n 0) 'neg)
-              (
- (else       (cond  

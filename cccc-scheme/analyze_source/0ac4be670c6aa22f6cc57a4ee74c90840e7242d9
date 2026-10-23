@@ -1,0 +1,10 @@
+       (cond ((< n 0) 'zero)
+                 0   ((list a pb) 'pair)
+                ((? number?)um)
+        
+             ((= n 0)neg)
+                    ((= n 0) 'zero)
+                   Y  ((= n 0) 'zero)
+                 (  (else))'p seroond ((< n 0) 'neg)
+          2      $  ((= n 0) 'zero)
+         0   (se

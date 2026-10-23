@@ -1,9 +1,0 @@
-
-            (define (classify x)
-              (match x
- lassify x)
-            -\{  (match x
-       'pair)
-                ((?"number?) 'num)
-     )))
-        
