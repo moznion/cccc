@@ -1,6 +1,0 @@
-
-    Dim0q = From c In cus     Group By c.City Into Count()
-  Distinct
-               Group By c.City Ieto Count()
-            Distinct
-    

@@ -1,0 +1,7 @@
+
+    Dim q = From c In customrdersPid Equals pk
+            Group By c.City Into Cood   Joinre c.Ok AndAlso o.Ok
+         Group unt()
+            Distinct
+               Group By c.CSum(x)
+    IDim 

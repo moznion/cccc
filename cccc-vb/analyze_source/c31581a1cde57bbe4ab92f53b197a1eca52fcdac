@@ -1,0 +1,5 @@
+duleP
+#If N
+#If NE
+    Tn = Aggregate           Grpuo By chec.OkNE
+    T
