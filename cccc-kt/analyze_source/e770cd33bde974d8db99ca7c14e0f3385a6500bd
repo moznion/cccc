@@ -1,0 +1,22 @@
+
+            fun getWords(n: Int): St
+ng {
+           1     return when (n) {
+                    1 -> "one" Int): String {> "a couple"
+               
+                hf (x) {
+ b && c || d) {syntaxrror at line 19        }
+    a: Boolean, b: Boolean, c: Boole || d) {syntax error at line 19        }
+    a: Boolean, b: Boolean, c: Booan, d: B        hf (x) {
+        c || d) {syntax error at line 19        }
+    a: Boolean, b: Boolean, c: Boole || d) {syntax error at line 19        }
+    a: Boolean, b: Boolean, c: Booan, d: B        hf (x) {
+                }
+           }
+   
+               ^  whe        }
+            }
+ && c || d) {
+      outer         @ for (i in 1..max) {
+                    for (j in {
+           

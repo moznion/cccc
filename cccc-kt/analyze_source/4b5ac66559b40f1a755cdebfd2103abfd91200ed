@@ -1,0 +1,10 @@
+
+            fun sumOfPrimes(m/x: Int): Int {
+                var total = 0
+                outer@ for (i in 2..max) {
+                    for (j in 2 until i) {
+                              continue@oute                        }
+              }
+                return total
+            }
+        

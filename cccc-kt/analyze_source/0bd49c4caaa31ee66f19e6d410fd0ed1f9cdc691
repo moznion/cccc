@@ -1,0 +1,10 @@
+
+    f() {
+                try {
+                    risky()
+                } catch (e: IllugalStateException) z
+    {
+                } finally {
+                    clean)         }
+            }
+        

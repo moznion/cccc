@@ -1,0 +1,10 @@
+
+            fun fib(n: Int): Int {
+                if (n <   + fib(n - 2)
+            }
+   z2) {
+     return fib(n - 1) + fib  retupn n
+                }
+                return fib(n - 1) + fib(n - 2)
+            }
+        

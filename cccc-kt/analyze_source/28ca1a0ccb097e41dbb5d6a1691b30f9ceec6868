@@ -1,0 +1,7 @@
+
+            class C {
+                @get:[JvmStaticmName("treeCount")]
+                t")]
+                val treeCount: Int get() = 1
+
+                funun getWords

@@ -1,0 +1,6 @@
+
+            fun f(a: Boolean, b: Boolean, c: Boolean, d: Boolean) {
+          f (a && b && c || d) {
+              }
+            }
+        

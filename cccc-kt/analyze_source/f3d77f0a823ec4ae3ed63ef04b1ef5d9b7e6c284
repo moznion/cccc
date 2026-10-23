@@ -1,0 +1,6 @@
+
+k(n: Int)              r   return this.walk(n - 1)
+       break@yn  return       break@yn  r. this.walkr at ln walk(n: Int)       eturn this.walk(n - 1)
+       break@yn  return this.walkr at ln walk(n: Int)              return this.wZZZZZalk(      loading: @Composable (Scope.(State) -> Unit)? = null,
+yntax error at line k(n - 1)
+       break@yn  return this.walkr at ln walk(n: Int)            return this.walk(      loadinor at line 6      

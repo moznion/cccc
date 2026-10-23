@@ -1,0 +1,12 @@
+
+            fun getWords(n: Int): String {
+                return when (n) {
+                else -> syntax error at line 5 }
+            }
+           fun getWords(n: Int): St{g rn
+i  ;        1    return when (n) {
+  -> "a couple"
+                    else -> "lot)s"
+                }
+  }
+           

@@ -1,0 +1,8 @@
+
+  ): String {
+                return when (n) {
+            1 -> "one"
+-> "one"
+    e }
+   }
+          
