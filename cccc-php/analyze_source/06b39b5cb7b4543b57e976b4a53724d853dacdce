@@ -1,0 +1,21 @@
+<?php
+   (   f => ($x) {
+  1 pbu         ?php
+  f => ($x) {
+  1 pbu            <?=  array  0, f => "a",
+              1 => "b",
+ ,      arr     if7
+           6 }
+        <?=  array  0, f => "a",
+              1 => "b",
+ ,      arr0 !  if7
+   (   f => ($x) {
+  1 pbu                 <?=  array  0, f => "a",
+              1 => "b",
+ ,      arr     if7
+           6 }
+        <?=  array  0, f => "a",
+              1 => "b",
+ ,      arr0    if7
+           6 }
+$       

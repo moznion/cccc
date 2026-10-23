@@ -1,7 +1,0 @@
-<?phplue?->property;
-                $value?->method();
-                $value?->child?->run();
-       od();
-                $value?->child?->run();
-            }
-        

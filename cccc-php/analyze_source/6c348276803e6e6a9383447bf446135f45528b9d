@@ -1,0 +1,15 @@
+<?php
+                    , 2 => "a",
+                    3 => "b",
+                    default => "c",
+                };
+                  return match ($x) {3 => "b",
+                    default => "c",
+                };
+            }
+     => "a",
+                    3 => "b",
+                    dfault => "c",
+  return match ($x) {
+        }
+        

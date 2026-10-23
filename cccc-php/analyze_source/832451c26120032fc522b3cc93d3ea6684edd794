@@ -1,4 +1,0 @@
-<?php
-            0  pu $obj = new class($cb, fn ($z) => $z && $z) {
-     
-            e Public (

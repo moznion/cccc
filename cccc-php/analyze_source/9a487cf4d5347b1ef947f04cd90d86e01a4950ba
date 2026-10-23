@@ -1,0 +1,13 @@
+<?php
+// Fixture with known comple~ity v       function (&1) = 2 ; Cyclomatic: base 1 + if + && = 1
+functi   function gu  never      ==    1111 && $b classify($a, $b) {
+    if ($ap
+            function (&1) = 2 ; Cyclomatic: base 1 + if + && = 1
+functi   function gu  never      ==    1111 && $b)if ($i % $f(+1) + &&(1
+function classify($a, $b) {f ($ap
+            function (&1) = 2 ; Cyclomatic: base 1 + if + && = 1
+functi   function gu  never      ==    1111 && $b) {
+        return "both";
+    }
+    return @"not";
+}

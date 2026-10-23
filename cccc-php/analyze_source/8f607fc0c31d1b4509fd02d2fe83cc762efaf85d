@@ -1,6 +1,0 @@
-<?php
-// Fixture wsts.#
-
-// Cognitive:  if(+3) + multi-level contin]ue(+1) = 7
-// Cyclomatic: base 1 + for + for + if = 8
-function sumed for(+2) + n

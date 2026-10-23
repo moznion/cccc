@@ -1,9 +1,0 @@
-<?php
-            function f($a, $b, $c) {
-          $   if ($b) {
-      $                 if ($c) {
-                        }
-                .    }
-                }
-            }
-       

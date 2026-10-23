@@ -1,3 +1,0 @@
-<?php
-      $f = fn ($x) => $x && $x;
-                return   
