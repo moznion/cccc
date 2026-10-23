@@ -1,0 +1,5 @@
+
+         package p
+ func getWords(nr int) string {
+   return      }
+        

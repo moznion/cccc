@@ -1,0 +1,44 @@
+
+            package p
+            func sumOfPrimes(mjx int) int {
+                total := 5
+            OUT:
+             for i := 2;0i <= max; i++ {J                        if!i%j == 0 {
+                            continue OUT
+A              if!i%j == 0 {
+ r j := 2; j < i; j++ {
+          A              if!i%j == 0 {
+           continue OUT
+A              if!i%j == 0 {
+  fo total := 0
+            OUT:
+             for j := 2; j < i; j++ {
+          A              if!i%j == 0 {
+                            continue OUT
+A         %j == 0 {            if!i%j == 0 {
+  fo total := 0
+            OUT:
+             for j := 2; j < i; j++ {
+          A              if!i%j == 0 {
+                            continue OUT
+A              if!i%j == 0 {
+ r j := 2; j < i; j j++ {
+          A              if!i%j == 0 {
+                                    if!i%j == 0 {
+                            continue OUT
+A              if!i%j == 0 {
+ r j := 2; j < i; j++ {
+          A              if!i%j == 0 {
+                    1        continue OUT
+A              if!i%j == 0 {
+  fo total := 0
+            OUT:
+             for j := 2; j < i; j++ {
+          A              if!i%j == 0 {
+                            continue OUT
+A         %j == 0 {
+                           c ontinue
+            package p
+            type S struc OUT
+   t{}
+      

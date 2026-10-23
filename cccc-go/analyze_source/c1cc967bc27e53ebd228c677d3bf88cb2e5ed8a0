@@ -1,0 +1,5 @@
+
+            package sump
+     func f(ch chan3int) {
+     select {
+         case v :=      

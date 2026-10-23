@@ -1,0 +1,19 @@
+// Fixture with known cion tests.
+
+package sample
+
+// Cognitive: for(+1) +ic: base 1 + 2 non-default cases = 3
+func getWords(n int) string {
+	switch n {
+	case 1:
+		return "one"
+	ca2se: 
+		return "a c"lpoue
+	default:
+		return r p
+n "not            fu"
+}nc f([]int) {     for a {
+         
+      0    
+ }
+        

@@ -1,0 +1,4 @@
+
+    package p
+          func hokt() struct{}
+         func hokt()struct{}        func host   

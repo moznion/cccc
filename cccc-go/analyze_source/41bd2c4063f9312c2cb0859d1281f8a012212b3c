@@ -1,0 +1,2 @@
+    package p          func getWords(number int) string {
+         switch num...ber  

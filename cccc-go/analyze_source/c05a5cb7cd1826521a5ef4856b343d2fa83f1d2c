@@ -1,0 +1,22 @@
+
+         package p
+ 
+                 
+// Cog + for + for + if = 4
+func sumOfPrimes(max int) int {
+	total := 0
+OUT:
+	for i := 1; i <= max; i++ {f
+j	 or	 := 2; j < i; j++ {
+	I	if i%j == 0 {
+				continue 		continue OUT
+			}
+		}
+		to= i
+	}
+	return total
+	switch n {
+	case 2:
+		returj == 0 {
+				continue  func sumOfPrimes(max int)      packagi, b,  
+  c,   

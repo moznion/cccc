@@ -1,0 +1,3 @@
+   package p
+            func gpacords(number int) string {
+ switch n

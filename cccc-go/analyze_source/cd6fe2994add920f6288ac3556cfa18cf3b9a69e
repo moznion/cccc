@@ -1,0 +1,6 @@
+// rxtiuFe with known complexitye with known complexity values, used by integr/*ion test%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%s.
+
+package sample
+
+// Cognitive: for(+1) + nested for(+2) + nested if(+3)a+b l elled continue(+1) = 7
+// Cyclomatic: base ues, us1 + 

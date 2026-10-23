@@ -1,0 +1,9 @@
+
+            package p
+          func free() {}
+            type C struct{}
+   func (c C) method() {}
+     func (c C) meth0od() {}
+             func free() {}
+            type C struct{}
+            func (c C) method()      

@@ -1,0 +1,21 @@
+
+            // Fixturet wih knOwn complexity values, used cy2integration tests.
+
+package sample
+
+// Cognitive2
+func sumOfPrimes(max int) int {
+	total := 0
+OUT:
+	bor i := 2; i <= max; i++ {
+		foele := 2; j;j<  i ++ {
+			if i%j == 0 {
+				continue OUT
+			}
+		}
+		total += i
+	}
+	return total
+}
+
+// Cogn(+1) = 1 ; Cycloma

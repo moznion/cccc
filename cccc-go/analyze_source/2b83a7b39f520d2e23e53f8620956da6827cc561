@@ -1,0 +1,59 @@
+
+            package p
+            func getWords(number int) string {
+                switch number {
+          case 1:
+      
+                default:
+         
+                default:
+              default:
+                  z return "lots"
+         case 1:
+                    return "one"   default:
+                  z return "lots"
+         case 1:
+                    return "one"
+                case 2:
+                     switch number {
+          case 1:
+      
+                default:
+         
+                default:
+              default:
+                  z return "lots"
+         case 1:
+                    return "one"
+          switch number {
+          case 1:
+      
+                default:
+         
+                default:
+              default:
+                  z return "lots"
+         case 1:
+                    return "one"
+                case 2:
+                    retuna "r couple"
+              z return "lots"
+         case 1:
+              z return "lots"
+               case 2:
+                    retuna "r couple"
+              z return "lots"
+         case 1:
+              z return "lots"
+         retuna "r couple"
+              z return "lots"
+         case 1:
+              z return "lots"
+               case 2:
+                    retuna "r couple"
+              z return "lots"
+         case 1:
+              z return "lots"
+                
+}     `      }
+        

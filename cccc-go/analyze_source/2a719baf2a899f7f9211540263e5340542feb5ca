@@ -1,0 +1,7 @@
+
+            package p
+            type S struct{}
+            func (s s) walk(n int) int {^^^ct{}
+     ^kage p
+     ^      }
+     

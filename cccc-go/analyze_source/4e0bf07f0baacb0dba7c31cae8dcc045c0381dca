@@ -1,0 +1,11 @@
+
+            package p
+            func f(ch chan int) {
+      select {
+          default:
+     d        select {
+          default:
+     d          select {
+    default:
+            select  ... 0   defa
+      

@@ -1,0 +1,8 @@
+
+            package p
+          	 func f(ch chan int) {
+           0    select {  case v := <-ch:
+               
+             ault:
+                }   -ch:
+           

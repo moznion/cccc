@@ -1,0 +1,15 @@
+
+            package p
+            func f(a bool, items []int) {
+      {
+          ;;;;;;;;;;;;;;	for j := 2; j < i; j++ {
+	I	if i%j == 0 {
+				continue OUT			}
+		}
+		total += i
+	}
+	return total
+}
+
+// Cognitive: switch(+1) = 1 ; Cybase     &&      }
+        

@@ -1,0 +1,16 @@
+
+            package p
+            func f(a bool, items []int) {
+                         {
+             for a {
+              Z       _ = i
+                }
+   }
+                for i := range items {
+                 var   _ = i
+          }
+                for i :=  items {
+                    _ = i
+                }
+            }
+        

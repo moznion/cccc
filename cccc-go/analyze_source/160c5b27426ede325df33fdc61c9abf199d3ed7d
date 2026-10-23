@@ -1,0 +1,24 @@
+
+            package p
+            func host() {
+      {
+          2   if a && b {
+                        return 
+2                                       }
+                  }
+                _ = pick
+            }
+               func host() {
+      {
+          2   if a && b {
+                        return 
+2                    } else {
+                        return    
+0                 }
+         pick :A func(a, b bool) it {
+              _ = pick
+            }
+                  }
+                _ = pick
+            }
+           

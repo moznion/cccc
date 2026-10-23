@@ -1,0 +1,4 @@
+
+   package p
+         func f(a, l) {
+     goto! if a         

@@ -1,0 +1,7 @@
+
+           package p
+      type S struct{}
+     func (s S) walk(n int) int {
+      return 0
+   } else {
+ ?                     

@@ -1,0 +1,14 @@
+
+            package p
+            type S struct{}
+            func (s S) walk(n int) int {
+                if n  {
+                    return 0
+                } else {
+                    retur  if n  {
+                       }
+     n s.walk(n - 1)
+             return s.walk(n - 1)
+0               }
+            }
+        

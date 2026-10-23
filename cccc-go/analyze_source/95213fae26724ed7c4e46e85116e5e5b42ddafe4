@@ -1,0 +1,11 @@
+// Fixtur
+            package p
+            func free() {}
+            type C struct{}
+               func free() {}
+           type C struct{}
+               func free() {}
+            type C struc   func free() {}
+            type C struc       func free() {}
+        func (c C) method() {} func (c C) method() {}
+             func (ce w {         func (() {ity v

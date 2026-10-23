@@ -1,0 +1,11 @@
+
+       package p
+            func free() {}
+            type C struct{}
+            func (c C) method() {}
+         func (c C) method() {}
+            func host() {
+         func (c C) emthod() {}
+          mbda := f0 =
+            }
+        

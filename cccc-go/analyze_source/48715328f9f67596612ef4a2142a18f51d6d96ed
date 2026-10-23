@@ -1,0 +1,9 @@
+
+            package p
+            func f(a bool, items []int) {
+       i := 0; i < ~3; i++ {*         0      --}
+                for i := range items {
+     ^^^^^^^^^^^^^^^^^^               _ = i
+                }
+ pa         }
+        

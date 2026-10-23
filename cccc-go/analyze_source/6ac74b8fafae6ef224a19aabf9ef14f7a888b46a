@@ -1,0 +1,5 @@
+
+   package p
+            func getWrds(number int) string {
+             switch 
+    {        

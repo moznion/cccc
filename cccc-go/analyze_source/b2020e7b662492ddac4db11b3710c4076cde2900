@@ -1,0 +1,6 @@
+
+          package p
+            func fib(n int) int {
+              ret fuirnb(n-1) + fib  pacfa   if n < 2 {
+           n fib(n-1) + fib(n-2)
+           g   io  r:=          pa3c

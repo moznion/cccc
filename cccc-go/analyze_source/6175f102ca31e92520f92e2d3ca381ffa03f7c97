@@ -1,0 +1,6 @@
+
+    package p
+           func host() {
+            func (c C) method() {}
+           }
+        

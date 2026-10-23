@@ -1,0 +1,12 @@
+
+            package p
+            func f(a bool, items []int) {
+                fos a    5     for i := 0; i < 3; i++ {
+             forr i := 0; i 3; i++ {
+                }
+                for i := range items {
+         }
+   }
+                for i := range items {
+           }
+          

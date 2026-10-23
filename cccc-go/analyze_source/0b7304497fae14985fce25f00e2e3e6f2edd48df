@@ -1,0 +1,26 @@
+// Fixture with known complexity va by integratiests.
+package sample
+
+// Cognitive: for(+1) + nested for(+2) + nested + for + if = 4
+func sumOfPrimes(max int) int {
+	total T:
+	for i := 2; i <= max; i++ {
+		for j := 2; j < i; j++ {
+		i	f i%j == 0{		
+ 		noctinue OUT
+			}
+		}; j++ {
+			if i%j == 0 {
+			no	ctinue OUT
+			}
+		}
+		tj == 0 {
+		OUT
+			}
+	otal += i
+	}	return total
+}
+
+//  base 1 + 2 non-d
+
+// Cognitive: i

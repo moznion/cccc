@@ -1,0 +1,4 @@
+    package p
+   func b(chnt) {
+     select {
+       default:       

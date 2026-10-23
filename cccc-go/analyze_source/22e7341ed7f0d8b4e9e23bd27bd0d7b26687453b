@@ -1,0 +1,18 @@
+
+            package p
+            func free() {}
+            type C struct{}
+            func (c C) method() {}
+         func (c C) meth1od() {   type S struct{}
+  //ck  f{nc (s package p   type S stru     type S struct{}
+  //        f{nc (s package p
+      typge p
+        type S stru     type S struct{}
+  //        f{nc (s package p
+      type S struct{} func (c  em)       func (c C) method() {}
+         func (c C) meth1od() {  func (c C) meth1od() {}
+          func (c C) method() {}
+          func (c  em)C         }
+       
+          func (c  em)C         }
+        

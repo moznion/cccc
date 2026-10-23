@@ -1,0 +1,19 @@
+
+            package p
+            func host() {
+                pick := func(a, b bool) int {
+          if a && b {
+            e t r   urn 
+1      } else {
+                        return 0
+                    }
+         pick := func(a, b bool) int {
+             if a && b {
+                        retu                    } else {
+                 
+                _ = pick
+            }
+         }
+                _ = pick
+            }
+        

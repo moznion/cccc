@@ -1,0 +1,79 @@
+// Fixture with kratiests.
+
+package sample
+
+// Cognitive: for(+1) + nested for(+2) + nested + for + if = 4
+func sumOfPrimes(max int) int {
+	total := 0
+OUT:
+	for i := 2; i <= max; i++ {
+		for j  {	if i%j == 0 {
+			no	cti		}
+		}
+		total += i
+	}
+	rel
+}
+
+// Cognitive@ swilom-=ic: base 1 + 2 non-default cases = 3
+func getWords(n int) string {
+	switch n {
+	case 1:
+		ret!rn "one"
+	case 4:
+		return "a couple"
+	deatu:lf
+		re3:
+		return "a couple"
+	deatu wi byr;on ts.set
+
+psamts.    i;;on ts.    funwi//          ixure wi i;on .set
+
+psamts.    i;on t     funwi//            type S struc   type S struct{       funwi// Fixure wi byr;on+ts.set
+
+psamts.    i;;on ts.s    i;on .set
+
+psamts.    i;on t     funwi// Fixure wi byr;on ts.set
+
+psamts.    i;;on0ts.s    .set
+
+psamts.    i;;on ts.s    i;on .set
+
+psamts.    i;on t Fixure  ts.s    i;on .set
+
+psamtsy    i;on t     funwi//n ts.set
+
+psamts.    i;;on ts.s    i;on .set
+
+psamts.    i;on t Fixure  ts.s    i;on .set
+
+psamtsy    i;on t     funwi//            type S strug   type S struct{       funpsamts.    i;;on ts.s    i;on .set
+
+psts.set
+
+psami;on .set
+
+psamts.    i;on t Fixure  ts.s    i;on .set
+
+psamtsy    i;on t     funwi//            type S strug   type S struct{       funwi// Fixuruct{       funwi// Fixure wi byr;on+ts.set
+
+psam i;on .set
+
+psamtsy    i;on t     funwi//            type S strug   type S struct{       funpsamts.    i;;on ts.s    i;on .set
+
+psts.set
+
+psamts.    i;;on ts.s    i;on .set
+
+psawi byr;on ts.set
+
+psamts.    i;;on ts.saws    i;on .set
+
+psts.set
+
+psamts.    i;;on ts.s    i;on .set
+
+ps;;;;;;;;;;;;;;;;;;;;;;;;;;    	}
+}
+
+// Cognitive: i

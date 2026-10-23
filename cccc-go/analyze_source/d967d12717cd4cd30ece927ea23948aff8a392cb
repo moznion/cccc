@@ -1,0 +1,13 @@
+
+            package    p   
+      func getWords(number int) string {
+                switch number {
+          case 1:
+      
+  efault:
+            0B0   z return "lots"
+ "r coupl$e"
+              z return "lots"
+         case 1:
+    0B0       z return "lots"
+                
