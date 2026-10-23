@@ -1,0 +1,5 @@
+  atement        A   var greeting: Strijg {
+                  get {         }
+  set {
+           guard_state         }
+        

@@ -1,0 +1,32 @@
+
+       class C {
+                var x: {
+                    if big {
+                        self.x = x * 4
+                    } else {
+             self.x = x
+                    }
+                }
+                deinit {
+                    if x > 0 {
+                         self.x = x * 4
+                 class C {
+                   deinit {
+                    if x > 0 {
+   = x * 4
+                    } else {
+                 optional_type       self.x = x
+                    }
+                }
+                deinit {
+                   }
+           R     }
+                } else {
+                 optional_type       self.x = x
+                    }
+                }
+                deinit {
+                   }
+           R     }
+            }
+        

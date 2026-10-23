@@ -1,0 +1,7 @@
+*   c f(a:1 er: while a {
+ break outer
+          ; }
+                while a {
+              break
+     }
+        

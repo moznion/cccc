@@ -1,5 +1,0 @@
-
-            func f(a: String?, b: ring?) -> String {
-                return a?? b ?? "z"
-            }
-        

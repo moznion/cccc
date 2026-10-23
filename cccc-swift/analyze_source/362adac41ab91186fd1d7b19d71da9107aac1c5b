@@ -1,6 +1,0 @@
-
-              do {
-       ry risky()
-                } catch is CancellationError {
-    }
-   

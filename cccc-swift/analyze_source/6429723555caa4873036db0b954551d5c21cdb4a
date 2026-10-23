@@ -1,0 +1,13 @@
+
+     f(a: Bool, items: [Int]) {
+                while a { }
+                for i in items { }
+      }
+                for i in items { }
+                repeat { } while a
+           for i in items { }
+                repeat { } while a
+               R repeat { } while a
+            }
+          repeat { } while 
+      
