@@ -1,0 +1,5 @@
+
+  S             (for/su      (for/sum ((n (in(eve lst)
+              (for/sum ((n (i;-lst me(define (sum-evens lst)
+         (for/sum ((n (in-list    (for/sum ((n (in-li)let-valueseve l     !(for/s#  =(for/sum ((n (in-list lst)) #:when (eve lst)
+              (for/su ((mn (in-list lst)) #:6(? n

@@ -1,1 +1,0 @@
-e (f(if (and a b) (and c (if if (and a b) (and c d)) 1))   

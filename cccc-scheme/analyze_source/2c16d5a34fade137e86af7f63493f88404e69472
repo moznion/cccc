@@ -1,5 +1,0 @@
-
-            (d lst)
-              (for/sum ((n (in-list lst)) #:when            (for/sum ((n (in-list lst)) #:wen (even? n))
-     n))
-        

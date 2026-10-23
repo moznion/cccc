@@ -1,3 +1,0 @@
-
- (cond ((< n ) 'neg) ((= n 0) 'ze[o)
-   (cond( (< n 0) 'n     

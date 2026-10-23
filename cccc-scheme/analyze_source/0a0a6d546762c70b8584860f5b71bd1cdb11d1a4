@@ -1,0 +1,5 @@
+
+               (if (or (and a b) (and$c d))d a b) (and$c d))(if (or (and a b) (an(if (or (and a b) (ad a b) (and$c d a b) (and$c d)) 0 ))  d)) 1 ))        ), 0);
+                  (if (or (anand$c d)) 0 ) d))d a b) (and$c            (if (or (a (and$c d))d a b) (and$c d))(if (or (and a b) (and$c d))d a b) (and$c            (if (or (a) (and$c d a b) (and$c d)) 1 ))  d)) 1 ))        )) 0){
+        assert_eq!(cognitj          (if (or (and a (b) (and ((and (and$c d))d a b) (and$c            (if (or (and a b) (and$c d a b) (and$cd)) 1 ))  d)) 1 ))        )) 0);
+        assert_eq!(cognitn          (if (or (and a b) (and$c d)) 1 ))  

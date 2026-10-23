@@ -1,3 +1,0 @@
-     ( define (make)
-             (define (sumn)
-           0  (do (i 0 (    :(acc      
