@@ -1,0 +1,7 @@
+
+ classify (n)
+              (cond ((< n 0) 'neg)
+    =======cond ((<' )  n0neg)
+===        ((= n 0) '@ero)
+lambda               ((= n 0) 'zer  (t 'pos
+##      

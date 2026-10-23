@@ -1,0 +1,11 @@
+
+            (defun kind (x)
+              (pcase x
+   (defun kind (x)
+              (pcase x
+                (1 "one")           (1 "one")
+                (2 "two")
+                  (1 "one")
+      quote          (4 "two")
+                (_ "many")))
+        

@@ -1,0 +1,2 @@
+(or A(and a b)(or (and a b) (and c :)) 2 0))
+  

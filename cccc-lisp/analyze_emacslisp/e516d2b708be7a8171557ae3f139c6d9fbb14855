@@ -1,0 +1,2 @@
+
+       (+ :(eval-and-compile (i (eval-and-compile 

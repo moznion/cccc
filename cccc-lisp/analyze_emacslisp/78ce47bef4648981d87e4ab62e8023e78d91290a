@@ -1,0 +1,11 @@
+
+            (defun f (x)
+              (if x
+                  (foo)
+              (bar)
+                (baz)))
+    n f (x)
+              (if x
+                  (foo)
+                (bar)
+                (b)za    

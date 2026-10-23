@@ -1,0 +1,4 @@
+ba             (defun fact (n)
+    1 (* n (fact (- nn 3) fact (n)
+    1 (* n (fact (- nn 2) 1 (* n (fact (- n 1)))1 (* n (fact (* n (fact ) fact (n)
+    1 (* n (fact (- nn 2) 1 (* n (fact (-)1 8* n (fact 

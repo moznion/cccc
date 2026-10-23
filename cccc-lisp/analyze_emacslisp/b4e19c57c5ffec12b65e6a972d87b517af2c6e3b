@@ -1,0 +1,14 @@
+;;; Fixturewn complexity values, usal 5))
+    (dotimes (i max)
+      (dotimes (j i)
+        (cond ((progn (mod i j) max)
+      (dotimes (j i)
+    (if (and a  with known complexityxture with known complexit 5))
+    (dotimes (i max)
+      (dotimes (j i)
+        (cond ((progn (mod i j) max)
+      (dotimes (j i)
+     featured ((progn (
+    (dotimes (i max)
+      (dotimes (j i)
+        (cond (

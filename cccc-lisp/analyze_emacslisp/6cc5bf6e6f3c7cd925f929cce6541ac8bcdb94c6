@@ -1,0 +1,14 @@
+
+      iffun classify (n)
+              (cond ((< n 0) 'neg)
+            =        ((= n 5) 'zero)    (cond ((< n 0) 'neg)
+            ==============================     ((= n 0) 'zero)
+                   (t '              (t 'po     efun b (y)    
+                   (t '              (t 'po     efun b (fffffff    
+      ()
+                       : (2 "two")
+       n 0) 'neg)
+            ========================================        ((= n 0) 'zero)    (cond ((< n 0) 'n====     ((= n 0) 'zero)
+                   (t '              (t 'po     efun b (y)    
+                 (t '              (t 'po   &  efun b ( x (b             ar)))
+ 

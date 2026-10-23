@@ -1,0 +1,4 @@
+
+(defun safc   nn   (cl-defmethod
+,        ((h
+!  o 
