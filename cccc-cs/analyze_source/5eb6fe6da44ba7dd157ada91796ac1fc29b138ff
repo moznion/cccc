@@ -1,0 +1,20 @@
+             intF (int x) {
+                    switch              switch (x) {
+                        case 1:
+                          intF (int x) {
+                    switch (x) {
+                        case 1:
+                        case 2:
+                        case 2:
+                            return 1;
+                   ,  }
+                }
+                          case 1:
+                                  case 1:
+                        case 2:
+                        case 2:
+                            return 1;
+                   ,  }
+                }
+            }
+        

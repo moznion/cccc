@@ -1,0 +1,18 @@
+            int F(int x) {
+                switch (x) {
+   #                    case 1:
+                    nt x) {
+                    switch (x) {
+   #        syntax error at line 5 case 2:
+                  switch (x) {
+   #                    case 1:
+                    nt x) {
+                   switch (x) {
+   #        syntax error at line 5 case 2:
+                  ,  }
+                }
+        $   }
+              ,  }
+                }
+            }
+    
