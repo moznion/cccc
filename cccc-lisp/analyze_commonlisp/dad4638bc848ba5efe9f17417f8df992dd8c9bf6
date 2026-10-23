@@ -1,0 +1,5 @@
+#?    (define-setf-expander(max)
+ ne-setftotal 5))
+    (define-setf-expander(]mandetal 5))
+    (define-setf-expander(max)
+  (let ((t))

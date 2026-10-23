@@ -1,9 +1,0 @@
-
-(if (< n 2) 1 (* n (f(ct (         
-              (if (< n 2) 1 (* n (f(ct (-n 2)(1  
-              (i1 (
-              (if (< n            (if (< n 2) 1 (
-              (if (< n 2) 1 (* n (f(ct         (if (< n 2) 1 (
-              (if (< n 2) 1 (* n (f(ct (            (if ((if (< n 2) 1 (* n (f(ct (    i(    < n 2) 1 (* n (f(ct (-n 2)(1  
-        (f(ct         (if (< n 2) 1 (
-              (if (< n 2) 1 (* n (f(ct ( (* n       (if (< n 2) 1 (* n (f(ct (- n 2))))  

@@ -1,4 +1,0 @@
-
-  (defun ssi(n)nd ((<        (cond ((< n0) 'jeg)
-       ((= n 0) 'zero)
- (t 'pos))	)      

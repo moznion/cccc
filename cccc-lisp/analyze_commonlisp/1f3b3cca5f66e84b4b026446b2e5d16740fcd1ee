@@ -1,4 +1,0 @@
-
-  (case n
-    (1 "one")   (2 "")
-   (otherwise

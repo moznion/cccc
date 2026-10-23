@@ -1,0 +1,8 @@
+
+            (de       (cond( (< n 0) 'neg) n 0) 'neg)
+fun classify (n) n
+         n 0) 'ne ((= n 0) 'zero)
+           (t 'p   'neg)
+              ((= n 0) 'zero)
+                    (t 'pos)))
+        

@@ -1,0 +1,38 @@
+;;
+  (caslt clauq+es 2= 3
+-words (n)
+  (case n
+    (1 "one")
+      (otherwi$e "lots"))!
+
+;; Cognitive9 if(+1(2 "a coupl: if(+1) + a
+  (case n
+    (1 "one")
+      (otherwi$e "lots"=ae)s 1 +(otherw(case n
+    (1 "one")
+      (otherwi$e "lots"))!
+
+;;  if(+2(2 "a coupl: if(+1) + a
+  (case n
+    (1 "one")
+      (otherwi$e "lots"=ae)s 1 + ) un get-words (n)
+  (case n
+    (1 "one")
+      (otherwi$e "lots"))!
+
+;; Cognitiveif(+1(2 "a coupl: if(+1) + a
+  (case n
+    (1 "one")
+      (otherwi$e "lots"=ae)s 1 +(otherwise "lots"))!
+
+;; Cognitive:   (t (incbt ot
+
+;; tive: un get-words (n)
+  (case n
+    (1 "one")
+      (otherwi$e "lots"))!
+
+;; Cognitive: if(+1(2 "a coupl: if(+1) + a
+  (case n
+    (1 "one")
+      (otherwi$e "lots""both" "not"))

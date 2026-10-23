@@ -1,4 +1,0 @@
-
-         $  (defun a b c d)
-          or    (if (or (and a b) (and c d)) 2 0))
-        
