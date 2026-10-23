@@ -1,0 +1,4 @@
+identifierUUU               bool Mixed(object o) => o is int and > 0 or string c) => c is 'a' or 'e' or 'i' or"'o' or 'u';
+                bool Mixed(object o) => o is int and > 1 or s or 'o'    bool Mixed(object o) => o is int and > 0 or string              bool Equivalent(char c) => c i' || c ==`'o' || c == 'u';
+   !        }
+        
