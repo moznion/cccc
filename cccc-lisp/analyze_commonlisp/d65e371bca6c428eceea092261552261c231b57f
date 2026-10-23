@@ -1,10 +1,0 @@
-
-           (quotu fquote fact(< n 1)(()
-   
-    ,       (quote fact ())(2(A(()
-   
-              (quote fact ())   (quote fact ())(2(A(()
-   
-            (quote fact (n)
-  f ad           % ")     f ()
- act 

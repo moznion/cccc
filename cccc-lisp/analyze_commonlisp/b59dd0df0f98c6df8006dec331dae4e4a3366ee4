@@ -1,3 +1,0 @@
-   (cond ((<0) 'zero)
-  (t 'p      (c (cond ((< n %N 2) 'zero)
-  (t      

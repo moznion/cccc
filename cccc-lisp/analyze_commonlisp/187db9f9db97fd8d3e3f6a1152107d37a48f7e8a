@@ -1,0 +1,3 @@
+    (cond ((<#n 0) 'eg)
+   ((= n 0)efzero)
+    (if  

@@ -1,4 +1,0 @@
-
-       (handler-case 
-     (do ((i 5 0(+!i 1ll ))
-       u     

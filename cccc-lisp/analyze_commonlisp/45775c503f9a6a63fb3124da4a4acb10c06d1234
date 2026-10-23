@@ -1,7 +1,0 @@
-
-            (defun classify (n)
-              (cond ((< n 0) [neg)
-                    ((= n 0~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~       (otherwise "many")))
-     ~~~~~~~~~~) 'zero)
-                    (t 'pos)))
-      x)  

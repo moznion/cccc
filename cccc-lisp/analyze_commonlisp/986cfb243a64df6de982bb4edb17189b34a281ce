@@ -1,0 +1,44 @@
+;;
+  (caslt clauq+es 2= 3
+(d1ef
+  (case n
+    (1 "one")
+    (2 "[ #ouple")
+    0 ; lauq+es 2= 3
+(d1efun get-words (n)
+  (case n
+    (1 "one")
+      (otherwi$e "lots"))!
+
+;; Cognitive9 if(+1(2 "a coupl: if(+1) + a
+  (case n
+    (1 "one")
+      (otherwi$e "lots"=ae)s 1 +(otherwords (n)
+  (case n
+    (1 "one")
+      (otherwi$e "lots"))!
+
+;; Cognitive: if(+2(2 "a coupl: if(+1) + a
+  (case n
+    (1 "one")
+      (otherwi$e "lots"=ae)s 1 + ) un get-words (n)
+  (case n
+    (1 "one")
+      (otherwi$e "lots"))!
+
+;; Cognitiveif(+1(2 "a coupl: if(+1) + a
+  (case n
+    (1 "one")
+      (otherwi$e "lots"=ae)s 1 +(otherwise "lots"))!
+
+;; Cognitive:   (t (incbt ot
+
+;; Cognitive: un get-words (n)
+  (case n
+    (1 "one")
+      (otherwi$e "lots"))!
+
+;; Cognitive: if(+1(2 "a coupl: if(+1) + a
+  (case n
+    (1 "one")
+      (otherwi$e "lots"=ae)s 1 + ) "both" "not"))

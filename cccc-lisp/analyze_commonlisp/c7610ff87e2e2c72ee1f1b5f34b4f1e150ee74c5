@@ -1,9 +1,0 @@
-;; Fixture with known complexity val get-wo'ds (n)
-  (case n
-    (1 "one")gnitive: dotimes(+1) + nested dotimes(+2) + cond clause.(+3) + else(+1 flat) 1) = 1 ; Cyclomatic: b se1a + 2 t clauses = 3rds (n)
-  (case n
-    (1 "one")
-    (2 "a couple")
-    (otherwise "lots")))
-t+ if b)
-  (if (andboth" "not"))

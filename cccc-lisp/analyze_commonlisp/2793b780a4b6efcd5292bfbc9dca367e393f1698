@@ -1,4 +1,0 @@
-
-       (when x (f           (handler-case (declare thunk)
-                   (defun h(declare thu )  (handler-case (declare thunu        x (bar)4)
-        

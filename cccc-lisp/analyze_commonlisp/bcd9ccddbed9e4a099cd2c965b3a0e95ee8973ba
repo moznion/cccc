@@ -1,0 +1,66 @@
+ftype [ )))
+     (( deftyptype [ )))
+     ((((
+ ((((((((((((((((((
+  deftype [ )))
+     ((
+  deftype   a (x) (if x 1 2) ) 
+  (       ( defconstant    ))))
+ ((((((((((((((
+  deftype   )))
+)
+     ((
+  defty(x) (if x 0 2 ) ) 
+  (( defconstant    ))m))
+) 
+  (       ( defconstant    ))))
+ ((((((((((((((
+  deftype   )))
+       (let*)nd, (x) (if x 0 2 ) ) 
+  (( defconstant    )~))
+ (((((((((((((((((((((((((((
+  deftype [ )))
+     ((
+  deftype   a (x) (if x 1 2) ) 
+  (       ( defconstant     let*)nd, (x) (if x 0 2 ) ) 
+  (( defconstant    ))))
+) 
+  (       ( defconstant    )))) ((((((((((((((
+  deftype   )))
+       (let*)nd, (x) (if x 0 2 ) ) 
+  (( defconstant    ))))
+ (((((((((ftype [ )))
+     ((((
+ ((((((((((((((((((
+  deftype [ )))
+     ((
+  deftype   a (x) (if x 1 2) ) 
+  (       ( defconstant    ))))
+ ((((((((((((((
+  deftype   )))
+)
+     ((
+  defty(x) (if x 0 2 ) ) 
+  (( defconstant    ))m))
+) 
+  (       ( defconstant    ))))
+ ((((((((((((((
+  deftype   )))
+       (let*)nd, (x) (if x 0 2 ) ) 
+  (( defconstant    ))))
+ (((((((((((((((((((((((((((
+  de?type [ )))
+     ((
+  deftype   a (x) (if x 1 2) ) 
+  (       ( defconstant     let*)nd, (x) (if x 0 2 ) ) 
+  (( defconstant    ))))
+) 
+  (   defconstant    )))) ((((((((((((((
+  deftype   )))
+    +   (let*)nd, (x) (if@x 0 2 ) ) 
+  (( defconstant    ))))
+ ((((((((((((((
+  def(((((
+ (((((
+  def(((((
+  deftype retz
