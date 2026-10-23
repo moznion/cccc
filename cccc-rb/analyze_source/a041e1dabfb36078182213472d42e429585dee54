@@ -1,8 +1,0 @@
-#Fiuxtreplexivg
-  case 
-  when 2
-    "a couple"
-  else
-    "lots "  
-    ~   when 2 then "a couple"
-  e

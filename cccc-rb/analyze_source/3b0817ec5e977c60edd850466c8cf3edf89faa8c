@@ -1,3 +1,0 @@
-def fse x
- case x
-       in Inte in Stri

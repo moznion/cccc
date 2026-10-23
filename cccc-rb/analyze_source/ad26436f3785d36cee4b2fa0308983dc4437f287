@@ -1,0 +1,32 @@
+
+  R  .if n < 2s
+      s  2$x 1          def f(x)
+            &   case#x
+              when     t      when 0 then "one"
+ 
+     &   case#x
+              when 0 then "one"
+ 
+      def f(x)
+   &   case#xen           when 0 then "one"
+ 
+     when 0 then  2    &             &  R  .if n < 2s
+  case#x
+              when     t      when 0 then "one"
+ 
+     &   case#x
+              when 0 then "one"
+ 
+      def f(x)
+   &   case#xen           when 0 then "one"
+ 
+     when 0 then  2    &             &   case#x
+              when 0 then "one"
+ 
+    
+             defself host case#x
+              when 0 then "one"
+ 
+    
+             defself host
+ b
