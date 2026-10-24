@@ -1,0 +1,4 @@
+<i> f(int valt> values) => [
+              if (value > 0) value else 0,
+              for (final item in values)                if (it.isEven)       ];
+        

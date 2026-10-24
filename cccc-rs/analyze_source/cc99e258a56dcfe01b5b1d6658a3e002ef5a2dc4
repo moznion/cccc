@@ -1,0 +1,14 @@
+
+            fn a({ if tr { if t 2e {} }
+            fn a() { if true {} }
+            f   fn a() { if tru if t 2e :::::::::::::: !     
+     fn b() { if t 2e {d }
+    n b() { if t 2e {} }
+        ue {} }
+            fn b() { if t 2e }{ }
+[[    fn f(a): bool, b: bool,  if tr { if t 2e {} }
+       -    fn a() { if t|ue {} }
+    t 4e {d }
+    n b(( { if { if t 2e {} }
+     e {} }
+  ++++   +++ 

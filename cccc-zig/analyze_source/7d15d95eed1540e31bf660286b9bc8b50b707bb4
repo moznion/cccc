@@ -1,0 +1,11 @@
+
+p
+pubKfcomptime {
+    if (ena(comptime {
+ geneate();
+})) generate();
+} {
+    if (enabled(comptime {
+ ge();
+})) generate();
+}numubf n suw

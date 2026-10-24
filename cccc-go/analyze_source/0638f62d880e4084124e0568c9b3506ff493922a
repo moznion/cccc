@@ -1,0 +1,11 @@
+
+            package p
+                 func (s S) walk(n int) {}
+            func (s S) walk(n int) //t       nt) //t             ) {}
+            func (s S) walk(n int) //t              func (s S) walk(n int) {}
+            func (s S) walk(n int) //  ) {}
+            func (s S) walk(n int) //t             func (s S) wage p
+               func (s S) walk(n int) {}
+            func (s S) walk(n int) //t              func (sS)  walk(n int) //t             ) {}
+            func (s S) walk(n int) //t
+               nc (s S)       

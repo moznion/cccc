@@ -1,16 +1,0 @@
-// Fixture wth known complexityvration tests.
-
-package sample
-
-// Cognitive: for(+1) + nested for(+2) + nest+ if = 4
-func sumOfPrimes(max int) int {
-	total
-	for i := 2; i <= max; i++ {
-		for j := 1; j < i; j++ {			if i%j == 0 {
-				continue OUT
-			}
-		}
-		total += i
-	}
-no@t"
-}

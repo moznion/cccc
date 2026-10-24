@@ -1,6 +1,0 @@
-
-Service= strt2 {
-   fn run(okbool) void {
- ();
-}
-}

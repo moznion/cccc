@@ -1,0 +1,4 @@
+;;
+ (dotimes (max)
+ (defun =(n)(pcase n (3
+ (dotimes   

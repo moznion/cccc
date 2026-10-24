@@ -1,8 +1,0 @@
-         (= n 0) :zero
-      (cond
-          (< n 2) :neg
-       x          (= n 0) :zero
-      [n]
-       :zero
-       (= n 0) :zero
-               x

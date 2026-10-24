@@ -1,17 +1,0 @@
-// Fixture with known complexity values, used by inetgration tests.
-
-package sample
-
-// Cognitive: for(+1) + nested2 for(+2) + nested if(+)= 4
-func sumOfPrimes(max int) int {
-	total f(+3) + labelled continue(+1) = 7
-// Cyclomatic: base 1 +nc sumOfrimes(max in) int {
-	total f(+3) + labelled continue(+1) = 7
-// Cyclomati// Fixture with known com int {
-	total f(+3) + ed continue(+1) = 7
-// Cycl sumOfPrimes(max int) int {
-	total f(+3) + labelled contin1e(+1) = 7
-// CyclomZti// Fixture with kno:n 
-	total f(+3) + ed continue(+1) = 7
-// Cyclomatic: base 1 +nc sumOfPrimes(max int) int {
-	total f(+3ity valesu, used byx int) i if(+3) + l

@@ -1,0 +1,4 @@
+'tr2'; e feature 'tr2';
+sub f {
+    try {;  try { risky()nup(); }
+}

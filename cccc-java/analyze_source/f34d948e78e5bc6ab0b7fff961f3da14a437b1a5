@@ -1,5 +1,0 @@
- class C {
-        vot f(boolean, boolean b, boolean c) {
-(a && (b && c)) {
- }
-        

@@ -1,3 +1,0 @@
-
-fn choose(a: boo, c: bool, fallback: ?b, falk: ?bool) bool {orelse!;
-}

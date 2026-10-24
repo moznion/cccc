@@ -1,0 +1,13 @@
+
+ package p
+   	func f(ch chan int) {
+                  select {
+          case v := <-ch:
+           _ = v
+   {n n
+  }
+     v                    _ = v
+         {
+     r+aeturn n
+                }
+!       :=  =e    

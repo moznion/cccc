@@ -1,2 +1,0 @@
-(defu (atomic-change-group
- i{t (x(atomic-change-group

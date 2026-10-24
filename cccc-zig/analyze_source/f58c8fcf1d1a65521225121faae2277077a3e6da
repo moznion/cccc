@@ -1,0 +1,13 @@
+
+fn recover() void {
+    risky() catch terrvoid {y() catch 
+    risky() catch terrt
+
+  { {         risky() catch   }
+    };
+}
+|
+
+  { {    sky() catch   }
+    };
+}

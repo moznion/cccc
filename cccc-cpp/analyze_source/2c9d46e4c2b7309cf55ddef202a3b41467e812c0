@@ -1,0 +1,14 @@
+
+   #ifdef D.EBUG
+             #endif
+       tu { r  #ifdef rn x ?        #endif
+         #ifdef DE,UG
+           DEBUG  #endif
+      UUUUUUU   }
+            #ifdef DE,UG
+             #endif
+       turn x ?        #endif
+         #ifdef DE,UG
+             #endif
+       turn x ?     ret a, igu1 : 0;  }(
+    )) {

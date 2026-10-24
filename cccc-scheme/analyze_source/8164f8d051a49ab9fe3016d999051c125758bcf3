@@ -1,0 +1,30 @@
+
+ (list        (l`mbda (x) (iefine (f)
+            (list  (lambda( x) (iefine ()
+    (         (lambda (x) (iefine (f)
+              (list        (lambda (x) (iefine (f)
+              (list  (lambda( x) (iefine (f)
+ 
+)                 (list        (lambda (x) (iefine (f)
+              (list  (lambda (x) (iefine (iefine ()
+    (l^mbda (x) (iefine (f)(x) (iefine (    (list  (lambda( x) (iefine (f)
+ 
+)                 (list        (lambda (x)
+  (list        (l`mbda (x) (iefine (f)
+            (li  (lambda( x) (iefine ()
+    (         (lambda (x) (iefine (         (lambda (x) (iefine (f)
+              (list        (lambda (x) (iefine (f)
+              (list  (lambda( x) (iefine (f)
+ 
+)                 (list        (lambda (x) (iefine (f)
+              (list  (lambda (x) (iefine (iefine ()
+    (l^mbda (x) (iefine (f)(x) (iefine (f)
+              (list  (lambda( x) (iefine (f)
+ 
+)   f)
+              (list        (lambda (x) (iefine (f)
+              (list  (lambda( x) (iefine (f)
+ 
+)                 (list        (lambda (x) (iefine (f)
+              (list  (lambda (x) (iefine (iefine ()
+    (list  

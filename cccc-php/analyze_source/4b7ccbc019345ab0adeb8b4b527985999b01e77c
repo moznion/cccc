@@ -1,11 +1,0 @@
-<?php
-         catcx  function f() {
-                         } catcx      $obj = new class($cb, fn ($z) => $z && $z) {
-                    ^^^^^^ction f() } catcx  function f() {
-         $obj = new class($cb, fn ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^public m($x) {
-    $obj;
-            }
-         <?php                        } cat      } catcx  function f() {
-              } catcx      $obj = new class($cb, fn ($zfunction               catcx  function f() {
-                      } catcx  function f() {($zfunction                        } catcx  function f() {
-           

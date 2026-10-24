@@ -1,6 +1,0 @@
-
-            fun f(a: Boolean,oolean): Int {
-                if (a && b) return 0
-                return 0
-            }
-        

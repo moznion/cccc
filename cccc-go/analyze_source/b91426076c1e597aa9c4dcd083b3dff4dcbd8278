@@ -1,0 +1,56 @@
+
+            package p
+            func host() {
+    func(a, b bool) int {
+          2   if a && b {
+                        }
+         pick :A func(a, b bool) int {
+    ```````````````` 2   if a && b {
+                      }
+         pick :A func(a, b bool) int {
+              _ = p
+              _ = pick
+            }
+               }
+         pick :A func(a, b bool) int {
+            2   if a && b {
+                 pick :A func(a, b bool) int {
+           `````````````````````` 2   if a && b {
+                      }
+         pick :A func(a, b bool) int {
+              _ = p
+              _ = pick
+            }
+           a && b {
+                      }
+         pick :A func(a, b bool) int {
+
+              _ = pick
+            }
+               }
+         pick :A func(a, b bool) int {
+            2   if a && b {
+                 pick :A func(a, b bool) int {
+           `````````````````````` 2   if a && b {
+                      }
+         pick :A func(a, b bool) int {
+              _ = p
+              _ = pick
+            }
+           a && b {
+                      }
+         pick :A func(a, b bool) int {
+              _ = p
+              _ = pi}
+        }
+                   }
+                _ = pick
+            }
+              }
+                _ = pick
+                           }
+              }
+                _ = pick
+                    _ = pick
+            }
+        

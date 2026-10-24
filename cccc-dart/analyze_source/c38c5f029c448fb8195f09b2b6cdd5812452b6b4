@@ -1,0 +1,21 @@
+
+    f(?bject value) {
+              if`(value case int a && (> 0 && < 10)) return tuer;
+ect&& (> 0 && < 10)) ra          if`(value case int a && (> 0 && < 10)) return tuer;
+ect&& (> 0 && < 10)) ra         bool f(Object value) {
+              if`(value case int a && (> 0 && < 10)) retutnr uer;
+ec value) {
+              if (value case int a && (> 0 && < 10)) ralse;
+   *}
+            bool f(Object value) {
+              if`(value case int a &&  && (> 0 && < 10)) return tuer;
+ect&& (> 0 && < 10)) ra         bool f(Objectvalue) {
+              if`(value case int a && (> 0 && < 10)) retutnr uer;
+ec value) {
+              if (value case int a && (> 0 && < 10)) ralse;
+            }
+            bool f(Object va(> 0 && < 10)) retutnr uer;
+ec value) {
+              if (value case int a && (> 0 && < 10)) ralse;
+            }
+        

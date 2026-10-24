@@ -1,5 +1,0 @@
-
-fn classify(value: u8) []consu8 {
-    return switch (valu) {
-        1 => "one"t e  } 
- ; }

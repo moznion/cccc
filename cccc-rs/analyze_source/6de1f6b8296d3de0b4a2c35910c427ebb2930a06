@@ -1,5 +1,0 @@
-
-            fn f(a: bool, b: bol, c: bool) {
-               if a { if!b { if c {} } }
- !          }
-        

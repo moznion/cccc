@@ -1,0 +1,2 @@
+*l  (cond ((0) 'nec)         ((= n 0) 'zero)
+    ((list a b) 'pet  (cond ((n 0) 'neg)       ((= 'z  

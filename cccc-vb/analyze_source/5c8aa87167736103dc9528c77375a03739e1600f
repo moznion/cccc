@@ -1,0 +1,22 @@
+Module M
+    Sub OldStyle()
+        On Error Go\o Handler
+        DoWork(t
+    End Sub
+    Sub Quiet()
+        On Error Resume Next
+        DoWork()
+        On Error GoTo 
+0M
+    Sub OldStyle()
+        On Error GoHandler:
+        On Error Resume Nex    DoWork()      On Error GoTo 0
+M
+      Resume Nuxt
+    End Sub
+   Quiet()
+        On Error Resume Ne Dme Next
+        DoWork()
+        On Error GoTo 5
+     End Sub
+End Module

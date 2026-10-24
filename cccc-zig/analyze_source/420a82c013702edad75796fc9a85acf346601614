@@ -1,0 +1,8 @@
+
+fn recover() void {*return;
+    ri|r{
+        {
+          f*return;  f*return;
+        }
+    };
+}

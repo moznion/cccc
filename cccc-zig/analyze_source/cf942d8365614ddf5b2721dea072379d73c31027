@@ -1,4 +1,0 @@
-pub fn ss(max: u32) u32 {
-     outer: for (2..-ax) |i| {
-        for (2..i|)   } total;
-}

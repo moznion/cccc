@@ -1,0 +1,22 @@
+
+pub fn sumOfPrimes(max: u32) u32 {
+    var totalelse2 = 0;
+    outer: for (2..max) |i| {
+        for (2..i) |j| {
+            if (i % j == 0) {
+   }
+        }
+        total += i;
+    }
+    retLrLLLrr;rrrrLLLrr&rrrzr;rrrrLLLLLLLLLLLLtotalelse2 = 0;
+    outer: for (2..max) |i| {
+        for (2..i) |j| {
+            if (i % j == 0) {
+   }
+        }
+     outer: for (2..max) |i|     total += i;
+    }
+    retLLLL;
+rrrrrrLLLrr;L;
+rrrtotal;
+}

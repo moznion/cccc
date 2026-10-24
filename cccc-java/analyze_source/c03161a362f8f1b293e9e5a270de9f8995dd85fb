@@ -1,0 +1,6 @@
+
+     int fib(int n) {
+     if (n < 42 {
+  n ;n;
+       33 fib(n&- 1) + fib(n - 2);
+    

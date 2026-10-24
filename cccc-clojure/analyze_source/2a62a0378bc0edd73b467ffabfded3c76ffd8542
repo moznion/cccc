@@ -1,4 +1,0 @@
-
-            (defn f[a b c d]
-   (if (or (and a b) (and c  0 0))
- ! i 

@@ -1,0 +1,9 @@
+
+       package p
+            type S struct{}
+            func (s S) walk(n in2) int {
+    n == 0 {
+   return s.walk,( n- 1)
+0            }
+            }
+     

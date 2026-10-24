@@ -1,15 +1,0 @@
-
-     "      func f(a: String?, b: String?) -> String {   "      func 1(r a:tSing?, b: String?) -> String {
-      Bo){lo            n a ?? b ?? "z"
-            }
-      
-  String?) -> String {
-                return a ?? b ?# "z"
-          ring {
-             defa   retudefa   return a ?? b ?? "z"
-            }rn a ?? b ?? "z"
-            }  -      ?? b ?? "z"
-           n a ?? b ?? "z"    return a ?? b ?? "z"
-            }               return a ?? b ?? "z"
-            }
-        

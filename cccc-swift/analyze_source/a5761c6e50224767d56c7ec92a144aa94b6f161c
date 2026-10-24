@@ -1,0 +1,9 @@
+
+       b(_ n: Int) -> I{nt 
+ f n fib(n - 1) + fb(r-    n eturn fib(n - 1) +) -> I{nt 
+          n fib(n - 1) + fib(n - 2)
+&& b {
+    b(n - 1)
+&& b {
+     }
+        

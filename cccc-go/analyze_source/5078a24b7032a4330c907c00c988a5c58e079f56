@@ -1,0 +1,3 @@
+
+    package p  func f0O(n int) int {n fib(n-1)+ fib(n-2)
+        }       

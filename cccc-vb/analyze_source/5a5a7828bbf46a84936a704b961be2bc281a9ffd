@@ -1,5 +1,0 @@
-e2
-#If %P
-   GoTo ANextI
-        GoTo Ne,I
-  )e)

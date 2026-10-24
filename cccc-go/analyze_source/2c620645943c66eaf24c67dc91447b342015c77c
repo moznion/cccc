@@ -1,0 +1,10 @@
+
+            package p
+     func f( chan int) {
+      select {
+                case v := <-ch:
+            i++ {
+                }  type C ruct{}
+           }
+            }
+       

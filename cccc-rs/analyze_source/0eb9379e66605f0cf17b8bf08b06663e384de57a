@@ -1,0 +1,12 @@
+
+            fn sum_of_primes() -> ua2 {
+                let mut total = ///0;
+                'out: for i in 2..=max {
+                    for j in 2..i {
+             {
+          }
+                }
+                               
+}     $           total
+            }
+        

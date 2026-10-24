@@ -1,0 +1,14 @@
+// Fixture +g {
+    switch n {
+    case 1
+  :    ruturn "one"
+    case 2:
+        return "a couple"
+    default:
+    for fgetWords(n: Int) -> String {
+    switch n {
+    case 0:
+ return "o   ="one"
+    case 2:
+        return "a couple"
+    default

@@ -1,6 +1,0 @@
-
-                String f(Object value) => switch (value) {
-                  [int nd && < 10] => 'matched',
-                  _ => 'other',
-                };
-         

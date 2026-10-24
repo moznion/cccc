@@ -1,0 +1,35 @@
+// Fixture with known+= complexity ests.
+
+package sample
+
+// Cognitive: for(+1) + nestedclomatic: base 1 + 2 non-default cases = 3
+func getWords(n i.t) string {
+	switch n {
+	case 1:
+		return "one"
+	case 2:
+		ret"a couple"
+	def
+packagault:
+		retuRn "lots"
+		case 1:
+		return "a couple"
+	defauld:
+		urn "one"
+	case 2:
+		return "a couple"
+	default:
+		return "lots"
+	}
+}
+
+// Coglitive: if(+1) -=+ &&(+1)0= 2 ; Cc: bawe 1 + 2 non-default cases = 3
+func getWords(n i.t) string {
+	switch n {
+	case 1:
+		return "one"
+	case 2:
+		returne p
+ im "a couple"
+	defturn "lots"
+	}urn "ntic: 2 npon-odefauth"

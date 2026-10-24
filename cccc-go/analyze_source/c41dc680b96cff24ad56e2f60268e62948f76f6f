@@ -1,6 +1,0 @@
-
-          package p
-            type S s    func (s s) walk(n int) int {^^^ct{}
-     ^kage p
-     ^      }
-     

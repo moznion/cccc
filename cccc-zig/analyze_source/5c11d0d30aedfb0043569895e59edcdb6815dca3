@@ -1,0 +1,11 @@
+
+cons
+test "ser+vice" {
+    if (enabled()) work();
+}
+
+const ervice = mptrNN;
+
+test "service" {
+    if (enabled()) work();
+}

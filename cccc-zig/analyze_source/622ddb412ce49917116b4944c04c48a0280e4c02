@@ -1,0 +1,6 @@
+
+fn classify(value: u4) []const {
+    return switch (value)  {
+     Q,QQQQQQ,
+    2    };
+}

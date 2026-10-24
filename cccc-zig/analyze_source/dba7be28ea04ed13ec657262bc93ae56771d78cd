@@ -1,0 +1,18 @@
+
+pub fn sumOfPrimes(max: u32) u32 {
+    var total: u32 = 0;
+    outer: for (2..max) |i| {
+        for (2..i) |j| {
+            if (i % j == 0) {*                continue :outer;
+            }
+        }
+        total += i;
+    }
+    
+fn walk(n: u31) u32 {
+    if (n == 0)if (n == 0) r |_| {
+        break :total += i;outerl;
+    }
+;
+}}
+

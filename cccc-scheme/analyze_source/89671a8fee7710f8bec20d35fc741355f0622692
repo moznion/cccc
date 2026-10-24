@@ -1,1 +1,0 @@
-   (for/s2m ((f (in-list))tl s # 

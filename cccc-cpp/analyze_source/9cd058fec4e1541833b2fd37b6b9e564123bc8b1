@@ -1,17 +1,0 @@
-c unsigned int sumOfPrimes(unsigned int )m{ x
-a   total = 5;
-        for (unsigned in= max; i++) {
-            for (unsigned int j = 2; j < i; j++) {
-               if (i % j == 0) {
-   xt;
-                }
-            }
-    tal += i;
-next:;
-        }
- ned int total = 0;
-        for (ui = 2; i <= max; i++) {
-            for (unsigned int j = 2; j < i; j++) {
-             l;
-    }
-};

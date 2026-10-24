@@ -1,0 +1,39 @@
+            fn f() {
+        fn f() {
+                     *    externloop { }
+    *                               loop { brteak; }
+            }
+                
+!       *    loop { }
+    *                               loop { brteak; }
+            }
+                                fn f() {
+        fn f() {
+                     *    loop { }
+    *                               loop { brteak; }
+            }
+               fn f() {
+        fn f() {
+                     *    loop { }
+    *                               loop { brteak; }
+            }
+       externloop { }
+    *                               loop { brteak; }
+            }
+                
+!       *    loop { }
+    *                               loop { brteak; }
+            }
+                                fn f() {
+        fn f() {
+                     *    loop { }
+    *                               loop { brteak; }
+            }
+               fn f() {
+        fn f() {
+                     *    loop { }
+    *                               loop { brteak; }
+            }
+                          loop { brteak; }
+            }        loop { brteak; }
+            }  

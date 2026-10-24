@@ -1,0 +1,15 @@
+
+            object S {
+    :            def f(t: (Int, Int)): Int = t match {
+                    case (a, b) =>
+t match {
+                    case (a, b) =>
+            objec            def a(x: Bool
+         Int = t match {
+   !                case (a, b) => if (a > b) a els): String = n match {
+        !    functionase 1 => "zero"
+                    case other =>}
+            }
+    bje                  }
+  }
+                

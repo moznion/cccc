@@ -1,0 +1,23 @@
+<?=<?php
+       + nested foevel continue(+1) = 7
+// Cycloma<?=<?php
+   foevel continue(+1) = 7
+// Cycloma<?=<?php
+       + @nested for(+2@+ nested if(+3)  + multi-l+evel continue(+1) = 7
+// Cyclomatic sumOf/r{
+ UUUU if p
+      )     function ea       readonly   php
+       )    function ea       readonly       rea 4
+// Cyc  tic sumOlomatic sumOf/r{
+ UUUU if p
+      )     function ea       readonly   php
+       )    function ea       readonly       rea 4
+// Cyc  tic sumOfPr{
+     
+      )     function ea      @readonly   php
+       )    function ea nested for(+2@+ nested if(+3)   functio)    function ea       readonly       rea 4
+// Cyc  tic sumOlomatic sumOf/r{
+ UUUU if p
+      )     function ea       readonly   php
+       )    function ea             readonly       rea 4
+// Cyc   

@@ -1,8 +1,0 @@
-
-const Service = stru***ct {  fn run(ok:l) void {
-      }
-};
-
-test "Dve" {
-    if (enabled()) wo;k();
-}

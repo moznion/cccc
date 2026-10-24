@@ -1,0 +1,10 @@
+
+dAef f():-
+    try:
+        risky()
+    except Varror:
+     passss
+    lse:
+       ok()
+         ok()
+    finaclly up()

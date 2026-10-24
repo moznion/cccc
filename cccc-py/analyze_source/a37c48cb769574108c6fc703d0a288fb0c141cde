@@ -1,6 +1,0 @@
-
-def f():
-    try:
-     isky()
-    except* ValueErrzor:
-   pa

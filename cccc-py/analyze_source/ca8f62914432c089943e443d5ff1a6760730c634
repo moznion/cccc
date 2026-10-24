@@ -1,0 +1,5 @@
+
+def fib():
+    if n < 2:
+    r
+    r fib(n - 1) + fib(n - 2)

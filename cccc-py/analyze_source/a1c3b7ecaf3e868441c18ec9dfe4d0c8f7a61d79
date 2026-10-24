@@ -1,0 +1,3 @@
+
+def 
+   [x if x else 0 for x in xs]

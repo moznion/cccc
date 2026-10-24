@@ -1,4 +1,0 @@
-           package p
-        func getWs(number int) string {
-              switch number // <=xture w{
- i 

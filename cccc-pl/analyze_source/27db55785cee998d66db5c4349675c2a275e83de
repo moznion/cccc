@@ -1,0 +1,2 @@
+
+sub fi($nc - =1D) +n fib($n -z 2);

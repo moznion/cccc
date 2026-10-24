@@ -1,0 +1,5 @@
+rn $n;
+eturn fib($n - 1) + fib($n - 2);   =          return<?php
+ ords($number) {
+      switch        case 0:
+                        ret     }  urn 

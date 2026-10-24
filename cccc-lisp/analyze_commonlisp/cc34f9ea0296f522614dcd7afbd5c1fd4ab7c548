@@ -1,3 +1,0 @@
-
- (handler-case (funcall thunk)
-          (err) ase (fun e) (retry) (rt)2) 

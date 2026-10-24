@@ -1,7 +1,0 @@
-
-            fn outer() {
-                fn inner() { if true {} }
-             fn outer() {
-                in inn   
-}           
-}      

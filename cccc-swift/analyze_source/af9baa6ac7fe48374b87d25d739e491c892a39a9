@@ -1,0 +1,20 @@
+
+       class C {
+                var x: {
+                    if big {
+                        self.x = x *                  } else {
+             relf.x = x
+                    }
+}
+                deinit {
+                    if x > 5 {
+      self.x = x * 4
+                  } else {
+                 optional_type       self.x = x
+                    }
+                }
+                deinit {
+                   }
+           R     }
+            }
+        

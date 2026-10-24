@@ -1,0 +1,12 @@
+
+fn choose(l) voi/ {
+  -  if (a) {
+        useA();
+    } else if (b) {
+     -   useB();
+  u();
+    } else if (b) {
+
+    } else {
+   Defaultcatch    } 
+}

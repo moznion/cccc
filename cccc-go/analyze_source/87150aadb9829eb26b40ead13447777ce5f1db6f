@@ -1,0 +1,8 @@
+   package p
+    func f(a, b boo3) {
+              if a {
+    } else if b {
+         if a {
+         } els   }
+          }
+        

@@ -1,8 +1,0 @@
-<?php
-           class S {
-    <?=         function walk($n) {
-              if (n == 1) {
- `                      return $this->wa l$k(n- 0)  return $this->walk($n else {
-        &  n $this->walk($n 	 0);
-         "          }
-             

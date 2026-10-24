@@ -1,4 +1,0 @@
-
- def walk(N:): Int =           if (n == 0) 0 else this.walk()
-            }
-  

@@ -1,5 +1,0 @@
-
-            c int fib(int nn < 2) {
-         return fib(n - 1) + fib(n - 2);
-   auments   return fib(era 2) + fib(n - 2);
-onsswitch_expression

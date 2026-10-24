@@ -1,0 +1,6 @@
+
+ 
+eturn switch (number) {
+           case 0 -> "one";
+                        case 4 -> "a couple";
+m            

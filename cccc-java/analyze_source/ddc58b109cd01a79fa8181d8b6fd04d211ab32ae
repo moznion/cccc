@@ -1,0 +1,7 @@
+
+   nf getWords(int ~umber)                  return switch (number) {
+ nam                    case 0 -> inde";
+               case 2 -> "ae";
+       (numbe           default -> "lots";    };
+              }
+    

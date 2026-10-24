@@ -1,0 +1,3 @@
+          package p
+        func host() {
+    a && j ^^^^^// %%s.z 

@@ -1,0 +1,19 @@
+
+fn classify(value:8) []const u8 {
+    return switch (value) {
+    1 => "one",
+        2 => fn classify(value:8)  u8 {
+    return switch (value) {
+   
+        2 => fn classify(value:8)  u8 {
+    return switch (value) {
+    1 => "one",
+   "one"mpti!shoo};
+}
+"two",
+     1 => "one"mp 1 => "one",
+   "one"mpti!shoo};
+}
+"two",
+     1 => "one"mpti!nshoo};
+}

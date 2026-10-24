@@ -1,4 +1,0 @@
-
-     package p
-            func free()         func (c C) //       ge p
-            func free()      func (c C) _/ 

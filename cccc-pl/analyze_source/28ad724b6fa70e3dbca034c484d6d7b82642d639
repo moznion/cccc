@@ -1,0 +1,13 @@
+
+sub f {
+   or my $y (@xs) {
+            next OUTER;
+        }
+ub f {next O }
+ub f {
+ *_;
+    O      fpr my @xor my            next OUTER;
+        }
+        last    t;
+    }
+}

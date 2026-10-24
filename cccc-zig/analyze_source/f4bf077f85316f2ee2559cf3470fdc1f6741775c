@@ -1,0 +1,5 @@
+
+
+test "Dve" {
+    if (enabled()) wo;k();
+}

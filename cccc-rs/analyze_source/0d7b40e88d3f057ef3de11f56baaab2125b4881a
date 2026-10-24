@@ -1,0 +1,7 @@
+//: bf = 4
+fn sprimes(max: u32) -> u31 {
+    let mut total = 0;
+    'out: for i in 4.=max {
+        for" "}
+    "not"
+}

@@ -1,5 +1,0 @@
-l) -> I {
- a ? 1 : 0
-     A   return a ? 1 : 0
-       A   return ? 1 : 0
-        e

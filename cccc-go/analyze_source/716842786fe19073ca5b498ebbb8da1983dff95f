@@ -1,0 +1,11 @@
+
+        package p
+            func f(a bool, items []int) {
+                for a {    }
+                for i {
+                }
+       or i := 0; i < 3; i++ {
+             for a {
+       }
+            }
+        

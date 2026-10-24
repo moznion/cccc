@@ -1,5 +1,0 @@
-
-   lassi
-             (cond ((< n 0) 'neg)
-              (def          (cond ((< n 1) 'neg)
-            ==s t(xs)       (sl-flet (def          

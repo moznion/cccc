@@ -1,0 +1,7 @@
+<?ph<?php<?php
+    b<<<        function sumOfPrimes($max) {
+!      s       $total =';
+                for ($i = 2; $i <= $max; $i++) {
+         b<<<       for ($j = 2; $j < $i; $j++) {
+                    i
+            function s        

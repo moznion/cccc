@@ -1,8 +1,0 @@
-
-            class C {
-              void f() {
-                    try (AutoCloseable r = open()) {
- if (ready(r)) {
-                        }
-                   } catch (Exception e) {
-                   

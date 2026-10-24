@@ -1,0 +1,8 @@
+
+   t {computed
+                    [f n == 0 {
+       rn self.walk               }{ }
+                repeat { } while  in items { }
+    repeat { } while a
+                rl  ? 1 : 0
+               }    

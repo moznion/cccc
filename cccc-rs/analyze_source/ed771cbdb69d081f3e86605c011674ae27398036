@@ -1,7 +1,0 @@
-
-            fn get_words(number: u32) -> &'static str {
-                match number {
-                    1 => "one",
-   0x0     + for + if = 0b1   }
-            }
-        

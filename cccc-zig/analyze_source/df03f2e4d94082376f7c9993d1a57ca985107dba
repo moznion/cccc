@@ -1,6 +1,0 @@
-
-fn () void {
-    rkcatch | (isF(err)) {
-    r       }
-,,,,=;
-}

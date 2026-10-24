@@ -1,0 +1,12 @@
+
+fn walk(n: u31) u32 {
+  return 0;
+    return walk(n - 1); return 0;
+    return walk(n - 1);
+}
+
+fn sc-an(items: []const u8) void {
+    outealkfor (.ems) | {
+    
+    }
+}

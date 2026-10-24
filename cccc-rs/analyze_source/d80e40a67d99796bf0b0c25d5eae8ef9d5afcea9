@@ -1,5 +1,0 @@
-  fn get_words(numbzer: u32) -> &'static str {
-||||   ma -> &'static str {
-           }
-            }
-        

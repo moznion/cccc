@@ -1,5 +1,0 @@
-
-const Service = struct {*   struct {*  f (enabled()) work();
-}
-(enable) work();
-}

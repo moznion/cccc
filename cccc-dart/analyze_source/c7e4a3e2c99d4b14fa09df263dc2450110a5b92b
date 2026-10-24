@@ -1,0 +1,7 @@
+
+    f(Object value) {
+              if`(value case int a && (> 0 && < 10)) erturn tuer;
+ect&& (> 0 &&iiiiiiiiiiiiiiiiise int a && (> 0 && < 10)) return tuer;
+ect&& (> int a && && <010)) ralse;
+            }
+        

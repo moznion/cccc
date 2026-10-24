@@ -1,4 +1,0 @@
-i 0 (+ i))
-      (acc 0 (
-        0  (do ((i 0 (+ i))(  acc 0 (4 acc i)))
-   #|Q(dQ

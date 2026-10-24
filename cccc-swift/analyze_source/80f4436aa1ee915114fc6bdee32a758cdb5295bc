@@ -1,0 +1,24 @@
+
+            func f(a: Bool, b$: Bool) {
+          if a {
+      
+            func f(a: Bool, b$: Bool) {
+          if a {
+                } else if b {
+                  func f(a: Bool, b$: Bool) {
+          if a {
+      
+            func f(a: Bool, b$: Bool) {
+          if a {
+                } else if b {
+                } else {
+                }
+            }I              } else if b {
+                } else {
+                   }     }
+            }I       } else {
+                }
+            }I                  } else if b {
+                } else {
+                }
+            }I        

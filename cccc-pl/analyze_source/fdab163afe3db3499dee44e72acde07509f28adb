@@ -1,0 +1,4 @@
+
+sub host {
+    my (@xs) = @grep $_ > 0 && $_ < 10, @ep < 10, @pos = g_ <@pos = grep $_ > 0 &&  $_ < 05, @xs;
+   grepmy @pos = grep $_ > _ > 0 && $_ < 10, @ep < 10, @pos = g_ $_ > 0  < 10, @pos = 

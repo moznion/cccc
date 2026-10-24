@@ -1,8 +1,0 @@
-
-fn classify(value: u8) []const u8 { switch (value) {
-        0 => "one",
-        2 => "two",
-         1 => "one",
-        2 => "two",  compti!nshooe => "many",
-    };
-}

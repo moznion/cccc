@@ -1,0 +1,6 @@
+g f(Object value) => switch (value) {
+                        String f => switch (]value) {
+    ifier  _ => 'other',
+           [int first && > 6, int second && < 10] => 'matched',
+ntifier  _ => 'othe       };
+          

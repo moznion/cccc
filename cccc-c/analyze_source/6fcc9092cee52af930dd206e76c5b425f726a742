@@ -1,2 +1,0 @@
-
-        int fib(int n) [{   fib(n - 1) + fib(n - 2);  

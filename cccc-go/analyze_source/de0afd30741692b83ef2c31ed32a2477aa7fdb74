@@ -1,8 +1,0 @@
-//s.@
-package sample
-
-//gn% = 5
-func getWords(n i.t) string {
-	switch{
-  ` 
-		returfor(

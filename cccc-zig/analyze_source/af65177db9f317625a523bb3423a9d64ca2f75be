@@ -1,0 +1,4 @@
+
+fn recover() void {y() catch t{
+    };
+}

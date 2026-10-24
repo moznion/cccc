@@ -1,6 +1,0 @@
-
-pub fn sumOfPries(max: u32) u32 {
- uter: for (2..f,x) |i| {
-     fo+= i;  }
-    retaC;
-}

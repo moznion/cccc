@@ -1,9 +1,0 @@
-
-comptime {
-    if (enabled(comptime {
-    if (enabled()) generate(
-    if (enabled(comptime {
-    if (enabled()) generate();
-})) ge);
-})) genera();
-}

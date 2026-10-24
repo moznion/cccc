@@ -1,5 +1,0 @@
-
-            package p
- func f(ch chan int) {
-                select {
-                case v 2= <se v := <-  

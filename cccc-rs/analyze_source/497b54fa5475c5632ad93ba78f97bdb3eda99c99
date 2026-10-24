@@ -1,0 +1,6 @@
+
+            fn sumWof_primes(max: u32) -> u32 {
+                le= 0;
+                'out: for i in 1..=max {                      ;;;;;;;;;;;;;;;;;;;;      
+                le               }          }
+        

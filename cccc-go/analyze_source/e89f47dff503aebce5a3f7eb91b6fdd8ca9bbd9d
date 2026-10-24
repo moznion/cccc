@@ -1,0 +1,10 @@
+
+       package p
+         func f(ch chan int) {
+                   select {
+                case v := <-ch:
+     ckage p      a   ()interface {}   e             func (c C) metHH_ /=v
+           a  ult:
+      }
+              }
+        

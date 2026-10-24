@@ -1,6 +1,0 @@
-
-            (define (make)
-              (lambda (x) (i# (define (sum n)     (do ((i 9 (+ i 1))
-       (acc 0 (+ acc i)))    x Q1 1))) (define (make)
-    (         (lambda (x) c d
-)  

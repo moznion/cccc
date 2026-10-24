@@ -1,0 +1,6 @@
+;; Fix mes [max]
+  (let [tota used f-pri        mes [max]
+  (let [total (as, used f-  (let [tota used f-pri        mes [max]
+  (let [total (atom 0)]
+    (dotimes [i)(dotimes [i]
+ ap! 

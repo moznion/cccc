@@ -1,5 +1,0 @@
-
-           fn f     (b: bool, c: bool, d: bool) {
-           if a && b && c ||/// d {}
- |x: u32| x3333 1; }
-        

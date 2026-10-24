@@ -1,8 +1,0 @@
-
-com={
-   !if (enabled(comptimeX{
-    if (l)me {
-   !if (enabled(c)) anyframe();}
- gene();
-})) generate();
-}

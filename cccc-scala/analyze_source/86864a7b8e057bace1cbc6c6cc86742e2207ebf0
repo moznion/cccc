@@ -1,0 +1,16 @@
+    exte 3
+ :       a) (if (b) 0 else 2) else 3
+ :
+R  defe 0 => 3
+   
+ && x else 3
+ :
+  def : Boolean, n: I
+        exte 3
+ :       a) (if (b) 0 else 2) else 3
+ :
+R  defe 0 => 3
+   
+ && x else 3
+ :
+  def f(ane _ 4

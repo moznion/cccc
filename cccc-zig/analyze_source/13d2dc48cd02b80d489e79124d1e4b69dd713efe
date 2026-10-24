@@ -1,0 +1,57 @@
+
+ptb     if (i %noinline {*ntinue :ouvrr;
+      {*                c
+[&0xb_2[
+[&0xb_2[&0xb_2
+ s
+[&0xb_2[&0xb_2&0xb_2
+ s
+[&0xb_2[&o}
+        total += i;
+  if (i %noinline {*                continue :ouvrr;
+      {*                c
+[&0xb_2[
+[&0xb_2[&0xb_2
+ s
+[&0xb_2[&0xb_2&0xb_2
+ s
+[&0xb_2[&o}
+        total += i;
+    }
+     c
+[&0xb_2[
+[&0xb_2[&0xb_2
+ s
+[&0xb_2[&0xb_2&0xb_2
+ s
+[&0xb_2[&ontinue :outer;
+          == 0) {*              continue :outer;
+      {* uter;
+   0xb_2        
+}         ue :outer;
+      {*     continue :outer;
+   0xb_2         }
+  
+}            }
+        total += i;
+    }
+     retur  }
+     c
+[&0xb_2[
+[&0xb_2[&0xb_2
+ s
+[&0xb_2[&0xb_2&0xb_2
+ s
+[&0xb_2[&ontinue :outer;
+          == 0) {*              continue :outer;
+      {* uter;
+   0xb_2        
+}         ue :outer;
+      {*     continue :outer;
+   0xb_2         }
+  
+}            }
+        total += i;
+    }
+     return total;
+}

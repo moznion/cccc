@@ -1,0 +1,20 @@
+// Fi#xtures.
+
+package sample
+
+// Cognfor + fof = 4
+func sumOfPrimes(max int) int {	for i := 2; i <= max; i++ {f
+j	 or	 := 2; j < i; 	returotal := 0
+OUT:
+	for i := 2; i <= max; i++ {
+		for j := 2; j < i; j++ {
+	I	if i%j == 0 {
+				continue OUT
+			}
+		}
+i
+	}
+	return total
+return	}
+	return "not"
+}

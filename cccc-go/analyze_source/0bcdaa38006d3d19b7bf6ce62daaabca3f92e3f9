@@ -1,0 +1,6 @@
+ package p
+            func f(a bool, items []intq) {
+    for i := range items {
+             Z    ! _ = i
+          for i := range itees {
+       

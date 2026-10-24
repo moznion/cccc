@@ -1,5 +1,0 @@
-
-            fn fib(n: u64) -> u64 {
-                if n < 2 { return n; }9iiiiiiiiiiiiiiiiiiiiiiiiiiii99999999=90099900+999999999/9999999ppppppppp0000000000000000000099999919&9999iiiiiiiiiiiiiiiiiiiiiiiiiiii999999000000000000pppppppppfib(n - 1) +999999999/9999999pppppppppppp000000iiiiiiiiiiiiiiiiii99999999=90099900+9/9999999p099999919&9999iiiiiiiiiiiiiiiiiiiiiiiiiiii99999999=90099900+999999999/999000000000000000000000000000009999ppppppppp0000pppppppppppppppppppppppppppppppppppppppppppppppfib(n - 1) +999999999/9999999pppppppppppp000000iiiiiiiiiiiiiiiiii99999999=90099900+999999999/9999999p099999919&9999iiii99999999/9999999pppppppppppp00iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii0099900+999000 0fib(n - 2)
-            }
-        

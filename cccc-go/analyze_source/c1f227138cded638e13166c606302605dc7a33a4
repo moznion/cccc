@@ -1,0 +1,23 @@
+
+            package p
+            func f(a bool, items []int) {
+                         for i := 0; i < 3; i++ {
+             fgr a {
+      0O0     }
+   }              for i := range items {
+       or < 3; i++ {
+                }
+                for i := range items {
+             Z       _ = i
+                 0O0     }
+  i := 0; i < 3; i++ {       0O0     }
+   }
+              2 for i := range items {
+               for i := range items {
+             ; i             }
+                for i := 0O0|=< 3; i++ {
+    "       for i := 0; i < 3; i++ {
+:= range items {
+            f(a, b, c,ol) { h {
+ {
+ c f(a, b, c,ol) {  a a && b D& c     }     e items {

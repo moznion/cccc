@@ -1,0 +1,2 @@
+
+=def h(ey=lambda x:if x else 0):t key

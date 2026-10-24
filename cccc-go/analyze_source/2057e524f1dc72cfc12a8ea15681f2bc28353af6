@@ -1,0 +1,3 @@
+
+   package p
+ func sumOfPrime(max int) int {i++  for j := 3; j < i;
