@@ -64,7 +64,7 @@ jobs:
     if: ${{ fromJSON(needs.plan.outputs.matrix).include[0] != null }}
     runs-on: ubuntu-latest
     permissions:
-      contents: write # to push the grown corpus to the fuzz-corpus branch
+      contents: read
       issues: write # to report fuzz failures
     strategy:
       fail-fast: false
@@ -166,16 +166,14 @@ jobs:
 
       # Keep the corpus even when a failure was found (the failing input
       # itself goes to artifacts/, not the corpus). cmin drops entries that
-      # add no coverage so the branch does not grow without bound.
-      - name: Minimize and push the corpus
+      # add no coverage so the branch does not grow without bound. The
+      # minimized corpus is handed to the persist job as a tarball rather
+      # than pushed from here: every matrix job finishes at about the same
+      # time, and pushing one branch from all of them lost races even with
+      # retries.
+      - name: Minimize the corpus
+        id: cmin
         if: ${{ !cancelled() && env.PERSIST == 'true' }}
-        # Set via env (not `git -c`) so the identity also covers the
-        # cherry-pick in the retry loop below.
-        env:
-          GIT_AUTHOR_NAME: github-actions[bot]
-          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
-          GIT_COMMITTER_NAME: github-actions[bot]
-          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
         run: |
           if [ -z "$(ls -A "$CORPUS_DIR")" ]; then
             echo "corpus empty, nothing to persist"
@@ -183,24 +181,76 @@ jobs:
           fi
           (cd "crates/${{ matrix.crate }}" &&
             cargo +nightly fuzz cmin "${{ matrix.target }}" "$GITHUB_WORKSPACE/$CORPUS_DIR")
+          echo "corpus entries after: $(find "$CORPUS_DIR" -type f | wc -l)"
+          # A tarball keeps the <crate>/<target> path (the persist job reads
+          # it back from the first entry) and any empty inputs.
+          tar -C corpus-store -cf "$RUNNER_TEMP/corpus.tar" "${{ matrix.crate }}/${{ matrix.target }}"
+          echo "tarball=$RUNNER_TEMP/corpus.tar" >> "$GITHUB_OUTPUT"
+
+      - name: Upload the corpus
+        if: ${{ !cancelled() && steps.cmin.outputs.tarball }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: corpus-${{ matrix.crate }}-${{ matrix.target }}
+          path: ${{ steps.cmin.outputs.tarball }}
+          retention-days: 1
+
+  # Commits every target's minimized corpus to the corpus branch in one push.
+  # Runs that write the branch are serialized by the concurrency group, so
+  # this push does not race.
+  persist:
+    needs: fuzz
+    # Like PERSIST above (env is not available in a job-level `if`). Runs
+    # even when some fuzz jobs failed, so the other targets keep their growth.
+    if: ${{ !cancelled() && needs.fuzz.result != 'skipped' && github.event_name != 'pull_request' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # to push the grown corpus to the fuzz-corpus branch
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: corpus-*
+          path: ${{ runner.temp }}/corpora
+      - name: Commit and push the corpus
+        env:
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+        run: |
+          shopt -s nullglob
+          tarballs=("$RUNNER_TEMP"/corpora/*/corpus.tar)
+          if [ ${#tarballs[@]} -eq 0 ]; then
+            echo "no corpus to persist"
+            exit 0
+          fi
+          if git ls-remote --exit-code --heads origin "$CORPUS_BRANCH" >/dev/null; then
+            git fetch --depth=1 origin "$CORPUS_BRANCH"
+            git worktree add -B "$CORPUS_BRANCH" corpus-store FETCH_HEAD
+          else
+            git worktree add --orphan -b "$CORPUS_BRANCH" corpus-store
+          fi
           cd corpus-store
-          git add -A "${{ matrix.crate }}/${{ matrix.target }}"
+          for tarball in "${tarballs[@]}"; do
+            # Replace the whole directory, so entries cmin dropped go away.
+            dir=$(tar -tf "$tarball" | head -n 1)
+            dir=${dir%/}
+            case "$dir" in
+              */*/* | /* | *..* | "") echo "unexpected corpus path: $dir" >&2; exit 1 ;;
+            esac
+            rm -rf "$dir"
+            tar -xf "$tarball"
+            git add -A "$dir"
+            if git diff --cached --quiet -- "$dir"; then
+              echo "$dir: unchanged"
+            else
+              echo "$dir: $(find "$dir" -type f | wc -l) entries"
+            fi
+          done
           if git diff --cached --quiet; then
             echo "corpus unchanged"
             exit 0
           fi
-          echo "corpus entries after: $(find "${{ matrix.crate }}/${{ matrix.target }}" -type f | wc -l)"
-          git commit -q -m "corpus: ${{ matrix.crate }}/${{ matrix.target }} (run ${{ github.run_id }})"
-          # Matrix jobs write disjoint directories, so on a concurrent push
-          # re-apply this commit onto the new tip (cherry-pick, as the shallow
-          # history has no merge base to rebase on). Every matrix job finishes
-          # at about the same time, so retry generously with jitter.
-          ours=$(git rev-parse HEAD)
-          for _ in $(seq 10); do
-            git push origin "HEAD:$CORPUS_BRANCH" && exit 0
-            sleep $((RANDOM % 10 + 1))
-            git fetch --depth=1 origin "$CORPUS_BRANCH"
-            git reset -q --hard FETCH_HEAD
-            git cherry-pick "$ours"
-          done
-          exit 1
+          git commit -q -m "corpus: run ${{ github.run_id }}"
+          git push origin "HEAD:$CORPUS_BRANCH"
