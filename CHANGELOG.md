@@ -1,5 +1,10 @@
 # Changelog
 
+## [v1.8.5](https://github.com/moznion/cccc/compare/v1.8.4...v1.8.5) - 2026-10-24
+
+- ci(fuzz): fix corpus push retry failing on missing git identity by @moznion in https://github.com/moznion/cccc/pull/181
+- ci(fuzz): persist the corpus from a single aggregate job by @moznion in https://github.com/moznion/cccc/pull/183
+
 ## [v1.8.4](https://github.com/moznion/cccc/compare/v1.8.3...v1.8.4) - 2026-10-21
 
 - build(deps): bump moznion/cccc-action from 1.1.1 to 1.1.2 by @dependabot[bot] in https://github.com/moznion/cccc/pull/170
