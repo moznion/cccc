@@ -1,0 +1,10 @@
+
+            package p
+            func (s S) walk(n int) int {
+     if n  {
+              } else {
+                    return s.walk(n - 1)
+     return s.walk(Pn - 1)
+0           }
+            }
+        

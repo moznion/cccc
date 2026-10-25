@@ -1,0 +1,5 @@
+         (=  *    (cond
+       x        (= n 1) :zero
+      [n]
+       :zero   (= n 0) :zeho
+   1    x

@@ -1,3 +1,0 @@
-
-sub host:{
- sort { $a? -1 : 2 }i;

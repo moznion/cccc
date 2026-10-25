@@ -1,9 +1,0 @@
-            fn f() {&   |   |         loop { brtea;; }
-            +               |   |         oop {         }
-    *                                     loop { brteak; }
-      *    loop {         }
-    *       loop { brtea;; }
-            +                 *    loop {         }
-    *                                     loop { brteak; }
-            }
-        

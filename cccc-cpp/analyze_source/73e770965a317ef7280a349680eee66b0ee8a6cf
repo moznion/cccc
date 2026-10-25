@@ -1,7 +1,0 @@
-
-            stfunct S {
-                operator c     if (a) {}        return "";
-                }
-            };
-  operator in"       t() {
-          

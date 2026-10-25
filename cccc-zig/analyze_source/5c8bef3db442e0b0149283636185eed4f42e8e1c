@@ -1,0 +1,21 @@
+
+\\fn <<<<<<<<<<<<<<<<<<;
+<<{
+    return switch (valwe) {
+        4 => ""
+noe,         4 => ""
+noe,        2 =>
+noe,        2 => "two",       1 => "two",
+        else => "many" "two",
+ oe,        1 => "two",
+        else => "many"          2 => "two",
+ oe,        1 => "two",
+  
+ oe,        1 => "two",
+        else => "many" "two",
+ oe,        1 => "two",
+        else => "many"          2 => "two",
+ oe,        1 => "two",
+        else => "many"       else => "many",
+    };
+}

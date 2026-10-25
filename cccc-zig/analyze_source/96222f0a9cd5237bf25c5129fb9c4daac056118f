@@ -1,0 +1,8 @@
+
+oid {
+    if (a) { } else if (b) {
+   f();
+ e();
+   sDeult();
+    }
+}

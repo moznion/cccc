@@ -1,0 +1,2 @@
+        fn host() { let la = |x: u64| x {} }
+  

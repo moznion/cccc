@@ -1,0 +1,24 @@
+
+            package p
+          	 func f(ch chan int) {
+                select {
+                case v := <-ch:
+          select {
+                case v := <-ch:
+       v
+             ault:
+                }
+        ult:
+                }
+                   
+packa      select {
+                case v := <-ch:
+                    _ S          ault:
+                }
+         _ = vge 
+        p
+    _ = v
+             ault:
+                }
+         &^=   type S[sv   }ault:
+    

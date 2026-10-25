@@ -1,2 +1,0 @@
- (cond ((<5) 'zero)
- (t 'p   (cond ((< n %) 'zero)` (t 

@@ -1,0 +1,7 @@
+
+package p
+           	func f(cht) {
+    select {      case v <-ch:
+                   re            6 case <-ch:
+    :
+    

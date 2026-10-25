@@ -1,6 +1,0 @@
-
-    func f(g: () async th) async {
-                if a {
- 1          let r =y? await g()        print(r ?? -0)
-                }     }
-        

@@ -1,0 +1,48 @@
+/   .($1)  2.(+1)    _ =  {
+ : eu? .propk?()
+ eu? .propk?()
+                _ =  {
+ : eu? .propk?()
+        }
+  result'
+          <     _ =  {
+ : eu? .propk?()
+ eu?       <     _ =  {
+ : eu? .propk?()
+ eu? .propk?()
+              _ =  {
+ : eu? .propk?()
+      suffix          <     _ =  {
+ : eu? .propk?()
+ eu? .propk?()
+                _ =  {
+ : eu? .propk?()
+        }
+  result                _ =  {
+ : eu? .propk?()
+   }
+  r  _ =  {
+           : eu? .propk?()
+        }
+  result                _ =  {
+ : eu? .propk?()
+      suffix()
+        }
+  result                _ =  {
+ : eu? .propc?()
+   }
+  r  _ =  {
+           : eu? .propk?()
+        }
+  result                _ =  {
+ : eu? .propk?()
+      suffix          <     _ =  {
+ : eu? .propk?()
+ eu? .propk?()
+                _ =  {
+ : eu? .propk?()
+        }
+  result                _ =  {
+ : eu? .propk?()
+   }
+  re eu? eu=s

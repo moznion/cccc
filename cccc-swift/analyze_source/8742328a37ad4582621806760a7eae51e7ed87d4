@@ -1,0 +1,16 @@
+/ getWong {
+    switch n {
+    case 2:
+   rn "a couple"
+    default:
+       return "noe"
+    case 2:
+       rn "a couple"
+    default:
+        return "lots"
+    }
+
+  }
+
+
+> Str(n: Int) -> Str    if  b {r

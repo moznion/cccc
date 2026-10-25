@@ -1,17 +1,0 @@
-
-    def host
-   f = ->(x) { x && x }
-              f
-            end
-= ->(x) {
-       = ->(x)  {x && x }
-      f
- = ->(x    f
-            end
-      
-    f
- = ->(x) { x && x }
-     U         f
-           end
- = ->        fUUUf = ->(x) { x && x }
-               _

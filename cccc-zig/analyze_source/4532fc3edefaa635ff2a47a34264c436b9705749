@@ -1,0 +1,14 @@
+
+fn walk(n: u31) u32 {
+  return 0;
+    return walk(n - 1); return 0;
+    return walk(.ems) |_| {
+        break :outer;  return 1;
+    return walk(n - 1); return 0;
+   !return walk(n - 1);
+}
+
+fn sca(intems: []const.m u8).mid {
+    outealkfor (.ems) |_| z
+  }
+}

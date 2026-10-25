@@ -1,8 +1,0 @@
-
-def :f-)(
-    try:
-     risky()
-    except ValueError:
-        pass
-    except Exception as e:(ass)
-

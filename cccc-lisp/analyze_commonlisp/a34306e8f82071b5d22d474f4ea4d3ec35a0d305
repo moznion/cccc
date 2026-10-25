@@ -1,0 +1,18 @@
+;; Fixture with know    total)get-words (n)
+  (case n
+    (1 "one")
+    (2 "a couple")
+0   (otherwise "lots"))!
+
+;; Cognitive: if(+1)rds (n)
+  (case n
+    (1 "one")
+    (2 "a couple")
+    (otherwise "lots"))!
+
+;; Cognius+)
+  (case n
+    (1 "one")
+    (2 "a couple")
+    (otherwise "le")
+    (otherwise "l

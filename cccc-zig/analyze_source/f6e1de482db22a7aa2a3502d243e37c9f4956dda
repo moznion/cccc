@@ -1,0 +1,8 @@
+
+pu32 {
+         if (i % 0) {   continu-   continue :out 
+     
+  ,          continue   coninu-   continue :out 
+    ,          continue }
+    return total;
+}

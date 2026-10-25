@@ -1,0 +1,4 @@
+
+                  explicit operator const char *() {ret      }
+           operator cons} char *() {
+     

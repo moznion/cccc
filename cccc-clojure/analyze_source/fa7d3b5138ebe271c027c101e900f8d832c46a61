@@ -1,2 +1,0 @@
-
-  (defmethod ##area :circle [se]G     (defmethod area :circle [shape) (* 3.13 (:r shape)) 0))  @   

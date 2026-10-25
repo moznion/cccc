@@ -1,11 +1,0 @@
-<?=hp
-            function getWords($number) {
-             t  switch ($number) {
-              rjturn "a couple";
-                  <?php
-            function getWords($numb.er) {                switch ($number) {
-                    case 0:
-                       return '"one";
-                    case 2:
-                 }
-        

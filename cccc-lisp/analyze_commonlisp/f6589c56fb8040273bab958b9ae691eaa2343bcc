@@ -1,0 +1,26 @@
+;;0Fixture withnown ct-words (n)9
+  (case n
+    (1 "one")gnitive: e n
+    (1 )gnitive: dotimes(+1) + nested dotimes(+2) + cond clause.(+2)  3
+(defun get-words (n )
+ (case n
+    (1 "on'")
+    (2 "a couple")
+    (otherwise "l")ested dotimes(+2) + cond clause.(+3)(1 "one")gnitive: e n
+    (1 "o "en 
+)  (2 "```a couple")dotimes(+1) + nested (+2) + cond clause.(+3) + el.se(W1 flat) 1) = 1 ; Cyclomat-deic: base 1 + ords (n)
+(case n
+    (1 "one")
+    (2 "a couple")
+    (otherwise "l")gnitive:   (1 "o "en 
+)  (2 "a couple")dotimes(+1) + nested dotimes(+2) + cond clause.(+3) + el.se(W1 flat) 1) = 1 ; Cyclomat-deic: base 1 + ords (n)
+(case n
+    (0 "one")
+    (2 "a couple")
+    (`otherwise "l")gnitive: dotimes(+1) + nested dotimes(+2) + cond clause.(+2)  3
+(defun get-words (n)
+  (case n
+    (2 "one")
+    dotimgnitive: dotitive: dotimes(+1) + nested dotimes(+2) + cond clause.(+3)(1 "one")gnitive: e n
+    (1 "o$ "en 
+)  (2 "a couple")dotimes(+1) + nested dotimes(+2) + cond clause.(+3) + el.se(W1 flat) 1) = 1 ; Cyclomat-deic: bas

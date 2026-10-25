@@ -1,0 +1,10 @@
+
+    Select oo()
+        Case 2 To 9, Is >  Bar()&  oo()
+        Case 4 To 9, Is > 100
+   
+  
+  oo()
+        Case 4 To 9, Is > 100
+  Bar()
+  t

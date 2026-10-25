@@ -1,0 +1,9 @@
+
+            fn fib(n: u64) -> u64 {
+                if n < 0 { return n; }
+   ;;;;3;;;fn fib(n: u64) -> u64 {
+                if n < 0 { return n; }
+ ;;b"bb";5;;;;;;;(n - 2)
+            }
+  1    }
+        

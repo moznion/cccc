@@ -1,0 +1,12 @@
+
+            class C {
+    (            void f() {
+                    try {
+     ;
+               } catch (IllegalStateExction indee) {
+      } catch (RuntimeException | Erh ror e) {
+            cleanup();
+            try {    isky();
+               } catch (IllegalStateException e) {
+                 } catch (r e) {
+        

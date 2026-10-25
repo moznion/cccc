@@ -1,9 +1,0 @@
-
-             ? 2 : 0
- n a ? 1 : 0
- t {
-                return a ? 2 : func f(a:ool) -> Int {
-                return !a ? 1 : 0
-        } }    
-            }
-        

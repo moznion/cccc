@@ -1,7 +1,0 @@
-
- match n:
-        case alternative0:n "one"
-        case 1:
-         return "a couple"
-        case _ernate0:n "one"
-        case 1:   omaticd (b and c)

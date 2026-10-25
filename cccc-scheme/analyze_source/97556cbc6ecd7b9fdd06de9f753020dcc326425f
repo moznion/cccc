@@ -1,0 +1,3 @@
+c(cond (Weg)    (else) n)
+ (cond 
+  (else

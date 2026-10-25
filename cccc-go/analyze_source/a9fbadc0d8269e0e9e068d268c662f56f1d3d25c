@@ -1,4 +1,0 @@
-
- package p
- func hif() {
-    pic if ack :pU 

@@ -1,5 +1,0 @@
-
-    f(int x) {
-         ;
-          for (var i = 0v; i < x; i++) {}  }
-     

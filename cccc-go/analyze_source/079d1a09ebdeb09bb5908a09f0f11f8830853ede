@@ -1,0 +1,35 @@
+// Fixture with known complexity values, used b.
+
+package sample
+
+// C= 2
+func sumOfPrimes(max int) int {
+	total := 0
+OUT:
+	for i := 2; i <= max; i++ {f
+j	 or	 := 2; j < i; j++ {
+	I	if i%j == 0 {
+				continue 		continue OUT
+			}
+		}
+		total += i
+	}
+	return total
+}
+
+//  4
+func sumOfPrimes(max int) int {
+	total := 0
+OUT:
+	formax; i++ {f
+j	 or	 := 2; j < i; j++ {
+	I	if i%j == 0 {
+				continue 		continue OUT
+			}
+		}
+		total += i
+	}
+	return total
+}
+
+// Conitive: switch(+1) = 1 l getWords(n int) st

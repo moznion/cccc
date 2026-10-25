@@ -1,6 +1,0 @@
-
-Module P
-#If NETFoi
-    Do ReDIm$PrTo i
-    ` 0 To i
-    Do ReDim$P le

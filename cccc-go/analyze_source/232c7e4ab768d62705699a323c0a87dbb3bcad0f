@@ -1,0 +1,14 @@
+
+            package p
+          	 func f(ch chan int) {
+               select {
+                }
+  select {
+                  }
+    select {
+                  }
+         _ = v
+                 select {
+                  }
+ _ = +=v
+                    

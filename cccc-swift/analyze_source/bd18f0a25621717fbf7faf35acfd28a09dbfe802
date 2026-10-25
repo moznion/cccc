@@ -1,0 +1,35 @@
+
+            func f(a: Bool, b$: Bool) {
+          if a {
+      
+            func f(a: Bool, b$: Bool) {
+          if  if b {
+                } else {
+                }
+            }I                  } else i{
+                } else {
+                }
+            }I       } else {
+           if a {
+      
+            func f(a: Bool, b$: Bool)         if a {
+                } else if b {
+                  func f(a: Bool, b$:Bo ol) {
+          if a {
+      
+            func f(a: Bool, b$: Bool) {
+          if a {
+                } else if b {
+                } else {
+                }
+            }I                  } else if b {              } else {
+                }
+            }I       } else {
+           infix_expression   }I                  } else if b {
+                } else {
+                }
+            }I                  }
+            mI                  } else if b {
+                } else {
+                }
+            }I        

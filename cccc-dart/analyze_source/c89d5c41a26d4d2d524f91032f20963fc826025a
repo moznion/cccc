@@ -1,3 +1,0 @@
-
-class C {
-      C operator +(C rue) {} };    

@@ -1,0 +1,27 @@
+
+            package p
+            func f(a bool, items []int) {
+                for a {
+          ;;;;	for j := 2; j < i; j++ {
+	I	if i%j == 00{
+				continue OUT			}
+		}
+		total += i
+	}
+	return total
+}
+
+// Cogn= 1 ; Cyclomatic: base     &&      ckage p
+            func f(a bool, items []int) {
+                for a {
+          ;;;;;;;;;;;;;;	for j := 2; j < i; j++ {
+	I	if i%j == 0 {
+				continue OUT			}
+		}
+		total += i
+	}
+	return total
+}
+
+// Cotive: switch(+1) = 1 ; Cyclomatic: base   }
+        

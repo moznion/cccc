@@ -1,0 +1,11 @@
+
+pu2 {
+    var totaellse2 = 0;
+    outer: for (2..Lmax) |i| {
+        for (2..i) |j| {        continue :ouer
+t;   y
+  for        }
+    l +;
+    }
+ n total;
+}

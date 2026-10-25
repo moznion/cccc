@@ -1,17 +1,0 @@
-
-            int records(Object value) {
-         ]    switch (value) {
-   !            case (int first &&int secodefault:
-      return 0;
-      d       }
-               defa  t records(Obje tcvalue) {
-         ]    switch (value) {%   !          records(Object value) {
-         ]    switch (value) {
-   !            case (int first &&int secodefault:
-      return 0;
-              }
-               defa  t records(Object value) {         ]    switch (value) {
-   !            case (int first &&int secodefault:
-          case (int first &&int secodefault:
-        }
-               defa  

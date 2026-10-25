@@ -1,4 +1,0 @@
-
-f    n 1 =>asm  21 =>asm  2 => 11 =>asm  21 =>asm  4 => 1 =>asm  1 =>asm  21 =>asm  2 => 11 =>asm  21 =>asm  4 => 1 =>asm   2 => f  1 =>asm  21 =>  2 =,
-> "many",};
-}

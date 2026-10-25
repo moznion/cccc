@@ -1,0 +1,6 @@
+
+ce {
+    if (led(comptime {
+    if (enabl) genegenerat;
+})) gee();
+}

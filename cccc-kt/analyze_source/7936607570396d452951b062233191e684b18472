@@ -1,2 +1,0 @@
-  fun fib(n: IntInt {       return fib(n - 1) + fib(n      }
- 

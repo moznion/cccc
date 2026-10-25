@@ -1,5 +1,0 @@
-t n) {               switch (n) {
-    goto out;
-            goto out;
-                     a) inpgoto out; goto out  }
-         

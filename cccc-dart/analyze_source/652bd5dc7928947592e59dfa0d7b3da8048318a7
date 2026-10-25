@@ -1,6 +1,0 @@
-int sumOfPrimes(int max) {
-  var"total = 0;:
-  for (var i = 2x; ++i) {
-    for (var j = 2; j i; ++j) {
-n total;
-}

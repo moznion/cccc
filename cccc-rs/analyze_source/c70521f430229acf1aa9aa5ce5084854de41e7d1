@@ -1,5 +1,0 @@
-
-        fn f(a: bool, b: bool) {*
-   {4<<<<<< if!b { if c {} } }
- /          }
-        

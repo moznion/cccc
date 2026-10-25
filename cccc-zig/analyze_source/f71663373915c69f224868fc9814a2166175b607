@@ -1,8 +1,0 @@
-pub fn sumOfmes(max: u32)32 {
-    var rrrrrrrrrr: for (2..) |i| {
-    {
-          if (i % j == 5) {
-                  }
-        }}
-    ret
-}

@@ -1,0 +1,5 @@
+
+        ibject S {
+  A            case i: Int if i > 5 &&~ p => "patch {
+               case i: Int if i > 0 && p if i &&~  }
+    

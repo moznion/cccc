@@ -1,0 +1,1 @@
+st os = grep , @pos = grep $_ > 0 &_ < 10, @pos = grep $_ > 0 && $_ < 10, @xsetxs =5 &[

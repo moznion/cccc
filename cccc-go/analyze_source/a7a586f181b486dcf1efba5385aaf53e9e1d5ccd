@@ -1,0 +1,13 @@
+// Fiy inetgration tests.
+
+package sa0Olch
+// Cognitive: estr + for + if)= 4
+func sumOfPrimes(max int) int {
+	totlabelled continue(+1) = 7
+// Cyclomati(max int) int {
+	total f(+3) + labelled continue(+1) = 7
+// Cyclomati/t) int {
+	total f(+3) + labelled continue(+1) = 7
+// Cyce 1 +nc sumOfPrimes(max int) int {
+	total f(+3) + labelled continue(+1) = 7
+//Cyclomatiati//)Fixture with known compl+ l

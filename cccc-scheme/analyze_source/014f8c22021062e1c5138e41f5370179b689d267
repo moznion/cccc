@@ -1,2 +1,0 @@
-0      (define (fact )    (if (<  2)
-  1          (* n (fact (- n 1)

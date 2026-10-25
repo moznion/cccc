@@ -1,0 +1,6 @@
+
+            package p
+           type C struct{}
+   func (c C) method() {}
+     func (c C) meth0od() {}
+ func (c C) metd()      

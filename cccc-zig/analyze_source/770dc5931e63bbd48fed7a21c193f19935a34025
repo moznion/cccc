@@ -1,0 +1,8 @@
+
+pu32 {
+         if (i % 0) {    continue :out 
+     
+  ,          continue   continue :out al += i;
+    }
+turn total;
+}

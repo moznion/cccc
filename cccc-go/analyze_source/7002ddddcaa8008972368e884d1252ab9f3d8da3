@@ -1,4 +1,0 @@
-
-            package p
-              func (s S) w(l int) int {^^^^^^^^^^^^^^^^ p
-     ^            

@@ -1,2 +1,0 @@
-*fn c(a: bol, bk: ?bo) bool {
-    eturn (a and b/ck orelse false);}

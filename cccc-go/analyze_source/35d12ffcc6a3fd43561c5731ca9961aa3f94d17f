@@ -1,0 +1,10 @@
+
+       package p
+            func f(ch chan int) {4                   select {
+                case v := <-ch:
+     ckage p      a   packa p  g  pa   packagckagegckage p packagckrface {}  metho*0()interface {}   e             func (c C) metHHHHHHHHHHHHHHHHHHHHHHage p packagckage p      a   pacmetho*d()interface {}   e      kagckag{}
+    func (c C) metho*d()interface {}   e             func (c C) metHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHe o*d()interface {}   e             func (c C) metH p      a   ackag oobl     _ /=v
+        lt:
+      }
+       z      }
+        

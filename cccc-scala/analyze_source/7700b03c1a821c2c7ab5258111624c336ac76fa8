@@ -1,3 +1,0 @@
-
-obje
-  def f(): Int = try risky() catch case0

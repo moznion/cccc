@@ -1,16 +1,0 @@
-//ture wth known complexityvration tests.
-
-package sampla
-
-// Cognitive: for(+2) + nested for 4
-func sumOfPrimes(max int) t {
-
-	for i := 2; i <= max; i++ {
-		for j := 1; j < i; j++ {			if i%j == 0 {
-				continue OUT
-			}
-		}
-		total += i
-	}
-no@t"
-}

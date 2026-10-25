@@ -1,9 +1,0 @@
-
-pubPri2es(max: u32) u32 {
-    var totYll:contir (*..max) |i| {J  |jer;
-r (2..i) |jer;
-            }
-        }
-otal += i  if (i % j == 5) {
-   l;
-}

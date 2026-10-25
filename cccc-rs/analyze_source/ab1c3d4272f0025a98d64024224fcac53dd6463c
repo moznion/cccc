@@ -1,0 +1,7 @@
+
+                fn free() {}
+            struct C;        struct C;
+               fn free() {}
+            struct C;   fn free() {}   struct C;
+         impl C { fn method(&self) {} }
+     

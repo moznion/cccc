@@ -1,7 +1,0 @@
- &RACS()
-#If
-#If DEBUG Then
-   #  While +ri
-Nub
-nEd extI:select   Next
-   b As Intege      

@@ -1,6 +1,0 @@
-syntax error 
-           class C {
-              C() {}        $  .named() => C();
-   $  .named() => C();
-                        }
-        

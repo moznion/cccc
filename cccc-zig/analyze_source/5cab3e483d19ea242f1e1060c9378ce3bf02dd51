@@ -1,9 +1,0 @@
-
-fn recover() viep {
-    ri|r{
-        {
-            f*return;  f*return;
-      f*return;  f*return;
-       -> }
-    };
-}

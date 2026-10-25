@@ -1,9 +1,0 @@
-# Fixccke wi   f(x)
-        xs      case x
-    in Integer then 1
-              in String then 4
-        $     else 3
-1 then "one"
-  case x
-              in Integer t      else "lots"
-   

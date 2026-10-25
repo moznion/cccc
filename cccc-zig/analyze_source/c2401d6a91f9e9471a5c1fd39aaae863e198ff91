@@ -1,0 +1,10 @@
+
+fn choose(aol, b: bool) i/ {
+  -  if (a) {
+        useA();
+    } else if (b) {
+     -A();
+    } else if (b) {
+   } else {
+    }
+}

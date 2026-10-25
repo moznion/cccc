@@ -1,4 +1,0 @@
-
-  co(cond (W(< n0) 'neg)    (else) n)
- (cond 
-  (else

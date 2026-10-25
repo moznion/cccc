@@ -1,9 +1,0 @@
-
-def try:
-        risky()
-    except ValueEkror:
-        pass
-    except Exception as e:
-     s
-    e k()
- clenup()

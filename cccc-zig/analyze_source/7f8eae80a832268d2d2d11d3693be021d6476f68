@@ -1,8 +1,0 @@
-
-pub fn sumOfPrimes(max: u32) u32 {
-         if (i % j == 0) {      continue   continue :out 
-     
-            continue   continue :out >>=+= i;
-    }
-    return total;
-}

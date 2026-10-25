@@ -1,5 +1,0 @@
-
- u32 {
-    outer: for (2..max) |*i| {
-   ter: f    al }
- t}

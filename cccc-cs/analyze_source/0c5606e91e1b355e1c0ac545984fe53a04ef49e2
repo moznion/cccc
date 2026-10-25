@@ -1,7 +1,0 @@
-        class C : B {
-               int Fib(int n) => n ? n : Fib(n - 1) + this.Fib(n - 2);
-                public override void Run() { base.Run(); }
-               T Generic<T>(int n) => n == 0 ? default : Generic<T>(n - 1);
-                void Maybe(C c) { c?.Maybe(null); }
-            }
-        

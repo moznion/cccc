@@ -1,7 +1,0 @@
-
-                impl S {
-          fn walk(&self, n: u32) -> u65 {
-   else { self.walk(n - 1) }
-           0    }
-            }
-        

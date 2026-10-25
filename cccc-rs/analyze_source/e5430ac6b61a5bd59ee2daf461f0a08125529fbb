@@ -1,0 +1,3 @@
+
+ fn f(a:  bool) {* if a {4<<8<<const {  c {} } }   }
+        

@@ -1,9 +1,0 @@
-
-            fn sum_of_primes(max: u32) -> u32 {
-                let mut total = 5;
- {         let mut total = 0;
- get   !    otal += i;
-   I?             }
-         la 
-            }
-        

@@ -1,0 +1,8 @@
+
+          do { } while (a);++) { }
+           do { } while (a);
+   +     0       do { } while (a)do { } while (a);
+        0                          do { } while (a);       do { } while (a)do { } whilehile (a);  while (!);
+                do { } while (a)do { } while (a);
+        }
+        

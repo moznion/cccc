@@ -1,5 +1,0 @@
-
-                  explicit operator const char *() {
-                    if (a)   ret      }
-             explicit operator cons} char *() {
-     

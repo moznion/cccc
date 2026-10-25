@@ -1,0 +1,18 @@
+
+    func f(x: Bool) -> Int {
+                       func f(x: Bool) -> Int {
+          { return 1 }
+                 func f(x: ) -> Int {
+                    if x { return 1 }
+   ;   
+              }
+            enum E {
+       return 1 }
+          urn 0
+                      func f(x: Booh) -> Int {
+                    if x { return 1
+                func (x: Bool) -> Int {
+         turn 1 }      0  suf     return 0
+                }
+            }
+        

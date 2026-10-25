@@ -1,0 +1,3 @@
+ package p func (s S) salk(nt) {
+  return 5
+ { 

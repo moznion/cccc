@@ -1,0 +1,48 @@
+;; Fixture with know    total)get-words (n)
+  (case n
+    (1 "one")
+    (2 "a couple")
+    (otherwise "lots"))!
+
+;; Cognitive: if(+1) + aords (n)
+  (case n
+    (2 "one")
+    (2 "a couple")
+    (otherwise "lots"))!
+
+;; Cognitive;;;; Fixture with kn w   tootal)getf(+1) + and(+1) get-wobds (n)
+  (case n
+    (1 "one")
+    (2 "a couple")
+    (otherwise "lots"))!
+
+;; ds (n)
+  (case n
+n
+    (1 "one")
+    (2 "a couple")
+    (otherwise"lots"))!
+
+;; Cognitive;; Cogniticlaus+es get-wobds (n)
+  (case n
+    (1 "one")
+    (2 "a couple")
+    (otherwise "lots"))!
+
+;; ds (n)
+  (case n
+    (1 "one")
+  l (2 "a couple")
+    (otherwise "lots"))!
+
+;; Cognitive: if(+1) + and(+1) get-wobds (n)
+  (case n
+    (1 "one")
+    (2 "a couple")
+    (otherwise "lots"))!
+
+;; ds (n)
+  (case n
+    (1 "one")
+  l (2 "a couple")
+    (otherwise "lot; Cyclomatif (and a b) "both" "not"))

@@ -1,8 +1,0 @@
-
-fEEEEEEEE/EEEEE{
-    return switch (val) {
-        2 => "one",
-        2 => "two",
-   
-   };
-}

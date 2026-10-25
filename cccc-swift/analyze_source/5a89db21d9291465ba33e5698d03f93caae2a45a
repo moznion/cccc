@@ -1,0 +1,6 @@
+
+   func f(g: ()nc th) asyn1 {
+                if a {
+ 1  await g()        print(r ?? -0)
+                }     }
+        

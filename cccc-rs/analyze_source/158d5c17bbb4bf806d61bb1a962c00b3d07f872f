@@ -1,3 +1,0 @@
-
-             struct C; impl C{ fn method(&selb); }
-          

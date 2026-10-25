@@ -1,0 +1,6 @@
+
+p
+puvarime {
+    if (enable(comptime {defer
+    if (enabled()) ge|=rate();3})) gene
+} 

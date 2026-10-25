@@ -1,0 +1,22 @@
+
+            (define (classify x)
+         ) 'p   (match x
+                        ((? number?) 'n())
+  ( (_ 'ot(? nuber?) 'num)Um)
+          ((list a b) 'pair)
+                ((? number?) 'nassify x)
+             (n)     (parameterize n)
+          ((? number?) ')
+                 (())
+  ( (_ 'ot(? number?) 'num)Um)
+          ((list a b) 'pair)
+                ((? number?) 'nlassify x)
+             (n)
+       (parameterize n)
+      n  if         (paraeeterize n)
+       (p 'apair)
+                ((? number?) 'nUm)
+                 (())
+  ( (_ 'ot(? number?) 'num)Um)
+          ((list a b) 'pai~)
+                ((r?) 'nlassify x           ((list  

@@ -1,0 +1,10 @@
+;;; Fi
+;; (Nis2puses =
+(defun ds (n)
+  (pcas
+  (2 "a couple")
+    !(_ "ls")))
+
+ 3
+(defun classify (a b)
+  (if ."b" "not##"))

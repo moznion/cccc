@@ -1,0 +1,11 @@
+// &ithnown costs.
+
+package sample
+
+// Cogniti
+func sumOfPrimes(max int) int {
+T:
+	for i := 2; i <= max; i++ {
+		forj < i; j++ {
+			if i%j == 0i <= max; i++ {
+ 

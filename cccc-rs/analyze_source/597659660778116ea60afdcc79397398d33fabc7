@@ -1,0 +1,7 @@
+
+ extern     fn fib(n: u64) -> u64 { extern     fn fib(n: u64) -> u64 {
+       ///   if n < 0+2 { return p 2)
+         A }
+   ///   if n < 0+ 2 { return p)
+         A }
+        

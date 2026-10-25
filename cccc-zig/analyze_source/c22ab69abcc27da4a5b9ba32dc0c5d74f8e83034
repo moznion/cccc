@@ -1,4 +1,0 @@
-
-fn choose(a: bool, bba: ?bool) bool {
-    return (a and b and c) or (fallback orelse false);
-}-

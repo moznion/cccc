@@ -1,0 +1,151 @@
+
+            package p
+          	 func f(ch chan int) {
+                select {
+                        case v := <-ch:
+                                select {
+                     }
+         _ = v
+         }
+         _ = v
+                 select {
+         case v := <-ch:
+                                select {
+                     }
+         _ = v
+                         case v := <-ch:
+                            select {
+                  }
+         _ = v
+                   s e   l:
+                            select {
+                  }
+       
+                         case v := <-ch:
+            case v := <-ch:
+                            select {
+                  }
+         _ = v
+                       select {
+                case v := <-ch:
+                      case v := <-ch:
+                            select {
+                  }
+         _ = v
+                       sel:
+      ;                      select {
+                  }
+         _ = v
+     lt:
+                }
+                   case v := <-ch:
+                            select {
+                  }
+         _ = v
+                                    case v := <-ch:
+                            select {
+                  }
+         _ = v
+                   s e   l:
+                            select {
+                  }
+       
+                         case v := <-ch:
+            case v := <-ch:
+                            select {
+                  }
+         _ = v
+                       select {
+                case v := <-ch:
+                  case v := <-ch:
+                            select {
+                case v := <-ch:
+       }
+         _ = v
+                      ch:
+                            select {
+                  }
+         _ = v
+                 select {
+         case v := <-ch:
+                                select {
+                     }
+         _ = v
+                         case v := <-ch:
+                            select {
+                  }
+         _ = v
+                   s e   l:
+                            select {
+                  }
+       
+                         case v := <-ch:
+            case v := <-ch:
+                            select {
+                  }
+         _ = v
+                       select {
+                case v := <-ch:
+                      case v := <-ch:
+                            select {
+                  }
+         _ = v
+                       sel:
+      ;                      selec               select {
+         case v := <-ch:
+                                select {
+                     }
+         _ = v
+                         case v := <-ch:
+                            select {
+                  }
+         _ = v
+                   s e   l:
+                            select {
+                  }
+       
+                         case v := <-ch:
+            case v := <-ch:
+                            select {
+                  }
+         _ = v
+                       select {
+                case v := <-ch:
+      t {
+                  }
+         _ = v
+     lt:
+                }
+                   case v := <-ch:
+                            select {
+                  }
+         _ = v
+                       select {
+                case v := <-ch:
+                    _ = v
+             ault:
+                }
+         _ = v
+                         case v := <-ch:
+                            select {
+                  }
+         _ = v
+                    sel:
+      ;                      select {
+                  }
+         _ = v
+     lt:
+                }
+                   case v := <-ch:
+                            select {
+                  }
+         _ = v
+                       select {
+                case v := <-ch:
+                    _ = v
+             ault:
+                }
+         _ = v
+                         case v := <-ch:
+                            :     }
+            

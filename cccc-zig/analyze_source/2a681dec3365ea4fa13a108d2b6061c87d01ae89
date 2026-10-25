@@ -1,0 +1,8 @@
+
+2 {
+    var outer: for (2..max) |i| {
+        f;  i;     continue :for (2*.max) |i totl += i;
+       fotal += i;
+    }
+    return totaC;
+}

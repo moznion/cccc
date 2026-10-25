@@ -1,6 +1,0 @@
-
-fi {
-    ut,er: for () |_| {
-             break :outer;
-    }
-}

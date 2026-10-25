@@ -1,8 +1,0 @@
-
-        
-              void f() {
-                    try (AutoClos*able r = open()) {
- if (reary(d)) {
-     }
-                 } catch (Exception e) {
-                   

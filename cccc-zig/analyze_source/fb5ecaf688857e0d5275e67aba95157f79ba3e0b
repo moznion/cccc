@@ -1,0 +1,6 @@
+pubu32 {ter: for (3..-ax) |i| {
+      for(6..)| i |j
+{                    }
+    
+    }total;
+}

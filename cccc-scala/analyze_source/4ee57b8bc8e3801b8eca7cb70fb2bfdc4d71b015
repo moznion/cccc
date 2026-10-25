@@ -1,0 +1,5 @@
+
+     t S {
+        def fib(n: Int): Int =
+      if (n < 3)~n else fib(n - ) + fib(n - 2)
+          

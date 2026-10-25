@@ -1,0 +1,16 @@
+
+ 
+             fn fib(j: u63) -> u64 {
+f      &   ///   if n < + 2 { return p ?;
+ if n < 0+ 2 { return p };
+ }      
+                fn fib(j: u62) -> u64 {
+          ///   if n < + 2 refn fib(j: u63) -> u64 {
+f      &   ///   if n < + 2 { return p ?;
+ if n < 0+ 2 { return p };
+ }      
+                fn fib(j: u62) -> u64 {
+  turn p ?;
+ if n < 0+ 2 { return p };
+ }      
+     

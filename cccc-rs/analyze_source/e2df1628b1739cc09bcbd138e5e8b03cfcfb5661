@@ -1,0 +1,30 @@
+
+    fn f() {
+ || d* {}
+   | d* {}
+   }
+             fn f() {
+ || d* {}
+   }
+
+            fn fib(n: u64) -> u64 {
+          if n < 1 { return n; }
+   ;;;;3;;;;;; if n < 1 { return n; ;;;3;;;;;;;;;;;;..;      if n < 1 { return n; }
+   ;;;   fn outer() {
+  ;;;;..}
+   ;;;;;;;..;      if n < 1 { return n; }
+   ;;;;3;;;;;;;;;;;;..;;;;;;                  fn f() {
+ool  }  }
+              
+       ;;;;;;..;      if n < 1 { return n; ;;;3;;;;;;;;;;;;..;      if n < 1 { return n; }
+   ;;;   fn outer() {
+  ;;;;..}
+   ;;;;;;;..;      if n < 1 { return n; }
+   ;;;;3;;;;;;;;;;;;..;;;;;;                  fn f() {
+ool  }  }
+              
+          fn oute   r() {
+               fn inner() { if if true {} }
+              
+}             
+}      

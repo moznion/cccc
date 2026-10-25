@@ -1,2 +1,0 @@
-( o    y (n)((cond ((< n 0) 'neg)
- 'neg (n)(o

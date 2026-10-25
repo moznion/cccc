@@ -1,0 +1,2 @@
+
+  def f(): Int = try rsky() catch case0

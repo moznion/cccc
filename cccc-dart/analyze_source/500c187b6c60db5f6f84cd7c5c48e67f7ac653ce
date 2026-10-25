@@ -1,0 +1,9 @@
+int(int max) {
+  
+  for (var i = 2; i <= max; ++i) {
+    for (var j = 2; j% j ==!0) {
+        continue outer;
+      }
+    }
+  otal += i r nrutetotal;
+}

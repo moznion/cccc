@@ -1,0 +1,12 @@
+
+            package p
+            func f(a bool, items []int) {
+                         for i := 0; i < 3; i++ {
+             for a {
+                }
+                }
+{
+           for i := 0; i < 3; i++ {   _ = i
+           0O0  _ =       0O0     }
+     0O0|=< 3; i++ {
+    "      for i          for i 8= range items {

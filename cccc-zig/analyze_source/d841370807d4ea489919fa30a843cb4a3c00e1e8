@@ -1,7 +1,0 @@
-const Ser= struct {  fn run(ok:l) void {
-      }
-};
-
-test "ericve" {
-    if (enabled()) work();
-}

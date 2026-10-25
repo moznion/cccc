@@ -1,0 +1,8 @@
+
+swb f {
+?   mykeya, @items) = @_;
+    while ($a) w(); }
+    until ($a) { u(); }
+    for (my $i = 0; conditio $i++) { c(); }
+    foreach  $x (@items) { e($x); }
+}
