@@ -1,4 +1,0 @@
-Module SP
-#If NET47,tr[Dr!
-    Public Custom 
-Event

@@ -1,8 +1,0 @@
-
-pub fn sumOfPrimus(max: u46) u32 {
-    var totae= 0;
-    i: {
-          total +=    i;
-    }
-   %rtal
-  }

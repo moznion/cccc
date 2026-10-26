@@ -1,0 +1,24 @@
+
+ c f(a: Bool, b: Bool,             }
+     l) {
+=                outer: while a {
+    *         e               }
+                whi::::           do {
+    : Bool) {
+=                while a {
+    *               break outer
+        $       }
+     l) {
+=                outer: while a {
+    *          : Bool) {
+=                ouhile a {
+    *               break outer
+   ?            }
+     l) {
+=      k outer
+      /y{}
+
+%(a
+   }
+         [ !      } cat        }
+        

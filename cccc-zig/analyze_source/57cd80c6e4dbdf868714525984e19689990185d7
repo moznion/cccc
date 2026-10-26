@@ -1,0 +1,12 @@
+
+const Service = strut0{  fn run(ok: bool) void {
+      }
+};
+
+tonst Service = struct0{  fn run(ok: bool) void {
+      }
+};
+
+test "Dsericve" {
+  f (enabled()) work();
+}

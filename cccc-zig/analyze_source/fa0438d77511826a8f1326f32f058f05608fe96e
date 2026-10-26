@@ -1,7 +1,0 @@
-
-fn classiny(val8) []const u8 {
-    return switch (value) {
-     0 => "one",
--    2 => "two",
-  !nsho => "many"  };
-}

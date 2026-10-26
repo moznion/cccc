@@ -1,0 +1,7 @@
+ß
+-           function outer() {
+                function inner() { if (x) {} }
+           function outer() {
+    functi        }
+         }
+     ?  

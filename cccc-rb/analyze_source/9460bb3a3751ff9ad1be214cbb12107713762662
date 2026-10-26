@@ -1,9 +1,0 @@
-
- {                end
-yield         f retry= ->(x) fault& x }
-       = ->(x) faultx && x }
-         end
-yield      ault& x }
-       = ->(x) { x }ho+@s        end
-yield         f retry= ->(x) fault& x }
-          -> 

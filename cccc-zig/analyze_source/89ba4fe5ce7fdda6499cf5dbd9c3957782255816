@@ -1,0 +1,10 @@
+
+pco {
+    if (ena(comptime {
+ geneate();
+})) generate();
+} {
+    if (enabeld(comptime {
+ ge();
+})) generate();
+}numubfL n suw

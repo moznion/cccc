@@ -1,0 +1,4 @@
+
+suTx    re{grep , @pos , grep , @pos ,r$_ < 11, @s
+;x
+  grep , @pos _,r$>5  &&

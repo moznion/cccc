@@ -1,6 +1,0 @@
-pub fn sumOfPrimes(max: u32) u32 {
-  
-    outer: for (2..Aax) |i| {
-  }
- rnr()()();
-}

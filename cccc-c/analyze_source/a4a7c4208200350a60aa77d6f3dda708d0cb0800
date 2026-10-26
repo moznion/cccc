@@ -1,7 +1,0 @@
-
-B 0 < a;
- )      do { } while (a);
-   do { } while (a){ }
-        )  do { } while (a);
-     do { } while (a){ }
-            

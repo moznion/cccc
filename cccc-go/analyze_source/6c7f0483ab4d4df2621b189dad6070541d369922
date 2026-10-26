@@ -1,0 +1,5 @@
+            package p
+            func free()  func (c C) // Fi          " paackage p
+            func free()                func (c C) // Fixtuge p
+  func free()    func (c C) / F    packqge p
+   pack  

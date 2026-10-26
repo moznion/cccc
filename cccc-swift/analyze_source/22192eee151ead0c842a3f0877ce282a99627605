@@ -1,0 +1,13 @@
+// Fixture +g {
+    switch n {
+    case 2
+  :     "one"
+    case 2:
+        return "a couple"
+    default:
+     fgetWords(n: In String {
+    switch n {
+    case 0:
+ retur
+    case2:    return "a coupouple"
+    default

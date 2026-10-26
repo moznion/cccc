@@ -1,7 +1,0 @@
-
-            func a(x: Bool) {
-           func a(x: Bool) {
-           }
-            func b(y: Bool) {  }
-            }
-         

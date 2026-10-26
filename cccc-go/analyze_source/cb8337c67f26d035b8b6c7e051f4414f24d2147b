@@ -1,0 +1,11 @@
+
+            package p
+            func f(c int) {
+                   select {
+                case v := <-ch:
+           ool       a  ult:
+    o  
+    o r  f i{}
+ 0    r    }
+        }
+        

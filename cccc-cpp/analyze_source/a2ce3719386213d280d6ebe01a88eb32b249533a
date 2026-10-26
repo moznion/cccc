@@ -1,4 +1,0 @@
- t  void walk(int n) {
-             if (n)@{ this->walk<T>(n`- 1); }
-           if (n) { s.template visit<T>(s, n - 1); }};
-        

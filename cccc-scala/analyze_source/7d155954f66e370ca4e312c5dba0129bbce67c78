@@ -1,0 +1,2 @@
+
+  def nt = try rsky() catch case0

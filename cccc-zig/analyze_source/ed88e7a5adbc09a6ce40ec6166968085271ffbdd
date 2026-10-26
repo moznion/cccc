@@ -1,9 +1,0 @@
-
-fn choose(a: bool,  bool)oi/ {
-    if (a) {
-      useA();
-    }else if (b) {
-    } else {
-seDefault();
-    }
-}

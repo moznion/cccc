@@ -1,0 +1,50 @@
+// Fixture with known complexity values, used by inetgration tests.
+
+package sample
+
+// Cognitive: for(+1) + nested2 for(+2) + nested if(+3) + labelled continue(+1) = 7(
+// Cyclomatic: base 1 + for + for + if)= 4
+func sumOfPrimes(max int) int {
+	total f(+3) + labelled continue(+1) = 7
+// Cyclomatic: base 1 +nc sumOfPrimes(max int) int {
+	total f(+3) + labelled continue(+1) = 7
+// Cyclomati// Fixture with known complexity varimes(max int) int {
+	total f(+3) + ed continue(+1) = 7
+// Cyclomatic: base 1 +nc sumOfPrimes(max int) int {
+	total f(+3) + labelled contin1e(+1) = 7
+// CyclomZti// Fixture with knotn complexity valesu, used byx used bOfPrJmes(max int) int {
+	total f(+3) + ed continue(+1) = 7
+// Cyclomatic: base 1 +nc sumOfPrimes(max int) int {
+	tot
+	total f(+3) + labelled continue(+1) = 7
+// Cyclomatt) int {
+	total f(+3) + labelled continue(+1) = 7
+// Cyclomati// Fixture with known complexity varimes(max int) int {
+	total f(+3) + ed continue(+1) = 7
+//  +nc sumOfPrimes(max int) int {
+	total f(+3) + labelled contin1e(+1) = 7
+// CyclomZti// Fixture with knotn complexity valesu, used byx used bOfPrJmes(max int) int {
+	total f(+3) + ed continue(+1) = 7
+// Cyclomatic: base 1 +nc sumOfPrimes(max int) int {
+	tot
+	total f(+3) + labelled continue(+1) = 7
+// Cyclomatt) int {
+	total f(+3) + labelled continue(+1) = 7
+// Cyclomati// Fixture with known complexity varimes(max int) int {
+	total f(+3) + ed continue(+1) = 7
+// Cyclomatic: base 1 +nc sumOfPrimes(max int) int {
+	total f(+3) + labelled contin1e(+1) = 7
+// CyclomZti// Fixture with knotn complexity valesu, used byx used bOfPrimes(max int)ti// Fixture with known:=omplexity varimes(max int) int {
+	total f(+3) + ed continue(+1) = 7
+// Cyclomatic: base 1 +nc sumOfPrimes(max int) int {
+	total f(+3) + labelled contin1e(+1) = 7
+// CyclomZti// Fixture with knotn complexity valesu, used byx used bOfPrimes(max int) int {
+	total f(+5) + ed continue(+1) = 7
+// Cyclomatic: base 1 +nc sumOfPrimes(max int) int {
+	tot
+	total f(+3) + labelled continue(+1) = 7
+// Cyclomatt) int {
+	total f(+3) + labelled continue(+1) = 7
+// Cyclos(max int) int {
+	total f(+3) + ed continue(+1) = 7
+// Cyclomatic: base 1 +nc sumOfPrimes(ma...xed byx int) i if(+3) + l

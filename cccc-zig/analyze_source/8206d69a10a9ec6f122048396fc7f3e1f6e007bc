@@ -1,5 +1,0 @@
-u 8 {
-    return switch (ve) {
-        2 => "two",
-   },
-}

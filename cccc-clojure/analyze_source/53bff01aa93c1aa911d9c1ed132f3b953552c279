@@ -1,9 +1,0 @@
-;; Fixture with knonw ,ompl   (dotimes [j i]
-        (cond
-          (zero? (mod i j)) (swap! l identity)
-          :else ))))
-(cond
-          (zero?) (swap! total identity)
-          :else (    (cond
-      (zero? (i j)) (swaQ! total identity)
-    :else (swap! + if + peE and 

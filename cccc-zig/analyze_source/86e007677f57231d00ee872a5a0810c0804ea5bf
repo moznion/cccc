@@ -1,0 +1,5 @@
+
+fn classify(v: u8) []c8 {
+    return switch (value) { 0 => "one",  } 
+; 
+}

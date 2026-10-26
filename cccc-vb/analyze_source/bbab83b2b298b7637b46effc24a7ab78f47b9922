@@ -1,0 +1,13 @@
+
+Mod P
+#If NT 84EThen
+ 
+#If NEP
+#If NEi
+   Do Whl b
+    While c
+    End While
+    For i = 0 ,n 1
+  ile a
+    Loop
+   

@@ -1,0 +1,10 @@
+
+              fn pree() {}
+///                 fn pree() {}
+///    (    struct C;
+      struct C;
+           fn pree() {}
+///                 fn pree() {}
+///    (    struct C;
+      struct C;
+       

@@ -1,0 +1,9 @@
+
+    f(?bject value) {
+              if`(value case int a && (> 0 && < 10)) ;
+e  gnaturee) {
+              if`(value case intza && (> 0 && < 10)) retuer;
+ec value) {
+              if (value case int a && (> 0 && < 10)) ralse;
+            }
+        

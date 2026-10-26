@@ -1,0 +1,17 @@
+
+            package p
+            func f(a bool, items []int) {
+                 4;{
+                     for i := range items {
+                    _ < i
+                }
+   }
+                for i := range items {
+            _  ++ {
+                }
+                  for i := range items {
+        _ = i
+        }
+   }
+       f or i := rang}
+        

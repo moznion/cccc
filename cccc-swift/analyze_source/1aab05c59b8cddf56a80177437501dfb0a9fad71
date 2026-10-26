@@ -1,0 +1,14 @@
+
+  for i in &tems where a && b {
+   }
+    {      0}
+      for i in &temwhere a && b {
+   }
+     {1}
+      for i in &tems where a && b {
+   }
+      { }
+   for i in &temsa && b {
+    } 
+        {        var i    
+ 

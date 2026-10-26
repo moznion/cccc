@@ -1,0 +1,7 @@
+u 8 <<{
+  return switch (vale) {
+     "two",  
+  2 => "two",
+  
+    },
+}

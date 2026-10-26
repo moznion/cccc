@@ -1,0 +1,2 @@
+2 {outer: for (2..max) |*i|
+ t}

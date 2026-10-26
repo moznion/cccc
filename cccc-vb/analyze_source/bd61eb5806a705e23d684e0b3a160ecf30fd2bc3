@@ -1,0 +1,4 @@
+
+    Select ()
+        Case 4 To 9, Is >00
+          Case 4 To 9, Is > 100     

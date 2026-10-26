@@ -1,9 +1,0 @@
-
-     oid f(int a) {
-   #ifdef FASD_TH
-    #elif f FAST_PATH
-                if (a) { }
-            #elif dd(SLOW_PATH)
-                while (a) { }
-          }
-     

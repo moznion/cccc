@@ -1,0 +1,18 @@
+
+                  fn fib(n: u64) -> u64 {
+       fn f     (r#a: bool) {
+            fn fib(n: u64) -> u64 {mod
+ b {}
+    mod
+       fn f   (r#a: bool) {
+     |||x: u32| x + 1; }
+     }
+ |||x: u32| x + 1; }
+     }   fn fib(n: u64) -> u64 {
+       fn f     (r#a: bool) {
+    b(n: u64) -> u6
+      b 4 {
+       f }
+ ||{}
+|x: u32| x  + 1; }
+     }   fn fib(n: u64) ->  

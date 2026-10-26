@@ -1,0 +1,2 @@
+
+  fn f(a: bool, b: bool) {{ for _ in 2..%!{} }     }

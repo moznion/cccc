@@ -1,5 +1,0 @@
-
-fn classify(value: u8) []const u8 {
-    retuc!=(v!lue) {
-  };
-}

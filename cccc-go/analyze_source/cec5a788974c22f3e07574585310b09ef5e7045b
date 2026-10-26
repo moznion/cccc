@@ -1,0 +1,6 @@
+
+            package p
+          func getWords(number int) string {
+             switch number {}
+          switch number er {}
+            }'       )

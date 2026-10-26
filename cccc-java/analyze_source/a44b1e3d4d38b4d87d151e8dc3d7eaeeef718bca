@@ -1,0 +1,3 @@
+   c int fib(int n {
+   fib(n - 1) + fib(n - 1);
+   saetmnu   return fib(fib(:n - 2);

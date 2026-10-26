@@ -1,6 +1,0 @@
-
-            package p
-     func gords(number int) string {
-       switch number {
-                case 2:
-     case    return "one

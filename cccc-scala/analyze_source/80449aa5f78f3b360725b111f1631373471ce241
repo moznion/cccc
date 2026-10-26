@@ -1,0 +1,4 @@
+
+      def this= this(0)
+   oper         def this() = ths(h)
+   oper     def this() = this(0)  $ 

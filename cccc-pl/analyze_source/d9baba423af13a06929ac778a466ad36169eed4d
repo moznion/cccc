@@ -1,3 +1,0 @@
-
-sub aJ { m($x) = @_; if ($x) { one(); } }
-sub b@_; if ($y) { wo(); } }

@@ -1,5 +1,0 @@
-#If /ET44 ThenP
-#=End S
-#If S
-#If 
- On Error GoTo 0 

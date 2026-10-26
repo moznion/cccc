@@ -1,0 +1,8 @@
+
+Module P
+Sub M()
+#IfDBUG Then
+  (   Log("a")
+
+    End Sub
+Ende

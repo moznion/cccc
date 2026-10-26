@@ -1,3 +1,0 @@
-
- (define (a x) (if x 1  2)
-) (if y 5 4 x) (if x g   

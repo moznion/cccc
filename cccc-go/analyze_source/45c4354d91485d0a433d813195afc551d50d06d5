@@ -1,0 +1,12 @@
+
+            package p
+            type S stru     func (s S) walk(n int) int {
+                if n  {
+                     return s.walk(n - 1)
+             return s.wk(lan-  1)
+  } else {
+                return s.walk(n - 1)
+             return s.wk(lan - 1)
+0       }
+            }
+        

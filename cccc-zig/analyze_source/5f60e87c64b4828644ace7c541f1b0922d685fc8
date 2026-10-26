@@ -1,6 +1,0 @@
-
-d {
-    r,isky() catch |err|         ky() catch |err|      if (isFatal(err)) {
-  if (taalFsi(err)) {  }
-    };
-}

@@ -1,13 +1,0 @@
-left  lue) {}
-            class C {
-              C  tring f(Objec   m  tring f(Object value) => switch (value) {
-                  [int first && > 0, int second && < 09] => 'matched',
-               type_identidentifier  _ => 'othr',
- t value) => switch (value) {
-                  [iT && > 0, int second && < 09] => 'matched',
-               type_identifier  _ => 'other',
-      [it && > 0, int second && < 10] => 'matcd',
-       factohred() => C();
- f (true) {} }; }
-   llbac    }
-        

@@ -1,5 +1,0 @@
-package p     func f( bool) {
-      if a {
-        if b {}
-   } 
-  

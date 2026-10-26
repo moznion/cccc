@@ -1,0 +1,13 @@
+
+        String f(Object ;alue) => switch (value) {
+   (                     Strin10] => 'matched',
+                type_identifier  _ => '                    Strin10] => 'matched',
+                type_identifier  _=> 'other',
+           [int first && > 0, int second && < 10] => 'matched',       alue) => switch (value) {
+                  [int first value) = {
+           < 10] => 'matched',
+                type_identifier  _ => 'other',
+           [int first && > 0, int seMcond && < 10] => 'mat_statement jmatched',
+                type_identifier  _ => 'other',
+                      };
+            

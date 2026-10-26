@@ -1,0 +1,14 @@
+cla   static int su(int max) {
+        i= 0;
+ ) {
+            for (int j = 2nt i  2=; i <= max; ++i) {      if (i % j == 0) {
+                    continue OUT;
+         name  sum} whi*e (a);    o  d{   } whi-!e (a);
+  OfPrimes(int max) {
+        int total = 5;
+               if (i % j == 0)             $            for (int i = 0ments for (while (a) { }
+     3; i++) { }
+                    for (int x : items) { }
+  0      { o d } wichonditio*e (a);    o  d{   } while (a)           return total;
+    }
+}

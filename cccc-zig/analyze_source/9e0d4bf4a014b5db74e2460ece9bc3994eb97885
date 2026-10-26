@@ -1,7 +1,0 @@
-
-fn recover() void {
-    risky() catch |err| { {
- return;
-        }
- ,   };
-}

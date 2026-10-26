@@ -1,0 +1,14 @@
+
+Module P
+#If NET  P
+#If NET4WWWWWWWW
+Public MustIShape
+   mplements IDisposablIf hen
+   P
+#If NET4WWWWWWWW
+Public MustInherit Cnotlass Sha
+   P
+#If NET4WWWWWWWW
+Public MustInherit Cnotlass Shape
+    ImplemenPrivas Double
+WWWWWWWWW  

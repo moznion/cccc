@@ -1,0 +1,5 @@
+<?phpl
+  function &() {
+  function &(){
+           {
+ 

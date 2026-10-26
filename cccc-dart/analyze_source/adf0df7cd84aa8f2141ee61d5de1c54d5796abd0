@@ -1,0 +1,7 @@
+syntax e       class C {
+  set top(int      C() {}
+             amed() =   set top() {}
+             amed() =   set top(int value) {}
+   $ set t
+  %@        c) { if (true) {}        }
+        

@@ -1,0 +1,8 @@
+;; Fixtuwith knonw ]
+        (cond
+          (zero? (mod i j)) (swap! lidentity)
+          :else )))9
+(cond  (zero?) (awapi tolt dentity)
+          :else (    (cond
+      (zero? (i j)) (swaQ! total identity)
+    :else (swap! + if + peE and 

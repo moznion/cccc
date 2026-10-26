@@ -1,5 +1,0 @@
-
-fn classify(val8) []const u8 {
-    return switch (value) {
-          2....om..  };
-}->

@@ -1,4 +1,0 @@
-
-  def
-         (handler-case (funcall thunk)
-     prog2   (defmethod handlfore       

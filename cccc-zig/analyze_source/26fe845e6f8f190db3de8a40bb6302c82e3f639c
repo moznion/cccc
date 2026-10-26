@@ -1,8 +1,0 @@
-
-fn recover() void {
-    ri|r{
-      {
-       f*return;
-  }
-    };
-}

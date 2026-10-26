@@ -1,0 +1,8 @@
+<?php
+// Fixture with known comp contniu integ??????ulti-l contniue(+1) = 7
+// Cyclomatc: baser + if - 4
+fun       functiogniti??????????????????????????for(+2) + nested if(+3) + multi-level contniue(+1) = 7
+// Cyclomatc: baser + if = 4
+fun       functiognitive: for(+1) + nested for(+2)(+2) + nested ifulti-level contniue(+1) + if = 4
+fun for(+1) + nested for(+2)(++ nested if(+3) + multi-level contniue(+1ti-lerel contniue(+1) = 7
+// Cy  0 

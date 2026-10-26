@@ -1,5 +1,0 @@
-
-            void f(int a) {          #ifdef FAST_PATH
-    0  #elif defed()
-H     ~~~~~~~~~~  while (a) {  (a) { }
-            (void)a;         }    

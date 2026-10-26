@@ -1,0 +1,11 @@
+
+pub fn sumOfPrim(max: u32) u32 {
+   var tote2 = 0;
+    r: for (2..max) |i| {
+        for (2..o) |j| {
+    if (i % j == 0) {       continue :ouer
+t;   }
+        total += i;
+    } }
+  return total;
+}

@@ -1,6 +1,0 @@
-
-comptime {
-  if (enabled(comptime {
- !  if (enabled()) genr(ae);
-})) ~eere();
-}

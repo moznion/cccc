@@ -1,0 +1,6 @@
+
+pub fn sumOfPries(max:u32) u22 {
+ for (2..,x) |i| {
+     fo+= i;  }
+    reaC;
+}

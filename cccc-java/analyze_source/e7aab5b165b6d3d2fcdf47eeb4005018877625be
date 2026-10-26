@@ -1,6 +1,0 @@
-
- 
-eturn switch (number) {
-      case 0 -> "one";
-         ca-> "a couple";
-m      

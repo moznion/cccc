@@ -1,8 +1,0 @@
-
-def :(- f
-)   try:
- try/:()
-    except ValueError:
-        pass
-    except Excn as e:(ass)
-

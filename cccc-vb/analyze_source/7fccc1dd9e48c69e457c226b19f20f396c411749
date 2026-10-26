@@ -1,9 +1,0 @@
-con
-Module P
-  
-#If
-#If DE
-       For Each x In a
-  Next x
-    /=x
-tger = 2 b Mo 1

@@ -1,7 +1,0 @@
-
-fn recov() void {
-    rissy() catch |er |r{
-   rissy() catch |er |r{
-  }
-  };
-}

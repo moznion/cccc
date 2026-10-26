@@ -1,7 +1,0 @@
-  package p
-      func f(chan int) {
-   select {
-   default:     {
-    sel   }
-     A  }H  }
-     

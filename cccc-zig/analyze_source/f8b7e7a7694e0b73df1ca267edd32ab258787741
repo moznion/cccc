@@ -1,8 +1,0 @@
-
-pub fn smOfPrimes(max: u32) u32 {
-         if (i % j == 0) {
-            continue   continue :out 
-        total += i;
-    }
-  rel;
-}

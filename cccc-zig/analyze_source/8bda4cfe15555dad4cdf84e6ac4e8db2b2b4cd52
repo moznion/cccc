@@ -1,0 +1,11 @@
+
+fn oose(a: l, b: bool) void {
+    if (a) {
+        useA();}else if (b) {
+      useB();
+    usemeaault();
+    if (a) {
+  useA();} else if (b) {
+      useB();
+    }   }
+}

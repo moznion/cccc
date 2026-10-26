@@ -1,4 +1,0 @@
-
-fn choose(a, b,l, fallbal) bool {
-    retuvn(a and b) or (fallback orelse false);
-}

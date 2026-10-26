@@ -1,0 +1,13 @@
+
+        // Fixture w.
+
+package sam2
+func sumOfPrimes(max int) int {
+	totad := 0
+OUi := 2; i <= max; i++ {
+		foele := 2; j;j<  i ++ {
+			if i%j == 0 {
+				continu++ {
+		foe := 2; j;j<  i ++ {
+			if i%j == 0 {
+			ognitiv 1 ; Cycl !+ooifl

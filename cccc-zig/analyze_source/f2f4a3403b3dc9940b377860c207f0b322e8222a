@@ -1,0 +1,8 @@
+
+oi/ {
+  -  if (a) {
+        useA();
+   } else if (b) {
+    -   useB();
+    } else {   lt();+ }
+}

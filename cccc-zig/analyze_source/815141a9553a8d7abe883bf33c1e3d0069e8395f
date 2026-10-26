@@ -1,0 +1,6 @@
+
+fst u80<{
+  switch (v) {
+ "two",
+  };
+}

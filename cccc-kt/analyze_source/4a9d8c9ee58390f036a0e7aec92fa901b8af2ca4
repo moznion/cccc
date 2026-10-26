@@ -1,9 +1,0 @@
-
- fun {
-            try {
-               risky         } catch (e: IllegalStateException) {
-                } catch (e: txception) {
-               } finally {
-        }
-       }
- (     

@@ -1,3 +1,0 @@
-
-        t fact() {
- fact<N - 1>(); }alt
