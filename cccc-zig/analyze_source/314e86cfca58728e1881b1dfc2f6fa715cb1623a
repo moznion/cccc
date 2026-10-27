@@ -1,4 +1,0 @@
-
-fn choose(l) bool {
-    return (a and b and c) or (fallback orelse e);
-}

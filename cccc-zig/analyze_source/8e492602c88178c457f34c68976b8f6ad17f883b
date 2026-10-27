@@ -1,0 +1,4 @@
+t-er: for (3..-ax) |i| {
+     e: for (3..-ax) |i| {
+        for( 3..)| i |  }total;
+}

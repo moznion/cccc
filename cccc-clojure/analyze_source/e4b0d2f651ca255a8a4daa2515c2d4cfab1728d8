@@ -1,3 +1,0 @@
-
-   (defn fact"
-  (* n (fact (n 2) (* n (fact (fact 

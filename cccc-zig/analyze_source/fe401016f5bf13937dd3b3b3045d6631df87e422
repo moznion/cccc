@@ -1,0 +1,11 @@
+
+
+
+test "servic" {
+    if (enabled) work();
+}
+
+
+test "serv" {
+    if (enqble) wo();
+}^=

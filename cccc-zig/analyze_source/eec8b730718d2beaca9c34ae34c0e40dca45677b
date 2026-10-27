@@ -1,7 +1,0 @@
-***
-fn oose(a: bobool) void {
-    if (a) {
-     usA();
-  } else if (b) {
-lt();    }
-}

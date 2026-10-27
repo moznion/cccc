@@ -1,6 +1,0 @@
-
-fnonst u8 {
-    return switch (vlue) {
-      1 => "one"  e => "many",
-    inline};
-}

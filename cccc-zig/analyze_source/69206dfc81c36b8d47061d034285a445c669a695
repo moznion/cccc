@@ -1,6 +1,0 @@
-
-t {
-  return switch (value)  {
-     Q,QQQQQQ,
-    2    };
-}

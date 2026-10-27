@@ -1,0 +1,32 @@
+
+         (  def f
+  l       case x                 else               case x                 else 3
+ff(x)
+      case x          else 5
+        &  case x
+           else 3
+        case x                     else 3
+        &  case x
+           else 0
+        case x                 else 3
+[[[[[[[[[[[[[[[[[[[[[[case x
+           else 6
+        case x                 else 3
+  ase x          else 3
+        &  case x
+           else 3
+        case case x          else 5
+        &  case x
+           else 3
+        case x                     else 3
+        &  case x
+           else 3
+        case x                 else 3
+        & [[[[[[[[[[[[[[[[[[[[[[case x
+           else 3
+        case x                &- else 3
+  ase x          else 3
+        &  case x
+           else 3
+        case x               x                 else 3
+        & [[[[[[[[[[[[[[[[[[,

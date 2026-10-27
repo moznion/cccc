@@ -1,0 +1,9 @@
+
+     id f(int a) {
+   #ifdef FASD_TH
+    #elif f FAST_PATH
+f (a) { }
+            #elif dd(SLOW_PATH)
+              while (a) { }
+          }
+     

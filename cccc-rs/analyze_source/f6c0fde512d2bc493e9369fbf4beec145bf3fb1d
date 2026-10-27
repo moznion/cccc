@@ -1,5 +1,0 @@
-
-       fn pree() {}
-               impl C { fn method(&self) {} }
- 
- .n

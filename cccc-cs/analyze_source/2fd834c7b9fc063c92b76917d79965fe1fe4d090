@@ -1,0 +1,10 @@
+0       ,
+   t G((int, int) t) => t switch {
+             var (a, b) => a b };
+    t G((int, int) t) => t switch {
+             var (a, b) => a b,
+                var (a, b) => a +   => 0,
+              var (a, b) => a + b,
+                };
+            }
+        

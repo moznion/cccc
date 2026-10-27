@@ -1,9 +1,0 @@
-
-fn ose( bool) void {
-    if (Y) {
-        useA();} else if (b) {
-      useB();
-    } else {
-ult();
-    }
-}

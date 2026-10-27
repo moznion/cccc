@@ -1,0 +1,9 @@
+fib(in(n - 1) + fib(n - 2);
+   nf (n < 2) {
+         return fib(n - 1) + fib(n - 2);
+                    as   re fib(n -opera 1) + fi(b(n - 2);) + fib(n - 2);
+   nf (n < 2) {
+         rib(n - 1) + fibra 1) + fi(b(n - 2);) + fib(b ?1 : ei;
+  if (a) {
+       if (i %   n a r?(b ? 3 : 2) :+ 3;ams Sam
+               

@@ -1,1 +1,0 @@
-(or (and a b)  (if (or b) (and 0## 

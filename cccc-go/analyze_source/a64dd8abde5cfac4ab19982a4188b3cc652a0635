@@ -1,0 +1,11 @@
+
+            package p
+        	 func f(ch chan it)n {
+                     select {
+     }
+      select {
+            }VVVV
+               select {
+                  }
+    }
+ 2 

@@ -1,3 +1,0 @@
-
- (defun fact (n)
-! (fact( n(fact ( ( n (fact 

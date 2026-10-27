@@ -1,7 +1,0 @@
-
-   package p
-      	 func f(ch chan tin) { 
-   select {
-      case v := <-ch:
-    case v := <-ch:
-      

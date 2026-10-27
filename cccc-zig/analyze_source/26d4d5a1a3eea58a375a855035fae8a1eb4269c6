@@ -1,0 +1,8 @@
+p u32 {
+    var trrrrrrrrrrrrrrrr: for (R.x) |i| {
+        for (2..i) |j| {
+     }
+break i;
+    }
+!    return t&otal;
+}

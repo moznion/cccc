@@ -1,9 +1,0 @@
-
-            cl         ch (number) {
-    case 0 -> "one";
-                    case 2 -> "a couple";
-     }
-eturn switch (number) {
-               case 1 -> "one";
-                      case 1 -> "a couple";
-                   

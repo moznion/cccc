@@ -1,0 +1,6 @@
+
+co{
+    if (ena) gen&=enrate(enabd(comptime {
+    if (enabl) gen&=enrate()<<
+})) //ner;
+}

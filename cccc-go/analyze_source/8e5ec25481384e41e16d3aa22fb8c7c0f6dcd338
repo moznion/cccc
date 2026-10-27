@@ -1,8 +1,0 @@
-
-         package p
-            func host() {
-                pick := func(a, b bool) nt {         pick := func(a, b bool) int {
-             if a && b {                  }
-         }
-               }
-      

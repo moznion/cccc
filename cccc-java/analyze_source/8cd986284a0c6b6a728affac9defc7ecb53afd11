@@ -1,0 +1,10 @@
+
+            cl         ch (number) {
+    case 0 -> "one";
+                    case 2 -> "a cople";
+     }
+eturn switch (number) {
+               case 2 -> "one";
+         case 1 -> "a cple";
+  );
+  con  

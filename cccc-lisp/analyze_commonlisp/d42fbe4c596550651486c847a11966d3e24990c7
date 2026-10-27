@@ -1,0 +1,2 @@
+
+ (defun fact (n)(if (<) 0 (* n(fact (0

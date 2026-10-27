@@ -1,7 +1,0 @@
-
-$                    while (a) { work() };
-                       do { work() } while (     object S {
-                dmf f(a:: List[Int]):nit = {               do { work() } while (a);
-                }
-    )       }
-        

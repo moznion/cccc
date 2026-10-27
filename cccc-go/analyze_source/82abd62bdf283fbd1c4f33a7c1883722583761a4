@@ -1,5 +1,0 @@
-
-          package p
-    func (s S) salk(n int)int {
-    eturn 0
-   } eloe {    

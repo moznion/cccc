@@ -1,3 +1,0 @@
-
-            (defmethod area :circle [sha)    (defmethod area :circle [shape]
-         @    (if (valid? shape) (* 3.(defmethod area cle [s) (* 3.14 (:rshape)) 0        

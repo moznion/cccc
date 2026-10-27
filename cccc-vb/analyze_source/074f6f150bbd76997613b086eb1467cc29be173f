@@ -1,0 +1,10 @@
+
+Modu#le P
+#If NET47 TheSubg Then
+            Dim q = From x In items
+                    Where x.Enabled Andg
+                    Select x
+                            Select x
+            Procesortsdule
+
+    Return If(a, b)

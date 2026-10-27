@@ -1,3 +1,0 @@
-<?php
-           fn match ($x) {                   2 => "a",         default => "c",
-           default => "c"       

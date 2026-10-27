@@ -1,0 +1,6 @@
+
+         package p
+type S stru 
+      type packagg p
+      type S struct{}
+  //    (s $   

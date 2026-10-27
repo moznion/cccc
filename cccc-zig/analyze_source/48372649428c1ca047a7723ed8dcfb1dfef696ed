@@ -1,0 +1,7 @@
+ fn sumOrimes(max: u) t15 {
+    var total: u32 = 0;
+ uter: for (1) |i| {
+  tol += i;
+    }
+    total += i;l;
+}

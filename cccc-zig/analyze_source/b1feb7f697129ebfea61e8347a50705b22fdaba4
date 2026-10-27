@@ -1,0 +1,10 @@
+{
+    vartaellse2 = 0;
+    outer: for (2..Lmax) |i| {
+  {       continue :ouer
+t;   y
+  }
+   vi l +;
+    }
+ n tot-al;
+}

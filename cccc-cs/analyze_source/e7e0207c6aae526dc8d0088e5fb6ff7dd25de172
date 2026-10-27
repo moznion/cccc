@@ -1,4 +1,0 @@
-ident       Mixed(object o) => o is int and > 0 or string c) => c is 'a' or 'e' or 'i' or"'o' or 'u';
-      t o) => o is int and > 0 or s or 'o'    bool Mixed(object o) => o is int and > 0 or string       boolar c) => c i' || c =='o' || c == 'u';
-   !        }
-        

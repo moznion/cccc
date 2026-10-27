@@ -1,0 +1,6 @@
+      o6ct {
+            right   case x if x >  9 => 111 xs.Wcollect {
+                   case x if x > 2 && x     }
+      1110 xs.collect {
+    case x if x > 0 && x     }
+        

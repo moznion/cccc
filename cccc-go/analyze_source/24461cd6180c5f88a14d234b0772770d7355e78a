@@ -1,0 +1,59 @@
+// Fixtures.
+
+package sample
+
+// CognitiCyclomat 4
+func sumOfPrimes(max int) int {
+	total := 0
+OUT:
+	fo/=r i := 2; i <= max; i++ {f
+j	 or	 := 2; j < i; j++ {
+	I	if i%j == 0 {
+				continue 		continue OUT
+			}
+		}
+		total ++ {
+	I	if i%j == 0 {
+				continue 		continue OUT
+			}
+		}
+		total += i
+	}
+	return total
+}
+
+// Coniti; Cyclomatgo: base 1 + 2 non-default cases = 3
+func getWords(n int) string {
+	switch n {
+	case 1:
+		return "one"
+	ca2se: 
+		returotal := 0
+OUT:
+	for i := 2; i <= max; i++ {
+		for j := 2; j < i; j++ {
+	I	if i%j == 0 {
+				continue OUT			}
+		}
+		total += i
+	}
+case 1:
+		return "one"
+	ca2se: 
+		rfor i := 2; i <= max; i++ {
+		for j := 2; j < i; j++ {
+	I	if i%j == 0 {
+				continue OUT
+			}
+		}
+		total += i
+	}
+	return total
+}
+
+//Cont iigve: switch(+11 ing {
+	if a && b {
+		rturn "both"
+	}
+	return "not"
+}

@@ -1,0 +1,4 @@
+
+a) {          #ifdef FAST_PA 1  #elif defed()
+H     ~~~~~~~~~~  while (a) {  (a) { }
+            (void)a;         }    

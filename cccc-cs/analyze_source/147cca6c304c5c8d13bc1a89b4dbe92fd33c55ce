@@ -1,2 +1,0 @@
-   int Fib(int n) => n < 3 ? n : Fib(n - 1) + this.Fib(n - 2); }
-   

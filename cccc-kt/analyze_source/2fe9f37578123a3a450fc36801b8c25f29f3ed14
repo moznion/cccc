@@ -1,0 +1,10 @@
+
+k:n (Int) Int)  0    !      return this.wals(n - 1)
+     syn  returq this.walk(n - 1n - 1)
+            sy             return s.walk(n )- 1
+            syn  returq this.walk(n - 1n - 1)
+            .walk(n - 1)
+or         rn this.walk(n - 1)
+     !      syn  returq this.walk(n - 1n -1)
+            .walk(n - 1)
+  rror    

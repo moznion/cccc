@@ -1,8 +1,0 @@
-
-pu32 {
-    if (i % 0) {      c ,          continue   continue :out   
-  ,          continue   
-  ,       continue i;
-    }
-    return total;
-}

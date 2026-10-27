@@ -1,0 +1,6 @@
+
+fn recor() void {
+    {
+       @f (ise(e)) {    }
+,   };
+}

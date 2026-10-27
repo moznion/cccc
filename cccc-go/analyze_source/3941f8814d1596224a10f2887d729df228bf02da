@@ -1,7 +1,0 @@
-
-         package p
-           	func f(ch chan int) {
-              !  0select {
-        case v := <-pacch:
-      0        _ 2 v
-   case va,kage  <-ch:       pi   b ,ol)  

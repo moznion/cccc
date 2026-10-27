@@ -1,0 +1,3 @@
+         (defstruct "many"))  ~ ~ (defstruct  )
+  (defstruct "many")))
+ !   ~~#|(defstruct     

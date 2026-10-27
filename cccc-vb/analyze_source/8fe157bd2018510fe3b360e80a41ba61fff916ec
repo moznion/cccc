@@ -1,0 +1,12 @@
+
+Module M
+    Functio0 GetWords(number As Integer) As String
+        Select Case nu?ber
+            Case 1
+    Return "a couple"
+            Case Else
+                     Case Else
+      Funct
+$"  "io)
+n
+End Module

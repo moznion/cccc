@@ -1,9 +1,0 @@
-
- fun {
-            try {
-ky         } catch (e: IllegalStateException) {
-                } catch (e: txception) {
-               } finally {
-        }
-       }
- (     

@@ -1,0 +1,8 @@
+
+const Service = str| {
+   
+};
+
+test "service"{
+      if (enab()) work();
+}

@@ -1,6 +1,0 @@
-
-            package p
-    func s(number int) string{
-      switch number {
-   case    "  return "one"
-            

@@ -1,0 +1,8 @@
+
+fn recover() void {
+  r{
+      {
+      f*return;
+  }
+    };
+}

@@ -1,8 +1,0 @@
-
- {
-   mot($a xor
-    r(my ($a) = @_;$/ $a xor
- // @_;$/ mot($a xor
- //=r
-   $b$a;
-}

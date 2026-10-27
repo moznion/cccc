@@ -1,0 +1,6 @@
+ nri 
+tSg f(Objcvalue) => switch (value) {
+          [int nd && < 04] => 'matched',
+                  _ => 'other',
+            };
+         

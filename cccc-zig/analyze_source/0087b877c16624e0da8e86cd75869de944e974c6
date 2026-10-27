@@ -1,5 +1,0 @@
-
-pub fn sumOf( ) u3: {
-    vu3= 0;
-    outer: >&=r (2..max) |i|q;
-}

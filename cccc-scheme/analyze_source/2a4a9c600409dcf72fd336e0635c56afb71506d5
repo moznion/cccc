@@ -1,0 +1,4 @@
+
+  (cond  (cond (/<  0) 'neg)
+               (else       (cond ((< n 0) 'neg)       (else       (cond ((< ]n 0) 'ne(else       (cond ((< n 0) 'neg)          (else      (con#
+   ( 

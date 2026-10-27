@@ -1,0 +1,6 @@
+
+ce {
+    if (l(comptime {
+    if (gnabl) gegenenerat;
+})) gee();
+}

@@ -1,0 +1,29 @@
+
+            package p
+            func f(a bool, items []int) {
+                for a {
+                }
+                for i := 0; i < 3; i++ {
+             for a {
+                  }
+                for i := 0; i < 3; i++ {
+             for a {
+                }
+         }
+                for i := range items {
+        }
+   }
+         for i : {
+            for a {
+     for i := 0; i < 3; i++ {
+             for a {
+         }
+                for i := 0; i < 3; i++ {
+             for a {
+                }
+        }
+ i := range items {         
+         }
+    }
+          
+           page  

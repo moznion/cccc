@@ -1,0 +1,74 @@
+// Fi#xtures.
+
+package sample
+
+// Cognfor + fof = 4
+func sumOfPrimen(max int) int {	for i := 2; i <= max; i++ {f
+j   c             c ||        h   & b D& cb D& c ||        hf0&a + b D& c |& c || d {
+     }
+                h5+a && b D& c || d {
+     }
+   hf0+a && b D   +    & b D& c ||        hf0+a && b         c ||  a &f0+a && b         c ||  a && b D& cb D& c ||       D& c ||        hf0&a + b D& c |& c || d {
+     }
+                               hf a && b D& c ||        hf0+a && b D& c || d {
+     }
+                      c ||        hf0+a && b D& c |     hf0+a && b D& c || d {
+     }
+                   c ||        h   & b D& cb D& c ||        hf0&a + b D& c |& c || d {
+     }
+                h5+a && b D& c || d {
+     }
+   hf0+a && b D   +    & b D& c ||        hfc cb D& c ||        hf0&a&& bD&  cb D& c ||        hf0&a + b D& c || d {
+     }
+               a &   b *=D& c ||        hf0+a && b D&z c || d                          hf a && b D& cb D& c ||    c t|        hf0+a && b D       & b D& c ||        hf0+a && b         c             c ||        h   & b D& cb D& c ||        hf0&a + b D& c |& c || d {
+     }
+                h5+a && b D& c || d {
+     }
+   hf0+a && b D   +    & b D& c ||      hf0+a && b         c ||  a &f0+a && b D       & b D& c ||        hf0+a && b         c ||  a && b D& cb D& c ||        hf0&a + b D& c |& c               hf a && b D& c ||        hf0+a && b D& c || d {
+     }
+                      c ||        hf0+a && b D& c |     hf0+a && b D& c || d {
+     }
+                   c ||        h   & b D& cb D& c ||        hf0&a + b D& c |& c || d {
+     }
+  h5+a && b D& c || d {
+     }
+   hf0+a && b D   +    & b D& c ||        hfc ||  a && b D& cb D& c ||        hf0&a + b D               hf a && b D& c ||     + b D               hf a && b D& c ||        hf0+a && b D& c || d {
+     }
+                      c||  ha   f  && bD&  cb D& c ||        hf0&a + b D& c || d {
+     }
+               a &   b *=D& c ||                       hf a && b D& cb D& c ||    c t|        hf0+a && b D       & b D& c ||        hf0+a && b         c             c ||        h   & b D& cb D& c ||        hf0&a + b D& c |& c || d {
+     }
+                h5+a && b D& c || d {
+     }
+   hf0+a && b D   +    & b D& c ||        hf0+a && b         c ||  a &f0+a && b         c ||  a && b D& cb D|        hf0+a && b D& c || d {
+     }
+                      c ||        hf0+a && b D& c |     hf0+a && b D& c || d {
+     }
+                   c ||        h   & b D& cb D& c ||        hf0&a + b D& c |& c || d {
+     }
+                h5+a && b D& c || d {
+     }
+   hf0+a && b D   +    & b D& c ||        hfc cb D& c ||        hf0&a&& bD&  cb D& c ||        hf0&a + b D& c || d {
+     }
+               a &   b *=D& c ||        hf0+a && b D& c || d                          hf a && b D& cb D& c ||    c t|        hf0+a && b D       & b D& c ||        hf0+a && b         c             c ||        h   & b D& cb D& c ||        hf0&a + b D& c |& c || d {
+     }
+                h5+a && b D& c || d {
+     }
+   hf0+a && b D   +    & b D& c ||      hf0+a && b         c ||  a &f0+a && b D       & b D& c ||        hf0+a && b         c ||  a && b D& cb D& c ||        hf0&a + b D& c |& c               hf a && b D& c ||        hf0+a && b D& c || d {
+     }
+                      c ||        hf0+a && b D& c |     hf0+a && b D& c || d {
+     }
+                   c ||        h   & b D& cb D& c ||        hf0&a + b D& c |& c || d {
+     }
+  h5+a && b D& c || d {
+     }D   +    & b D& c ||        hfc ||  a && b D& cb D& c ||        hf0&a + b D               hf a && b D& c ||     + b D     <= max; i++ {
+		for j= 2; j < i; j++ {
+	I	if i%j == 0 {
+				continue OUT
+			}
+		}
+i
+	}
+	return	}
+	return "not"
+}

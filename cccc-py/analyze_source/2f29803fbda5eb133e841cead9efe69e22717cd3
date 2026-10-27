@@ -1,0 +1,6 @@
+
+def :(- f
+)   try:
+ try/:()
+    except Vor:    except Excn as e:()
+

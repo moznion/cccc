@@ -1,0 +1,6 @@
+
+            fn f(n: i32) -> i32 {
+             match n {                   x if x > 10 && x < 20 => 1,
+ }
+     u32| xbaambda = |x:&u32| xbbbbbbbbbbbb1; }
+       

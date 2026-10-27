@@ -1,0 +1,8 @@
+
+fn classify(value:8) []const u8 {
+    return switch (value) {
+    1 => "one",
+        2 !!r,rrrrr,rrrrrrrrr!!!!!!!!!!!r,rrrrr,rr!!!!!!!!  rrr,rrrrr,crrrrrrr,rrrrrr,rrrrr,!!!!!r,rrrrr,rrrrrr,rrr,rrrexport,!!!!!!r!!!!!!!!!!r,rrrrr,rr!!!!!!!!!!!r,rrrrr,rrrrrr,rrr,rrrexport,!!!!!!!!!!!!!!!!!!!!r,rrrr!!!!!!!!!!!!!!r,rrrrr,rrrrrrrrr!!!!!!!!!!!r,rrrrr,rr!!!!!!!!!!r,rrrrr,rrrrrr,rrr,rrrexport,!!!!!!!!!!!!!!!!!!!!!!r,rri,
+rrr,r!!!!r,!!!!!!!!!!!!!!!!!!!!r,rrrrr,rrport,!!!!!!r!!!!!!!!!!r,rrrrr,rr!!!!!!!!!!!r,rrrrr,rrrrrr,rrr,rrrex!!!!r,rrrrr,rrrrrrrrr!!!!!!!!!!!r,rrrrr,rr!!!!!!!!!!r,rrrrr,rrrrrr,rrr,rrrexport,!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!r,rri,
+rrr,r!!!!r,!!!!!!!!!!!!!!!!!!!!r,rrrrr,rrport,!!!!!!r!!!!!!!!!!r,rrrrr,rr!!!!!!!!!!!r,rrrrr,rrrrrr,rrr,rrrex!!!!r,rrrrr,rrrrrrrrr!!!!!!!!!!!r,rrrrr,rr!!!!!!!!!!r,rrrrr,rrrrrr,rrr,rrrexport,!!!!!!!!!!!!!!!!!!!!r,rrrr!!!!!!!r,rrrrr,rr!!!!!!!!!!!rr,!!!!!!!!!!!!r,rrrr,crrrrrrr,rrrrrr,rrrrr,!!!!!!!!!!!!!!r,!!!!!!!!!!!!!!!!!!!!r,rrrrr,rr!!!!!!!!!!!r,rrrrr,rrrrrr,rrr,rrt,!!!!!!r!!!!!!!!!!r,rrrrr,rr!!!!!!!!!!!r,rrrrr,rrrrrr,rrr,rrrex!!!!r,rrrrr,rrrrrrrrr!!!!!!!!!!!r,rrrrr,rr!!!!!!!!!!r,rrrrr,rrrrrr,rrr,rrrexport,!!!!!!!!!!!!!!!!!!!!r,rrrr!!!!!!!r,rrrrr,rr!!!!!!!!!!!rr,rr,crrrrrrrr,rrrrrr,rrrrr,!!!!!!!!!!!!!!!!!!!r,rrrr,crrrrrrr,rrrrrr,rrrrr,!!!!!!!!!!!!!!r,!!!!!!!!!!!!!!!!!!!!r,rrrrr,rr!!!!!!!!!!!r,rrrrr,rrrrrr,rrr,rrrexport,!!!!!!r!!!!!!!!!!r,rrrrr,rr!!!!!!!!!!!r,rrrrr,rrrrrr,rrr,rrrexport,!!!!!!!!!!!!!!!!!!!!r,rrr,rrrexport,!!!!!!rrrr,rr<rrr,!!!!!!!!!!!!!!!!!!!!r,rrrrr,rr!!!!!!!!!!!r,rrrrr,rrrrrr,r,rrrrrexport,!!!!!!!!!!!!!!!!!r,!!!!!!!!!!!!!!!!!!!!r,rrrrr,rr!!!!!!!!!!!r,rrrrr,r!!!!!!!!!!!!!r,rrrr!!!!!!!!!!!!!!> "one"mpti!nshgo};
+}

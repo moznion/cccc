@@ -1,0 +1,4 @@
+
+Interface
+#If c AsDDDDDDDDD ed
+    Default Public Property Item(Optional i As Integer = 0) As Rtring Implements 

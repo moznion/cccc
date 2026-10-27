@@ -1,0 +1,10 @@
+
+          return when (n) 
+ _ {
+             &      1 -> "one"       2 -> "a couple"
+      -> "lots"
+          1 -> "one"
+        ~ 
+ 2 -> "asyntax error at line 111-> 
+            }
+   

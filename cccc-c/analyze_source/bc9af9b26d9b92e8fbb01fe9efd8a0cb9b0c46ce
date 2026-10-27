@@ -1,4 +1,0 @@
-
-            void f(int a) {          #ifdef FAST_PA 0  #elif defed()
-H     ~~~~~~~~~~  while (a) {  (a) { }
-            (void)a;         }    

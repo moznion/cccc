@@ -1,3 +1,0 @@
-(    class C { met ;
-         const add = (a, b) => a + b;
-             const add = (\

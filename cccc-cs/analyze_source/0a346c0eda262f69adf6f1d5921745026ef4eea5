@@ -1,0 +1,4 @@
+   class C {
+            #if NET
+    lic static int Pick(int a,int b)YYYY   #endif }
+        

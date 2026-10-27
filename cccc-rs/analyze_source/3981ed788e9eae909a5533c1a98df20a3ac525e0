@@ -1,7 +1,0 @@
-
-      a &      fn f(n:i31)  -> i32 {
- 
-          fn  2outer() {
-                fn in~er() { if true {} }
-       fn  1box fn in~er()          }
-        

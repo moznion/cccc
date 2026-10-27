@@ -1,0 +1,7 @@
+
+         objet : BohInt]
+                    case Some(x) => x 
+            {
+              case s: Str
+   case None => 0e 
+               

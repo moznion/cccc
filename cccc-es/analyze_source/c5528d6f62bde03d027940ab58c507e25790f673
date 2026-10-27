@@ -1,0 +1,3 @@
+-
+ d_eq!(outlen(), 1);
+switch (n) { case 1: breqk; case 0: break; default: brakemeber           } Z
