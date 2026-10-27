@@ -15,4 +15,4 @@ cccc-core = { workspace = true }
 # `bindgen` generating the bindings), so building this crate requires a C99
 # compiler and libclang. `ruby-prism` provides the `Visit` full-traversal trait
 # we drive lowering from.
-ruby-prism = "1.9.0"
+ruby-prism = "2.0.0"
