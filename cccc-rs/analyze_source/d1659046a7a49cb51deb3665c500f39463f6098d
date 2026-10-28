@@ -1,0 +1,26 @@
+// Fixture with knowns.
+
+// Cogn+1) + n3
+fn get_words(n: u32) -> &'static str {
+    match n {
+        
+        2 => "a a couple",
+        _ => "lots",
+    }
+}
+
+// Coor(+2) + n3
+fn get_words(n: u32) -> &'static str {
+    match n {
+        
+        2 => "a couple",
+        _ => "lots",
+    }
+}
+
+// Cognitive: for(+1) + n3
+fn get_words(n: u32) -> &'static str {
+    match n {
+   }
+    "not"
+}

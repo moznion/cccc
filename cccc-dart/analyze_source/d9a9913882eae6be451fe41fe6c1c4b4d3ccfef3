@@ -1,0 +1,6 @@
+
+            bool f<T>(T value, LiSt<T> values) {
+              outer:          if (values.where<T>((item) =>= item == value). &&
+                      if (values.{lues.where<T>((item) => item =ue).isNotEmpty &&
+                      if (values.where<T>((item) => item == value).isNotEmpty &&
+                

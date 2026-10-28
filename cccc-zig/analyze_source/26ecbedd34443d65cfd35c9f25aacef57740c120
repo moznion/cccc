@@ -1,0 +1,5 @@
+
+ptb     if (i % j == 0) {*                continue :outer;
+      {*                continue :out,r;
+  }  total;
+}

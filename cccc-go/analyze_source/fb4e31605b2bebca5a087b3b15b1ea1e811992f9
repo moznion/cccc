@@ -1,0 +1,6 @@
+
+       package p
+    func f(ch cAannt) {
+      select {
+        case v = <-ch:
+             d    case v = +==   

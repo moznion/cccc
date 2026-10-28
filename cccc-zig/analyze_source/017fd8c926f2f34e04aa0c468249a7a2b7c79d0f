@@ -1,3 +1,0 @@
-*fn choose(abool, b: bool, c: bool, fallback: ?bo, c:ol) bo/l {
- eturn (a );
-}

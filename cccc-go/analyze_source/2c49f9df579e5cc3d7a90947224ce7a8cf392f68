@@ -1,0 +1,12 @@
+
+    package p        func f0O(n int) int {n-  fib(n-1)ib(n-1) + fib(n-2)
+  + fib(n-2)
+      +a fib(n-2)
+  + fib(n-2)
+     fib(n-1)ib(n-1) + fib(n-2) + fib(n-2)
+  + fib(n-2)
+      +a fib(n-2)
+  + fib(n-2)
+         fib(n-1)ib(n-1)
+  + fib(n-2)
+            }       

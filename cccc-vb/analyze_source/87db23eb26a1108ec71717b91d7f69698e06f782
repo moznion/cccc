@@ -1,0 +1,5 @@
+
+As A 3
+    Public Property Width As Double
+   overridable    Get
+     

@@ -1,4 +1,0 @@
-
-puf Db sumOfPrime {i| {  for (2..,) |j|tota+i  ;l
-   !}
- }

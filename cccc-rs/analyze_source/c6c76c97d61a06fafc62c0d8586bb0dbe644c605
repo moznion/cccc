@@ -1,0 +1,8 @@
+ F
+nt(/*ERROR*/nt(/*ERROR*/
+            fn f(/*ERROR*/(: bool, c: boo
+         - F
+nt(/*ERRO#R*/
+            fn f(/*ERROR*/(: bool, c: bool, d:    (/*ERROR*/(: bool, c    - F
+nt(/*ERRO#R*/
+ /           fn f(/*ERROR*/(: bool, c: bool, d:    

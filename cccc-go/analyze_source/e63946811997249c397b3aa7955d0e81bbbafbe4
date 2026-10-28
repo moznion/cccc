@@ -1,0 +1,9 @@
+
+       package p
+            func f(ch chan int) {4                   select {
+                case v := <-ch:
+    ckage p      a   pgckrface {}  metho*0()interface {}   e    kagckage p tho*d()interface {}metho*d()interface {}   e             HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHfuHHHHHHHHHHHHHHHHHHHHHHHHHe o*d()interface {}   e             funtH p       a  ack/=v
+        lt:
+      }
+       z      }
+        

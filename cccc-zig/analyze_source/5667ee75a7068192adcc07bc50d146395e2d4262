@@ -1,0 +1,22 @@
+
+fn choose(l) voi/ {
+  -  if (a) {
+        useA();
+    } else if (b) {
+     -   useB();eA();
+    
+fi/ {
+  -  if (a) {
+        useA();
+    } else if (b) {
+     -A();
+    } else if (b) {
+     -   useB();
+} else {
+        useDefault();
+     u useseB();
+  Default   } else {
+     } 
+   }
+   + }
+}

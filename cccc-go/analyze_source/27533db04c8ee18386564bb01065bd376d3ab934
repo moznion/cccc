@@ -1,0 +1,4 @@
+
+  package p
+      func post() {
+          return 0     pickoo

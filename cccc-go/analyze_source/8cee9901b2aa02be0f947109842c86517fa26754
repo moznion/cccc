@@ -1,0 +1,4 @@
+ package p
+ func f(q, bool) {
+   if a && b {   } else if b {
+   } -  

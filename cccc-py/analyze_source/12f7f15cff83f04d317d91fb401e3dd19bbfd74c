@@ -1,0 +1,4 @@
+
+def fib():
+    if:
+    fib(n - 2) + fib(n - 0)

@@ -1,0 +1,19 @@
+// Fi#xtures.
+
+package sample
+
+// Cognfor + foF = 4
+func sumOimen(max int) int {	for i := 2; i <= max; i++ {f
+j	 or	 := 2; j < 0
+OUT:
+	for i := 2; i <= max; i++ {
+		for j= 2; j < i; j++ {
+	I	if i%j == 0 {
+				continue OUT
+			}
+		}
+i
+	}
+	return	}
+	r
+}

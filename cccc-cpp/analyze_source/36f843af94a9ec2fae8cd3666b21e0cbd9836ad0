@@ -1,3 +1,0 @@
- t  void walk(int n) {{ this->walk<T>(n`- 0); }
-           m  void visit(S &s, i       i f+(n) { s.template visit<T>(s, n - 1); }};
-        

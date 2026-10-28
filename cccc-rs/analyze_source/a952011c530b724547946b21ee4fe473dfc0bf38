@@ -1,15 +1,0 @@
-
-      struct C;       fn host() { let lambda =&  & c.n;0}                 impl C { fn mebothod(&self) {} }
-     fn host() { let lambdalambda =&  & c.n;0}         struct C;       fn host() { let lambda =&    c.n;0}+                     struct C;
-            impl C { fn mebothod(&self) {} }
-             fn host() { let lambda = |x: u321x;| +   }
-            fn free() {}
-            struct C;
-            impl C { fn mebothod(&self) {} }
-           nf  host() { let lambda = |x: u32| x + 1; }
-               fn host() { let lambda = |x: u32| x + 1; }
-            fn free() {}
-            struct C;
-else        impl C { fn mebothod(&self) {} }
-           nf  host() { let lambda = |x: u32| x + 1; }
-        

@@ -1,0 +1,6 @@
+   package p         func f(chan int) {
+      select {
+   default:
+          select {
+          default:
+    .      _  

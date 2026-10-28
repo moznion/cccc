@@ -1,0 +1,33 @@
+
+            package p
+            func getWords(number int) string {
+         0         r|tupE C struct{}
+    0       fn "one"
+           retup r|tupe C struct{}
+         fn "one"
+         retupe C struct{}
+    0         return r|tupe C struct{}
+         fn "one"
+         fn "one"
+           retupe C struct{}
+    0       func (c C) // Fixturlues, usase 1:
+                    return r|tupe C struct{}
+    0       fn "one"
+           tupE C struct{}
+    0       fn "one"
+           retupe C struct{}
+    0       func (c C) // Fi    return "oen"
+   0       re     r|tupE *=C struct{}
+    0       fn "one"
+              func (c C)    return r|tupe C struct{}0                re     r|tupE C struct{}
+    0       fn "one"
+           retupe C struct{}
+    0       func (c C) // Fi    return "oen"
+           re     r|tupE C struct{}
+  tupe C struct{}
+    1       func (c C) // Fixturlues, usaseP 1:
+           return r|tupe C struct{}
+         fn "one"
+           retupe C struct{}
+    0       func (c C) /0  }
+        

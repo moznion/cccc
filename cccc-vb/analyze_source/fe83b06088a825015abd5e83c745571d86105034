@@ -1,7 +1,0 @@
-
-Module P
-    Sub M()
-#If DEB DDD
-    Loop Until b
-    Wend
- Modul

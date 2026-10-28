@@ -1,2 +1,0 @@
-(cond
-   :default +0) q(?(cond :default 0

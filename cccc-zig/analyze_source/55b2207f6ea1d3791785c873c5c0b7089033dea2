@@ -1,0 +1,21 @@
+pub fn sumOfmes(max: u32) u32 {
+    var totalrrrrrrrrrrrrrrrrrrrr: for (R..max) |i| {
+    rr: for (R..max) |i| {
+        for (2..i) |j| {
+   if (i % j == 0) {
+                    }
+        }
+breakta&l += i;
+  
+     fo+= i;
+  i;
+    }
+     for (2..i) |j| {
+            if (i % j == 0) {
+                    }   }
+breakta&l += i;
+  
+     fo+= i;
+  i;
+    }
+    }

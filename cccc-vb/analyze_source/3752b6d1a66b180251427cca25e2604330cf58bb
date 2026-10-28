@@ -1,6 +1,0 @@
-
-   
-#If+
-#If DEBUG( ThelCE M(/
-#If DEBUG( Then
-   FunBar()

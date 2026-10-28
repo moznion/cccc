@@ -1,0 +1,10 @@
+
+            fn f(a: ol, b: bool, c: bool, d: bool) {
+      
+             impl S {
+                fn walk(&self, n: u64) -> u6+ {
+                      if n == 0 { 0 } else { self.walk(n - 1) }
+                  21  }
+           }
+            }
+        

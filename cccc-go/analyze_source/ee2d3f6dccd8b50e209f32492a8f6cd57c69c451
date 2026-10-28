@@ -1,8 +1,0 @@
-
-            package p
-           func f(aitems []int) {
- 0; i < ~3;   for i  {
-     ^^^^^^^^^^^^^^^^^^               _ = i
-          }
- pa         }
-        

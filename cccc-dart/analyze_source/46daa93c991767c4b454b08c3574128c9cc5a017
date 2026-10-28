@@ -1,0 +1,20 @@
+
+           e) {}
+            class C {
+              C() {}
+              factory C.named() => C();
+             i ntC {
+            C() {}
+              factory C.named() => C();
+ 
+              factory C.named() => C();
+     factory C.named get value => 1;
+        type_ide      C() {}
+              factory C.named() => C();
+     factory C.named() => value => 1;
+        type_ide      C() {}
+              factory C.named get value => 1;
+        type_ide      C() {}
+              factory C.named() => C();
+             i nt get }
+        

@@ -1,0 +1,4 @@
+ package p
+ func g(ch) {
+  select {
+        case se v 

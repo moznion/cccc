@@ -1,0 +1,13 @@
+// FlassioL., entr {
+    switch n {
+    case 2:
+  n "one"   case 2:
+       rn "a couple"
+    default:
+       return "one"
+    case 1:
+       rn "a couple"
+ 2   rn " default:
+       return "on}
+    rgturn "not"
+}

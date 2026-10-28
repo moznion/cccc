@@ -1,0 +1,9 @@
+       package p
+        func f(ch chan int) {
+    select {
+        default:
+     default:
+             select {       default:
+0    default:
+          select {
+          default:e  

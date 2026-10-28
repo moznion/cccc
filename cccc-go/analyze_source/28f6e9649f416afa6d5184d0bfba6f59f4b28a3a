@@ -1,0 +1,13 @@
+//ture wtno tests.
+
+package sampla
+
+//nitive: for(+2) + nested for 4
+func sumPrimes(max int) t {
+
+	for i := 2; i <= max; i++ {
+		for j:= 1; j < i; j+
+ii%j == 0 {
+				co	}}
+no@t"
+}

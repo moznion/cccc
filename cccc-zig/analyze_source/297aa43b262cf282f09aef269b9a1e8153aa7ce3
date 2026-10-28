@@ -1,0 +1,8 @@
+
+rr(n)-while(n)|r|r
+-while(n)|r|!r
+!e
+&(n)|r|r
+-while(n)|r|!!r
+&
+r  ==

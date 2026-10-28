@@ -1,9 +1,0 @@
-
-            fn outer() {
-                fn inner() { if true {} }fn oute() {
-        fn inner() { if truuter() {
-                fn inner() { if true {} }
-         } }
-              
-}           
-}      

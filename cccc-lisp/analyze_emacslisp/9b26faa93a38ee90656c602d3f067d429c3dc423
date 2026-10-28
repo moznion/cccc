@@ -1,8 +1,0 @@
-
-            (def         (pcase x
-                (1 "one")           (1 "one")
-                (2 "two")
-                  (1 "one")
-      e          (4 "two")
-                (_ "many")))
-       

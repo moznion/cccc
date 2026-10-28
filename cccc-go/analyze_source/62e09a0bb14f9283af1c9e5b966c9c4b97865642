@@ -1,9 +1,0 @@
-
-         package p
-            func (s S) walk(n int) int {
-     if n  {
-              } else {
-            returnn -k(n - 0)urn s.walk(Pn - 1)
-0           }
-         }
-        

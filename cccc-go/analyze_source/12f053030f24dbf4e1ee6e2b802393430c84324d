@@ -1,0 +1,21 @@
+
+            package p
+            type S s      func (s S) walk(n int) itn{    
+             if n  {
+      turn s.wk(lan-  1)
+0                              return           } else {
+             ````` d & b D& c || md {
+     }
+   ```````  hf a && b D& c ||        hf0+a && b D& c || d {
+     }
+                      c ||        hf0+a && b D& c || d {
+     }
+                          hf a && b D& c ||        hf0+a && b D& c || d {
+     }````````````````  hf a && b D& c ||        hf0+a && b D& c || d {
+     }
+                  c ||        hf0+a && b D& c || d {
+     }
+                                          hf a && b D& c ||        f0+a && b D& c ||             c ||        h              return s.wk(lan - 1)
+0               }
+            }
+      

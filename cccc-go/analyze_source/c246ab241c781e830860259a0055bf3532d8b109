@@ -1,7 +1,0 @@
-
-     package p
-            func f(a, b, c, d) {
-b && c |& j {
-   ``````| a&(b && c |& j {
- ````````& c |& j {
-   ````|| j { f

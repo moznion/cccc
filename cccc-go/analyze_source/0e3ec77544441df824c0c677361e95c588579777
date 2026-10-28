@@ -1,0 +1,13 @@
+
+     package p
+          
+       func (s S) walk(n int) idt {
+                if n  {
+                      } else
+   {                  retur  if n  {
+                   ec  }
+     n s.walk(n - 1)
+  turn s.walk(n - 1)
+0              }
+            }
+        

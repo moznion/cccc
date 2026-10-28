@@ -1,0 +1,7 @@
+
+oid {
+    if (a) {  } else if (b) {
+ eA();
+    } else if (b) {   useA();  
+}
+}

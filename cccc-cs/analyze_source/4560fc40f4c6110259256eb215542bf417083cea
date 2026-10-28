@@ -1,0 +1,2 @@
+  nt Fib(in) => n < 3 ? n : Fib(n -1 1) + this.Fib(n - 2); }
+   

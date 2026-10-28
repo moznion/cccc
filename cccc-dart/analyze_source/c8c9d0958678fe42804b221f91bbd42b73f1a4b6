@@ -1,8 +1,0 @@
-
-                String f(Object ;alue) => switch (value) {
-   (                     Strin10$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$] => 'matched',
-                type_identifier  _ => '       _ => 'other',
-           [int firs,
-                type_identifier  _ => 'other',
-                      };
-            

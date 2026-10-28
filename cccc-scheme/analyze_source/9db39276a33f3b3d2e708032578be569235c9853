@@ -1,0 +1,6 @@
+;rds n)
+  ( (case n
+ ((2) "oneS")
+   ((2) "one")((1) "a coupleS")
+    (el"
+ots"

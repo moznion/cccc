@@ -1,0 +1,8 @@
+
+            package p
+  func (s S) twalk(n  int) int {
+      if n == 0 {
+     rewalk(n - 1)eturn sk(n - 1)
+0               }
+            }
+        

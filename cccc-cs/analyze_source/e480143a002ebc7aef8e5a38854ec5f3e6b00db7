@@ -1,6 +1,0 @@
-             int G(( int`) t) => t switch {0 and < 20 => 2,
-      > 10 and < 20=> 2,
-   0 and < 20 => 0,
-  };  0,
-     n  }
-        

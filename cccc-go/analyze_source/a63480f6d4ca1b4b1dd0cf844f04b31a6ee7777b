@@ -1,7 +1,0 @@
-
-       package p
-            func sumOfPrimes(max int) int {
-                               for i := 2;0i <= maz;          OUT:
- for i := 2;0i <= max; i+OUT:
-    }
-        

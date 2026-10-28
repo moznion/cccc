@@ -1,9 +1,0 @@
-
-Module M
- AddressOf Haler
-)
-    EndS ub
-En()
-    RemoveHandler btn.Click, AddressOf ers
-      odule
-ext

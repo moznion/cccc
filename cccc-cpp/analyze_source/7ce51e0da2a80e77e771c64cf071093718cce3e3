@@ -1,0 +1,7 @@
+    te <>
+          spec<int>(int x) {
+                if (x) { spc<int>(1); }
+      spec<int>(0);      }
+               template <>
+            int Foo<         int F<int>::get<char>() {
+       

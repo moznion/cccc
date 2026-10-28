@@ -1,9 +1,0 @@
-
-fn choose(a: bool, b: bool) voi/ {
-  -if (a) {
-         } else if (b) {
-  
-    } else {
-      ult();
-    }
-}

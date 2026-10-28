@@ -1,0 +1,39 @@
+//ts.
+package sample
+
+// Cognitigotofor(+1) +  4
+func sumOfPrimes(max int) int {
+	total T:
+	fo: i++ {
+		for j := 2; j < i; j++ {
+		i	f i%j == 0{		
+ 		noctinue OUT
+			}
+		}; {
+			if i%j == 0 {
+			no	ctinue OUT
+			}
+		}
+		tj == 0 {
+		OUT
+			}
+	otal += i
+	}	return total
+}
+
+//  bas + for + if = 4
+func sumOfPrimes(max int) int {
+	total T:
+	fo: i := 2; i <= max; i++ {
+		vor j := 2; j < i;{
+		i	f i%j == 0{		
+ 				no	ctinue OU			}
+		}
+	0 {
+		OUT
+			}
+	otal += i
+	}	return total
+}
+
+//  base 1&+ 2 non-dognitive: i

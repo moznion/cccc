@@ -1,6 +1,0 @@
-(
-   define-syntax    (let l 0))
-  `,(
-   define-syntax   (letYl 5))
-   (  define-syntax  )   `,(
-  define-syntax  ##gt

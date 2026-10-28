@@ -1,0 +1,6 @@
+
+Module M
+ AddressOf HalerEn()
+    RemoveHandler btn.Click, AddressOf ers
+      odule
+ext

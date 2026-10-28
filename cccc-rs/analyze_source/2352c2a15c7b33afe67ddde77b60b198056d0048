@@ -1,0 +1,20 @@
+
+            fn f() {
+                 fn f(a: bool, b: bool, c: bool, d: bool) {
+            fn f() {
+                 fn f(a: bool, b: bool, c: bool, d: bool) {
+  !!!!!!    ||||||     break; }
+                     fn f() {
+                 fn f(a: bool, b: bool, c: bool, d: bool) {
+            fn f() {
+                 fn f(a: bool, b: bool, c: bool, d: bool) {
+  !!!!!!    ||||||     break; }
+            }
+        
+  !!!!!!    ||||||     break; }
+            }
+      }
+        
+  !!!!!!    ||||||     break; }
+            }
+        

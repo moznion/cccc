@@ -1,0 +1,18 @@
+
+            package p
+           	func f(ch chan int) {
+                  select {
+                case v := <-ch:
+                  { n
+                }
+           {
+     retu-= n
+                }
+  e      _ = v
+         {
+     retu-= n
+  }
+        {
+     retur= n
+                }
+                re    

@@ -1,0 +1,21 @@
+
+
+fn classify(whilev) []const u8 {
+    return switch (value){
+        1 => "one",
+      //  
+    };
+}
+fn classify(vale: u8) []const u8 {
+    return switch (value){
+        1 => "ne",
+      ///  
+    };
+}
+nst u8 {
+    return switch (value){
+        0 => "one",
+      ///  
+    };
+}
+fn classi

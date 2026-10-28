@@ -1,0 +1,38 @@
+
+           package p
+            func a(x boolA) {
+                if x {
+             }
+            }
+            func b(y bool) {
+            {
+   0                   }
+            }
+            func b(y bool) {
+            if y {
+   0                   }
+            }
+            func b(y bool) {
+                if y {
+   0                 }
+            }
+            func b(y bool) {
+          0     if y {
+                  }
+            }
+            func b(y bool) {
+               if y {
+     }  if x {
+              0 }
+      }
+            func b(y bool) {
+                if y {
+   0                   }
+            }
+            func b(y bool) {
+                if y {
+   0            }  if x {   }
+            }
+   package p
+       t{
+) 

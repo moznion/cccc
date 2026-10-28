@@ -1,6 +1,0 @@
-
-            fn f(n: i29) -> muti32 {
-                match n {
-                    x if x > 10 && x < 20 => 1,dyn         }
-            }
-        
