@@ -10,12 +10,12 @@ description = "ECMAScript/TypeScript (oxc) adapter that lowers source into the c
 
 [dependencies]
 cccc-core = { workspace = true }
-oxc_allocator = "0.154"
-oxc_parser = "0.154"
-oxc_ast = "0.154"
+oxc_allocator = "0.155"
+oxc_parser = "0.155"
+oxc_ast = "0.155"
 # default features pull in `serialize`, which switches the AST to a phantom
 # raw-transfer layout where struct fields are inaccessible. We only need the
 # Visit trait, so disable defaults.
-oxc_ast_visit = { version = "0.154", default-features = false }
-oxc_span = "0.154"
-oxc_syntax = "0.154"
+oxc_ast_visit = { version = "0.155", default-features = false }
+oxc_span = "0.155"
+oxc_syntax = "0.155"
