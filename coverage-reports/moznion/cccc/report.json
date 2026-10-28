@@ -1,7 +1,7 @@
 {
   "repository": "moznion/cccc",
   "ref": "refs/heads/main",
-  "commit": "b4237c5f4b8af3963bcc5999f96c1987944e0138",
+  "commit": "01c049b9320eceb7371445648cdfc5a256f906c6",
   "base_ref": "refs/heads/main",
   "coverage": {
     "type": "loc",
@@ -8575,8 +8575,8 @@
             "type": "loc",
             "start_line": 353,
             "end_line": 353,
-            "count": 564,
-            "count_u64": 564
+            "count": 450,
+            "count_u64": 450
           },
           {
             "type": "loc",
@@ -10212,8 +10212,8 @@
             "type": "loc",
             "start_line": 13,
             "end_line": 13,
-            "count": 10618,
-            "count_u64": 10618
+            "count": 10886,
+            "count_u64": 10886
           },
           {
             "type": "loc",
@@ -80354,22 +80354,22 @@
             "type": "loc",
             "start_line": 88,
             "end_line": 88,
-            "count": 14472,
-            "count_u64": 14472
+            "count": 14475,
+            "count_u64": 14475
           },
           {
             "type": "loc",
             "start_line": 89,
             "end_line": 89,
-            "count": 14472,
-            "count_u64": 14472
+            "count": 14475,
+            "count_u64": 14475
           },
           {
             "type": "loc",
             "start_line": 90,
             "end_line": 90,
-            "count": 14472,
-            "count_u64": 14472
+            "count": 14475,
+            "count_u64": 14475
           },
           {
             "type": "loc",
@@ -80403,36 +80403,36 @@
             "type": "loc",
             "start_line": 95,
             "end_line": 95,
-            "count": 14471,
-            "count_u64": 14471
+            "count": 14474,
+            "count_u64": 14474
           },
           {
             "type": "loc",
             "start_line": 96,
             "end_line": 96,
-            "count": 14472,
-            "count_u64": 14472
+            "count": 14475,
+            "count_u64": 14475
           },
           {
             "type": "loc",
             "start_line": 97,
             "end_line": 97,
-            "count": 14373,
-            "count_u64": 14373
+            "count": 14376,
+            "count_u64": 14376
           },
           {
             "type": "loc",
             "start_line": 98,
             "end_line": 98,
-            "count": 14373,
-            "count_u64": 14373
+            "count": 14376,
+            "count_u64": 14376
           },
           {
             "type": "loc",
             "start_line": 99,
             "end_line": 99,
-            "count": 14472,
-            "count_u64": 14472
+            "count": 14475,
+            "count_u64": 14475
           },
           {
             "type": "loc",
@@ -80578,50 +80578,50 @@
             "type": "loc",
             "start_line": 142,
             "end_line": 142,
-            "count": 5944,
-            "count_u64": 5944
+            "count": 5946,
+            "count_u64": 5946
           },
           {
             "type": "loc",
             "start_line": 143,
             "end_line": 143,
-            "count": 5944,
-            "count_u64": 5944
+            "count": 5946,
+            "count_u64": 5946
           },
           {
             "type": "loc",
             "start_line": 144,
             "end_line": 144,
-            "count": 5944,
-            "count_u64": 5944
+            "count": 5946,
+            "count_u64": 5946
           },
           {
             "type": "loc",
             "start_line": 145,
             "end_line": 145,
-            "count": 4679,
-            "count_u64": 4679
+            "count": 4682,
+            "count_u64": 4682
           },
           {
             "type": "loc",
             "start_line": 146,
             "end_line": 146,
-            "count": 4665,
-            "count_u64": 4665
+            "count": 4667,
+            "count_u64": 4667
           },
           {
             "type": "loc",
             "start_line": 147,
             "end_line": 147,
-            "count": 4665,
-            "count_u64": 4665
+            "count": 4667,
+            "count_u64": 4667
           },
           {
             "type": "loc",
             "start_line": 149,
             "end_line": 149,
-            "count": 5944,
-            "count_u64": 5944
+            "count": 5946,
+            "count_u64": 5946
           },
           {
             "type": "loc",
@@ -80725,22 +80725,22 @@
             "type": "loc",
             "start_line": 173,
             "end_line": 173,
-            "count": 6971,
-            "count_u64": 6971
+            "count": 6973,
+            "count_u64": 6973
           },
           {
             "type": "loc",
             "start_line": 174,
             "end_line": 174,
-            "count": 6971,
-            "count_u64": 6971
+            "count": 6973,
+            "count_u64": 6973
           },
           {
             "type": "loc",
             "start_line": 175,
             "end_line": 175,
-            "count": 6971,
-            "count_u64": 6971
+            "count": 6973,
+            "count_u64": 6973
           },
           {
             "type": "loc",
@@ -80781,15 +80781,15 @@
             "type": "loc",
             "start_line": 183,
             "end_line": 183,
-            "count": 6863,
-            "count_u64": 6863
+            "count": 6865,
+            "count_u64": 6865
           },
           {
             "type": "loc",
             "start_line": 185,
             "end_line": 185,
-            "count": 6860,
-            "count_u64": 6860
+            "count": 6862,
+            "count_u64": 6862
           },
           {
             "type": "loc",
@@ -80816,15 +80816,15 @@
             "type": "loc",
             "start_line": 189,
             "end_line": 189,
-            "count": 5811,
-            "count_u64": 5811
+            "count": 5813,
+            "count_u64": 5813
           },
           {
             "type": "loc",
             "start_line": 195,
             "end_line": 195,
-            "count": 5787,
-            "count_u64": 5787
+            "count": 5789,
+            "count_u64": 5789
           },
           {
             "type": "loc",
@@ -80865,8 +80865,8 @@
             "type": "loc",
             "start_line": 202,
             "end_line": 202,
-            "count": 5752,
-            "count_u64": 5752
+            "count": 5754,
+            "count_u64": 5754
           },
           {
             "type": "loc",
@@ -80886,8 +80886,8 @@
             "type": "loc",
             "start_line": 206,
             "end_line": 206,
-            "count": 5730,
-            "count_u64": 5730
+            "count": 5732,
+            "count_u64": 5732
           },
           {
             "type": "loc",
@@ -80907,8 +80907,8 @@
             "type": "loc",
             "start_line": 211,
             "end_line": 211,
-            "count": 5719,
-            "count_u64": 5719
+            "count": 5721,
+            "count_u64": 5721
           },
           {
             "type": "loc",
@@ -80928,22 +80928,22 @@
             "type": "loc",
             "start_line": 216,
             "end_line": 216,
-            "count": 5609,
-            "count_u64": 5609
+            "count": 5611,
+            "count_u64": 5611
           },
           {
             "type": "loc",
             "start_line": 220,
             "end_line": 220,
-            "count": 5546,
-            "count_u64": 5546
+            "count": 5548,
+            "count_u64": 5548
           },
           {
             "type": "loc",
             "start_line": 222,
             "end_line": 222,
-            "count": 6971,
-            "count_u64": 6971
+            "count": 6973,
+            "count_u64": 6973
           },
           {
             "type": "loc",
@@ -118103,6 +118103,6 @@
       }
     ]
   },
-  "test_execution_time": 291000000000,
-  "timestamp": "2026-10-28T01:26:04.861588902Z"
+  "test_execution_time": 9000000000,
+  "timestamp": "2026-10-28T01:37:25.545565647Z"
 }
