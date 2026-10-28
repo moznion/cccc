@@ -360,6 +360,8 @@ impl Builder {
                 // PHP 8.4 property hooks (`get`/`set`) hold runnable code.
                 ClassMemberKind::Property(p) => self.lower_hooks(&p.hooks),
                 ClassMemberKind::ClassConst(_) | ClassMemberKind::TraitUse(_) => {}
+                // `#[non_exhaustive]`: a member kind added upstream is skipped until lowered.
+                _ => {}
             }
         }
     }
@@ -381,6 +383,8 @@ impl Builder {
                     });
                 }
                 PropertyHookBody::Abstract => {}
+                // `#[non_exhaustive]`: a hook body added upstream is skipped until lowered.
+                _ => {}
             }
         }
     }
@@ -475,7 +479,7 @@ impl Builder {
             ExprKind::FunctionCall(_)
             | ExprKind::MethodCall(_)
             | ExprKind::StaticMethodCall(_)
-            | ExprKind::StaticDynMethodCall(_) => {
+            | ExprKind::StaticMethodCallDynamic(_) => {
                 self.emit(Node::Call {
                     callee: callee_name(&expr.kind),
                 });
@@ -542,6 +546,8 @@ impl Builder {
 }
 
 impl OwnedVisitor for Builder {
+    type Break = ();
+
     fn visit_stmt(&mut self, stmt: &Stmt) -> std::ops::ControlFlow<()> {
         self.lower_stmt(stmt);
         std::ops::ControlFlow::Continue(())
@@ -593,10 +599,12 @@ fn callee_name(kind: &ExprKind) -> Option<String> {
         ExprKind::FunctionCall(c) => &c.name,
         ExprKind::MethodCall(c) | ExprKind::NullsafeMethodCall(c) => &c.method,
         ExprKind::StaticMethodCall(c) => &c.method,
-        ExprKind::StaticDynMethodCall(c) => &c.method,
+        ExprKind::StaticMethodCallDynamic(c) => &c.method,
         _ => return None,
     };
     match &name_expr.kind {
+        // Function names (already split on `\`) vs. member names after `->`/`::`.
+        ExprKind::Name(n) => n.parts.last().map(|s| s.to_string()),
         ExprKind::Identifier(s) => Some(s.rsplit('\\').next().unwrap_or(s).to_string()),
         _ => None,
     }
@@ -611,7 +619,7 @@ fn is_multi_level(level: &Option<Box<Expr>>) -> bool {
 /// A declaration name, or `default` when the parser could not recover one.
 fn ident_name(ident: &Ident, default: &str) -> String {
     ident
-        .as_ref()
+        .as_str()
         .map(|s| s.to_string())
         .unwrap_or_else(|| default.to_string())
 }
