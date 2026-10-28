@@ -404,7 +404,7 @@ fn prop_key_name(key: &PropertyKey) -> Option<String> {
     match key {
         PropertyKey::StaticIdentifier(id) => Some(id.name.as_str().to_string()),
         PropertyKey::PrivateIdentifier(id) => Some(format!("#{}", id.name.as_str())),
-        PropertyKey::StringLiteral(s) => Some(s.value.as_str().to_string()),
+        PropertyKey::StringLiteral(s) => Some(s.value.display().to_string()),
         _ => None,
     }
 }
