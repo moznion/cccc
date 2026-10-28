@@ -82,7 +82,10 @@ pub fn analyze_source(path: &Path, source: &str) -> FileReport {
 /// the diagnostics alongside.
 pub fn to_ir(_path: &Path, source: &str) -> (Vec<Node>, Vec<String>) {
     let result = parse(source.as_bytes());
-    let parse_errors: Vec<String> = result.errors().map(|e| e.message().to_string()).collect();
+    let parse_errors: Vec<String> = result
+        .errors()
+        .map(|e| String::from_utf8_lossy(e.message()).into_owned())
+        .collect();
 
     let mut builder = Builder::new(source);
     let root = result.node();
@@ -210,7 +213,7 @@ impl Builder {
         }
         if let Some(block) = node.block() {
             if let Some(block) = block.as_block_node() {
-                let line = self.line(block.location().start_offset());
+                let line = self.line(block.location().start() as usize);
                 let body = block.body();
                 // A block is anonymous (like an ES/PHP callback): name it
                 // `<block>`, not after the method it is passed to. Borrowing the
@@ -410,7 +413,7 @@ impl<'pr> Visit<'pr> for Builder {
 
     fn visit_def_node(&mut self, node: &DefNode<'pr>) {
         let name = constant_name(node.name().as_slice(), "<method>");
-        let line = self.line(node.location().start_offset());
+        let line = self.line(node.location().start() as usize);
         let body = node.body();
         self.emit_function(name, "method", line, |b| {
             if let Some(body) = &body {
@@ -422,7 +425,7 @@ impl<'pr> Visit<'pr> for Builder {
     fn visit_block_node(&mut self, node: &BlockNode<'pr>) {
         // Reached only for blocks not attached to a plain call (e.g. `super`);
         // call-attached blocks are handled in `visit_call_node`.
-        let line = self.line(node.location().start_offset());
+        let line = self.line(node.location().start() as usize);
         let body = node.body();
         self.emit_function("<block>".to_string(), "block", line, |b| {
             if let Some(body) = &body {
@@ -432,7 +435,7 @@ impl<'pr> Visit<'pr> for Builder {
     }
 
     fn visit_lambda_node(&mut self, node: &LambdaNode<'pr>) {
-        let line = self.line(node.location().start_offset());
+        let line = self.line(node.location().start() as usize);
         let body = node.body();
         self.emit_function("<lambda>".to_string(), "lambda", line, |b| {
             if let Some(body) = &body {
