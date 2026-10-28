@@ -1050,4 +1050,14 @@ mod tests {
         let (_nodes, errors) = to_ir(Path::new("bad.php"), "<?php function f( {");
         assert!(!errors.is_empty());
     }
+
+    #[test]
+    fn unclosed_exit_or_clone_call_is_a_parse_error() {
+        // php-rs-parser 0.25 panicked slicing the source when the argument
+        // list of `exit(`/`clone(` was never closed (found by fuzzing).
+        for src in ["<?php exit($a", "<?php clone(r("] {
+            let (_nodes, errors) = to_ir(Path::new("bad.php"), src);
+            assert!(!errors.is_empty(), "{src}");
+        }
+    }
 }
