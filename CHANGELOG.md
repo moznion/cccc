@@ -1,5 +1,17 @@
 # Changelog
 
+## [v1.8.5](https://github.com/moznion/cccc/compare/v1.8.4...v1.8.5) - 2026-10-28
+
+- ci(fuzz): fix corpus push retry failing on missing git identity by @moznion in https://github.com/moznion/cccc/pull/181
+- ci(fuzz): persist the corpus from a single aggregate job by @moznion in https://github.com/moznion/cccc/pull/183
+- build(deps): bump Swatinem/rust-cache from f0d9c3887740aee45f6153b24b3a6b815192ec16 to c8037a86dde8214a8310e9f54a8fc61ab362aa31 by @dependabot[bot] in https://github.com/moznion/cccc/pull/185
+- build(deps): bump Songmu/tagpr from 1.21.3 to 1.21.4 by @dependabot[bot] in https://github.com/moznion/cccc/pull/186
+- build(deps): bump tree-sitter-scala from 0.26.2 to 0.26.3 by @dependabot[bot] in https://github.com/moznion/cccc/pull/190
+- build(deps): bump taiki-e/install-action from 2.87.29 to 2.87.31 by @dependabot[bot] in https://github.com/moznion/cccc/pull/187
+- build(deps): bump the oxc group with 6 updates by @dependabot[bot] in https://github.com/moznion/cccc/pull/188
+- build(deps): bump php-rs-parser and php-ast to 0.26 by @dependabot[bot] in https://github.com/moznion/cccc/pull/189
+- build(deps): bump ruby-prism from 1.9.0 to 2.0.0 by @dependabot[bot] in https://github.com/moznion/cccc/pull/191
+
 ## [v1.8.4](https://github.com/moznion/cccc/compare/v1.8.3...v1.8.4) - 2026-10-21
 
 - build(deps): bump moznion/cccc-action from 1.1.1 to 1.1.2 by @dependabot[bot] in https://github.com/moznion/cccc/pull/170
