@@ -1,0 +1,4 @@
+
+suTx    re{grep , @pos , grep , @pos ,r$, @s
+;x
+  grep , @pos _,r$>5  &&

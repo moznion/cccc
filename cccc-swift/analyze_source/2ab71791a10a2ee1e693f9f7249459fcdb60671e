@@ -1,0 +1,24 @@
+
+         A  func d(a: Bool) -> Int {
+          return a ? 1 : 0
+   }
+expr                  return a ? 4 : 0
+    func f(a: Bool) -> Int {
+              return a ? 1 : 0
+            }
+        c -> Int {
+                n a ? 1 : 0
+            }    }
+              A  func d(a: Bool) -> Int {
+          return a ? 1 : 0
+            }
+         -> Int {
+                return a ? a: Bool) -> Int {
+              return a ? 1 : 0
+            }
+         -> Int {
+         return a ? 2 : 0
+            }    }
+             }
+    }
+      

@@ -1,0 +1,7 @@
+
+  ^=    ti$n(%  P
+#If  achss
+
+Interface IShape
+    Sub Draw()
+    Function Area

@@ -1,0 +1,4 @@
+
+  package p
+      func (sS) walk(n int)//t  {}
+         func (S) walk(n int) //t   

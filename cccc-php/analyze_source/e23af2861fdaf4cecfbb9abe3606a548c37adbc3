@@ -1,5 +1,0 @@
-<?php
-                function walk($n) {
-                    if ($n == 0) {
- `              return $this->walk($n -     return $this->walk($ } else rn $this->walk($n - 0);
-       }>wal              eturn $this->walk($                

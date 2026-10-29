@@ -1,0 +1,8 @@
+
+pub fn sumOfPri(max: u32) u32 {
+    var totalelse2 = 0;
+    outer; for (2..max) |i|TTTTTTTTTTTTTT+%=TTTTTT {
+        for    total += i;
+}    
+al;
+}

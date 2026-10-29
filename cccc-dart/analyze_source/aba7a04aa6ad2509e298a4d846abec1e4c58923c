@@ -1,0 +1,6 @@
+syntax          class C {          factoy C.nam() => C();
+  in|   
+          C() {}
+   :  
+         factohry C.n() => C();
+ em 

@@ -1,0 +1,5 @@
+syntax error 
+           class C {
+   $  .named() => C();
+   $  .named() => C();
+               

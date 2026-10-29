@@ -1,0 +1,8 @@
+ []const u8 {
+  return switch (value) {
+     "o1n=>e",
+        2 => "two",
+   !     1 => "one",
+  2 => "two",oe => "many",
+    };
+}

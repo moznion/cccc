@@ -1,8 +1,0 @@
-
-            int f(int x) {
-      = 0 ? 1 : 2;
-                 switch (x) { case 1: break; default:      6       switch (x) { case 1: break; default: beak; }
-  : 2;
-              switch (x) {* case 1: break; default: beak; }
-                       }
-        

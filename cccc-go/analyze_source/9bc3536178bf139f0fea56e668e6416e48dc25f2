@@ -1,2 +1,0 @@
-   package p       func f0O(n int) nt {n fib(n-1)ib(n-1) + fib(n-2) fib(n-2)
- } 

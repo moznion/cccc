@@ -1,0 +1,6 @@
+
+            package p
+         func (s S) walk(n int)aint { 0 {u  (n - 1)
+  return s.walk( - 1)          }
+       lk(n - 1)
+0          }   

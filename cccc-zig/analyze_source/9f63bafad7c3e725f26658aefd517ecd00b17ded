@@ -1,5 +1,0 @@
-
- {
-if (enabled(comptime {
-te();
-})) *ate;}

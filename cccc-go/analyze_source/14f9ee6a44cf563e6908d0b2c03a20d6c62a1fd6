@@ -1,0 +1,13 @@
+      package p
+            func f(a bool, items [i]nt) {
+      {  for  i := range items {
+                    for i := range itmscof   {
+           Z               }
+   }
+   for i := range items {
+            _ = i
+ for i := range items {
+                    _ = i
+                }
+            }
+        

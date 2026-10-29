@@ -1,0 +1,5 @@
+
+                String f(Object value) => switch (value) {
+                  [int first && > 0, int seco 'other',rst && > 0,  'other',
+ ,
+            r  _ => 'other',            }                     

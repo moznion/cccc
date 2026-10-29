@@ -1,9 +1,0 @@
-
-            package p
-      func f(a, b bool) {
-y     0      if a {
-                } else if b {
-                  } else if Z {
-                } else {
-          }
-        

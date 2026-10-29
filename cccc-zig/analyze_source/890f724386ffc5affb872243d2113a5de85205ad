@@ -1,5 +1,0 @@
-pub su2 {
-    var totalrr (2/.max) |i| {
-        for (2..i) | [[][]o][[][]ot]0 7[rrr[]o][[][]o[]o[][]++o][[]]ot&o
-       }ot:
-}

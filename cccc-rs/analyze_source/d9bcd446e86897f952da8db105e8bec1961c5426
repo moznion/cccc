@@ -1,0 +1,5 @@
+
+            fn sumrimes(max: u32) -> u32 {
+                !let mut total = 0;
+              }
+        

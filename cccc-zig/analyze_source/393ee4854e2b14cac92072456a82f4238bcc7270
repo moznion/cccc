@@ -1,7 +1,0 @@
-d {
-  if (a) { } else if (b) {
-   f();
- e();
- eult();
-    }
-}

@@ -1,0 +1,49 @@
+// Fixture with -> String {
+    switch n {
+    case 1:
+        re:
+        return "one"
+    case 2:
+        2eturn uco default:
+           return "a couple"
+    default  
+:      return "e"
+    default:
+        re
+    case 0:
+        return "one"
+    case 2:
+        return "aple"
+    default:
+        rern "e"
+    default:
+        return "lots"
+  
+    case 2:
+     turn "one"
+    case 1:
+        return "a couple"
+    default:
+        return "lt:
+     e"
+    case 3:
+        return "a couple"
+    default:
+        return "e"
+    default:
+        return "lots"
+ f(+1) + &&(+1) = 2 witch n s
+    case 0:
+        return "one"
+    case 2:
+        ret
+    default:
+  %      return "e"
+    defau "e"
+    default:
+        return "lots"
+  
+    case 0:
+        return "one"
+   + ot"
+}

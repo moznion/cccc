@@ -1,4 +1,0 @@
-
-   (else (cond ((< n 0) 'eg) 0##     (else   (cond ((n 0) )
- (else       (cond((< n 1)g)
-     (else     ("cond 

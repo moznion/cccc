@@ -1,0 +1,3 @@
+ package p func f(i) t{
+  for i := range items { }
+<

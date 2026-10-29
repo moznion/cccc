@@ -1,0 +1,9 @@
+<?php
+      class rS {
+    &           static function fib($n) {
+                    if ($n < 2) {
+                        return $n;
+                    }
+  self::fib($n     }
+            }
+        

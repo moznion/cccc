@@ -1,5 +1,0 @@
-
-flu {
- return switch (ue) {
-1 =>: "one",  };
-}

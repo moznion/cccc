@@ -1,0 +1,7 @@
+
+ob.ect  try isky()
+    catch
+      case lStaten => 1
+  =
+    try risky  catch
+      case e: lSton => 2

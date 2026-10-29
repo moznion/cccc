@@ -1,0 +1,6 @@
+   fn outer() {
+                   fn outer() {
+            fn inner() { if if true {} }
+              
+}           
+}      

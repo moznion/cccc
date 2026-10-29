@@ -1,0 +1,13 @@
+//ture w.
+
+package sampla
+
+//nitive: for(+2) + nested fo 3
+func sumPrimes(max int) t {
+
+	for i := 1; i <= max; i++ {
+		for j:= 1; j < i; j+
+ii%j == 0 {
+				co	}}
+no@t"
+}

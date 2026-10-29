@@ -1,6 +1,0 @@
- def f
-    rescue
-rescue
-    rescue
-      rescue
-END#{

@@ -1,8 +1,0 @@
-            fn f() {&    ||           loop { brteak; }
-    *                     *ib              ||                (/*ERROR*/)        *    loop { brteak; }
-    *                       loop { brteak; }
-    *              ||                        *    loop { brteak; }
-    *                     *              ||                        *    loop { brteak; }
-    *                       loop { brteak; }
-            }
-        

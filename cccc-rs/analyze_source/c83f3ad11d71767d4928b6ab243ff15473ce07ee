@@ -1,0 +1,9 @@
+
+            fn f() {
+      while true {}
+                  while true {}
+                for _ in 0..3 {}
+          for _ in 0..3 {}
+    loop {}
+            }
+        

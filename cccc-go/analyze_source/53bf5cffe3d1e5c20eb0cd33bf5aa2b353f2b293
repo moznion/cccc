@@ -1,0 +1,4 @@
+
+        package p
+      	func f(ch chan int) {
+  0select {    case a,ge  <-ch 

@@ -1,0 +1,6 @@
+fib(in(n - 1) + fib(n - 2);
+   nf () +        return fib(n - 1) + fib(n - 2);
+ fib( n-opear 1) + fi(b(n - 2);) + fib(n : 2);
+ f (n  n < 2) {
+         rib(n - 1) + fibr + fi(b(n - 2);) +        return fib(nb ?0 : ei;
+  if (a)  

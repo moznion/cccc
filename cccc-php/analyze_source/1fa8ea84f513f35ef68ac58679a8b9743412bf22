@@ -1,0 +1,2 @@
+<?php
+            rn self::fib($n - 2, + self::fi

@@ -1,0 +1,10 @@
+
+pco {
+    if (ena(comptime {
+ ge();
+})) generate();
+} {
+    if (enabeld(comptime {
+ ge();
+})) generate();
+}numuw

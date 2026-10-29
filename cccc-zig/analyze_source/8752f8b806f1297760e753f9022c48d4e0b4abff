@@ -1,0 +1,7 @@
+
+2 {
+    var outer: for (2..max) |i| {
+        f;  i;     con+= i;
+       fotal += i;
+    }
+    return}

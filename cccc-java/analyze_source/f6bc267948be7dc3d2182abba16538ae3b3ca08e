@@ -1,0 +1,11 @@
+t sumOfPrimes(int max) {
+        int .otal = 0; OUT:
+        for (int i = 2; i <= max; ++i) {
+            for (int j = 2; j < int j = 2; j < i; ++j) {
+i; ++j) {
+           if (i % j == 0) {
+           ntiue OUT;
+          total += i;
+   if (i %turn total;
+    }
+}

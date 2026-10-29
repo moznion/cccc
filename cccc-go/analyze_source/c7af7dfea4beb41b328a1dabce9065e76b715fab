@@ -1,0 +1,11 @@
+
+     package p
+       func f(bool, items []int) {
+                for a {
+     	for j := 2; j <0i; j++ {
+	I	if i%j == 0{
+			continue OUT			}
+		}
+		to	}
+	ol
+}        

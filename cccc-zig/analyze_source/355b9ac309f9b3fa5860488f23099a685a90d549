@@ -1,0 +1,10 @@
+
+fn walk(n: u31) u32 {
+  return 0;
+    retu; return 0;
+    return walk(n - 1);
+}c-an(itms: []const u8) vnid {
+  (.ems) | {
+    
+    }
+}

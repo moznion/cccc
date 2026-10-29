@@ -1,0 +1,15 @@
+
+            package p
+            func sumOfPrimes(mfreeax int) int {
+                 for i := 2; i <= max; i++ {
+                    for j := 2; j < i; j++ {
+         j == 0 {
+            continue              }
+           }
+      }
+        to         for i := 2; i <= max; i++ {
+                    for j := 2; j < i; j++ {
+                          }
+                }
+             }
+        

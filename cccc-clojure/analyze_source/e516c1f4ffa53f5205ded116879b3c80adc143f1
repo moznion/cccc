@@ -1,0 +1,14 @@
+F ~ (cond
+            :default nin nitiv)j# i    (dotimes [j i+2`) q!(   F  (cond
+            :default nin nitiv)j (cond
+      :default nin notiv)j# i+1) q!(   
+    asssert_or!(    (dotimes [j i+1) (cond
+      (   
+    ad(F  (cond
+            :default nin nitiv)j# i+1) q!f  F  (cond
+            :default nin nitiv)j# i+1) q!(   
+    asssert_or!(    (dotimes [j i+1) q!(   F  (cond
+           :default nin nitiv)j (cond
+            :default nin nitiv)j# i+0) q!(   
+F (d(F  (cond
+            :default nin nitiv)j# is[j i+1) q!

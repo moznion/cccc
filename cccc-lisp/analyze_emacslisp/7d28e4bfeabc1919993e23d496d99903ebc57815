@@ -1,6 +1,0 @@
-
-  $(defun `st (xs)
-    (cl-flet ( (items)
-   t (xs)
-       t (xs)
- flet ( (items)

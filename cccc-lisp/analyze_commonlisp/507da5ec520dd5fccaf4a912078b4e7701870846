@@ -1,1 +1,0 @@
- dl(define-compiler-macro x 1) (*d (define-compiler-macro x)

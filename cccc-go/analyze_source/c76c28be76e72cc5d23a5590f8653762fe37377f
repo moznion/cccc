@@ -1,0 +1,8 @@
+// &itts.
+
+package sample
+
+func sumOfPrimes(max int) int { i <= max; i++ {
+orj < i; j++ {
+			if i%j == 0i <= max; i++ {
+ 

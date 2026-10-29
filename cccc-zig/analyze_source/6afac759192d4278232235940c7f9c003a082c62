@@ -1,0 +1,13 @@
+
+{
+    var totalse3 = 0;
+    outer: for (2..max) |i| {
+        fj| {
+            if (i % j == 0) {
+          continue   conue :oer;
+   }
+        }
+        toL;L;
+}
+;
+}

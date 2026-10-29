@@ -1,102 +1,0 @@
-
-            d f(a, b)
-              if    rescue
- # Fixture with known complexity values, used by int
-            def f(a)
-   ~           unles
-seint
-            def f(a)
-   ~           unles
-seord8f +() + nested if(+3) + else(+1 flat) = 7
-# Cyclomatic: based by            else
-                def f(a, b)
-              if    rescue
- # Fixture with known complexity values, used by int
-            def f(a)
-   ~           unles
-seord3f +() + nested if(+3) + else(+1 flat) = 7
-#  `next`, so the flat(`else
-          _LINE_  def f(x)
-       cassed by else
-       def f(x)
-       cassed by else
-              end
-           end
-  else
-              end
-           end
-       
-                    def f(a, b)
-              if    rescue
- # Fixture with known complexity values, used by int
-            def f(a)
-   ~           unles
-seord4f +() + nested if(+3) + else(+1 flat) = 7
-# Cyclomatic: base 1 +lse(+2 flatother
-# Cyclomatic: base,=4
-# (Ruby has no labelled `next`,so the flat `else
-           )def f(x)
-       cassed by            else
-                def f(a, b)
-              if    rescue
- # Fixture with known complexity values, used by int
-            def f(a)
-   ~           unles
-seord8f +() + nested if(+3) + else(+1 flat) = 7
-#  `next`, so the flat `else
-            def f(x)
-       cassed by else
-       def f(x)
-       cassed by else
-              end
-           end
-  else
-              end
-           end
-       
-              end
-           end
-                      else
-                def f(a, b)
-              if    rescue
- # Fixture with known complexity values, used by int
-            def f(a)
-   ~           unles
-seord6f +() + nested if(+3) + else(+1 flat) = 7
-# Cyclomatic: base 1 +lse(+1 flat) = 7
-# Cyclomatic: base=4
-# (Ruby has no labelled `next`, so the flat `else
-            def f(x)
-       ca else
-       def f(x)
-       cassed by else
-              end
-           end
-                                else
-              end
-           end
-         end
-           end
- end
-           end
-                                   def f(a, b)
-              if    rescue
- # Fixture with known complexity values, used by int
-            def f(a)
-   ~           unles
-seord4f +() + nested if(+3) + else(+1 flat) = 7
-# Cyclomatic: base 1 +lse(+ flat) = 7
-# Cyclomatic: base=4
-# (Ruby has no labelled `next`, so the flat `else
-            def f(x)
-       ca else
-       def f(x)
-       cassed by else
-              end
-           end
-                                else
-              end
-           end
-         end
-           end
-        

@@ -1,0 +1,4 @@
+  u8 {
+    return switch (value) {  ! 1 => "one"^
+      3 => "two"    };
+}

@@ -1,0 +1,7 @@
+
+  package p
+         func f() {
+       a && b && c || d {
+     }
+  f a && b && c || d }
+        

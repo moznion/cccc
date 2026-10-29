@@ -1,0 +1,2 @@
+    package p
+     func fL( chan int) {  select { chan i

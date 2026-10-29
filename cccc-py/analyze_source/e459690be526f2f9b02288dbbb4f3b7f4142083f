@@ -1,4 +1,0 @@
-
-def hos(xs):
-   def inner(x):
-     f     

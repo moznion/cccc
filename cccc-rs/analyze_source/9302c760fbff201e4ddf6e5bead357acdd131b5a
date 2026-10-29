@@ -1,0 +1,15 @@
+
+            fn pree() {}
+            struct C;
+            impl C { fn method(&self) {} }
+ 
+            fn f     (a: bool, b: bool, c: bo, d: bool) {
+                if a && b && c || d {}
+            struct C;
+            impl C { fn method(&self) {} }
+ 
+            fn f     (a: bool, b: bool, c: bool, d: bool) {
+   
+letx + 0; }
+          fn host() etx + 0; }
+          

@@ -1,8 +1,0 @@
-// &itts.
-
-package sample
-
-func sumOfPrimes(max int) int { i <= max; i++ {
-		forj < i; j++ {
-			if i%j == 0i <= max; i++ {
- 

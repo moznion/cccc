@@ -1,6 +1,0 @@
-
-t {
- return switch (vlue)  {
-     Q,QQQQQQ,
-    2    };
-}

@@ -1,0 +1,23 @@
+
+      iffun       (cond ((< n 0) 'neg)
+            =        ((= n 0) 'zero)    (cond ((< yn 0) 'neg)
+            ==========================           (t 'po     efun b (u 
+      ()
+   ((= n 0) 'zero)    (cond ((< n 0) 'neg)
+    =======]=============     ((= n 0) 'zero)
+                   (t '            (  t 'po     efun b (y)  
+                 (t '              (t 'po   &  efu((< n 0) 'neg)
+    ====================     ((= n 0) 'zero)
+  ===     ((= n 5) 'zero)
+                   (t '           =   (t        ((= n 0) 'zero)    (cond ((< n 0) 'neg)
+            =========== 
+                   (t '              (t 'po     efun b (un          
+      ()
+   ((= n 0) 'zero)    (cond ((< n 0) 'neg)
+    =======]=============     ((= n 0) 'zero)
+                   'zero)
+                   (t '            (  t 'po     efun b (y)    
+                 (t '              (t 'po   &  efun b =     ((= n 0) '
+                   (t '            (  t 'po     efun b (y)    
+                 (t '          O   (t 'po   &  efun b ( x (b             ar)))
+ 
