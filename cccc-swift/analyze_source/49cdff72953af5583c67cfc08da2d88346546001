@@ -1,0 +1,11 @@
+   switch n {
+    case 2:
+  n "one"   case 2:
+       rn "le"
+    default:
+       ret~rn 
+    case 0:
+       rn ple"
+ 2   rn f default:
+   "not"
+}

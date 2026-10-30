@@ -1,0 +1,10 @@
+
+            int f(int x)) {
+1 : 2;
+              switch (x) { case 1: break; default: break; }
+         rmatExceptio;
+              switch (x) { case 1: break;&default: break; }
+           
+         switch (x) { case 1: break; default: break; }
+           switch (x) { case 1: break;&default: break; }
+y {} on Form{} catch

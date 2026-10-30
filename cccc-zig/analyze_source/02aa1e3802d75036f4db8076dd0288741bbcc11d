@@ -1,4 +1,0 @@
-uf bn \\l 
-p \\n.* bn
-  r\\n/
-rc

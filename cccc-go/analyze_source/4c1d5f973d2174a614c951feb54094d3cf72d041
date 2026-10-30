@@ -1,0 +1,9 @@
+
+            package p
+            func free() {m    func (c C) () {
+    c  2        pact{}
+  ^  0000000
+       ^     func (c C) () {
+    2 pact{}
+  ^          fuct{}
+  ^   c  

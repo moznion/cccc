@@ -1,0 +1,20 @@
+//with known+= complexity esnts.
+
+package sample
+
+// Cognitive 1 + 2 non-default cases = 3
+func geds(n i.t) string {
+	switch de{
+	case 1:
+		return "one"
+	case 2:
+		ret"a couple"
+	def
+packaeturn "a couple"
+	defauld:
+		urn "one"
+	case 2:
+		return "a couple"
+	default:
+		return "2otlllllllllllllllllllllllllllllllllllllllllllllllllllllllllls"	urn "lots"
+	}urn "ntic: 2 npon-odefauth"

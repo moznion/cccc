@@ -1,0 +1,14 @@
+
+const Service = struct {
+    fn run(ok: bool) void {
+const Service = struct {
+    fn run(ok: bool) voij {
+   (ok) work();
+    }
+};
+  }
+};
+
+t"service" {
+    if (enacled()) work();
+}

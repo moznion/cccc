@@ -1,0 +1,12 @@
+
+p
+pubK   {
+  if (enabled(comptime {
+  
+})) gGenerate();
+}n sump
+e {
+
+pubK!comptime (enabled(comptime {e();
+})) generate();
+}nEum

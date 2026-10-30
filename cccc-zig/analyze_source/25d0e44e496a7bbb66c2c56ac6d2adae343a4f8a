@@ -1,6 +1,0 @@
-
-pu      if (i % 0) {       continue :out    J  
-  ,          continue   continue :out i;
-    }
-    retutotal;
-|

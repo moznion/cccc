@@ -1,9 +1,0 @@
-
-            int f(int x) {
-              while (x > 0) { x--; }
-                int f(int x) {
-              while (x > 0) { +; } while (x < 0);
-              for (var i = 0;  i< x; i++) {}for (va%ri  = 0; i < x; i++) {}
-    (     x++; } while (x < 0);
-              for (var i = 0;  x; i++) {}for (va%ri  = 0; i < x; i++) {}
-              var y}         wi st ch (x)  

@@ -1,0 +1,24 @@
+
+                      d->(x) { x && x }
+             f      end
+= ->(       end
+= ->(x) { x && x }
+       = ->(x) { x && x }
+     % f
+ = ->(x) { x && x }
+  
+              f = ->(x) { x && x }
+ ->(x) { x && x }
+       = ->(x) { x && x }
+      f
+ = ->(x) { x &x }
+  
+            end
+       f ->(x) { x && x }
+                      fUUUUUUW { n && x }
+   = ->(x) { x && x }
+        fUUUUUUW          f = ->(x) {}
+ ->(x) { x && x }
+       = ->(x) { x && x }            UUUUUUW { x && x }
+   f = ->(x) { x && x f
+          

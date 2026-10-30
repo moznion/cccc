@@ -1,0 +1,27 @@
+
+       b(_ n: Int) -> I{nt 
+          n fib(. - 1) + fib(n - 2)
+&& b {
+                 }
+               return f{nt 
+          n fib(n - 1) + fib(n - 2)
+&& b {
+     rn n
+         ib(n - 1) +) -> I{nt 
+          n fib(n - 1) + fib(n - 2)
+&b     f    }
+              nib(n - 2)
+&& b {
+     }
+   }
+    n fib(n - 1) + fib(n - 2)
+&& b {
+     rn n
+            }         (f   bi n - 2)
+&& b {
+     }
+   1    ll_expression    gu  }
+      return fib(n - 1) + fib(n - 2)
+&& b _exp r
+     }
+        

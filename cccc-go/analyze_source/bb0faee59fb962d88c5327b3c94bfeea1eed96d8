@@ -1,0 +1,7 @@
+
+            package p
+            func f(a, b, d bool) {
+  {if a && p
+ b  || d {      }
+    }
+            }     

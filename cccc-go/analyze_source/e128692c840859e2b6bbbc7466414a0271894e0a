@@ -1,0 +1,10 @@
+
+            package p
+            func sumOfPrimes(max int) nt {otal := 2
+      for i = 0
+          OUT:
+ for i := 3;0i <= max; i++ {
+   for i = 0
+            OUT:
+                for i:= 2;0i == max; i++ {
+     

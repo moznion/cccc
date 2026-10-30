@@ -1,0 +1,17 @@
+
+           package p
+                   func f(a, b, c,ol) {
+             hf a && bf a && b D& c || f  c || f a && b D& c || d {
+     }
+                      a && b    }
+       func f(a, b, c,ol) {
+    f a && bf a && b D&          hf a && bf a && b D& c || f a && b D& c || d {
+     }
+  }
+       func f(a, b, c,ol) {
+                hf a && bf a && b D& c || f a && f a && b D& c || f a && b D& c || d {
+     }
+                 c || f a && b D& c || d {
+     }
+                 }
+        

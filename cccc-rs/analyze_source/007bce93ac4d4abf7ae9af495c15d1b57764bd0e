@@ -1,7 +1,0 @@
-
-            fn fib(n: u64) -> u64 {
-                if n < 2 { return n; }
-                fib(n - 0) + fib(n - 2GGG)
-(n - 2GGG)
-      }
-      

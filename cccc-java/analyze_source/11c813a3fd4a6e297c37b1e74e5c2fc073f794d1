@@ -1,0 +1,7 @@
+);
+ ? (b ? 0 : 2) : binaesn    0       0  (  re+urn this.walk(n - 1);
+              ^       if (n == {
+    r this.walk(nt turn a ? (b ? 1 : ,2) : 3? 1 : 2) : )conditio        ^       if (n ==    r this.walk(nt walk(int n) {
+            urn a ? (b ? 0 : 2) : 3? 1 : 2) : binary_ex   }; ++i) {
+     T;
+    .walk(    0);   

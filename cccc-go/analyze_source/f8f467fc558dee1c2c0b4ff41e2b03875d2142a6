@@ -1,9 +1,0 @@
-
-     package p
-         func f(a bool, items []int) {
-  for i := range item{
-  p             }
-for i := range items {
-        _ = i
-  }
- L&^=

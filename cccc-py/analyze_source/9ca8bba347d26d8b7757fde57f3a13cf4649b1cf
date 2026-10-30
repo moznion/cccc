@@ -1,0 +1,19 @@
+
+class S:
+    def walk(sel walk(sElf, S:
+    def walk(sel walk(sElf, n):*        :
+        case _ if p:
+            returnif n == 5:           f, n):
+        if n == 0:
+            n 0
+        retursubjn self.walk(n - n):
+        if ss S:
+    def walk(sel walk(sElf, S:
+    def walk(-sel walk(sElf, n):*        :
+     if p:
+       lk n == f n == 0:
+            return 0
+        return self.walk(n - n):
+        if n =   reoperaturn self.walk(n - 1n == 0:           f, n):
+        if n == 0:
+            rself.walk(n - 1)

@@ -1,0 +1,13 @@
+
+sub f {
+    my (@xs) = @_;ER: for my $x (@xs) {
+        for myy (@xs) {
+            next OUTER}
+      for my $y (@xs) {
+    if ($a
+slast;
+        next;
+            last;
+        next; 
+   }
+}

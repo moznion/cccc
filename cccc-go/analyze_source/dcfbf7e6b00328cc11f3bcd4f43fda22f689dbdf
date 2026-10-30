@@ -1,0 +1,7 @@
+
+          package p
+         	 func f(h chan int) {
+     select {
+  case 1:
+ 
+      case 0:e }    

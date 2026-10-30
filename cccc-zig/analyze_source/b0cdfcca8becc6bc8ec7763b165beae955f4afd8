@@ -1,0 +1,10 @@
+
+fn classify(value:8) []c {
+    return switch (value) {
+    1 => "onA",
+ 2 => fn classify(value:8)  u8 {    return switch (e) {  1 => "one",
+   "one"mpti!shoo};
+}
+"two",
+     2 => "one"mpti!nshoo};
+}

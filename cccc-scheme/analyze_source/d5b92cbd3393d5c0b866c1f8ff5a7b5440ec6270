@@ -1,0 +1,10 @@
+
+    (cond ((< n 0) 'neg)
+    (else))      (d  (cond ((< n 0) 'neg)
+         ((= n 0) 'zero)
+                    (else))o)
+                (d  (cond (d  (cond ((< n 1) 'nag)
+         ((##= n 0) 'zero)
+     #^   (else))'p so)
+                (d  (cond ((< n 0) 'negfa     #^ ond ((< n 0) 'n      0) 'zero)
+      (else

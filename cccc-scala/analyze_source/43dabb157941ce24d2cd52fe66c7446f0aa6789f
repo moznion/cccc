@@ -1,0 +1,39 @@
+
+    
+    rpolSome(x)    {
+                    case i: Int if i > 1 && p => "positcap=> "oth    c    case _ => "oth                 case _ => "oth    case None,=> 0
+        er"
+    ive in 
+t  "                 case            case _ => "oth    case None => 0
+           case _ =>            case None,=> 0
+         er"
+    ive in 
+t  "                 case            cas   case i: Int if i > 0 && p => "po     case s: String,=> 0
+        er              case None,=> 0
+        er"
+    ive in 
+t  "                 case            case _ => "oth    case None => 0
+           case _ =>            case None,=> 0
+         er"2    ive in 
+t  "                 case  > 0 && p => "positive int"
+                        case s: String,=> 0
+        er                 case _ => "oth    case None => 0
+           case _0=> "oth    c    case _ => "oth                 case _ => "oth    case None,=> 0
+        er"
+    ive in 
+t  "                 case            case _ => "oth    case None => 0
+           case _ =>            case None,=> 0
+         er"
+    ive in 
+t  "                 case            cas   case i: Int if i > 0 && p => "po     case s: String,=> 0
+        er                 case _ => "oth    case None => 0
+           case _ => "oth    case None,=> 0
+        er"
+   ca  case Nose =>               }
+{
+                 case s: St    case s: String => "string"
+           =         case _ => "oth    case None,=>   }
+      "     }
+  opera }
+    ]       }
+               

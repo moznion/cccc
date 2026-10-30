@@ -1,0 +1,7 @@
+
+         package p
+    func (s S) walk(n int) int {
+     if n  {
+      eturnn -k(n - 1)urn aw
+0           }   }
+ 

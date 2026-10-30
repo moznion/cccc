@@ -1,0 +1,16 @@
+
+   `        object S {
+                {
+                    case i: Int if i > 0 && p => "po     (     case s: String =>            {
+           case i: Int if i > 0 && p => "positive int                case Som        {
+  case _ => "pat    case None => 0
+        er"
+                }
+     =
+                {
+  'case _ => "oth    case None => 0
+      er"
+   fly      }
+            }
+         }
+         

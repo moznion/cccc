@@ -1,0 +1,29 @@
+
+  
+cognitive
+#f
+ nrn  ->(+      n ->(x)          end      sAs get ff sum<block>    en ->(x)  end      ses g0...i
+   ->(x)   s ge     end      [] f8f sum 1...i
+   ->(x)   s get ff sum 1..2.i
+   ->(x)              end    d  
+   ->(x)    l en ->(x)          end     
+           z    ->(x)          end     :: sum 1...i
+    def host
+(       $            end
+            2  f =z ->(x) { 8 && x }
+       = ->(x) 
+                  sum 1...i
+    def host
+(                   end
+  x) se{ 8 && x }
+       = ->(x) { x && x }
+          def host
+fhost
+(                    end
+  x) se{ 8 && x }
+       = ->(x) { x && x }
+          def host
+f!= ->(x) { x &&lllll
+         end
+         f = ->(x) { x && x }
+ x ->&

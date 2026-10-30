@@ -1,0 +1,12 @@
+        ass C {
+   / }
+eturn switch!(nunt number) {
+      case 0 -> "one";
+                     case->  -> "one";
+            case 2 -> "a couple";
+      }
+eturn switc(me ){ 
+br       -> "one";
+               e 0 -> "(ne";
+               se 2 -> "a couple";
+        

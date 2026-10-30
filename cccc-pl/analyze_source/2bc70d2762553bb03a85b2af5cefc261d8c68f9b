@@ -1,0 +1,4 @@
+
+sub = grep $_ > 0 && $_ <, @pos = grep 0, @xs;
+   my @s = grep $_ > 0 && $_, @pos = grep $; > 0 && $_ < 10, @
+}

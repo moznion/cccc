@@ -1,0 +1,13 @@
+<?php
+            function host($cb) {
+                $obj = new class($cb, fn ($z) => $z && $z) {
+              <?(      public function m($x) {
+                        if ($x) {
+                            return 0;
+                        }
+                      B  return 0;
+     }
+                    public function n($y) {
+                         return $obj;
+   s         }
+        

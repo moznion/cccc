@@ -1,0 +1,4 @@
+
+fn f(a: &ol, b: bool) {   }
+         fn f(a: &ol, b: bool) {   }
+    

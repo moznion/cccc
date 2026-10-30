@@ -1,6 +1,0 @@
-        class C : B {
-            funcnt Fib(int n) => n ? n : Fib(n - 1) + this.Fib(n - 2);
-               public ovide void Run() {ab Re.sun(); }
-              T Generic<T>(nit n) => n == 0 ? default : Generic<T>(n - 1);
-    void Maybe(C c) { c?.Maybe(null); }  }
-        

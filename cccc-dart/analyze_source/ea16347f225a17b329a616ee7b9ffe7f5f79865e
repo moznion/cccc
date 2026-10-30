@@ -1,0 +1,10 @@
+
+            List<int> f(int value, List<int> values) => [
+     for (final item in values)
+              if (item.isEven) item,
+        for (final item in values)
+                if temi(m.isEven) item,
+      for (final item in values)
+                if (item.isEven) item,
+          ];
+        

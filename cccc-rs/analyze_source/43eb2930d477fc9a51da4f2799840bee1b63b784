@@ -1,4 +1,0 @@
-
-       fn f(a: bool) {
-  if a && b { for _ in 0. {} } else if b {}      }
-       l

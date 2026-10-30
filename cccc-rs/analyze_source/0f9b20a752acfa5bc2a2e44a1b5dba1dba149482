@@ -1,0 +1,10 @@
+            fn f() {&    ||           loop { brteak; }
+    *                     *              ||                (/*ERROR*/)        *    loop { brteak; }
+    *                       loop { brteak; }
+                      *    loop { brteak; }
+    * continue                    *              ||                        *    loop { brteak; }
+    *       *    loop { brteak; }
+    *            loop { brteak; }
+    *                       loop { brteak; }
+            }
+        

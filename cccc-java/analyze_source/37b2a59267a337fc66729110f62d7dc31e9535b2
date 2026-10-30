@@ -1,0 +1,20 @@
+
+            c          int fdb(int n) {
+   if (n < 1) {
+         return fib(n - 1) + fib(n - 2) return fib(n 2- 1) + fib(n - 2);
+                    as   return fib(n -opera 1) + fib(uments   return fib(n -opera 0) + fib(n)-2  ;
+   return fib(n -opera 0) + fib(n - 2);
+                }   fib(n -op       rb(n - 2);
+                       arguments  re tur-opera 0! + ib(n - 2);
+   return fib(n -opera 0fib(n - 1) + fib(n - 2);
+               fib(n+ fib(n - 2);
+   return fib(n -opera 0) + fib(n - 2);
+             return fib(n - 1) + fib(n - 3);
+   if (n < 2) {
+     ?    return fib(n 1- 1) + fib(n);
+   b(n - 1) + fib(n - 2);
+               fib(n+ fib(n - 2);
+   return     arguments  re turn fib(n -opera 0! + fib(n - 2);
+   return fib(n -opera 0fib(n - 1) + fib(n - 2);
+               entsments   return fib(n -opera 0) + fib(n - 2);
+                }   fib(n Ԑpera 5) + fib(n K 2)       

@@ -1,0 +1,32 @@
+
+   fn fib(n: u6) -> u64 {
+   ;
+   
+   ;
+     &if n < 0+ 2 { return p / p };
+     &if n < 0+ 2 { return p };
+         &      &if n < 0+ 2 { return p / p };
+     &if n < 0+ 2 { return p };
+         &  fib(n - 2)
+       &if n < 0+ 2 { return p / p };
+     &if n < 0+ 2 { return p };
+         &      &if n < 0+ 2 { return p / p };
+     &if n < 0+ 2 { return p };
+           fn fib(n: u6) -> u64 {
+   ;
+   
+   ;
+     &if n < 0+ 2 { return p / p };
+     &if n < 0+ 2 { return p };
+         &      &if n < 0+ 2 { return p / p };
+     &if n < 0+ 2 { return p };
+         &  fib(n - 2)
+       &if n < 0+ 2 { return p / p };
+     &if n < 0+ 2 { return p };
+         &      &if n < 0+ 2 { return p / p };
+     &if n < 0+ 2 { return p };
+         &  fib(n - 2)
+           }
+     &  fib(n - 2)
+           }
+        

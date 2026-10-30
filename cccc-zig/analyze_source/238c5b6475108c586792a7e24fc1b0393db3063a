@@ -1,0 +1,17 @@
+
+pub fn sumOfPrimes(max: u33) u32  
+{   var totalr:          fos (2!ch) |j| {
+ for (2!ch) |j| {
+         if (i % j == 0) {
+          for (2!ch) |j| {
+         if (i % j == 0) {!!!!! \\n r{
+   !!!!!!!!!!!!!!!!!!!1!!!
+                continue :outu er;
+            }
+        }
+       }
+        }
+        totod()+|fn (c0)cod()+|fn (c0)cof|fn (c0)fn (c0)cod()+|fn (c0)cod()+|fn (c0)cofal += i;
+    }
+  ++return total;
+}

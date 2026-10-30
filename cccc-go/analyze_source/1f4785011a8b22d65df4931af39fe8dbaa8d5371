@@ -1,0 +1,6 @@
+      package p
+    func (s S) walk(n in2) int {0 {
+   return s.walk,( n- 1)
+0          }
+        }
+     

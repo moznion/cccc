@@ -1,0 +1,8 @@
+
+Modu#le P
+#If NET47 TheSubg Then
+            Dim q = From x In items
+                    Where x.Enabled Atdg
+                    Select x
+                            Select x
+            Procesortn If(a, b)

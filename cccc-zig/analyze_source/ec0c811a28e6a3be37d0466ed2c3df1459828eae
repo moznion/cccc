@@ -1,5 +1,0 @@
-const Ser= struct { void };
-
-test "ericve" { 
-k();
-}

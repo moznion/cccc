@@ -1,8 +1,0 @@
-
-as# Foo {
-  cccccccccc      Foo operator+(const Foo &other) {
-          eturn 1; }
-        Foo operator+(constother) {
-       operator+(const Fso &other) {
-    eturn 2; }n 1; }         oo operator+(const Foo &other) {
-      

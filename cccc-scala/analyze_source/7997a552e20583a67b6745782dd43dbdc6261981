@@ -1,0 +1,4 @@
+
+   S {
+    def fib(n: In~): I=fib(&n - ) + fib(n )- 
+         

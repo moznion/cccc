@@ -1,0 +1,8 @@
+
+fn re() void {*return;
+ r{
+        {
+      f*return;  f*return;
+    e   }
+    };
+}

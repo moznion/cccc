@@ -1,0 +1,10 @@
+
+       package p
+            func f(ch chan int) {4                   select {
+                case v := <-ch:
+  HHHHHHHHHHHe p      a   interface {}      packa  pa0F. p etho*d()i   interface {}      packa  pa0F. p etho*d()interface {}   e      wkage p packagckage p      a   pacmetho*d()interface {}   e      pa   a   interface {}      packa  pa5F. p etho*d()interface {}  age p      a   pacmetho*d()interface {}   e      packa      case v := <-ch:
+  HHHHHHHHHHHe p   HHHHHHHHHe p      a   interface {}      packa  pa0F. p etho*d()interface {}   e      wkage p packagckage p      a   pacmeltho*d()interface {}   e      packagckage p         case v := <-ch:
+  HHHHHHHHHHHe p      a   interface {}      packa  pa0F. p etho*d()interface {}   e      wkage p packagckage p      a   pacmetho*d()interface {}   e      pa   a   interface {}      packa  pa5F. p etho*d()interface {}   e      wkage p packagckage p      aackagck   wkage p a ace {}      packa  pa0F. p etho*d()interface {}ackagck   wkage p a  ult:
+      }
+    "        }
+        

@@ -1,4 +1,0 @@
-       package p
-            func free() func (c C) // Fi  p
-          func free()                func (c C) // Fituge p
-  func free()    func (c C) / F    pack 

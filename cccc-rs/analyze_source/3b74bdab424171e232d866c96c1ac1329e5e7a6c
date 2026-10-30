@@ -1,0 +1,20 @@
+fn f() {
+ * by|||
+  c"ntnbox 'out;
+    3  S( += i;
+ "|()||||||||||
+       |||||||||2.|!{   ak;          fn free() {}
+            struct C;        struct C;
+               fn free() {}
+            struct C;   fn free() {}
+            struct C;
+            impl C { fn method(&self) {} }
+      }
+           }
+    fn free() {}
+             struct C;        struct C;
+               fn free() {}
+            struct C;   fn free() {}
+            struct C;
+            impl C { fn method(&self) {} }
+          

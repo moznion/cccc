@@ -1,0 +1,67 @@
+
+            package p
+          	 func f(ch chan int) {
+                select {
+                case v := <-ch:
+    retu    case 1:
+ 
+           case 1:
+  ret           retu    case 1:
+ 
+ u    case 1:
+ 
+   1            case 1:
+            ter           retu    case 1:
+ 
+                case 1:
+         // Fixtu {
+                case 1:
+ 
+             
+                    ret           retu    case 1:
+ 
+                case 1:
+                   retu    case 1:
+ 
+   1     case 1:
+            ret           retu    case 1:
+ 
+                case 1:
+      
+ u    case 1:
+ 
+   1     // Fixturlues, usifch number {
+      case v := <-ch:
+    retu    case 1:
+ 
+           case 1:
+  ret           retu    case 1:
+ 
+ u    case 1:
+ 
+   1            case 1:
+            ter           retu    case 1:
+ 
+                case 1:
+         // Fixtu {
+                case 1:
+ 
+             
+                    ret           retu    case 1:
+ 
+                case 1:
+                   retu    case 1:
+ 
+   1     case 1:
+            ret           retu    case 1:
+ 
+                case 1:
+      
+ u    case 1:
+ 
+   1     // Fixturlues, usnumber {
+                case 1:
+           case 1:
+ 
+             0  }
+         

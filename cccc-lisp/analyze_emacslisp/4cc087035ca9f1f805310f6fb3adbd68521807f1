@@ -1,5 +1,0 @@
-
-        (condition-case err
-           (funcall th     (funcall thunk)
-  err) (retr
-x) f   #z b ?\z #z b ? #  b ? # #z b ?\z b #z b ?\? #  b ? # #z b ?\z b #z b ?\z b #z b ?\a b #z b ?\#z b ?\z b #z b ?\\z b #z b ?\b #z b ?\z b #z b ?\a b #z b ?\#z b #z b ? #  b ? #z #z b ? # b ? # #z b ?\z b #z b ?\z b #z b ?\a b #z b#z b ? # #z b ?\z b #z b ?\z #z b ? #  b ? # #z b ?\z b #z b ?\ #z b ? #  b ? # #z b ?\z b #z b ?\y) (ab

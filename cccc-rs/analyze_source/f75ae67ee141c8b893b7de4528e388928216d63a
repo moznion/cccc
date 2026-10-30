@@ -1,0 +1,2 @@
+    fn f(){c ||| c || -0x1AAAA || -0x1AAA   }
+c

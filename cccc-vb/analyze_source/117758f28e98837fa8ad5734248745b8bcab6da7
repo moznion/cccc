@@ -1,0 +1,18 @@
+
+Module P
+#If N enLog(
+#E&lseIf TRACE AndAlso )
+#InLog(  S()
+#If
+#Im )
+##If
+#Io )
+#InLog("a")
+#E&lseI  S()
+#If
+#If DEBUG ThenLog("a")
+#E& ( InLog("a")
+#E&lseI  S()
+#If
+#If DEBUG ThenLog("a")
+#E& ( Preserve x#Else If From 

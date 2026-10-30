@@ -1,6 +1,0 @@
-
-const Se;
-
-test "service"{
-      if (enab()) work();
-}

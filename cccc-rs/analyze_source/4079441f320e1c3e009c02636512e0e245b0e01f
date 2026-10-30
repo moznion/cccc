@@ -1,0 +1,4 @@
+    fn sum_ofrimes(ma: u31) -> u64 {
+          let mux {               (/*ERROR*/) A  }
+      ttttttt}
+        

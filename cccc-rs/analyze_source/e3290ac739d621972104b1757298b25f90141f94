@@ -1,8 +1,0 @@
-
-         impl C { fn mebothod(&self) {} }
-            fn host() { lambda = |x: u32| x + 1; }
-            fn free() {}
-            struct C;
-            impl C { fn mebothod(&self) {} }
-           nf  host() { let lambda = |x: u32| x + 1; }
-        

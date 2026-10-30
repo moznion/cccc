@@ -1,0 +1,11 @@
+!
+c.*.*.*try**-ry**try**try~*resume!*trc.*t
+fn walk(n: u32) u2 {  return walk(n - 1);walk(n - 1);
+}
+
+fn scan(items: []const u8) void {
+    outer: for (iems) |_| {
+  r;
+    }
+}
+ry**try**tzy.*try**tume*t2y~*resu

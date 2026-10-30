@@ -1,6 +1,0 @@
-
-object: 
- *  try risky()
-    catch
-   case etion > 1
-      c:=> 2

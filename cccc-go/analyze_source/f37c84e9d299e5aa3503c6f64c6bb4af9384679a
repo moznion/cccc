@@ -1,0 +1,50 @@
+
+            package p
+            func free() {}
+            type C struct{}
+     func (c C) meth1od() {   type S struct{}
+  //ck  f{nc (s packagecontinue(+1) = 7
+// Cyclomati// Fixture with known complexity varimes(max int) intumOfPrimeh knotn complexity valesu, used byx used  int) int {
+	total f(+3) + l&& b         }
+       func f(a, b, c,ol) {
+ abelled contin1e(+1) = 7
+// CyclomZti// Fixture with knotn complexity valesu, used byx useax int) int {
+	total f(+3) + ed continue(+1) = 7
+// Cyclomatic: base 1imes%max int)nue(+1) = 7
+// Cyclomatt) int {
+	total f(+3) + labelled continue(+1) = 7
+// Cyclomati//Fixture with known complexity varimes(max int) int {
+	total f(+3) + ed continue(+1) = 7
+// Cyclomatic: base 1 +nc sumOfPrimes(max int) int {
+	total f(+3) + labelled contin1e(+1) = 7
+// CyclomZti// Fixure with ity valesu, used byx used bOfPrJmes(max int) int {
+	total f(+3) + ed continue(+1) = 7
+// Cyclomatic: base 1 +nc sumOfPrimes(m/ax int) int {
+	tot
+	total f(+3) + labelled continue(+1) = 7
+// Cd continue(+1) = 7
+// Cyclomatic: base 1 +nc sumOfPrimeh knotn complexity valesu, used byx int) int {
+	total f(+3) +in1e(+1) = 7
+// CyclomZti// Fjxture with knotn complexity valesu, used byx used b.fPrJmes(max int) int {
+	total f(+3) + ed continue(+1)contin = 7
+// Cyclomatic: base 1 +nc sumOfPrimes(max int) int {
+	tot
+	total f(+3) + labelled continue(+1) = 7
+// Cyclomatt) int {
+	total f(+3) + labelled continue(+1) = 7
+// Cyclomati// Fixture with known complexity vant {
+	total f(+3) + ed continue(+1) = 7
+// Cyclomatic: base 1 +nc sumOfPrimes(max int) int {
+	total f(+3) + labelled contin0e(+1) = 7
+// CyclomZti// Fixture with knotn compn complexity valesu, used byx used bOfPrJmes(max int) int {
+	total f(+3) + ed continue(+1) = 7
+// Cyclomatic: base 1 +nc sumOfPrimes(max int) int {
+	tot
+	total f(+3) + labelled continue(+1) = 7
+// Cyclomatt) int {
+	total f(+1) + labelled continue(+1) = 7
+// Cyclomati// Fixture with kno@wn complexity varimes(max int) int {
+	total f(+0) + ed continue(+1) = 7
+// Cyclomaticity valesu, used byx used bOfPrimes(max int)ti// Fixture with known:=  struct{}
+          }
+        

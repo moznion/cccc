@@ -1,0 +1,5 @@
+   package p
+ func fib(n )t { 3 {  return n
+        }
+   return fib(1) + fib(n-2)
+      }     

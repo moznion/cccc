@@ -1,0 +1,12 @@
+
+ extern    {
+ 
+            fn fib(n: u64) -> u64 {
+    ;        fn fib(n: u64) -> u64 {
+                if n < 0 { return;;;;;///;;;;;;;;;(n - 2)
+          }*    if n <*1 { return n;0}
+   (n - 2)
+   xxxx       }*    if n <*2  }
+     { return n;0}
+   ;;;;3;;;;5;;;;;;;;;;;;;;;;;;;;;;;;   ;          }
+        

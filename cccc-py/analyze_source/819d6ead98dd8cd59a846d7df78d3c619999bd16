@@ -1,0 +1,2 @@
+
+defhost(key=lambda x: x): lambda x: f 
