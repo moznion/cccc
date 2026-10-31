@@ -1,0 +1,7 @@
+
+                        if (a & b && c || d) &&       if (a && b && c || d) {
+   (a && b && c || d) {
+    a && b && c || d) &&       if (a && b && c || d) {
+    a *b && c || d)&&       if (a && b && c || d) {
+      (a& b && c || d)& &a  b && c || df (a && b &a && b && c || d) {
+      (a& b && c || d) a && b && c || df (a && b && c || d)         

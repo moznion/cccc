@@ -1,0 +1,6 @@
+
+fn walk(n: u31) u32 {
+  return 0;
+    u; r;
+alk(n - 1);
+}c-

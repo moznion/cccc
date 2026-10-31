@@ -1,0 +1,7 @@
+
+fn re() d {*return;{
+       {
+      return;  f*return;
+    e   }
+    };
+}

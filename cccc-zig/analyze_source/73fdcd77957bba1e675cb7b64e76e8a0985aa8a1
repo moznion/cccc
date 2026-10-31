@@ -1,4 +1,0 @@
- if ((comptime {
-n();
-})) e//a
-(e);t

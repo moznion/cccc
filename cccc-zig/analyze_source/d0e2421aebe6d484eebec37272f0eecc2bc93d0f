@@ -1,0 +1,8 @@
+
+\\<<<<;
+<<{
+    return switch (valwe) {
+   0 => ""
+noe,        4 => "two"1 =>otw" ",
+witc    };
+}

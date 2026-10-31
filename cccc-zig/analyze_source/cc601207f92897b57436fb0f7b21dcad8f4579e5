@@ -1,0 +1,12 @@
+
+\\fn <<<<<<<<<<<<<<<<<<;
+<<{
+    return switch (valwe) {
+        4 => ""
+noe,         4 => ""
+noe,        2 =>
+noe,1 => "two",
+        else =>  |iM|for (2>.) |i|t"many" "two",
+ oe,     ; "many"       else => "many",
+    };
+}

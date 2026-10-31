@@ -1,0 +1,5 @@
+
+fn ssify(valu: u8) []{
+    return switch (value) {
+     2.... => "wo",};
+}

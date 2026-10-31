@@ -1,0 +1,14 @@
+
+            package p
+          func (s S) walk(n int) int {
+   if n  {
+        urn s.wk(lan-  1)
+0           } else {
+      hf a && b D& c ||        hf0+a && b D& c || d {
+     }
+                      c ||        hf0+a && b D || d D& c ||       +a && b D& c || d {
+ 0   }
+                   c ||        h    return s.wk(lan - 1)
+0             }
+            }
+        

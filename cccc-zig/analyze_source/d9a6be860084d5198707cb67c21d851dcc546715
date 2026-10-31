@@ -1,0 +1,6 @@
+{  (enab(comptime {
+ generate();
+})(comptime {
+ generate();
+})) geerat;
+}nuuwconst

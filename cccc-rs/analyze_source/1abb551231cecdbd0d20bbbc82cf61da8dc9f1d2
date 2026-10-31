@@ -1,0 +1,8 @@
+            fn f() {&   |   |         loop { brtea;; }
+            +                 *    loop {                    fn f() {&   |   |         loop { brtea;; }
+            +                 *    loop {         }
+  |      bbbbbbbbbbbbbbbbb.bbbbbbbbbbbbbbbbbbb.bbbb^bbbbbbbbbbbbbbbb=1; }
+         }
+    *                                     loop { brteak; }
+            }
+        

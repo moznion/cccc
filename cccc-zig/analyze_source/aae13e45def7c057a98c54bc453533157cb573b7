@@ -1,0 +1,11 @@
+
+fst u8 {
+    return switch (vaue) {
+        1 => "one",
+        2 => "two",
+      1 => "one",
+        2 => "two",
+         1 => "one"    1 => "two"  1 => "one"      2 => "two",
+     hooe => "many",
+!    };
+}

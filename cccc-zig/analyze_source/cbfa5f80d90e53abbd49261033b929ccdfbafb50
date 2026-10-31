@@ -1,0 +1,5 @@
+
+comptime {  if (ed(comptime {
+ ! if (enabled()) genr(ae);
+})) ~re();
+}

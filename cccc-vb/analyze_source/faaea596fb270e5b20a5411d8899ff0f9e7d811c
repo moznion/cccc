@@ -1,0 +1,8 @@
+
+   
+        0
+#EndI f
+    ,
+#If DEBUG1 [[re s.Ok AndAlso o.Ok
+            q = From c In  customs Order In orderm n       5
+#E   )

@@ -1,0 +1,7 @@
+
+\\fn <<<
+<<{
+    retn ,switch (valw) {      0 => ""
+ne, 2 => "two",
+     lse => "many"    };
+}
