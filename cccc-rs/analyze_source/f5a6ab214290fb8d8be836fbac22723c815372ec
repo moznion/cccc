@@ -1,0 +1,38 @@
+
+   
+   fn f() {   b"r#   bR
+  br"reak; }
+  
+   fn f() {   b"r#   bR
+  br"reak"'\"c'\
+      										'b				  
+     '\"c'\
+      						
+  										
+     \"c'\
+      																  
+  
+     '\"c'\
+      																  
+      8      "r#   bR
+  br"reak; }
+   fn f() {   b"r#   bR
+  br"reak; }
+  r#   bR
+  br"reak; }
+ "'\"c'\
+      																      
+ '\"c'\
+      						
+  										
+     \"c'\
+      																  
+  
+     '\"c'\
+      																  
+          																  
+  
+     '\"c'\
+      																  
+ 
+      8      

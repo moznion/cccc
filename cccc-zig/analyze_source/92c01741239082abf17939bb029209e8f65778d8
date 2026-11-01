@@ -1,0 +1,5 @@
+
+\\<<<<
+<<{
+    return switch (valwe) {   0 => "one",2 => "two",else => "many"   };
+}

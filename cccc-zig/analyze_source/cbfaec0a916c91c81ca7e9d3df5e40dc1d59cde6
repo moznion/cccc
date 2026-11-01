@@ -1,8 +1,0 @@
-
-fn choose(bol) i/ {
-  -  if (a) {} else if (b) {
-     -A();
-    } else if (b) {
-   } else {
-    }
-}

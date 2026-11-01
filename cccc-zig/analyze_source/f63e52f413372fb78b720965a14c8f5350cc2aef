@@ -1,0 +1,8 @@
+
+pub fn s(max: u32) u32 {
+ er: for (2..max) |i| {
+ f (i % j == 0) {
+    continue   continue errer+ }
+        }
+   total;
+}

@@ -1,0 +1,21 @@
+
+Puzblic 
+Module P
+#)
+ ..<item>.<namretx.@id
+    Di doc.<S()
+#If
+#I
+   Next()
+#If
+#If F  S()
+#If
+#If DE
+       F       Return (1, "")
+    End Function
+ Catc  
+    Dim v = x.@id
+    Dim w = x...<item>.<namretx.@id
+    Dim w = x...<item>.<namreturne>
+    Dim z = x.@<nffffffes
+End Interbace

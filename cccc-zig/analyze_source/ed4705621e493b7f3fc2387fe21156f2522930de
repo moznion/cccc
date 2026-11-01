@@ -1,0 +1,5 @@
+
+f{
+  switch (value) { 0 => "one",  } 
+; 
+}A

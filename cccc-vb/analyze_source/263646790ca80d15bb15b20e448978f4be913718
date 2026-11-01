@@ -1,0 +1,9 @@
+
+Modu#le P
+#If c n IfAs EventA
+    = From x In items
+                    Where x.Enabledisible
+            Select x
+  d
+      nub
+   Erase

@@ -1,4 +1,0 @@
- 
-#If
-#If DEBUG TheIne
-    Erase xs, ys

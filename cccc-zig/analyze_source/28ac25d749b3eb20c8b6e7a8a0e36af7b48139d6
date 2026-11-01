@@ -1,0 +1,4 @@
+ { (ena(comptime {
+})(comptime {
+ generate();
+})) geerat;}nu+| 

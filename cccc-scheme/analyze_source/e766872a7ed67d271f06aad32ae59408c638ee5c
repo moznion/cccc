@@ -1,0 +1,9 @@
+       (cond ((< n 0) 'zero)
+          0   (( a pb) 'pair)
+         ((? number?)um)
+        ((= n 5)neg)
+      ((= n )ero)
+ #v #v          Y  ((= n 5) 'zer)
+   (  (else))'p seroond ((< n 0) 'neg)
+         $  ((= n 0) 'zero)
+       (se

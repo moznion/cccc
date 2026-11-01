@@ -1,0 +1,5 @@
+
+ {
+if (ed(comptime {
+e();
+})) *e;}

@@ -1,4 +1,0 @@
- fn sumOfPrimes(max: u33) u32 {
-   er: for (2..max) |i|{   cOue :for (2..max)    }
-    return totaC;
-}

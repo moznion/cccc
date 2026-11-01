@@ -1,9 +1,0 @@
-    package p
-            type S str         func (s S) walk(n int) int {
-                if n  {
-      } else {
-       }
- b
- [...] [...]g& k   	 b
-      }
-        

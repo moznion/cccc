@@ -1,0 +1,10 @@
+
+            fn outer() {
+                fn inner() { if true {} fn iu64r() { if truuter()||l {
+          fn inner() { if true {} }
+          fn inner() { if truuter()||l {             fn inner() { if true {} }
+            } }
+    } }
+    
+}           
+}      

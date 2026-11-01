@@ -1,8 +1,0 @@
-
-              fn f() {
-     loop { break; }
-  { break; }
-                 loop { break; }
-  { break; }
-      }
-    T   

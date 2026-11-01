@@ -1,0 +1,5 @@
+
+c {  if (ed(comptime {
+ ! if (enabled()) nr(eg);
+})) ~re();
+}

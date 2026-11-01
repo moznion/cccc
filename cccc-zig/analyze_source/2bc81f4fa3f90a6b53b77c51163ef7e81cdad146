@@ -1,0 +1,5 @@
+
+fn s() []{
+    return switch (value) {
+     2...,};
+}
