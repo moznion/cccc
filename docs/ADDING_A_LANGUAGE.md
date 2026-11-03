@@ -62,9 +62,9 @@ description = "Python adapter that lowers source into the cccc-core complexity I
 
 [dependencies]
 cccc-core = { workspace = true }
-# your parser crate(s) here — the real cccc-py uses the official grammar:
-tree-sitter = "0.26"
-tree-sitter-python = "0.25"
+# your parser crate(s) here — the real cccc-py uses a community-maintained grammar:
+tree-sitter = "0.27"
+tree-sitter-python-orchard = "0.6"
 ```
 
 The adapter must expose exactly two public items, because that is the contract

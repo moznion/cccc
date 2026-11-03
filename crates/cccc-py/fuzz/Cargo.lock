@@ -40,7 +40,7 @@ dependencies = [
 
 [[package]]
 name = "cccc-core"
-version = "1.8.0"
+version = "1.8.5"
 dependencies = [
  "serde",
  "stacker",
@@ -48,11 +48,11 @@ dependencies = [
 
 [[package]]
 name = "cccc-py"
-version = "1.8.0"
+version = "1.8.5"
 dependencies = [
  "cccc-core",
  "tree-sitter",
- "tree-sitter-python",
+ "tree-sitter-python-orchard",
 ]
 
 [[package]]
@@ -325,10 +325,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d0af592be68c579aa78a16846bd19422978c3c52e438523d45ff5d1bff1f9d4a"
 
 [[package]]
-name = "tree-sitter-python"
-version = "0.25.0"
+name = "tree-sitter-python-orchard"
+version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6bf85fd39652e740bf60f46f4cda9492c3a9ad75880575bf14960f775cb74a1c"
+checksum = "71bb020b95776c71a7af7dfd62d7bab61b86dbf6c67f988b3f73a58e54e0aee9"
 dependencies = [
  "cc",
  "tree-sitter-language",
