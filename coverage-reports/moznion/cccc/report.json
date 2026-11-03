@@ -1,13 +1,13 @@
 {
   "repository": "moznion/cccc",
   "ref": "refs/heads/main",
-  "commit": "113a477683cbdfe647ea189a49c6b1d43d629d27",
+  "commit": "688a7f3d03891527587e4b32beec26fbf826ac70",
   "base_ref": "refs/heads/main",
   "coverage": {
     "type": "loc",
     "format": "LCOV",
     "total": 16849,
-    "covered": 16018,
+    "covered": 16016,
     "files": [
       {
         "type": "loc",
@@ -2067,7 +2067,7 @@
         "file": "/home/runner/work/cccc/cccc/crates/cccc-cli/src/cache.rs",
         "normalized_path": "crates/cccc-cli/src/cache.rs",
         "total": 486,
-        "covered": 470,
+        "covered": 468,
         "blocks": [
           {
             "type": "loc",
@@ -2514,22 +2514,22 @@
             "type": "loc",
             "start_line": 205,
             "end_line": 205,
-            "count": 7,
-            "count_u64": 7
+            "count": 6,
+            "count_u64": 6
           },
           {
             "type": "loc",
             "start_line": 207,
             "end_line": 207,
-            "count": 1,
-            "count_u64": 1
+            "count": 0,
+            "count_u64": 0
           },
           {
             "type": "loc",
             "start_line": 208,
             "end_line": 208,
-            "count": 1,
-            "count_u64": 1
+            "count": 0,
+            "count_u64": 0
           },
           {
             "type": "loc",
@@ -8575,8 +8575,8 @@
             "type": "loc",
             "start_line": 353,
             "end_line": 353,
-            "count": 731,
-            "count_u64": 731
+            "count": 728,
+            "count_u64": 728
           },
           {
             "type": "loc",
@@ -10212,8 +10212,8 @@
             "type": "loc",
             "start_line": 13,
             "end_line": 13,
-            "count": 11244,
-            "count_u64": 11244
+            "count": 10176,
+            "count_u64": 10176
           },
           {
             "type": "loc",
@@ -58714,8 +58714,8 @@
             "type": "loc",
             "start_line": 84,
             "end_line": 84,
-            "count": 104,
-            "count_u64": 104
+            "count": 50,
+            "count_u64": 50
           },
           {
             "type": "loc",
@@ -118278,6 +118278,6 @@
       }
     ]
   },
-  "test_execution_time": 283000000000,
-  "timestamp": "2026-11-03T13:15:32.075677702Z"
+  "test_execution_time": 10000000000,
+  "timestamp": "2026-11-03T13:18:57.290517247Z"
 }
