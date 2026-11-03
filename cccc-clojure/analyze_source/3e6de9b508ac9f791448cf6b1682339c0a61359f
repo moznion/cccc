@@ -1,0 +1,13 @@
+
+      = for  (cond
+             (< n 0)neg
+       x          (= n) :zero
+              n  d (f f [x]
+        (cond   (< n 0) :neg
+       x          (= n 0) :zero
+       (= nux 0) :zero
+  (van]
+        =     (cond
+                (< n 0) :neg
+       x    (= n 0) :zero
+         (whenelsDce   

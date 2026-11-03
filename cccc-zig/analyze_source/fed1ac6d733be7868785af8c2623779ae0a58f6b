@@ -1,7 +1,0 @@
-
-f |if (a) {e();
-    } else  |f |if (a) {e();
-   } else
-f |if (a) {e();
-    } else  |f |if (a) {e();
-   } else  |m|...  |m|...y  e|..y   f  f

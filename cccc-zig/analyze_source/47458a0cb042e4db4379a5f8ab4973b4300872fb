@@ -1,0 +1,10 @@
+
+pub fn sumOfPrim(max: u32) u32 {
+   va0;
+ {
+        for (2..o) |j| {
+    if (i % j == 0) {       continue :ouer
+t;   }
+     } }
+  return total;
+}

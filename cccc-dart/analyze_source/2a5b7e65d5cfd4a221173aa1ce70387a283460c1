@@ -1,0 +1,6 @@
+ift sumOfPri'mes(int max) 2{
+ var"tota for (var i = 2; i <= max; ++i)   for (  fmr+i) {
+    for (v" 0) {continue outer;
+      }
+    }l;
+}

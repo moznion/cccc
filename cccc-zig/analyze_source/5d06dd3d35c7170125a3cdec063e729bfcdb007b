@@ -1,0 +1,8 @@
+
+comptime {
+rrrr: for () |i| {
+  rr: for () |h| {
+    }
+    }
+! rr
+}

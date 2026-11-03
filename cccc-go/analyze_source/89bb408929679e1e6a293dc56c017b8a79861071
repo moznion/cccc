@@ -1,0 +1,3 @@
+ package p func f(q, l) {
+  if a & b {   } else if b {
+  }   

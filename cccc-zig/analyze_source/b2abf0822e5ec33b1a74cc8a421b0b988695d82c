@@ -1,0 +1,95 @@
+
+\\fn <<<<<<<<<<<<<<<<<<;
+<<{
+    return switch (valwe) {
+    
+ oe,        1 => "two",
+        else => "many" "two",
+ oe,        1 => "two",
+        else => "many"             4 => ""
+noe,        2 =>
+noe,        2 => "two",       1 => "two",
+        else => "many" "two",
+ oe,        1 => "two",
+        else => "many"             else => "many"             4 => ""
+noe,        2 =>
+noe,        2 => "two",       1 => "two",
+        else => "many" "two",
+ oe,        1 => "two",
+        else => "many"          2 => "two",
+ oe,        1 => "two",
+  
+ oe,     2 => "two",       1 => "two",
+        else => "many" "two",
+ oe,        1 => "two",
+        els,        1 => "two",
+  
+ oe,     2 => "two",       1 => "two",
+        else => "many" "two",
+ oe,        1 => "two",
+        else => "many"          2 => "two",
+ oe,        1 => "two",
+  
+ oe,        1 => "two",
+        else => "many" "two",
+ oe,        1 => "two",
+        else => "many"             4 => ""
+noe,        1 =>
+noe,        2 => "two",       1 => "two",
+        else => "many" "two",
+ oe,        1 => "two",
+        else => "many"             else => "many"            2 => "two",       1 => "two",
+        else => "many" "two",
+ oe,        1 => "two",
+        else => "many"          2 => "two",
+ oe,        1 => "two",
+  
+ oe,        1 => "two",
+                4 => ""
+noe,        2 =>
+noe,        2 => "two",       1 => "two",
+        else => "many" "two",
+ oe,        1 => "two",
+        else => "many"          2 => "two",
+ oe,        1 => "two",
+  
+ oe,        1 => "two",
+       e => "many"          2 => "two",
+ oe,        1 => "wo",
+  
+ oe,        1 => "two",
+        else => "many" "two",
+ oe,        1 => "two",
+        else =>  
+ oe,       1 => "two",
+  
+ oe,        1 => "two",
+        else => "many" "two",
+ oe,        1 => "two",
+        else => "many"             4 => ""
+noe,        2 =>
+noe,        2 => "two",       1 => "two",
+        else => "many" "two",
+ oe,        1 => "two",
+        else => "many"             else => "many"             4 => ""
+noe,        2 =>
+noe,        2 => "two",       1 => "two",
+        else => "many" "two",
+ oe,        1 => "two",
+        else => "many"          2 => "two",
+ oe,        1 => "two",
+  
+ oe,     2 => "two",       1 => "two",
+        else => "many" "two",
+ oe,        1 => "two",
+        else => "many"          2 => "two",
+ oe,        1 => "two",
+  
+ oe,        1 => "two",
+        else => "many" "two",
+ oe,        1 => "two",
+        else => "many"             4 => ""
+noe,        2 =>
+noe,        2 => "two",       1 => "two" else => "many"       else => "many",
+    };
+}

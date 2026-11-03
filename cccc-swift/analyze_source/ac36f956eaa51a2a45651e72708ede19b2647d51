@@ -1,0 +1,17 @@
+if = 4
+umOfPrimes(max: Int) ->nt {
+ r: for i }
+
+// Cclomacti:ol) -> String {
+    if a && b {
+ urn "both"
+    }
+    r: Bool) -> Strg {
+    if a && b {
+  syntax error at line 3    U  return "~both"   }
+    reool) -> St)ring {
+    if a && b {
+       urn "boti"
+    }
+<<<<<    return "not"
+}

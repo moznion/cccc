@@ -1,9 +1,0 @@
-
-    (cond ((< n 0) 'neg)
-    (else))      (d  (cond ((< n 0) 'neg)
-         ((= n 0) 'zero)
-                  (else))o)[           (d  (cond ( (cond ((< n 0) 'nag)
-         ((##= n 0) 'zero)
-     #^   (else))'p so)
-                (d  (cond ((< n 0) 'neg 'zero)
-      (else

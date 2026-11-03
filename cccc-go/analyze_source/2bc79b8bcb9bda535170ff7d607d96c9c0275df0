@@ -1,0 +1,7 @@
+
+       package p
+            func f(ch chan int) {4                   select {
+                case v := <-ch:
+  HHHHHHHHHHHe p      a   interface {}      packa  pa0F. p etho*d()i   interface {}      packa  pa0F. p etho*d()interface {}   e      wk p      a   pacmetho*d()interface {}   e      pa   a   interface {}      packa  pa5F. p etho*d()interface {}  age p metho*d()interface {}   e      packa      case v := <-ch:
+  H etho*d()i   interface {}      packa  pa0F. p etho*d()interface {}   e      wk p      a   pacmetho*d()interface {}   e      pa   a   interface {}      packa  pa5F. p etho*d()interface {}  age p      a   pacmetho*d()interface {}   e   erface {}      packa  pa0F. p etho*d()interface {} e      pa   a   interfae {}      packa  pa5F. p etho*d()interface {}   e      wkage p packagtho*d()interface {}a   wkage p a  u/=:
+      }        

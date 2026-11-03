@@ -1,5 +1,0 @@
- Pub[[[[ P
-#If NET48 TA    EndY Sud eulP
-#If NET48perty         Enthed AdfHandler
-        RemoveHandler(value As EventHandler)
-   .WriM

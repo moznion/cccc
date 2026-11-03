@@ -1,5 +1,0 @@
-
-  ion a = delegate { };
-   ci a = delegate { };
-   Action a = delegate { };
-      

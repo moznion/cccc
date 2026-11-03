@@ -1,0 +1,28 @@
+
+            package p
+            func host() {
+      {
+          2   if a && b {
+                        return 
+2                    } else {                  return    
+0                 }
+     if a && b {
+    return 
+1                           return    
+0   ck
+                      return 
+2             } else {
+                        return           }
+                  }
+           _ = pick
+            }
+               func host() {
+      {
+       ty!0   if a && b {
+    return 
+1                                     return    
+0                      }
+                    }
+                _ = pick
+            }
+           

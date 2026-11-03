@@ -1,0 +1,10 @@
+
+              String f(Object valu) e=> switch (value) {
+       => 'matched',=> switch (value) {
+  => switch (v2alue) {
+       > 'matched',=> switch (avlue) {
+          => 'matched',
+             },
+                };
+           };
+       

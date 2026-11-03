@@ -1,6 +1,0 @@
-
-   en
-
-#If Dnd1If
-    If a = 5 Then Flse:Bar()
-=

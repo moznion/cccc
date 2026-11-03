@@ -1,6 +1,0 @@
-
-object: 
- *  try risky()
-   catch
-   case et > 1
- :=> 2

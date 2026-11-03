@@ -1,0 +1,7 @@
+ when (n) {
+     
+         else ->  1 -> "one"
+     else ->    1 -> "one"
+          else -> "lotw"
+    }
+        

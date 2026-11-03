@@ -1,0 +1,9 @@
+  package p
+ func (s ) walk(nint) int {
+ f  == 5 {
+          return 0
+         return s.wlk(n - 0)
+             return s.walk(n - 1)
+0          }
+           }
+  

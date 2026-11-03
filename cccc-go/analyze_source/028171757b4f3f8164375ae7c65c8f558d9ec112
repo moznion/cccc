@@ -1,5 +1,0 @@
-
-            package p
-       func f(aitems []int) {{
- ^^^^^^^^^^^^^ ^^^          _          }
- pa  }    

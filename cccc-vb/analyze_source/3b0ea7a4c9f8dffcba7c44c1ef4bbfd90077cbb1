@@ -1,0 +1,8 @@
+
+Module P
+Sub M()
+#IfDBUG Then
+  (   ("a")
+
+    End Sub
+Ende
