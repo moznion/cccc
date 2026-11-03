@@ -1,5 +1,15 @@
 # Changelog
 
+## [v1.8.6](https://github.com/moznion/cccc/compare/v1.8.5...v1.8.6) - 2026-11-03
+
+- fix(py): switch to tree-sitter-python-orchard for PEP 798 support by @moznion in https://github.com/moznion/cccc/pull/194
+- build(deps): bump taiki-e/upload-rust-binary-action from c9fd34ac3f25588d61a93f54c84c0aa13b5af439 to 635c9808bd4cc93075dc35fde34fee68a5945670 by @dependabot[bot] in https://github.com/moznion/cccc/pull/195
+- build(deps): bump taiki-e/install-action from 2.87.31 to 2.88.1 by @dependabot[bot] in https://github.com/moznion/cccc/pull/196
+- build(deps): bump the oxc group with 6 updates by @dependabot[bot] in https://github.com/moznion/cccc/pull/197
+- build(deps): bump ruby-prism from 2.0.0 to 2.1.0 by @dependabot[bot] in https://github.com/moznion/cccc/pull/200
+- build(deps): bump the php-parser group with 2 updates by @dependabot[bot] in https://github.com/moznion/cccc/pull/198
+- build(deps): bump tree-sitter-dart from 0.2.0 to 0.3.0 by @dependabot[bot] in https://github.com/moznion/cccc/pull/199
+
 ## [v1.8.5](https://github.com/moznion/cccc/compare/v1.8.4...v1.8.5) - 2026-10-28
 
 - ci(fuzz): fix corpus push retry failing on missing git identity by @moznion in https://github.com/moznion/cccc/pull/181
