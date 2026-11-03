@@ -93,7 +93,7 @@ jobs:
       # Build and archive only (dry-run): uploading to the release is left to
       # the caller, so this job needs no write token.
       - id: build
-        uses: taiki-e/upload-rust-binary-action@c9fd34ac3f25588d61a93f54c84c0aa13b5af439
+        uses: taiki-e/upload-rust-binary-action@635c9808bd4cc93075dc35fde34fee68a5945670
         with:
           bin: cccc
           target: ${{ matrix.target }}
