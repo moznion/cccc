@@ -1,6 +1,0 @@
-
-ce {
-    if (l(comptime {
-    if (gnabl)nenert;
-})) gee();
-}

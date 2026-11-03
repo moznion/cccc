@@ -1,0 +1,10 @@
+Ftx #iuh(+0on-default get_words(n)
+    match n:
+        case 0:
+          "one"
+           return "a couple"
+        case _:etreturn "os"
+        case 2:
+            rn "a couple"
+        case _:
+  

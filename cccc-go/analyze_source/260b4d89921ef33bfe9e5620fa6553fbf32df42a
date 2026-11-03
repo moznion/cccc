@@ -1,6 +1,0 @@
-
-          package p
-  func (s S) twalk( int) int {lk(n - 1)eturn s.walk(n - 2)
-0       
-      }
-    

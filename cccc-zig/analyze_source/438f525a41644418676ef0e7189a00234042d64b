@@ -1,0 +1,8 @@
+
+(n)-while(n)|r|r
+-while(n)|r|!
+!e
+&(n)|r|
+r-while(n)|r|e|r|r
+-while(n)|r|!!r
+&

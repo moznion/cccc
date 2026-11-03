@@ -1,0 +1,8 @@
+$def f(x, p?):
+    match x:
+    
+        case  ca _ if p:
+          return (
+            case _ if uif p:
+            return (
+            case _ if p:rn 0

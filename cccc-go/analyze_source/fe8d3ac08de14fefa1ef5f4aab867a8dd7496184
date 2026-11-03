@@ -1,0 +1,4 @@
+
+package p
+    	func f(){
+  select {     case v :  case <-ch:  $

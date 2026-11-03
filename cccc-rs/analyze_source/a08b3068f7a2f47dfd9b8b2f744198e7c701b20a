@@ -1,0 +1,4 @@
+
+            fn fib(n: u64) ->     fn  (a: bool) {   (a: bool) {
+||||t(/*ERROR*/)|}
+  }  ||

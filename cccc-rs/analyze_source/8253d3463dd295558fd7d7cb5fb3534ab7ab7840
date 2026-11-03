@@ -1,4 +1,0 @@
-
-     (/*ERROR*/): bool,           {
-      a &&     fn f(/*ERROR*/): b  }
-            /** 

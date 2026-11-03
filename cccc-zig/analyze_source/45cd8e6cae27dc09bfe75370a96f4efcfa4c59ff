@@ -1,0 +1,10 @@
+
+
+
+test "vic" {
+    work();
+}
+
+
+test "serv" {
+ }^=

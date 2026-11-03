@@ -1,0 +1,4 @@
+; 
+ (swap!
+    (do( zero? (moond  (zeroj)) (swap!(zero? (moond
+ ((swap!

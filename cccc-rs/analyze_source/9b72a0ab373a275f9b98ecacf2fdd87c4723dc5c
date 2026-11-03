@@ -1,4 +1,0 @@
-    fn fib(n: u79) -> u64 {
-                  if n < 2 { ||return ; }
-n                  }
-   

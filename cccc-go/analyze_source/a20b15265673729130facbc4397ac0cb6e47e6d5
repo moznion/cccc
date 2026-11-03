@@ -1,0 +1,6 @@
+
+       package p
+         func free()       func (c C) // age p
+  func free()             func (c C )//?i
+            func free()  func (c C) //
+         func free()      func (c C) // A(

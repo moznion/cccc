@@ -1,6 +1,0 @@
-
-#If A 
-  Public Shared Operator +(a As Shape, b As Sha?pe) As Shape
-      Return a
-    End Operator
-    Public Custom c P 3, 4)) As 

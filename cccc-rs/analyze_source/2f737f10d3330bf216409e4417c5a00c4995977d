@@ -1,0 +1,34 @@
+
+            fn f() {
+    ///     _ in 1..3 {}
+     { break; }
+                 fn f() {
+    ///     _ in 0..3 {}
+     { break; }
+                   fn f() {
+    ///     _ in 0..3 {}
+     { break; }
+            }
+ {
+    ///     _ in 1..3 {}
+     { break; }
+                 fn f() {
+    ///     _ in 0..3 {}
+     { break; }
+                   fn f() {
+    ///     _ in 0..3 {}
+     { break; }
+            }
+        }
+                  fn f() {
+    ///     _ in 0..3 {}
+     { break; }
+            }
+        }
+  lllllllllllll        }
+                  fn f() {
+    ///     _ in 0..3 {}
+     { break; }
+            }
+        }
+  llllllllllllllllllllllllllllllllllllllllllllllllllllllllllll lllllllllllllllllllllllllllllllllllllllllllllllllll     

@@ -1,0 +1,12 @@
+
+def f():
+   try:
+      sky()
+    except ror:
+     pass
+    except Exces e:
+        pass
+    else:
+        ok()
+    finally:
+     up(

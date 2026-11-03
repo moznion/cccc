@@ -1,0 +1,6 @@
+
+ n 1 {
+            case   1 case  Strg => "ing"
+     case _ =>h    case Nne => 0
+   r"   }
+ 

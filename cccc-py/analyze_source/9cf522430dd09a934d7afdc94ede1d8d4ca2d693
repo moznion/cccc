@@ -1,0 +1,2 @@
+
+def f(a):  return 0 if a else 2

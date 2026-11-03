@@ -1,0 +1,6 @@
+
+  package p
+     func f(cht) { 
+   select {
+   case v := <-ch:
+  case v := c    

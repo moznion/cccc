@@ -1,0 +1,6 @@
+
+            struct S {
+       es: subscript(i: Int) -> In     {      '}
+abi          subscript(i: Int)n      % do {      '}
+              subscript(i: Int) -> In#    do {       (     }
+        

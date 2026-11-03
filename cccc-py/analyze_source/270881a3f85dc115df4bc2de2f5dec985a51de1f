@@ -1,0 +1,11 @@
+
+def f(x):
+    match x:
+     case 1:
+    match x:
+       case 1:
+ match x:
+    case 1:
+   match x:
+     ]case 3:
+  n 2

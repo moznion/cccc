@@ -1,5 +1,0 @@
-
- {
-    return switch (value) {
-    2 => "one",    2 => "two", 1 => "o"mpti!nshoo};
-}

@@ -1,0 +1,6 @@
+
+object: 
+ *  try risky()
+   catch
+   case e> 1
+ :=>2

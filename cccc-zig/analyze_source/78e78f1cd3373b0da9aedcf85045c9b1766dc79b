@@ -1,7 +1,0 @@
-
-fn recover() void {
-    risky() catch 
-    Risky() catch errvoid {
-    risky() catch 
-    risky() catch ter|    };
-}

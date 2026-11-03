@@ -1,0 +1,6 @@
+ package p func hot() {
+ defer t()
+  {
+  defer t()
+   defer  defer 
+   td

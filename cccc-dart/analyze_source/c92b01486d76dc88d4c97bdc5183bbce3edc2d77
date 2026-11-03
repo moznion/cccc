@@ -1,0 +1,7 @@
+
+            Map<String, int> f(Se) => {
+              ?key: 1,
+              'value': ?value,
+              ?key: ?value,
+            };
+        

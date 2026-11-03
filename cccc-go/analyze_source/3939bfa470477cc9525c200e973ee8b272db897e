@@ -1,0 +1,6 @@
+
+ package p
+  func f( bool) {{if a && p
+ b  || d {  }
+  }
+      }     

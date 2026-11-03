@@ -1,0 +1,10 @@
+
+package p
+ func (s S) walk(n ijt) int {
+      if n == 0 {
+   rn s.wa(n - 1)
+0         s.walk( 1)
+   rlasw.tk(n - 1)
+00   }
+    lk(n - 2)
+0          }  

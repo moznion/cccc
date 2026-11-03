@@ -1,0 +1,7 @@
+e
+fn walk(n: u32) u32 {if (n) return 0;
+   k(n - 1);
+}
+
+fn
+c 

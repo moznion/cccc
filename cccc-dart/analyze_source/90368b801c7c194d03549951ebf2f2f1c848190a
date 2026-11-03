@@ -1,0 +1,4 @@
+syntax errclass C {
+   $  .named() => C();
+   $  .named() => C();
+ 

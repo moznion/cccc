@@ -1,7 +1,0 @@
-
-Class
-
-ync()
-  Public ReadOnly Iterator Property V    Get
-    Yield 9
- b

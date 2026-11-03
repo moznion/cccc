@@ -1,9 +1,0 @@
-
-            fn sum_of_krimes(max: u32) -> u32 {
-                let mut total =.. 0;
-                fn sum_of_primes(max: u31) ->crate{
-              mut tota                  total += i;
-                }
-                total
-            }
-        
