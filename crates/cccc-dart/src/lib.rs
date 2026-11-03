@@ -139,7 +139,8 @@ impl<'a> Builder<'a> {
             "spread_element" if self.text(node).trim_start().starts_with("...?") => {
                 self.visit_optional(node)
             }
-            "null_aware_pair" | "null_aware_element" => self.visit_optional(node),
+            "null_aware_expression_element" => self.visit_optional(node),
+            "null_aware_map_element" => self.visit_null_aware_map_element(node),
 
             "call_expression" | "cascade_call_expression" => self.visit_call(node),
 
@@ -235,7 +236,7 @@ impl<'a> Builder<'a> {
 
             let is_direct_initializer = matches!(
                 candidate.kind(),
-                "initialized_variable_definition"
+                "initialized_variable_declaration"
                     | "initialized_identifier"
                     | "static_final_declaration"
             ) && candidate
@@ -418,6 +419,28 @@ impl<'a> Builder<'a> {
     fn visit_optional(&mut self, node: TsNode) {
         let body = self.collect(|b| b.visit_named_children(node));
         self.emit(Node::NullGuard { body });
+    }
+
+    /// `?key: ?value` marks the key and/or value independently with a leading
+    /// `?` token; each marked side is its own null-aware path.
+    fn visit_null_aware_map_element(&mut self, node: TsNode) {
+        let mut cursor = node.walk();
+        let mut guarded = false;
+        for child in node.children(&mut cursor) {
+            if child.is_extra() {
+                continue;
+            }
+            if child.kind() == "?" {
+                guarded = true;
+            } else if child.is_named() {
+                if std::mem::take(&mut guarded) {
+                    let body = self.collect(|b| b.visit(child));
+                    self.emit(Node::NullGuard { body });
+                } else {
+                    self.visit(child);
+                }
+            }
+        }
     }
 
     /// Dart's logical pattern rules are hidden (`_logical_*_pattern`), so their
