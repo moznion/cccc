@@ -604,7 +604,7 @@ fn callee_name(kind: &ExprKind) -> Option<String> {
     };
     match &name_expr.kind {
         // Function names (already split on `\`) vs. member names after `->`/`::`.
-        ExprKind::Name(n) => n.parts.last().map(|s| s.to_string()),
+        ExprKind::Name(n) => n.parts().next_back().map(str::to_string),
         ExprKind::Identifier(s) => Some(s.rsplit('\\').next().unwrap_or(s).to_string()),
         _ => None,
     }
