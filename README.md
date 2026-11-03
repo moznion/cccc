@@ -28,9 +28,10 @@
     [exoego/tree-sitter-kotlin](https://github.com/exoego/tree-sitter-kotlin)
     grammar (a fork of the fwcd tree-sitter Kotlin grammar with fixes for
     modern-Kotlin constructs). Analyzes `.kt`, `.kts`.
-  - **Python** (`--lang python`), via the official
-    [tree-sitter-python](https://github.com/tree-sitter/tree-sitter-python)
-    grammar. Analyzes `.py`, `.pyi`.
+  - **Python** (`--lang python`), via the
+    [tree-sitter-python-orchard](https://codeberg.org/grammar-orchard/tree-sitter-python-orchard)
+    grammar (a maintained community fork of the official tree-sitter-python
+    grammar, with support for newer syntax such as PEP 798). Analyzes `.py`, `.pyi`.
   - **Zig** (`--lang zig`), via the pure-Rust
     [zigsyn](https://docs.rs/zigsyn) parser. Analyzes `.zig`.
   - **C** (`--lang c`), via the official
@@ -86,7 +87,7 @@ library and extended to other languages:
 | [`cccc-clojure`](crates/cccc-clojure) | Clojure adapter **library**: lowers the [lispexp](https://docs.rs/lispexp) S-expression tree into `cccc-core`'s IR. Depends only on `cccc-core` + lispexp (pure Rust) — **no CLI dependencies**. |
 | [`cccc-scheme`](crates/cccc-scheme) | Scheme (R7RS-small) adapter **library**: lowers the [lispexp](https://docs.rs/lispexp) S-expression tree into `cccc-core`'s IR. Depends only on `cccc-core` + lispexp (pure Rust) — **no CLI dependencies**. |
 | [`cccc-kt`](crates/cccc-kt) | Kotlin adapter **library**: lowers the [exoego/tree-sitter-kotlin](https://github.com/exoego/tree-sitter-kotlin) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Kotlin grammar — **no CLI dependencies**. Note: the grammar ships C source compiled by `cc`, so building this crate needs a C compiler (but not libclang, unlike `cccc-rb`). Not published to crates.io (the grammar is a git dependency); `cccc-cli` includes it via its default `kotlin` feature. |
-| [`cccc-py`](crates/cccc-py) | Python adapter **library**: lowers the official [tree-sitter-python](https://github.com/tree-sitter/tree-sitter-python) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Python grammar — **no CLI dependencies**. Like `cccc-kt`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
+| [`cccc-py`](crates/cccc-py) | Python adapter **library**: lowers the [tree-sitter-python-orchard](https://codeberg.org/grammar-orchard/tree-sitter-python-orchard) CST (a maintained fork of the official tree-sitter-python) into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Python grammar — **no CLI dependencies**. Like `cccc-kt`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 | [`cccc-zig`](crates/cccc-zig) | Zig adapter **library**: lowers the pure-Rust [zigsyn](https://docs.rs/zigsyn) AST into `cccc-core`'s IR. Depends only on `cccc-core` + zigsyn — **no CLI dependencies or C toolchain**. |
 | [`cccc-c`](crates/cccc-c) | C adapter **library**: lowers the official [tree-sitter-c](https://github.com/tree-sitter/tree-sitter-c) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the C grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 | [`cccc-clike`](crates/cccc-clike) | Shared **lowering** for the C-family adapters: `tree-sitter-cpp`'s grammar is a superset of `tree-sitter-c`'s, so `cccc-c` and `cccc-cpp` both construct a `cccc_clike::SharedBuilder` (tagged `Language::C`/`Language::Cpp`) instead of duplicating the lowering for what they share (functions, `if`, loops, `switch`, jumps, logical folding, preprocessor conditionals, calls). C++-only constructs (lambdas, `catch`, range-`for`) are gated on the language tag in the same `visit`. Depends only on `cccc-core` + tree-sitter — no grammar crate, no CLI dependencies. |

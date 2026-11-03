@@ -1,5 +1,6 @@
-//! Python adapter: parses source with the official [tree-sitter]
-//! `tree-sitter-python` grammar and lowers the concrete syntax tree into the
+//! Python adapter: parses source with the [tree-sitter]
+//! `tree-sitter-python-orchard` grammar (a maintained community fork of the
+//! official `tree-sitter-python`, e.g. with PEP 798 comprehension unpacking) and lowers the concrete syntax tree into the
 //! language-agnostic [`cccc_core::ir`].
 //!
 //! This is a pure library — it depends only on `cccc-core`, `tree-sitter`, and
@@ -75,7 +76,7 @@ pub fn analyze_source(path: &Path, source: &str) -> FileReport {
 pub fn to_ir(_path: &Path, source: &str) -> (Vec<Node>, Vec<String>) {
     let mut parser = tree_sitter::Parser::new();
     if parser
-        .set_language(&tree_sitter_python::LANGUAGE.into())
+        .set_language(&tree_sitter_python_orchard::LANGUAGE.into())
         .is_err()
     {
         return (
@@ -904,6 +905,28 @@ def f(xss):
         // for(+1) + nested for(+2) = 3
         assert_eq!(cognitive_of(src, "f"), 3);
         assert_eq!(cyclomatic_of(src, "f"), 3);
+    }
+
+    #[test]
+    fn pep798_unpacking_comprehension_parses_and_scores_like_the_loop() {
+        // PEP 798 (Python 3.15): `*`/`**` unpacking in comprehensions.
+        for src in [
+            "def f(ds):\n    return {**d for d in ds}\n",
+            "async def f(ds):\n    return {**d async for d in ds}\n",
+            "def f(xss):\n    return [*xs for xs in xss]\n",
+            "def f(xss):\n    return {*xs for xs in xss}\n",
+            "def f(xss):\n    return list(*xs for xs in xss)\n",
+        ] {
+            let report = analyze(src);
+            assert!(
+                report.parse_errors.is_empty(),
+                "{src}: {:?}",
+                report.parse_errors
+            );
+            // for clause(+1) = 1; base 1 + for = 2
+            assert_eq!(cognitive_of(src, "f"), 1, "{src}");
+            assert_eq!(cyclomatic_of(src, "f"), 2, "{src}");
+        }
     }
 
     #[test]

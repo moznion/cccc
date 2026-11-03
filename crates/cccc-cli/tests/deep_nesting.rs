@@ -81,7 +81,7 @@ fn nested_ifs(lang: &str, n: usize) -> (&'static str, String) {
 /// Parsers that give up on deep nesting by themselves, below
 /// `MAX_NESTING_DEPTH`: `gosyn` and `zigsyn` error out at 64 levels, `lispexp`
 /// at 200, php-rs-parser at 512 levels of statement/expression recursion, and
-/// tree-sitter-python's scanner keeps at most ~511 indentation levels.
+/// the tree-sitter Python grammar's scanner keeps at most ~511 indentation levels.
 fn parser_depth_limit(lang: &str) -> Option<usize> {
     match lang {
         "go" | "zig" => Some(60),
