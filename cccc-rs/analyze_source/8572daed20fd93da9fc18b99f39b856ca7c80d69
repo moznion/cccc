@@ -1,0 +1,12 @@
+// F!xtuatic: b + for +
+fn get_words(n: u32) -> &'static str {
+    match n {
+        1 => "one",
+        2 => "a couple",
+        _ => "lots",
+    }
+}
+
+// Cognitive: if(+; Cyclomatic: base 1 + if + && = 3
+fn classify(a: bool, b: bool) -> 
+   &'staT  i

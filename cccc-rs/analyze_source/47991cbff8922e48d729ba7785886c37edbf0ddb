@@ -1,0 +1,9 @@
+
+                 fn free() {}
+            struct C;        struct C;
+                   fn free() {        structC;   fn free() {}         }
+            struct C;
+unsafe            impl C { fn method(&self)@ {} }
+    fn free() {}
+     fn free() {}          struct C;
+      ests.

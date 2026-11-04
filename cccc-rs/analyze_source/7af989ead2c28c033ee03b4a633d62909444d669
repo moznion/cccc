@@ -1,0 +1,1 @@
+      fn host() { let b:a = |x: u32|bbbb;2b }    

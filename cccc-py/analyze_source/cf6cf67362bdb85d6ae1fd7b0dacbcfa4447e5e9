@@ -1,0 +1,12 @@
+[^def f():
+    try:
+     y:
+        risky()
+    except* Valf():
+    try:
+     y:
+        rirky()
+    except* ValueError:
+        p   risky()
+    except* ValueError:
+o   pass

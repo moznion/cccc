@@ -1,0 +1,6 @@
+
+Module M   8
+    Public Property Width As Double
+      writeonly  Get
+  Ret
+   u 

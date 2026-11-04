@@ -1,0 +1,4 @@
+.c<<{
+    return switch (v^lwe) {       else => "m!"else => "ma",
+else => "many" <  };
+}

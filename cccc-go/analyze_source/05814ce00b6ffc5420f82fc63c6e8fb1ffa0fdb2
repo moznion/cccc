@@ -1,0 +1,3 @@
+
+ package p
+ func get_os(u) string  switcn

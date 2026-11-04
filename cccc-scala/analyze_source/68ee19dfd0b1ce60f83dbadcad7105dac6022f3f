@@ -1,4 +1,0 @@
-ct {
-    [   case x if x&& x < 6 => x
- case _ =>  {case x if x&&$   }
-     

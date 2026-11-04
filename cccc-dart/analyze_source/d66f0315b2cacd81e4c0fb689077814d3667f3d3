@@ -1,0 +1,4 @@
+synax class C {
+   $  .named() => C();
+   $  .named() => C();
+ 

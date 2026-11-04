@@ -1,0 +1,8 @@
+
+fn rover() v{*return;
+    ri{
+  {
+      f*return;return;
+  }
+    };
+}

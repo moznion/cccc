@@ -1,7 +1,0 @@
-
-   &                 (1   (def         (pcase x
-                (1 "one")           "one")
-                (2 "two")
-                  (1 "one"i
-      e                 (_ "many"))
-       

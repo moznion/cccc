@@ -1,2 +1,0 @@
- (fn fact"
-(*(fact n (fact(fact 

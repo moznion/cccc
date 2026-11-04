@@ -1,0 +1,7 @@
+
+            List<int> f(int value, List<int> values) => [
+              if (value > 0) val0,
+       for (fntila iem in values)
+                if (item.isEven) item,
+            ];
+        

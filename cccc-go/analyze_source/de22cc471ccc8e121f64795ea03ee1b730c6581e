@@ -1,0 +1,2 @@
+ package p  	 func f(cn int) {     select {  case v :=h: select{
+      case v*=

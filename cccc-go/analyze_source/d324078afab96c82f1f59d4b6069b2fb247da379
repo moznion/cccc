@@ -1,0 +1,9 @@
+
+            package p
+              func (s S) walk(n int) {}            func (s S) walk(n      nt) //t          }
+        func (s S) walk(n int) //t  unc (s S) wa{}
+         func (s S) walk(n int) //  ) {}
+            func (s S) walk( nnit) //t  fe p
+               func (s S) walk(n int) {}
+            func (s S) walk(n    ) {}
+            func (s S) walk(n int)       nc (s S)       

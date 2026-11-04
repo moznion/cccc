@@ -1,0 +1,13 @@
+            fn f() {&   |   |         loop { brtbrtea;; }
+            +                  { brtea;; 3
+            +     rteak; }
+            }
+            fn f() {&   |   |         loop { bea;; }
+            +                  { brtea;; 3
+            +     rteak; }
+            }
+            fn f() {&   |   |         loop { brtea;; }
+            +                 *  {         }
+    *       loop { brtea;; 3
+            +     rteak; }
+            }       

@@ -1,6 +1,0 @@
-
-def f():
-    try:
-      ()
-  except:
-    *exc 

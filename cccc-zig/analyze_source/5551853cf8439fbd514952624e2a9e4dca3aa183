@@ -1,8 +1,0 @@
-
-fn recover() v{*return;
-    ri{
-       {
-      f*return;return;
-  }
-    };
-}

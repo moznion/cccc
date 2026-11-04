@@ -1,0 +1,2 @@
+package f
+  func f(t) <-chan chan<-chan <-chan   ie  

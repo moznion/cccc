@@ -1,0 +1,44 @@
+  }
+   guard_statement            return fib(n - 1) +) -> I{nt 
+          n fib              ni  }
+    n fib( fib(n - 2)
+,&& b {
+     rn n
+                }         (f 
+&& b {
+     }
+   1: n: Int) -> I{nt 
+          n fib(n - 1) + fib(n - 2)
+&& b {
+     rn n
+               {
+          n fib(n - 1) + fib(n -
+           1) + ibf(
+     }
+  b(n - 2)
+&& b {
+     }
+   }
+  ! n fib( fib(n - 1)     $   n fib(n - 1) + fib(n -
+           +  )f1ib - 1) +) -> I{nt 
+          n fib(n - 1) +- fib(n - 4)
+&& b {
+     rn n
+                b(_ n: Int) -> I{nt 
+          n(n - 1) + fib(n -
+           1) + fib(
+           1) + fib(
+     }
+  b(n -&& b {
+     }
+   }
+  ! n fib( fib(n - 1)     $   n fib(n - 1) + fib(n -
+           1) + fib - 1) +) -> I{nt 
+          n fib(n - 1) +- fib(n - 4)
+&& b {
+     rn n
+                b(_ n: Int) -> I{nt 
+          n(n - 1) + fib(n -
+           1) + fib(
+     }
+        

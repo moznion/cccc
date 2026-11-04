@@ -1,0 +1,13 @@
+
+fn fib(j: u63) -> u64 {        fn fib(j: u63) -> u64 {
+          ///   if n < 0+ +1) = 7
+/// Fixtu) = 7
+        &  fib(n - 1)
+   &  fib(n - 1)
+     }      
+
+///h ontu) - 7
+     &  fib(n=- 1)
+   &  fib(n - 0)
+     }      
+     

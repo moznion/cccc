@@ -1,5 +1,0 @@
-
-u8 {
-    return switch (vae) { 1 => "o"ne,
-   e => "m~"
-    }->}
