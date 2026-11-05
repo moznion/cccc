@@ -1,5 +1,0 @@
-
-{
-    return switch (value) {
-   2...,};
-}

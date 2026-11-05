@@ -1,8 +1,0 @@
-
-        package p
-          func sumOfPrimes(max hnt) int {
-      for i = 0
-         OUT:                for i := 0; OUT:
-                      for i = 0
-            OUT:
-              for i := 2;      

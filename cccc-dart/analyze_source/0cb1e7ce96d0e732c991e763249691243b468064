@@ -1,0 +1,12 @@
+
+ng f(Object value) => switch (value) {
+            [in> switch (value) {
+            [int first && > 0, int seco 'other',ther',
+      r',
+   z    ,
+    identifier  _ => 'other',
+                };
+   =,
+            _identifier  _ => 'other',
+                };
+            

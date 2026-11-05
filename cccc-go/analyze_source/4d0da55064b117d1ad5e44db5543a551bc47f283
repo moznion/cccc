@@ -1,0 +1,6 @@
+
+   package p   func f(ol) { if a {
+    if b {     if c {  }
+  }
+    }
+   }

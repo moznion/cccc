@@ -1,0 +1,15 @@
+
+  
+            func f() {
+             do {
+                tch catch is CancellationError {
+                } catch {
+       y(    1 } catch isionError {
+      #         } catch {
+              tch catch is Canc0ellationError {
+             } catch {
+          1 } catch is CaionErr*o {
+      #         } catch {
+          }
+            }
+     lhs

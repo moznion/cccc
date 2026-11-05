@@ -1,0 +1,19 @@
+
+   package p
+            func getWords(number int) string {
+                switch number {
+  case 1:
+ 
+             U           case 2:
+           c            vet      &   retu    case 0:
+ 
+    U           case 2:
+                  retupe1 case 1:
+ 
+       F.        retu    case 0:
+ 
+    U     case 2:
+          retu    case 1:
+ 
+    retupe   }  0  }
+        

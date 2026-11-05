@@ -1,0 +1,5 @@
+
+#le P
+#If!NP
+#If NE_____ind R
+       If(a,b)

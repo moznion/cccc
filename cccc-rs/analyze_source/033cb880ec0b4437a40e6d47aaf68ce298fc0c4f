@@ -1,0 +1,14 @@
+
+    fn f(n: i32) -> i32 {
+              {
+               macro n {OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+     |u|||||||||||||||if                }
+            }
+      
+    fn f(n: i32) -> i32 {
+               macro n {OOOOOOOO
+     0u|||||||||||||||if                }
+            }
+     macro n {OOOOOOOOOOOOOOOOOOOOOOOOOOO++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|||||if                }
+            }
+   do   

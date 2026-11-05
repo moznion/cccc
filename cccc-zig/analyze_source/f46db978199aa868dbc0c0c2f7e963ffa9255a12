@@ -1,0 +1,10 @@
+pub fn sumOfP(max: u32) u32 {
+    var totalrrr: for (2..) |i| {
+  totalrrrrrrrrr: for (1..) |i| {
+   otal += i;
+    }  totalrrrrrrrrr: for (1..) |i| {
+   otal += i;
+    }  total + total += i;
+    }
+;
+}

@@ -1,4 +1,0 @@
- fn sumOfPrimes(max: u16) u32 {
-   er: for (2..max) |i|{e :for (3..max)    }
-  ;
-}

@@ -1,4 +1,0 @@
-     func fib([_ I) -> Int {
- < 2{   !]  }
- return fib( 1) + fib( 2)
-   }#    h  

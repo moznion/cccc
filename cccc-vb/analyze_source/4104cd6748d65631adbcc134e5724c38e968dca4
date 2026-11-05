@@ -1,0 +1,5 @@
+
+P
+#If Nel#du P
+#If NET47
+    Return If(a, b)

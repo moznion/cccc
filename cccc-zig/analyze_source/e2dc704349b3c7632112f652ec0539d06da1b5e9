@@ -1,0 +1,4 @@
+ fn sumOfPrimes(max) u32 {
+   er: for (.max) |i|{e :for (3..max)    }
+  ;
+}

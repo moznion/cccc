@@ -1,0 +1,14 @@
+
+pub fn sumOfPres(max: u32) u32 {
+ i: {
+        for (2..,) |j| {
+        if (i % j == 0) {
+      continue :outer;
+   i: {
+    }l; }
+        }   var ttae2 = 0;
+    i: {
+    }l;enerate();
+}n me {defeagenerate();     total += i;
+    }l;
+}

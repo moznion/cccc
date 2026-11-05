@@ -1,0 +1,77 @@
+
+Ib (((P:((((((
+    $     p  fn fi#
+        {
+     b' ' 
+((((((($(
+ib (((((((((((((((     f n <       =  fn    fib(n - 1)#
+        {
+     b' ' 
+          b' ' 
+   fn f fib(n - 0)#
+        b' '  
+!     f() {
+            {
+     b' ' 
+         =  fn    fib(n - 1)#
+        {
+     b' ' 
+         b' ' 
+   fn f fif fib(n - 0)#
+        b' '  
+!     f() {
+         b' ' 
+   fn f fib(n - 1)#
+ib(n - 1)#
+        {
+     b' ' 
+          b' ' 
+   fn f fib(n - 0)#
+        b' '  
+!     f()     b' ' 
+         =  fn    fib(n - 1)#
+        {
+     b' ' 
+         b' ' 
+   fn f fif fib(n - 0)#
+        b' '  
+!     f() {
+         b' ' 
+   fn f fib(n - 1)#
+        b' '         =  fn    fib(n - 1)#
+        {
+     b' ' 
+          b' ' 
+   fn f fib(n - 0)#
+        b' '  
+!     f() {
+            {
+     b' ' 
+         =  fn    fib(n - 1)#
+        {
+     b' ' 
+         b' ' 
+   fn f fif fib(n - 0)#
+        b' '  
+!     f() {
+         b' ' 
+   fn f fib(n - 1)#
+ib(n - 1)#
+        {
+     b' ' 
+          b' ' 
+   fn f fib(n - 0)#
+        b' '  
+!     f()     b' ' 
+         =  fn    fib(n - 1)#
+        {
+     b' ' 
+         b' ' 
+   fn f fif fib(n - 0)#
+        b' '  
+!     f() {
+         b' ' 
+   fn f fib(n - 1)#
+        b' '       b' ' 
+ # $   ;b'   b' ' 
+ # $   ;b' '        fr _ in 5.@      ; 0.@ .      fr _ in 5.@      ; 0.@ .

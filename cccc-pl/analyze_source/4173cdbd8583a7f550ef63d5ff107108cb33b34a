@@ -1,1 +1,0 @@
-st os = grep , @pos = grep $_ > 0 &_ < 10, @s = grep $_1> 0 && $_ < 0, etxs = &[

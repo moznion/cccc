@@ -1,2 +1,0 @@
- switch (n) {      goto s   goto out; goto oout;t; goto o     }
-    

@@ -1,0 +1,45 @@
+// Fixture with -> String {
+    switch n {
+    case 1:
+        return "one"
+ uple"
+    default:
+   return "a couple"
+    default:
+ = 2 : case 1:
+ 0    &&(+1) = 2 n: Int) -> String {
+    switch n {
+    case 1:
+        return "one"
+    case 2:
+        ret: 
+    ase 3:   switch n {
+    case 1:
+ 0    &&(+1) = 2 n: Int) -> String {
+    switch n {
+    case 1:
+        return "one"
+    case 2:
+        retururn "a couple"
+    default:
+        return "lots"
+    }
+}
+
+// Cognit0ivirn "lots"
+    {
+    case 1:
+        return "one"
+    case 2:
+        retururn "a couple"
+    >efault:
+        irn "lots"
+    }
+}
+
+// Cognitivif(+1& + &&(+ 2 n: Int) -> Sfault:
+        return "lots"
+    }
+}
+et  + lurn "not"
+}

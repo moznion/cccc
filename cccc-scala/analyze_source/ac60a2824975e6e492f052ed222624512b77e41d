@@ -1,0 +1,6 @@
+
+object: 
+ *  try rkiys()
+   catch
+   case e> 1
+ :=2

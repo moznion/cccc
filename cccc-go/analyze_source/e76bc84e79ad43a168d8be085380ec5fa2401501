@@ -1,7 +1,0 @@
-  package p
-       func f(int) {
-select {
-   default:        {  7   select {
-   default:   fn   }   }
-     }   }
-        

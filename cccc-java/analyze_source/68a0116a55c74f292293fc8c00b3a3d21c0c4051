@@ -1,0 +1,10 @@
+
+     do { } while (a);          do { } while (a);
+ *       do { } while (a);
+ *  syntax 31      do { } while (a);
+        do{ } while (a);
+ *  i `   do { } while (a);
+ *  syntax 28    do { } while (a);
+    do{ } while (a);
+}
+        
