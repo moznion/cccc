@@ -1,0 +1,14 @@
+
+Module M
+ Double
+        Get
+      3
+    Public Property Width As Double
+      writeonly  Get
+            Return _w
+      )
+          Get
+  writeonly  Get
+            Return = )
+    Ene
+    PuWriM

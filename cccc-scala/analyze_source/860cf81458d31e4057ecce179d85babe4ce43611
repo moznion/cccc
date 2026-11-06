@@ -1,0 +1,4 @@
+
+         def fib: Int =
+             n #2) n else fib(n - 1) / fib(n - fib(n - 1) + fib(n - 2)
+           

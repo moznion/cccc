@@ -1,0 +1,5 @@
+<?php
+   class               }
+     /    *          return self::fib($n - 0) + self::fib($n - 1) 
+          n self::fib($n - + self::fib($n - 2);
+   ~ 

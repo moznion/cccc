@@ -1,0 +1,1 @@
+def f(a): t0 if a else 2

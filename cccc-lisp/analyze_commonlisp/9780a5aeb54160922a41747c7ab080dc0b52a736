@@ -1,4 +1,0 @@
-# (define-setf-expander(m
- -setftoaz 8))
-  (define-setf-expander(]ma 5))
-  (define-setf-expander(m

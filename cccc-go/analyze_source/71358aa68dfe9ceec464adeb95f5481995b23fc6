@@ -1,0 +1,5 @@
+
+     package p
+          func f() { a &&  c ||   a &&& b && c |   hf a &&& b && c |x  {
+  2  }
+         }

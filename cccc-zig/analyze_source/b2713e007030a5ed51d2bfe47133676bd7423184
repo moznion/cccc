@@ -1,0 +1,6 @@
+
+fn rr() v{*return;ri{
+  {
+  *return;return;
+  } };
+}

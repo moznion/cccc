@@ -1,0 +1,2 @@
+{
+   case v @ _ => v case v @ _ => 0

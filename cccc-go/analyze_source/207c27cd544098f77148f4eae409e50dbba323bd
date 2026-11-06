@@ -1,0 +1,5 @@
+    package p
+          func f(a, b bool) {2   if!g && b {  8     }   if!a &&b {
+}
+         }
+   

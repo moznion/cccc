@@ -1,8 +1,0 @@
-
-    class C {
-        epe_ide  class C {
-  \           C() {}
-              factory C.named() => C();
-    e #    C() {}
-              factory (C() {}
-                

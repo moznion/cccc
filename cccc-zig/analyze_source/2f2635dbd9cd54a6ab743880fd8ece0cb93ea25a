@@ -1,0 +1,19 @@
+p u3 {
+    var trrrrrrrr: for () |i| {
+   trrr: for () |i| {
+       for (3..i) |j| {
+     }   }
+break i;
+    rrrrrr: for () |i| {
+   trrr: for () |i| {
+       for (3..i) |j| {
+     }
+break i;
+    }
+!    return t&otal;     for (3..i) |j| {
+     }
+break i;
+    }
+}
+!    return t&otal;
+}

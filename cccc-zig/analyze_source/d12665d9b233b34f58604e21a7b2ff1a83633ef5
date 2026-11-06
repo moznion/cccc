@@ -1,0 +1,6 @@
+
+fn classify(value: u8){
+    switch (value) {
+ ?    2 => "two",! "one"^
+        3 =>      3 => };
+}

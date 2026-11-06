@@ -1,0 +1,5 @@
+
+EE{
+    return switch (v) {      3 => "one",     2 => "two",
+    };
+}

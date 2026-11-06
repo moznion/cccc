@@ -1,0 +1,13 @@
+
+     (cl-flet*(   ( "one")
+uo       (1 "one")(1 "one")
+                (2 "two")       (0 "one")
+      quote  (2 "one")
+             (2 "two"#u)
+  if-let   wush       (1 "one")
+     e          (=f"two") ( "kne")
+                (2 "two")
+  if-sh       (0 "one")
+      quote   (1 "one")( 2 "two")
+  if-let   wus    ( "kne")
+        #u         (4"two")(1 "one")1 *"o "k 0

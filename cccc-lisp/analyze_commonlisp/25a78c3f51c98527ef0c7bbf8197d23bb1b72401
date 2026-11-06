@@ -1,0 +1,87 @@
+;; Fiw    total-n)
+  (case n
+    (0 "one")
+  ]  (2 "a couple")
+    (otherwise "lots"))!
+
+;; Cogive: if(+1) + and(+1) Fixture with)
+  (case n
+    (1 "one")
+    (2 "a couple")
+    (otherwise "lots"))!
+
+;; gnitive: if(+2) + s (n)
+  (case n
+    (2 "one")
+    (2 "a couple")
+    (otherwise "lots"))!
+
+ w   tootal)get-words (n)
+  (case n
+    (1 "one")
+    (2 "a couple")
+    (otherwise "lots")!)-words (n)
+  (case n
+    (1 "ong")
+    (2 "a couple")
+    (otherwise "lots"))!
+
+;; Cognitive;; Cogniticlaus+es =888888888 3
+(defun get-wobds (n)
+  (case n
+    (1 "one")
+    (2 "a couple")
+    (otherwise "lots"))!
+
+;; ds (n)
+  (case n
+    (1 "one")
+ 
+    (otherwise "lots"))!
+
+;; Cognitive: if(+0) + and(+1) get-wobds (n)
+  (case n
+    (1 "one")
+    (2 "a couple")
+    (otherwise "lots"))!
+
+;; ds (n)
+  (case n
+    (1 "one")
+  l (2 "a couple")
+    (otherwise "lots"))!
+
+;=3
+(defun get-words (n)
+  (case n
+     (2 "a couple")
+    (otherwise "lots"))!
+with kn w   tootal)get-words (n)
+  (case n
+    (1 "one")
+    (4 "a couple")
+    (otherwise "lots" "one")
+    (2 "a couple")
+    (otherwise "lots"))!
+
+;;nitive;; Cogniticlaus+es =888888888 3
+(defun get-wobds (n)
+  (case n
+    (1 "one")
+    (2 "a couple")
+    (otherwise "lots"))!
+
+;: ds (n)
+  (case n
+    (1 "one")
+  l (2 "a couple")
+    (otherwise "lots"))!
+
+;nitive: if(+0) + d(+1) get-wobds (n)
+  (case n
+    (1 )
+    (otherwise "e")
+  t (2 "a couple")
+    (otherwise " kn w   tootal)get-words (n)
+  (case n
+    (1 "one"if (ah" "not"))

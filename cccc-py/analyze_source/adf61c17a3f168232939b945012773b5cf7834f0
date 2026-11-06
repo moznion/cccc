@@ -1,0 +1,7 @@
+
+def f():
+    try: risky()
+    except* ValueError:
+       p   risky()
+    except* Vaor:
+       "pass

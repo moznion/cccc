@@ -1,0 +1,11 @@
+*. {
+r|h
+:while(n)|r|e}
+
+r|h
+:while(n)|r|e*.C {*. {
+r|h
+:while(n)|r|e}
+
+r|h
+:while|e}

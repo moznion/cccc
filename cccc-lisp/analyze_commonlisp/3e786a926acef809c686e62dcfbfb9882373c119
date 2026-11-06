@@ -1,3 +1,0 @@
-  (defstruct)  ~ ~!(defstruct)
- (defstruct) ~ (defstruct 
-)     (

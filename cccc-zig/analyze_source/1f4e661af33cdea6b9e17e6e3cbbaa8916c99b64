@@ -1,0 +1,4 @@
+
+{    return switch (value) {
+  2 => "ozne", 2 => "two", 1 => "o"mpti!nshoo};
+}

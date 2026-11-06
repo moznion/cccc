@@ -1,0 +1,4 @@
+
+        impl C { fn meb(&self); }
+          impl C { fn meb(&self); } 
+         $
