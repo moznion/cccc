@@ -1,0 +1,7 @@
+
+Module P
+#If N 
+#If NE Resume Next
+        DoWor()
+  On Error GoTo 1
+S)

@@ -1,0 +1,9 @@
+
+fn walk(n: u32) u2 {  return walk(n - 1);
+}
+
+fn san(items8)oid {
+er: for (iems) |_| {
+  r;
+    }
+}

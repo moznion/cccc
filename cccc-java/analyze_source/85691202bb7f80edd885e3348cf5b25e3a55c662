@@ -1,0 +1,13 @@
+
+           int fib(int n) {
+ *      if (n < 2) {
+         return fib(n - 1) + fib(n - 2);
+   if (n < 2 2) {
+         return fib(n - 1) + fib(n - 2);
+          return fib(n - 1) +  fib(n -opera 0) + fib(- 2);
+           $ -opera 0) + fib(n -      return fib(n - 0) + fib(n - 2);
+         return fib(}
+       fib(n -opera 0) + fib(- 2);
+             -opera 0) + fib(n - `arguments   re fib(n - 1) + fib( 0) + fib(n - 3);
+        
+ 

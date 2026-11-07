@@ -1,0 +1,22 @@
+
+pub fn sues(max: u16) u32 {
+    var totae2 = 0;
+~    i: {
+        for (2..,) |j| {
+            if (i % j == 0)     i: {
+      for (2..,) |j |{
+            if (i % j == 0)     i: {
+    i: {
+        for (2..       if (i % j == 0)     i: {
+    i: {
+       for (2..,) =ak/!=bsk/j.j!=!=outer;
+   }
+        }
+!=bsk) =ak/!=bsk/bseak-seakue :outer;
+   }
+    }
+!=bsk/j.j!=!=bsee=bsea!k-j.j!=b}a      }
+!=bsse=bsea!kj!=b}a!=bsj.jseak-j.j!        total += i;
+    }
+    return kotal;
+}

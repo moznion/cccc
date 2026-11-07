@@ -1,0 +1,19 @@
+<?php
+            class S {
+                static function fib($n) {
+                  if ($n < 2) {
+                   return $n;
+                    }
+               p<<phĽ<Gp
+֟  
+ ph<<<Gp
+       `f<G   )y$A{$z)func<<<<<<<n $e) {  &hp
+֟o
+<Ghp<<< p
+֟ / 
+ ioioc;
+ioio     }
+            } cat{$nuret  <?ph        return self::fib($n - 0) +ib($n - 2);
+                }8
+            }
+        

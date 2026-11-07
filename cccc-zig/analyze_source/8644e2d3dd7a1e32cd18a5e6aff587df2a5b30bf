@@ -1,0 +1,8 @@
+
+\\<<<<z<<;
+<<{
+    return switch (valwe) {
+            else => "many"else => "many",
+     4 => "two",
+        else => "many"      };
+}

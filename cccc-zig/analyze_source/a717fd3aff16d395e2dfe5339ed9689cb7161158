@@ -1,9 +1,0 @@
-
-fn walk(n: u32) u2 {  return walk(n - 1);
-}
-
-fn san(items8) void {
-er: for (iems) |_| {
-  r;
-    }
-}

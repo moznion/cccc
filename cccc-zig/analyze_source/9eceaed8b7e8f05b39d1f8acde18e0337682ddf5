@@ -1,0 +1,8 @@
+u 8 <<{
+   !return switch (ale) {"two",
+  
+ "two",
+ 2 => "two",
+  
+    },
+}

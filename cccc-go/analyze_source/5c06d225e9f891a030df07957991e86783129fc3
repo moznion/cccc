@@ -1,3 +1,0 @@
- package nc func f(a[]int) {
-  for i := range its {
-    for i := range it    

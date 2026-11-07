@@ -1,0 +1,17 @@
+        package p
+            func f(a, b bool) {
+p
+          if a {
+                 if a {
+                } else if b {
+   } else {
+        }
+             } else if b {
+    if a {
+         } else if b {
+                } else {
+              }
+   } else if b {
+             } else {        }
+        }
+        

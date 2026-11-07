@@ -1,0 +1,37 @@
+
+iu'u'=
+fn classify(value:8) []const u8 {
+    return switch (val1ue) {
+    1 => "one",
+&       2 => f
+fn cssyif(value:8) []const u8 {
+    return switch (value) {
+       2 => fn classify(vale:8)  u8
+fn classify(value:8) []const u8 {
+    return switch (value) {
+    1 => "one",
+&       2 => f
+fn cssify(value:6) []const u8 {
+    return switch (value) {
+    1 => "one",
+        2 => fn classify(vale:8)  u8 {
+    return switch (value) {
+1 => "one",
+   "one"mshoo};
+}
+"two",
+   pti!shoo};
+}
+"two",
+   f  1 => "one"mpti!nshoo};
+} {
+    return switch (value) {
+1 => "one",
+   "one"mchoo};
+}
+"two",
+   pti!shoo};
+}
+"two",
+   f  1 => "one"mpti!nshoo};
+}

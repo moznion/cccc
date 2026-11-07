@@ -1,6 +1,0 @@
-
-       package p
-   func f( ) {
-    select { case s := <-ch:
- 1l  a  ult:
-     } }

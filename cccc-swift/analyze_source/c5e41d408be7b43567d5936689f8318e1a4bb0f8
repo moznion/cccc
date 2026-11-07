@@ -1,0 +1,4 @@
+     func fib([_~I)nt {
+ < 2{   !]  }
+ return fib( 1) + fib( 2)
+   }#    

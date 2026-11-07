@@ -1,0 +1,5 @@
+ß
+       function inner() { if (x) {} u
+        function outer() {
+     }           function outer() {
+                function inner() { if 

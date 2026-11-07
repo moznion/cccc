@@ -1,9 +1,0 @@
-
-\\f;
-<<{
-    return switch (valwe) {
-        4 => ""
-noe,        2 => "two",
- oe,        1 => "t'o",
- else => "man"    else => "many", };
-}

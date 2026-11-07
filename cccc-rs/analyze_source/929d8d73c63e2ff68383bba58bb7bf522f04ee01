@@ -1,0 +1,11 @@
+            fn f() {& |     |             loop { brtea;; }
+ =    0      +              |   |         loop { brt>Z;;  0      +              |   |         loop { brt>Z;; }
+            +             loop { brtea;; }
+ =    0      +              |   |         loop { brt>Z;; }
+            +                  loop { brteak; }
+  }
+            +             loop { brtea;; }
+ =    0      +              |   |         loop { brt>Z;; }
+            +                  loop { brteak; }
+            }
+        
