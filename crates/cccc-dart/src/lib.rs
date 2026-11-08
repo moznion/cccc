@@ -7,6 +7,19 @@
 //! operators (including pattern operators, `??`, and `??=`), null-aware
 //! operations, collection control-flow elements, and calls. Scoring remains
 //! entirely in `cccc-core`.
+//!
+//! Dart 3.12 private named parameters (`Point({required this._x})`,
+//! including `super._x`) need no special casing beyond this: their
+//! parameter lists \u2014 defaults included \u2014 score inside whichever
+//! constructor unit declares them.
+//!
+//! Bodyless constructor declarations (`Point(this.x);`, `new() : x = 1;`,
+//! `const new named();`) are constructor units too \u2014 unlike bodyless
+//! methods, which are abstract or external and stay skipped. The
+//! abbreviated constructors introduced in Dart 3.13 (`new`, `new name`,
+//! `factory`, `factory name`, with or without a body) are named after
+//! the enclosing class, matching how the traditional `Class` /
+//! `Class.name` spellings are reported.
 
 use std::path::Path;
 
@@ -63,6 +76,10 @@ fn collect_errors(node: TsNode, out: &mut Vec<String>) {
 struct Builder<'a> {
     src: &'a [u8],
     stack: Vec<Vec<Node>>,
+    /// Names of the enclosing type declarations, innermost last. Used to
+    /// name abbreviated constructors (`new` / `factory`), whose signatures
+    /// omit the class name.
+    type_names: Vec<String>,
 }
 
 impl<'a> Builder<'a> {
@@ -70,6 +87,7 @@ impl<'a> Builder<'a> {
         Self {
             src,
             stack: vec![Vec::new()],
+            type_names: Vec::new(),
         }
     }
 
@@ -102,6 +120,9 @@ impl<'a> Builder<'a> {
 
     fn visit(&mut self, node: TsNode) {
         match node.kind() {
+            "class_declaration" => self.visit_class(node),
+            "extension_type_declaration" => self.visit_named_type(node),
+            "declaration" => self.visit_declaration(node),
             "function_declaration" => self.visit_function(node, "function"),
             "local_function_declaration" => self.visit_function(node, "function"),
             "getter_declaration" => self.visit_function(node, "getter"),
@@ -148,6 +169,69 @@ impl<'a> Builder<'a> {
         }
     }
 
+    /// Visit a class declaration, tracking its name for abbreviated
+    /// constructors.
+    fn visit_class(&mut self, node: TsNode) {
+        let class_name = node
+            .child_by_field_name("name")
+            .map(|n| self.text(n).to_string());
+        if let Some(name) = &class_name {
+            self.type_names.push(name.clone());
+        }
+        self.visit_named_children(node);
+        self.type_names.pop();
+    }
+
+    /// Visit a named type declaration that cannot carry a primary
+    /// constructor, tracking its name like [`Self::visit_class`] does.
+    fn visit_named_type(&mut self, node: TsNode) {
+        let pushed = node.child_by_field_name("name").map(|n| {
+            let name = self.text(n).to_string();
+            self.type_names.push(name);
+        });
+        self.visit_named_children(node);
+        if pushed.is_some() {
+            self.type_names.pop();
+        }
+    }
+
+    /// Visit a bodyless member `declaration`.
+    ///
+    /// A declaration holding a constructor signature is a concrete
+    /// constructor terminated by `;` — traditionally (`Point(this.x);`),
+    /// redirecting (`new() : this.named();`), or abbreviated
+    /// (`const new named();`) — so it becomes a constructor unit, including
+    /// its initializer list / redirection. External constructors have no
+    /// implementation and are skipped. Any other declaration (fields, and
+    /// abstract or external methods, getters, and setters) carries no body
+    /// and stays transparent, as before.
+    fn visit_declaration(&mut self, node: TsNode) {
+        let signature = named_children(node).into_iter().find(|child| {
+            matches!(
+                child.kind(),
+                "constructor_signature"
+                    | "constant_constructor_signature"
+                    | "factory_constructor_signature"
+            )
+        });
+        let Some(signature) = signature else {
+            self.visit_named_children(node);
+            return;
+        };
+        if subtree_contains_kind(node, "external") {
+            return;
+        }
+        let kind = if signature.kind() == "factory_constructor_signature" {
+            "factory"
+        } else {
+            "constructor"
+        };
+        let name = self
+            .constructor_name_for(signature)
+            .unwrap_or_else(|| format!("<{kind}>"));
+        self.emit_function_node(node, name, kind);
+    }
+
     fn visit_function(&mut self, node: TsNode, kind: &'static str) {
         if is_native_body(node.child_by_field_name("body")) {
             return;
@@ -167,11 +251,9 @@ impl<'a> Builder<'a> {
         let signature_kind = first_signature_kind(signature);
         let (kind, name) = match signature_kind {
             Some("constructor_signature" | "constant_constructor_signature") => {
-                ("constructor", self.constructor_name(signature, false))
+                ("constructor", self.constructor_name(signature))
             }
-            Some("factory_constructor_signature") => {
-                ("factory", self.constructor_name(signature, true))
-            }
+            Some("factory_constructor_signature") => ("factory", self.constructor_name(signature)),
             Some("operator_signature") => ("operator", self.field_text(signature, "operator")),
             Some("getter_signature") => ("getter", self.field_text(signature, "name")),
             Some("setter_signature") => ("setter", self.field_text(signature, "name")),
@@ -186,8 +268,10 @@ impl<'a> Builder<'a> {
         descendant_field(node, field).map(|found| self.text(found).to_string())
     }
 
-    fn constructor_name(&self, signature: TsNode, factory: bool) -> Option<String> {
-        let signature = named_children(signature)
+    /// The display name for a constructor `method_signature`, resolved from
+    /// its inner constructor signature node.
+    fn constructor_name(&self, signature: TsNode) -> Option<String> {
+        let inner = named_children(signature)
             .into_iter()
             .find(|child| {
                 matches!(
@@ -198,15 +282,50 @@ impl<'a> Builder<'a> {
                 )
             })
             .unwrap_or(signature);
+        self.constructor_name_for(inner)
+    }
+
+    /// The display name for a constructor signature node.
+    ///
+    /// Traditional signatures carry the type name as their first `name`
+    /// field (`C`, plus `named` for `C.named`). Dart 3.13's abbreviated
+    /// signatures omit it: `new` signatures mark the omission with a `new`
+    /// token, and abbreviated `factory` signatures carry only the member
+    /// name (or none). Both are qualified with the enclosing type's name so
+    /// every spelling of the same constructor reports the same name.
+    fn constructor_name_for(&self, signature: TsNode) -> Option<String> {
+        let names = field_texts(self, signature, "name");
+        let enclosing = self.type_names.last();
+        let abbreviated_new = signature
+            .children(&mut signature.walk())
+            .any(|child| child.kind() == "new");
+        if abbreviated_new {
+            return match (enclosing, names.first()) {
+                (Some(class), Some(member)) => Some(format!("{class}.{member}")),
+                (Some(class), None) => Some(class.clone()),
+                (None, Some(member)) => Some(member.clone()),
+                (None, None) => None,
+            };
+        }
+        if let Some(class) = enclosing {
+            if names.is_empty() {
+                // `factory()` — the unnamed abbreviated factory.
+                return Some(class.clone());
+            }
+            if names[0] != *class {
+                // Abbreviated factory: only the member name is present.
+                return Some(format!("{}.{}", class, names.join(".")));
+            }
+        }
+        if !names.is_empty() {
+            return Some(names.join("."));
+        }
+        // Fallback: recover the name from the signature's source text.
         let before_parameters = self.text(signature).split('(').next()?.trim();
         let name = before_parameters
             .strip_prefix("const ")
             .unwrap_or(before_parameters);
-        let name = if factory {
-            name.strip_prefix("factory ").unwrap_or(name)
-        } else {
-            name
-        };
+        let name = name.strip_prefix("factory ").unwrap_or(name);
         (!name.is_empty()).then(|| name.to_string())
     }
 
@@ -681,6 +800,23 @@ fn descendant_field<'tree>(node: TsNode<'tree>, field: &str) -> Option<TsNode<'t
         .find_map(|child| descendant_field(child, field))
 }
 
+/// The texts of every named child of `node` carrying the field `field`, in
+/// source order (a constructor signature can carry two `name` fields: the
+/// type name and the member name — and the `.` between them carries the
+/// field too, as an unnamed token, so it is filtered out).
+fn field_texts(builder: &Builder, node: TsNode, field: &str) -> Vec<String> {
+    let mut out = Vec::new();
+    for index in 0..node.child_count() {
+        if node.field_name_for_child(index) == Some(field)
+            && let Some(child) = node.child(index)
+            && child.is_named()
+        {
+            out.push(builder.text(child).to_string());
+        }
+    }
+    out
+}
+
 fn first_signature_kind(node: TsNode<'_>) -> Option<&str> {
     const KINDS: &[&str] = &[
         "constructor_signature",
@@ -698,6 +834,19 @@ fn first_signature_kind(node: TsNode<'_>) -> Option<&str> {
             first_signature_kind(child)
         }
     })
+}
+
+/// True if `kind` appears anywhere in `node`'s subtree, including
+/// anonymous token nodes (which `named_children`-based walks miss — the
+/// `external` marker of a generative constructor is a bare token, while a
+/// factory's is wrapped in a named node).
+fn subtree_contains_kind(node: TsNode, kind: &str) -> bool {
+    if node.kind() == kind {
+        return true;
+    }
+    let mut cursor = node.walk();
+    node.children(&mut cursor)
+        .any(|child| subtree_contains_kind(child, kind))
 }
 
 fn is_native_body(body: Option<TsNode>) -> bool {
@@ -1135,6 +1284,171 @@ mod tests {
         );
         assert_eq!(report.cognitive, 1);
         assert_eq!(report.cyclomatic, 2);
+    }
+
+    // Dart 3.12 private named parameters: an initializing formal may name a
+    // private field; callers use the name without the underscore. The
+    // parameter list scores inside the constructor unit, as for any other
+    // constructor.
+    #[test]
+    fn private_named_parameters_score_in_the_constructor() {
+        let src = r#"
+            class Point {
+              final int _x;
+              final int _y;
+              Point({required this._x, required this._y}) {
+                if (_x > 0 && _y > 0) {}
+              }
+            }
+        "#;
+        let report = function(src, "Point");
+        assert_eq!(report.kind, "constructor");
+        // if (+1) with its && sequence (+1)
+        assert_eq!(report.cognitive, 2);
+        // base + if + one extra && operand
+        assert_eq!(report.cyclomatic, 3);
+    }
+
+    #[test]
+    fn private_named_parameter_defaults_score_in_the_constructor() {
+        let report = function(
+            "class Point { final int _x; final int _y; Point({this._x = 1, this._y = true ? 2 : 3}); }",
+            "Point",
+        );
+        assert_eq!(report.cognitive, 1); // the default's ternary
+        assert_eq!(report.cyclomatic, 2); // base + ternary
+    }
+
+    #[test]
+    fn private_named_super_parameters_are_supported() {
+        let src = r#"
+            class Base {
+              final int _x;
+              Base({required this._x});
+            }
+            class Sub extends Base {
+              Sub({required super._x}) {
+                if (_x > 0) {}
+              }
+            }
+        "#;
+        let report = analyze(src);
+        assert!(report.parse_errors.is_empty(), "{:?}", report.parse_errors);
+        let base = find(&report.functions, "Base").expect("Base constructor");
+        assert_eq!(base.kind, "constructor");
+        assert_eq!(base.cyclomatic, 1);
+        let sub = find(&report.functions, "Sub").expect("Sub constructor");
+        assert_eq!(sub.kind, "constructor");
+        assert_eq!(sub.cognitive, 1); // if in the body
+        assert_eq!(sub.cyclomatic, 2);
+    }
+
+    #[test]
+    fn private_named_parameters_in_abbreviated_constructors() {
+        let report = function(
+            "class C { final String _name; new({required this._name}) { if (_name.isEmpty) {} } }",
+            "C",
+        );
+        assert_eq!(report.kind, "constructor");
+        assert_eq!(report.cognitive, 1); // if
+        assert_eq!(report.cyclomatic, 2);
+    }
+
+    #[test]
+    fn abbreviated_constructors_are_named_after_the_class() {
+        let src = r#"
+            class Pet {
+              String name;
+              new() : name = 'Fluffy';
+              new withName(this.name) {
+                if (name.isEmpty) {
+                  print('empty');
+                }
+              }
+            }
+        "#;
+        let unnamed = function(src, "Pet");
+        assert_eq!(unnamed.kind, "constructor");
+        assert_eq!(unnamed.cognitive, 0);
+        assert_eq!(unnamed.cyclomatic, 1);
+        let named = function(src, "Pet.withName");
+        assert_eq!(named.kind, "constructor");
+        assert_eq!(named.cognitive, 1); // if
+        assert_eq!(named.cyclomatic, 2);
+    }
+
+    #[test]
+    fn abbreviated_factories_are_named_after_the_class() {
+        let src = r#"
+            class Pet {
+              String name = '';
+              factory() => Pet.withName('x');
+              factory named() {
+                if (name.isEmpty) {
+                  return Pet.withName('y');
+                }
+                return Pet.withName('z');
+              }
+              new withName(this.name);
+            }
+        "#;
+        let unnamed = function(src, "Pet");
+        assert_eq!(unnamed.kind, "factory");
+        assert_eq!(unnamed.cyclomatic, 1);
+        let named = function(src, "Pet.named");
+        assert_eq!(named.kind, "factory");
+        assert_eq!(named.cognitive, 1); // if
+        // The abbreviated generative constructor in the same class is a
+        // unit as well.
+        assert_eq!(function(src, "Pet.withName").kind, "constructor");
+    }
+
+    #[test]
+    fn abbreviated_const_and_redirecting_constructors_are_units() {
+        let consts = analyze("class C { const new(); const new named(); }");
+        assert!(consts.parse_errors.is_empty(), "{:?}", consts.parse_errors);
+        for name in ["C", "C.named"] {
+            let ctor = find(&consts.functions, name).expect(name);
+            assert_eq!(ctor.kind, "constructor", "{name}");
+            assert_eq!(ctor.cyclomatic, 1, "{name}");
+        }
+
+        let redirecting = analyze("class C { new() : this.named(); new named(); }");
+        assert!(
+            redirecting.parse_errors.is_empty(),
+            "{:?}",
+            redirecting.parse_errors
+        );
+        for name in ["C", "C.named"] {
+            assert_eq!(
+                find(&redirecting.functions, name).expect(name).kind,
+                "constructor",
+                "{name}"
+            );
+        }
+    }
+
+    #[test]
+    fn bodyless_constructors_are_units() {
+        let report = function("class Base { Base(int y); }", "Base");
+        assert_eq!(report.kind, "constructor");
+        assert_eq!(report.cognitive, 0);
+        assert_eq!(report.cyclomatic, 1);
+
+        // An initializer list terminated by `;` scores inside the unit.
+        let report = function(
+            "class P { P(int x) : y = x > 0 ? 1 : 2; final int y = 0; }",
+            "P",
+        );
+        assert_eq!(report.cognitive, 1); // ternary in the initializer
+        assert_eq!(report.cyclomatic, 2); // base + ternary
+    }
+
+    #[test]
+    fn external_constructors_are_skipped() {
+        let report = analyze("class C { external C(); external factory C.named(); }");
+        assert!(report.parse_errors.is_empty(), "{:?}", report.parse_errors);
+        assert!(report.functions.is_empty());
     }
 
     #[test]
