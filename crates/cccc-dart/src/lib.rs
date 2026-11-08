@@ -22,7 +22,8 @@
 //! the traditional `Class` / `Class.name` spellings are reported. Bodyless
 //! constructor declarations (`Point(this.x);`, `new() : x = 1;`,
 //! `const new named();`) are constructor units too — unlike bodyless
-//! methods, which are abstract or external and stay skipped.
+//! methods, which are abstract or external and stay skipped. Enum primary
+//! constructors are reported the same way as class ones.
 
 use std::path::Path;
 
@@ -123,7 +124,7 @@ impl<'a> Builder<'a> {
 
     fn visit(&mut self, node: TsNode) {
         match node.kind() {
-            "class_declaration" => self.visit_class(node),
+            "class_declaration" | "enum_declaration" => self.visit_class(node),
             "extension_type_declaration" => self.visit_named_type(node),
             "declaration" => self.visit_declaration(node),
             "function_declaration" => self.visit_function(node, "function"),
@@ -172,9 +173,9 @@ impl<'a> Builder<'a> {
         }
     }
 
-    /// Visit a class declaration, tracking its name for abbreviated
-    /// constructors. A class with a Dart 3.13 primary constructor gets a
-    /// constructor unit of its own (see [`Self::visit_primary_class`]).
+    /// Visit a class or enum declaration, tracking its name for abbreviated
+    /// constructors. A declaration with a Dart 3.13 primary constructor gets
+    /// a constructor unit of its own (see [`Self::visit_primary_class`]).
     fn visit_class(&mut self, node: TsNode) {
         let class_name = node
             .child_by_field_name("name")
@@ -205,7 +206,8 @@ impl<'a> Builder<'a> {
         }
     }
 
-    /// Lower a Dart 3.13 primary constructor into one constructor unit.
+    /// Lower a Dart 3.13 primary constructor (of a class or an enum) into
+    /// one constructor unit.
     ///
     /// The unit's body is the header parameter list (default values and
     /// super-parameters score there, as they do for a traditional
@@ -1552,6 +1554,37 @@ mod tests {
             assert_eq!(ctor.kind, "constructor", "{name}");
             assert_eq!(ctor.cyclomatic, 1, "{name}");
         }
+    }
+
+    // Enums declare primary constructors too (implicitly constant); the
+    // entries and the other members stay outside the unit.
+    #[test]
+    fn enum_primary_constructor_is_a_constructor_unit() {
+        let src = r#"
+            enum Color(final String hex) {
+              red('#FF0000'),
+              green('#00FF00');
+
+              String get label => hex.isEmpty ? 'none' : hex;
+            }
+        "#;
+        let report = analyze(src);
+        assert!(report.parse_errors.is_empty(), "{:?}", report.parse_errors);
+        let ctor = find(&report.functions, "Color").expect("Color constructor");
+        assert_eq!(ctor.kind, "constructor");
+        assert_eq!(ctor.cognitive, 0);
+        assert_eq!(ctor.cyclomatic, 1);
+        let label = find(&report.functions, "label").expect("label getter");
+        assert_eq!(label.kind, "getter");
+        assert_eq!(label.cognitive, 1); // its own ternary, outside the unit
+    }
+
+    #[test]
+    fn enum_primary_constructor_defaults_score_in_the_unit() {
+        let report = function("enum E({final int x = (true ? 1 : 2)}) { a; }", "E");
+        assert_eq!(report.kind, "constructor");
+        assert_eq!(report.cognitive, 1); // the default's ternary
+        assert_eq!(report.cyclomatic, 2);
     }
 
     #[test]
