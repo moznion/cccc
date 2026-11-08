@@ -293,6 +293,7 @@ impl<'a> Builder<'a> {
                 "constructor_signature"
                     | "constant_constructor_signature"
                     | "factory_constructor_signature"
+                    | "redirecting_factory_constructor_signature"
             )
         });
         let Some(signature) = signature else {
@@ -302,7 +303,10 @@ impl<'a> Builder<'a> {
         if subtree_contains_kind(node, "external") {
             return;
         }
-        let kind = if signature.kind() == "factory_constructor_signature" {
+        let kind = if matches!(
+            signature.kind(),
+            "factory_constructor_signature" | "redirecting_factory_constructor_signature"
+        ) {
             "factory"
         } else {
             "constructor"
@@ -342,7 +346,9 @@ impl<'a> Builder<'a> {
             Some("constructor_signature" | "constant_constructor_signature") => {
                 ("constructor", self.constructor_name(signature))
             }
-            Some("factory_constructor_signature") => ("factory", self.constructor_name(signature)),
+            Some("factory_constructor_signature" | "redirecting_factory_constructor_signature") => {
+                ("factory", self.constructor_name(signature))
+            }
             Some("operator_signature") => ("operator", self.field_text(signature, "operator")),
             Some("getter_signature") => ("getter", self.field_text(signature, "name")),
             Some("setter_signature") => ("setter", self.field_text(signature, "name")),
@@ -928,6 +934,7 @@ fn first_signature_kind(node: TsNode<'_>) -> Option<&str> {
         "constructor_signature",
         "constant_constructor_signature",
         "factory_constructor_signature",
+        "redirecting_factory_constructor_signature",
         "primary_constructor_body_signature",
         "operator_signature",
         "getter_signature",
@@ -1554,6 +1561,27 @@ mod tests {
             let ctor = find(&report.functions, name).expect(name);
             assert_eq!(ctor.kind, "constructor", "{name}");
             assert_eq!(ctor.cyclomatic, 1, "{name}");
+        }
+    }
+
+    // Redirecting factories (`factory Foo() = Bar;`) are declaration-form
+    // members with their own signature kind; traditional and abbreviated
+    // spellings alike are factory units.
+    #[test]
+    fn redirecting_factory_constructors_are_factory_units() {
+        let cases = [
+            ("class Foo { factory Foo() = Bar; }", "Foo"),
+            ("class Foo { factory Foo.named() = Bar; }", "Foo.named"),
+            ("class Foo { const factory Foo() = Bar; }", "Foo"),
+            ("class Foo { factory() = Bar; }", "Foo"),
+            ("class Foo { factory named() = Bar; }", "Foo.named"),
+            ("class Foo { const factory() = Bar; }", "Foo"),
+        ];
+        for (src, name) in cases {
+            let report = function(src, name);
+            assert_eq!(report.kind, "factory", "{src}");
+            assert_eq!(report.cognitive, 0, "{src}");
+            assert_eq!(report.cyclomatic, 1, "{src}");
         }
     }
 
