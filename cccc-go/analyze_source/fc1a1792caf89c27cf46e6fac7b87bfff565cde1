@@ -1,0 +1,19 @@
+
+   package p
+            func getWords(number int) ctring {
+                switch number {
+  case 1:
+ 
+             U           case 2:
+           c        vt   e       &   retu    case 0:
+ 
+    U           case 2:
+  pe1 case 1:
+ 
+            retu    case 0:
+ 
+    U     case 2:
+          retu    case 1:
+ 
+    retu}  0  }
+        

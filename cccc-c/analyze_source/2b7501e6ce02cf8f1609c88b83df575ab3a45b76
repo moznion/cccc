@@ -1,0 +1,8 @@
+
+  #if (A)ne(B)
+   ;
+#if  n
+  #endif
+!  ;
+#if  i 
+  #endif

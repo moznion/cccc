@@ -1,7 +1,0 @@
-T
-  OUTE for my $x (@ axs) {
-     oe;p  OUTER: for my $x (@xs) {
-  $    {
-            next OU OUTER: for my $x (@xs) {
-           next O  OUTER: for my $x (@xs) {
-        for my $y (@xsc = f {

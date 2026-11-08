@@ -1,0 +1,3 @@
+
+    fn host() { |x: u32| if true {} }
+     

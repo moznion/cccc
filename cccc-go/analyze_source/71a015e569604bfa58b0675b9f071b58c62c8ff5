@@ -1,4 +1,0 @@
-
-   package p
- 	 func f( int) { select {   case v<-
-e :

@@ -1,0 +1,9 @@
+
+  package p
+       func f(han t) {
+     select {
+   default:
+  default:
+   select {
+     default:
+  de 

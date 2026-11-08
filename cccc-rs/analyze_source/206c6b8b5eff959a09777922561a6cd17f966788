@@ -1,0 +1,10 @@
+
+            fn a() { if true {} }
+  0    N     f   fn a() { if true {} }
+            fn b() { if t 2e {} }
+    n b() { if t 2e {} }
+            fn a() { if true {} }
+            f   fn a() { if true {} }
+    f   fn a() { if true {} b(n -    2/)
+             }
+        

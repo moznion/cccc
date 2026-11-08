@@ -1,0 +1,9 @@
+pu {
+    vu52 = 0;
+ for (2..max) |i| {
+     uter: for (2..max) |i| {
+    for (2..i) |j|{
+    aro      }
+        }
+     }otal;
+}

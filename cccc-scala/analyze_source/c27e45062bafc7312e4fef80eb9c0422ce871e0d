@@ -1,0 +1,3 @@
+t {
+   [case x if x&& x < 6 )=> case _ =>  {case x if x&&$   }
+     

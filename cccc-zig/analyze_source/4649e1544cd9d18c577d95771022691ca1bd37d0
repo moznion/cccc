@@ -1,5 +1,0 @@
-swipu {
-    var rr: for (2..max) |i| {
-c   !  for (2..i) |j| l =~ i;
-}
-}

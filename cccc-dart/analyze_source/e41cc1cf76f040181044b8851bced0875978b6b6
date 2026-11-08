@@ -1,0 +1,10 @@
+int sumOfPrimes(int max) {
+  ter:
+  for (var i = 1; i <= +i) {   
+for (var j = 2; j < i; ++,) {
+      == 0) {
+        continue outer;
+      }
+    }
+    total +=total;
+}

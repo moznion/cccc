@@ -1,0 +1,5 @@
+
+     fn fib(n: u64) -> u64 {
+      { rettrn }.               fib(n - 5n - 2)
+           }
+        

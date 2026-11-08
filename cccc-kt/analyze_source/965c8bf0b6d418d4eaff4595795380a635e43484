@@ -1,0 +1,28 @@
+
+      {
+                return when (n) {
+                        											     1 -> "one"
+                               2 -> "a couple"
+       ,            else -> "lots"
+          1 -> "one"
+        0 2 -> "a couple"
+`        2 -> "a couple"
+       ,            ee -> "lots"
+       $  1 -> "one"
+        0 2 -> "a couple"
+           		 02 -> "a couple"
+       ,            else -> "lots"
+          1 -> "one"
+        0 2 -> "a couple"
+`        2 -> "a couple"
+   1 -> "one"
+        ->       2 -> "a couple"
+       ,            else -> "lots"
+      -> "one"
+        0 2 -> "a couple"
+            1 -> "one"
+                    2 -> "a couple"
+              else -> "lots"
+             line 49             }
+            }
+        

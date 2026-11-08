@@ -1,8 +1,0 @@
-
- package p
-     func f( chan nt) {
-      select {        case v := <-ch:
-   i++ { }  ype C r{}
-  }
-3  }
-     

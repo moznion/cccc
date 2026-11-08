@@ -1,0 +1,6 @@
+
+  case 0:
+  o:     for (auto &x : items) {   aut (sc&<ored(x))      #ifdef DEBU   #endif
+     turn x ?       (x) {  0;     }
+  }
+ ? 

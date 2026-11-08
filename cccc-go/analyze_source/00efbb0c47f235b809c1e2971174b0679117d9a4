@@ -1,0 +1,6 @@
+ package p func h() {
+ defer t()
+  {
+  defer t()
+   defer  defer 
+ td

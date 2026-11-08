@@ -1,0 +1,7 @@
+
+asm (e)() asm (n)()lb
+ asm (en)()asm (e)()
+asm (e)() asm (n)()lb
+ asm (en)()asm (e)() asm (n)()lb
+ asm (en)() asm (en)()lb0< asm (en)()lb0<< asm (n)()lb
+ asm (en)() asm (en)()l asm (en)()lb0<<

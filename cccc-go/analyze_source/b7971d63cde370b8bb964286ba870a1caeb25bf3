@@ -1,0 +1,6 @@
+
+    package p   func f(ch cht) {
+             select{case v := <-ch:
+   ka ()interface {}     }
+  }
+    
