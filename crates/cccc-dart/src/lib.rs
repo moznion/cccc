@@ -196,10 +196,19 @@ impl<'a> Builder<'a> {
     /// Visit a named type declaration that cannot carry a primary
     /// constructor, tracking its name like [`Self::visit_class`] does.
     fn visit_named_type(&mut self, node: TsNode) {
-        let pushed = node.child_by_field_name("name").map(|n| {
-            let name = self.text(n).to_string();
-            self.type_names.push(name);
+        // An extension type's `name` field holds the whole
+        // `extension_type_name`, which also carries any type parameters
+        // (`E<T>`) or primary-constructor name (`E.named`); the type's own
+        // name is its leading identifier.
+        let pushed = node.child_by_field_name("name").and_then(|name_node| {
+            named_children(name_node)
+                .into_iter()
+                .next()
+                .map(|first| self.text(first).to_string())
         });
+        if let Some(name) = &pushed {
+            self.type_names.push(name.clone());
+        }
         self.visit_named_children(node);
         if pushed.is_some() {
             self.type_names.pop();
@@ -1583,6 +1592,25 @@ mod tests {
             assert_eq!(report.cognitive, 0, "{src}");
             assert_eq!(report.cyclomatic, 1, "{src}");
         }
+    }
+
+    // Abbreviated and traditional constructors inside an extension type are
+    // named after the bare type name: no type parameters (`E<T>`) and no
+    // primary-constructor name (`E.named`) leak into the enclosing name.
+    #[test]
+    fn extension_type_constructor_names_use_the_bare_type_name() {
+        let generic = analyze("extension type E<T>(T x) { new named(T x) : this(x); }");
+        let ctor = find(&generic.functions, "E.named").expect("E.named constructor");
+        assert_eq!(ctor.kind, "constructor");
+
+        let named_primary =
+            analyze("extension type E.named(int x) { new other(int x) : this.named(x); }");
+        let ctor = find(&named_primary.functions, "E.other").expect("E.other constructor");
+        assert_eq!(ctor.kind, "constructor");
+
+        let traditional = analyze("extension type E<T>(T x) { E.other(T x) : this(x); }");
+        let ctor = find(&traditional.functions, "E.other").expect("E.other constructor");
+        assert_eq!(ctor.kind, "constructor");
     }
 
     // Enums declare primary constructors too (implicitly constant); the
