@@ -10,7 +10,7 @@
 //!
 //! Dart 3.12 private named parameters (`Point({required this._x})`,
 //! including `super._x` and the primary-constructor form) need no special
-//! casing beyond this: their parameter lists — defaults included — score
+//! casing beyond this: their parameter lists (defaults included) score
 //! inside whichever constructor unit declares them.
 //!
 //! Dart 3.13 primary constructors are reported as constructor units: the
@@ -21,7 +21,7 @@
 //! with or without a body) are named after the enclosing class, matching how
 //! the traditional `Class` / `Class.name` spellings are reported. Bodyless
 //! constructor declarations (`Point(this.x);`, `new() : x = 1;`,
-//! `const new named();`) are constructor units too — unlike bodyless
+//! `const new named();`) are constructor units too, unlike bodyless
 //! methods, which are abstract or external and stay skipped. Enum primary
 //! constructors are reported the same way as class ones.
 
@@ -211,7 +211,7 @@ impl<'a> Builder<'a> {
     ///
     /// The unit's body is the header parameter list (default values and
     /// super-parameters score there, as they do for a traditional
-    /// constructor's parameter list) plus the in-body `this` member — its
+    /// constructor's parameter list) plus the in-body `this` member: its
     /// initializer list and body are the constructor's initializer list and
     /// body. Every other class member is visited normally, outside the unit;
     /// field initializers in particular stay at class level, matching how a
@@ -278,9 +278,10 @@ impl<'a> Builder<'a> {
     /// Visit a bodyless member `declaration`.
     ///
     /// A declaration holding a constructor signature is a concrete
-    /// constructor terminated by `;` — traditionally (`Point(this.x);`),
-    /// redirecting (`new() : this.named();`), or abbreviated
-    /// (`const new named();`) — so it becomes a constructor unit, including
+    /// constructor terminated by `;`, whether traditional
+    /// (`Point(this.x);`), redirecting (`new() : this.named();`), or
+    /// abbreviated (`const new named();`). It becomes a constructor unit,
+    /// including
     /// its initializer list / redirection. External constructors have no
     /// implementation and are skipped. Any other declaration (fields, and
     /// abstract or external methods, getters, and setters) carries no body
@@ -397,7 +398,7 @@ impl<'a> Builder<'a> {
         }
         if let Some(class) = enclosing {
             if names.is_empty() {
-                // `factory()` — the unnamed abbreviated factory.
+                // `factory()`: the unnamed abbreviated factory.
                 return Some(class.clone());
             }
             if names[0] != *class {
@@ -890,7 +891,7 @@ fn descendant_field<'tree>(node: TsNode<'tree>, field: &str) -> Option<TsNode<'t
 
 /// The texts of every named child of `node` carrying the field `field`, in
 /// source order (a constructor signature can carry two `name` fields: the
-/// type name and the member name — and the `.` between them carries the
+/// type name and the member name, and the `.` between them carries the
 /// field too, as an unnamed token, so it is filtered out).
 fn field_texts(builder: &Builder, node: TsNode, field: &str) -> Vec<String> {
     let mut out = Vec::new();
@@ -943,7 +944,7 @@ fn first_signature_kind(node: TsNode<'_>) -> Option<&str> {
 }
 
 /// True if `kind` appears anywhere in `node`'s subtree, including
-/// anonymous token nodes (which `named_children`-based walks miss — the
+/// anonymous token nodes (which `named_children`-based walks miss: the
 /// `external` marker of a generative constructor is a bare token, while a
 /// factory's is wrapped in a named node).
 fn subtree_contains_kind(node: TsNode, kind: &str) -> bool {
