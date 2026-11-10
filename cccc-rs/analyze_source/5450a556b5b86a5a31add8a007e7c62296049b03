@@ -1,0 +1,6 @@
+
+            fn f(a:  bool) {* if a {4<<8<<const {  c {} } }   }
+                     fn f(a:  bool) {* if a {4<<8<<const {  c {} } }   }
+                 fn f(a:  bool) {* if a {4<<8<<const {   {} } }   }
+              fn f(a:  bool) {* if a {4<<8<<const {  c {} } }   }    fn f(a:  bool) {* if a {4<<8<<const {  c {} } }   }         fn f(a:  bool) {* if a {4<<8<<const {   {} } }   }
+              fn f(a:  bool) {* if a {4<<8<<const {  c {} } }   }    fn f(a:  bool) {* if a {4<<8<<const {  c {} } }   }      

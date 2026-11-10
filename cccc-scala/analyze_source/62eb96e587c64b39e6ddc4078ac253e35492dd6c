@@ -1,0 +1,15 @@
+
+   UW S {
+ se 0 => 0
+      1case vQQext@ _ =>       {
+                  case 0 => 0
+          case v @ _ => t
+                }
+             1case v @ _ => h {
+                    case 0
+                    case v @ _ => t
+                }
+  S It =n match {
+            case 0 => 0
+                   1case v @ _ => v
+    p    }  

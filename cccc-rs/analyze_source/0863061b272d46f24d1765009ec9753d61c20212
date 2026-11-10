@@ -1,0 +1,6 @@
+            fn f() {&   |   |         loop { brtea;; }
+            +                 *    loop {         }
+    *       loop { brtea;; }          *    loop {         }
+    *become                                    loop { brteak; }
+            }
+        

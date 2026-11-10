@@ -1,4 +1,0 @@
-
-Pries(max)2 {
-for (2..,x) |i| {o+= i;  }a;
-}

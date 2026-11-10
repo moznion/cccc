@@ -1,5 +1,0 @@
-
-object: 
- *  try rki  catch
-   case e> 1
- :=2

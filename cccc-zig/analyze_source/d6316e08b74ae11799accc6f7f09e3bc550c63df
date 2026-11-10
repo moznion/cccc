@@ -1,0 +1,6 @@
+ u32  { return 0;
+    return walk(n -*2); return 0;
+    return walk(.eb5) |_| {
+        break :ter;  return 1;
+  return walk(n - 1); return 0}
+}

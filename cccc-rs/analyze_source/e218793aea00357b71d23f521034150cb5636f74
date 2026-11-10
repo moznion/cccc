@@ -1,0 +1,11 @@
+         fn f() {    fn f() {
+   ||||||||||||||||f()|||| ||||||||||||||||||f|()||R||| x    |||||||||||||||||break|N|()||R|||||f|N|()||R|||| x    ||||||f||||||f()|||| ||||||yyyyyyyyyyy||||||||||||||break|N|()||R|||||f|N|()||R|||| x    ||||||f||||||f()|||| ||||||yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy9yyyyyyyyyyyyyyyyyyyyyyyyyy||||||||||||||||||||f()|||| |||||||||||||||||||||||||||f()||f()|||| ||||||||||||||||||f|()||R|    !  
+/// Li      ||||||||||f|()||R|    !  
+///yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy|||||||f()||f()|||| ||||||||||||||||||f|()||R|    !  
+/// Li      ||||||||||f|()||R|    !  
+/// Li      
+     auto {}
+   (n - 2)
+      }
+}
+           

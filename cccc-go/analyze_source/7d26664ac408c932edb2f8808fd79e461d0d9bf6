@@ -1,0 +1,16 @@
+
+            package p
+            func free() {m   pact{}
+  ^        2        pact{}
+  ^          func (c C)     pact{}
+  ^ 4        pac//t $
+0o0000000t{}
+  ^      ost() {
+t{}
+  ^      o func (c C) () {
+    22      pact{}
+  ^ 4      
+ t{}
+  ^       pact{}
+  ^ 4    c a(x bol)  5 (c C) () {
+    1   ge p   

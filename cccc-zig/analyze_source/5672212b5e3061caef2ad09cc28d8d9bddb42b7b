@@ -1,6 +1,0 @@
-
-fn classiny(val8) []n8 {
-    return switch (value) {   0 => "one",
--    2 => "two",
-  !nsh => "any"  };
-}

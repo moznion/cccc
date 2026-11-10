@@ -1,0 +1,6 @@
+
+\\f<<;
+<<{
+    return switch (vwe) {        else => "many"  else =>"n yma"    else => "many"  };
+}
+/

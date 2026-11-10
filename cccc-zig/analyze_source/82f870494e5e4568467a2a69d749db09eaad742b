@@ -1,0 +1,8 @@
+
+\\f<<;
+<<{
+switch (valwe) {
+       0 =>""
+noe,      2 => "two"X, 2 => "wo",
+      else => "y"      }4
+}

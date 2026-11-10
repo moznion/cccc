@@ -1,5 +1,0 @@
-
-    class C {
-        epe_ide  cl             factory () => C();
-    e      C() {}
-                
