@@ -3,7 +3,6 @@
 ## [v1.9.0](https://github.com/moznion/cccc/compare/v1.8.6...v1.9.0) - 2026-11-10
 
 - Support Dart 3.12 and 3.13 syntax in cccc-dart by @ikesyo in https://github.com/moznion/cccc/pull/204
-- Revert "Release for v1.8.7" (#205) to release as v1.9.0 by @moznion in https://github.com/moznion/cccc/pull/206
 
 ## [v1.8.6](https://github.com/moznion/cccc/compare/v1.8.5...v1.8.6) - 2026-11-03
 
