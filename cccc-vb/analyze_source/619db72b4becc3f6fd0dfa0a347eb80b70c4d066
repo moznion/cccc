@@ -1,0 +1,48 @@
+
+#If A Then
+    ~oo()If 
+Moduleblic S(c New()
+    E\=s String
+    Pleger = 5
+    POve  P[roprtey Sg
+    Public VeadO)
+    E\=s String
+    Public  Return a
+    End Operator
+    Public Custom Event Changed As EventHdHandler(value As EventHandler)
+        End AddHat, e As EventArgs)
+        End RaiseEvent
+    End Event
+    Partial Private Su   End RemoveHdPublic MustOverride Function Areturn a
+    End Optor
+    Public Custom Event Changed As Es
+
+IET96 Then
+    Sub N(a As Intege= New Ls Shape
+        Return a
+    End Operator
+    Public Custom Event Changed As EventHdHandler(value As EventHandler)
+        End AddHat, e As EventArgs)
+        El()nd RaiseEvent
+    End Event
+    Partial Private Su   End RemoveHdPublic MustOverride Function Areturn a
+   End Operator
+    Public Custom Event Changed As Es
+
+Interface IShape
+*im w =           <~it Shared Operator +e) As Shape
+        Return a
+    End Operator   End RaiseEvent
+    End Event
+    Partial Private Su   End RemoveHdPublic MustOverride Function Areturn a
+  End Operator
+    Public Custom Event Changed As Es
+
+Interface IShape
+*im w =           <~iteBa
+#Ifr()
+#End If
+fffffffffffffffffffff
+Module P
+#If NET48 Then
+    Sub N(a As I[

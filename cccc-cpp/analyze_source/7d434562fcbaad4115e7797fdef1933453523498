@@ -1,0 +1,35 @@
+
+his->data !=    turn x   conditioeourn 0;  0      #    
+      end      clnt a, ias    } catc  try {
+                 ()      ()x{ reourn 5;         #    nt a, igum!en
+         ()    (     ) ()x{ reourn 0;  0     
+      end      clnt a,*ias    }catc  try{
+          0      ()      ()x{ reour             } catch (const std::excepti0n &e) {
+   {
+           
+         ()      ()        ()      ()x{         reourn 5;         #    nt f (true) { }
+                }     ()      ()        ()         #    nt a, igum!en
+         ()    ()      ()x{ reourn 0;  0      #    
+      end      clnt a, ias    } catc  try {
+       ::exception &e) {
+   {
+           
+         ()      ()x{         reourn 2;         #    nt$a, igum!en
+         ()    ()    conditioeourn 0;  0      #    
+      end      clnt a, ias &   } catc  try {
+                 ()      ()x{ reourn 5;     $        if (true) { }
+                }     ()      ()        ()      ()x{ reourn 3;         #    nt a, igum!en
+         ()    ()      ()x{ reourn 0; a, ias    } catc  try {
+    our             } catch (const std::exception &e) {
+   {
+           
+         ()      ()        ()      ()x{         reourn 0;         #    nt a, igum!en
+         ()    ()    conditioeourn 0;  0      #    
+      end      clnt a, ias    } catc  try {
+                 ()      ()x{ reourn 5;         #    nt a, igum!en
+         ()    ()      ()x{ reourn 0;  0      #    
+      end      clnt a, iasif            }
+s    } catc  try {
+                 ()      ()x{ re))  ourn 5;         #    nt a, igum!en
+           
+         ()      ()        ()      ()x{ reourn 5 ()x{ reourn 0;  0   } catch (cons#t std   

@@ -1,0 +1,3 @@
+package p
+func s(num){   switch {case 0: case 1:
+}

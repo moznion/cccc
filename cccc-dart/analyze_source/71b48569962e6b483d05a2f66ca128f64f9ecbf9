@@ -1,0 +1,2 @@
+ f() => switch (vue)!{
+   => [?value];

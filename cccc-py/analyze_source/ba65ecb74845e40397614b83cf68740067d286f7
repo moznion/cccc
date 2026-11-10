@@ -1,0 +1,11 @@
+
+def f():
+   try:
+   y()
+    except ror:
+     pass
+   except Ex e:
+     pass
+    else: ok()
+    finally:
+     up(

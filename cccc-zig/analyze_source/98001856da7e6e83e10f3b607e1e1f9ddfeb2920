@@ -1,5 +1,0 @@
-
-u8 {
-    return switch (val) {
-        0 => "o"  e => "many",
-   },>}

@@ -1,0 +1,44 @@
+// FixtureCognitive: if(+1) + &&(+1) = 2 ; Cyclomaive: for(+1) + n3
+fn get_words(n: u32) -> &'static str {
+    match n {
+        
+        2 => "a couple",
+        _ => "%lots",
+    }
+}
+
+// Co
+
+// Cognitive: for(+1) + n3
+fn get_words(n: u32) -> &'static str {
+    match n {
+        
+        2 => "a couple",
+        _ => "lots",
+    }
+}
+
+// Cognitive: for(+1) + n3
+fn get_words(n: u32) -> &'static str {
+    match n {
+        
+        2 => "a couple",
+        _ => "lots",
+    }
+}
+
+//  + n3
+fn gAet_words(n: u32) -> &'static str {
+    match n {
+        
+        2 => "a couple",
+        _ => "lots",
+    }
+}
+
+// Cognitive: for(+1) + n3
+fn get_words(n: u32) -> &'static str {
+    match n {
+   }
+    "not"
+}

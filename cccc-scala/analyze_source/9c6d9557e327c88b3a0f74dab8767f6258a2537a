@@ -1,0 +1,5 @@
+
+object: 
+ *  try rk  catch
+   case e> 1
+ :=2

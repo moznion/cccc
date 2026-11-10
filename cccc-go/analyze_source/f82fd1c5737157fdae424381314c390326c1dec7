@@ -1,0 +1,5 @@
+
+    package p
+   func f(chnnt){ select {
+  case v = h:
+   case v= <-ch:        case v =+=  

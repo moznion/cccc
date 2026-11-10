@@ -1,0 +1,6 @@
+
+ package p
+    func f(ct) {
+     select {
+  case v = <-ch:ge p
+  func (interface{==

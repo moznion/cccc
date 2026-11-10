@@ -1,5 +1,0 @@
-n
-  if a then 1
-  else if n then 1
-: Bl n match
-e 0 =>

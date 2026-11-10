@@ -1,0 +1,15 @@
+         fn f() {    fn f() {
+   ||||||||||||||||f()|||| ||||||||||||||||||f|()||R||| x    |||||||||||||||||break|N|()||R|||||f|N|()||R|||| x    ||||||f||||||f()|||| ||||||yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy||||||||||||||||||||f()|||| |||||||||||||||||||||||||||f()||f()|||| ||||||||||||||||||f|()||R|    !  
+/// Li      ||||||||||f|()||R|    !  
+/// Li      
+     auto {}||||||f()|||| ||||||||||||||||||f|()||R||| x    |||||||||||||||||break|N|()||R|||||f|N|()||R|||| x    ||||||f||||||f()|||| ||||||yyy||||||||||||||break|N|()||R|||||f|N|()||R|||| x    ||||||f||||||f()|||| ||||||yyyyyyyyyyyyyy|||||||||||||||||f()||f()|||| ||||||||||||||||||f|()||R|    !  
+/// Li      ||||||||||f|()||R| !  !  
+///yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy||||||||||||||||||||f()|||| |||||||||||||||||||||||||||f()||f()|||| ||||||||||||||||||f|()||R|    !  
+/// Li      ||||||||||f|()||R|    !  
+/// Li      
+     auto {}||||||f()|||| ||||||||||||||||||f|()||R||| x    |||||||||||||||||break|N|()||R|||||f|N|()||R|||| x    ||||||f||||||f()|||| ||||||yyyyyyyyyyy||||||||||||||break|N|()||R|||||f|N|()||R|||| x    ||||||f||||||f()|||| ||||||yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy|R|    !  
+///yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy||||||||||||||||||||f()|||| ||||||||||||||||
+   (n - 2)
+      }
+}
+           

@@ -1,0 +1,5 @@
+
+Module P
+#If NEi
+   Do ReDIm$PrTo    ` 0 To i
+    Do ReDim$P le

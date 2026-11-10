@@ -1,5 +1,0 @@
-
-    class C {
-        e       factory () => C();
-    e      C() {}
-                

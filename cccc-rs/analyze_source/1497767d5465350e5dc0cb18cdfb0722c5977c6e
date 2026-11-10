@@ -1,0 +1,6 @@
+
+         impl C { fn mebothod(&self) {} }
+                 struct C;
+            impl C { fn mebothod(&self) {} }
+           nf  host() { let lambda = |x: u32| x + 1; }
+        
