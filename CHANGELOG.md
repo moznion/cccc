@@ -1,5 +1,15 @@
 # Changelog
 
+## [v1.9.1](https://github.com/moznion/cccc/compare/v1.9.0...v1.9.1) - 2026-11-11
+
+- build(deps): bump taiki-e/install-action from 2.88.1 to 2.90.2 by @dependabot[bot] in https://github.com/moznion/cccc/pull/208
+- build(deps): bump Songmu/tagpr from 1.21.4 to 1.22.0 by @dependabot[bot] in https://github.com/moznion/cccc/pull/209
+- build(deps): bump the oxc group with 6 updates by @dependabot[bot] in https://github.com/moznion/cccc/pull/210
+- build(deps): bump globset from 0.4.20 to 0.4.21 by @dependabot[bot] in https://github.com/moznion/cccc/pull/211
+- build(deps): bump toml from 1.1.8+spec-1.1.0 to 1.2.1+spec-1.1.0 by @dependabot[bot] in https://github.com/moznion/cccc/pull/212
+- build(deps): bump ts-parser-perl from 2.0.0 to 2.0.4 by @dependabot[bot] in https://github.com/moznion/cccc/pull/213
+- fix(zig): refuse input zigsyn would duplicate exponentially by @moznion in https://github.com/moznion/cccc/pull/216
+
 ## [v1.9.0](https://github.com/moznion/cccc/compare/v1.8.6...v1.9.0) - 2026-11-10
 
 - Support Dart 3.12 and 3.13 syntax in cccc-dart by @ikesyo in https://github.com/moznion/cccc/pull/204
