@@ -1,0 +1,8 @@
+
+sub f {R: for my$x (@xs) {
+     for myy (@xs)     next OUTER}
+      for my $y (@xs) { next;
+   last;
+        next; 
+   }
+}

@@ -1,0 +1,6 @@
+
+    class C {
+      C() {}
+              factory () = >C();
+    e  nt g?et f           C() }o{}
+  n

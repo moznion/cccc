@@ -1,0 +1,3 @@
+
+f()     {return;return; *return;return;
+ }

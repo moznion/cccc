@@ -1,9 +1,0 @@
-   package p
-            func f() {
-  b
-  defer t()
-ie
-  defer t()()
-  defer t()()
-fe
-    }

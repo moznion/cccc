@@ -1,7 +1,0 @@
-{
-   i| {orrrr: for (3..max) |i| {
-  while(n)|r| seA(); }
-   seA();
-A();A();
-    } !e;
-}

@@ -1,0 +1,16 @@
+**{ (a)-while(n) {
+while(n) {
+} else if (b) {***
+while(n) {
+while(n) {
+} else if (b) {***
+ {while(n) {
+useA();
+ } else  }
+}
+ } {while(n) {
+useA();
+ } else  }
+}
+ }
+}

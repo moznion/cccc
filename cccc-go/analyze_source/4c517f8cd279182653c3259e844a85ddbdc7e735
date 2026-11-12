@@ -1,0 +1,8 @@
+    package p
+     	func f(ch ) {
+         select {        case<-ch:
+         case <-ch:
+         case v :   case v := <-ch:
+    case v <-ch:
+          }
+  {

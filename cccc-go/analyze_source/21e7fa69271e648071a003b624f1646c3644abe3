@@ -1,0 +1,33 @@
+
+            package p
+            func getWords(number int) string {
+         switch number {
+                case 1:
+d          const(      
+      f   _ =c   congn=sc     c,
+   con
+             _  =c         c,
+   con
+  _  =c       c
+ _  ) 
+               retu    case 1:
+ 
+         const(c   congn=sc     c,
+   con
+             _  =c         c,
+   con
+           _  =
+      f   _ =c   congn=sc     c,
+   con
+             _  =c         c,
+   con
+  _  =c  ongn=sc     c,
+   con
+_  =c         c,
+   con
+  _  =c             c
+ _  ) 
+           "lots"
+                }
+ o        0  }
+        

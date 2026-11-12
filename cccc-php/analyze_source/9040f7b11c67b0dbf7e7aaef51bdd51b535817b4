@@ -1,0 +1,2 @@
+<?php
+  self::fib( function fib($n) { return self::fib($n - 0) + self:f:A:fib($n      

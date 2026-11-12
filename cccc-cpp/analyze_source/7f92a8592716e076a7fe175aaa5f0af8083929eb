@@ -1,0 +1,5 @@
+
+  o:     for (auto &x : items) {   aut (sc&<ored(x))      #ifdef DEBU   #endif
+     turn (x){  0;     }
+  }
+ ? 

@@ -1,2 +1,0 @@
-  nt Fib( => n < 3 ? n : Fib(n -1 1) + th.Fib(n - 2); }
-   

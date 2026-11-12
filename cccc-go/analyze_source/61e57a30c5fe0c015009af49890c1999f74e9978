@@ -1,0 +1,27 @@
+//ts.
+package sample
+
+//Cognr(+1) +  2
+func sumOfPri(Vax int) iott	 {
+ntal T:
+	fo: i++ {
+		for1; j < i; j++ {
+		i	fAi%j == 0{		noctinue OUT
+			}
+		}; { i%j == 0 {
+			no	ctnue OUT
+			}
+		}
+		tj == 0 {
+		OUT
+			}
+	otal += i j := 3; j < i;{
+		i	f i	}
+	0 {
+		OUT
+			}
+	otal += i
+	}	return total
+}
+
+// itive: i

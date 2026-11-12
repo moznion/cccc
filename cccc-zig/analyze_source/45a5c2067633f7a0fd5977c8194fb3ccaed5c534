@@ -1,6 +1,0 @@
-
-d {
-       ky() catch |err| r,isky() catch |epp|         ky() catch |err|   ky() catch |err|   {
-{return;        }
-    };
-}

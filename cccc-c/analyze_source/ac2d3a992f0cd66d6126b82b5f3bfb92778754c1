@@ -1,0 +1,2 @@
+    if (a) {  0} else  do { }while (a);if (a) {  } else  i   do { } while (a);  if (a) {  } else i     do { } while (a);body
+  :i

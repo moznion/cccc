@@ -1,0 +1,7 @@
+
+    package p
+ func hkt() struct{}
+  func hokA() struct{}     func hkt() struct{}
+ func hokt() struct{}
+  func A() struct{}       func hkt() struct{}
+     func hokt() struct{}      func hokt() struct{} L       

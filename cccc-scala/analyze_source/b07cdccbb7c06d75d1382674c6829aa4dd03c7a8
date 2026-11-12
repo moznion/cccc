@@ -1,0 +1,1 @@
+  def nt = try sk()catch ae

@@ -1,0 +1,8 @@
+
+  f A 
+
+#If DE  en
+
+#If DE 
+    If a = 5 Then Foo() Else:Bar()
+=

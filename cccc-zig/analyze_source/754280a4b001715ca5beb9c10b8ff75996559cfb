@@ -1,0 +1,6 @@
+
+\\f;
+<<{
+    return switch (valwe) {      1 => "t'o",
+ else => "mn"    else => "many", };
+}

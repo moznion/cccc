@@ -1,0 +1,5 @@
+
+    class {
+      e   factory () => C();
+    e      C() {}
+              

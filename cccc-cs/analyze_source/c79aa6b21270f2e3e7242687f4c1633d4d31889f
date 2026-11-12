@@ -1,7 +1,0 @@
- cl   D(object o)ect o) => o switch {
-      => "potive",
-  ll =>`"null",
-  n > 0 => "",
-       => "null",
-     }
-       

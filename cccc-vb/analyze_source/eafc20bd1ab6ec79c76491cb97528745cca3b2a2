@@ -1,0 +1,7 @@
+
+    Public Custom Event Channdlernd oveHandler
+        RaiseEvent(sendepe, b As Shape)
+#IfSh	ape
+        Return End OpePublCer)
+        End Adler
+        RemoveHandler(value   mt
