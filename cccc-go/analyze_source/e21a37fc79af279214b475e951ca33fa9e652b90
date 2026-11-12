@@ -1,0 +1,10 @@
+
+ package p
+  func f(l) {{if a && p
+ b  || d {  }
+  }
+      }
+  func f(l) {{if a && p
+ b  || d {  }
+  }
+      }

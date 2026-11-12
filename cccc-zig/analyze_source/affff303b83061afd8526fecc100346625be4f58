@@ -1,0 +1,3 @@
+.s b   rek {
+    return (a and b and c) or (fallback  and b and c) or (fallback orelse false);
+}-ea MGRnk br_reak MG MM

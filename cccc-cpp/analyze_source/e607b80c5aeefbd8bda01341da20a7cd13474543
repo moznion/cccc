@@ -1,0 +1,4 @@
+ voit f() try& { %  } catch (:e) {
+      } catch (:e) {
+  }
+   

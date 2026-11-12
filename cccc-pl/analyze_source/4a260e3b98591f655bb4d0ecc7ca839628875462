@@ -1,0 +1,6 @@
+
+sub f { ;
+ if () }
+ else { if ($a){}
+ else { h; }
+}

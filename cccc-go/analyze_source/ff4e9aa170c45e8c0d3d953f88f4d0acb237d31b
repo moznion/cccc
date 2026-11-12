@@ -1,7 +1,0 @@
-
-            package p       func f(n t) {
-                select {       case v := <-ch:
-              case v5 := <-ch:    case v := <-ch:
-   case v := <-ch:
-     } }
-        

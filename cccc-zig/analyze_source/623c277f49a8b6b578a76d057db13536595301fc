@@ -1,0 +1,6 @@
+32 {
+  var totalrrr: for (2..) |i| {
+ trrr: for (1..) |i|  total += i;
+    }
+;
+}

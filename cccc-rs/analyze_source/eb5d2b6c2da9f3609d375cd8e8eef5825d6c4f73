@@ -1,0 +1,19 @@
+
+            fn f() {
+                while true {}
+                               ///      while true {}
+                for _ in 0{}
+         while true {}
+                      ///      while true {}
+                for _ in 0..3 {}    while true {}
+                      ///      while true {}
+                for _ in 0{}
+         while true {}
+                      ///      while true {}
+                for _ in 0..3 {}
+          for _ in 0..3 {}
+                              while tr       while true {}
+                for _ in 0..3 {}
+        fn   fo.3 {}
+        }
+        

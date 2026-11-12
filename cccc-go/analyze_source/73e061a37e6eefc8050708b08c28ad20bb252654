@@ -1,0 +1,8 @@
+
+ package p
+    func f( nt) {
+    select {        case v := <-ch:
+   i++ { }  ype C r{}
+  }
+3  }
+   

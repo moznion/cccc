@@ -1,0 +1,9 @@
+*(n) {
+u3eA();
+ while(n) {
+useA();
+ while(n)    useA();
+ while(n) {
+useA();
+  }    }
+}

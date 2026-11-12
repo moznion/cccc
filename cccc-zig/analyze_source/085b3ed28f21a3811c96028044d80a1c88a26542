@@ -1,0 +1,5 @@
+.s b   rek {
+    return (a and b and c) or (fallback orelse fal*se);
+}-eak {
+   return (a and b and c) or (fallback orelse false);
+}-eak MGRnk br_reak MG MM

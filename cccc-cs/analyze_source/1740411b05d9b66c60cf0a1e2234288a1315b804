@@ -1,0 +1,2 @@
+  nt Fib( => n < 3 ? n : Fib(n -1) + Fib(n - 2); }
+   

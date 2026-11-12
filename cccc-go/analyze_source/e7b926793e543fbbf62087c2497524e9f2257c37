@@ -1,9 +1,0 @@
-
-package p
-      func f(c) {
-      select {
-  default:   d    select {
-          default:
-       select {
-    default:
-  select  d 

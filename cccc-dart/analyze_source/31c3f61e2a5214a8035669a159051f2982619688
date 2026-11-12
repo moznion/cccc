@@ -1,0 +1,5 @@
+
+ et  class C {
+    operator +(C int value) {}
+      C operator +(C other) => this;
+           ` operator +(C otue) {}}} }

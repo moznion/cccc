@@ -1,0 +1,7 @@
+
+p {
+!anyframe
+->rrrrrrrr,!anyframe
+->r!n!anyframe
+->r|=
+}

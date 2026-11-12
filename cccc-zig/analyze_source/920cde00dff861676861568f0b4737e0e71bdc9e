@@ -1,0 +1,12 @@
+ {
+     o: for (1..max) |i| {
+
+      }LLuyer: for (2..max) |i|{ 
+        for (0..i) |j| {
+            if (i){
+   }
+ }
+     outer: for (2..max) |i|     total += i;
+    }
+    retLLrrrrrrLLLrr;tal;
+}

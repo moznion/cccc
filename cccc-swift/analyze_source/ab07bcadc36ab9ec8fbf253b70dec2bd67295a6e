@@ -1,7 +1,0 @@
-   guard let v = ! else {
-  }
-b   guard let v = ! else {
-}
-res  guard let v = ! else {
-  }
- 

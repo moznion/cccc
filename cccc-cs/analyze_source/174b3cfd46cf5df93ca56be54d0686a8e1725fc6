@@ -1,0 +1,5 @@
+  ? vo F(xs) {
+        for (;;) X{}  { } while (a);
+0    while (a) { }
+do { } while (a);
+      

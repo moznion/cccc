@@ -1,6 +1,0 @@
-32 {
-    var totalrrr: for (2..) |i| {
-  totrrrrrrrrr: for (1..) |i|  total += i;
-    }
-;
-}

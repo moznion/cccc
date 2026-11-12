@@ -1,2 +1,0 @@
-
-def fib(): fib(n)+.fib()

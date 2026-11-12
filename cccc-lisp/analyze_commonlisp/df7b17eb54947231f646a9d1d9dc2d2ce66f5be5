@@ -1,3 +1,0 @@
- )
-(defun fact (n)
-*(fact(-(fact (fact(fact | 

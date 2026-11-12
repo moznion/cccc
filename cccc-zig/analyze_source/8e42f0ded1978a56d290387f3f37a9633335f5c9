@@ -1,5 +1,0 @@
-
-p
- {(enable(comptime {defer
- i=e();3}))
-} 

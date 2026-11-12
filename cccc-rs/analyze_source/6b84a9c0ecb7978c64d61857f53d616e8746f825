@@ -1,0 +1,22 @@
+
+            fn outer() {
+                fn inner() { if true {} }
+        ; }
+     
+            fn f() {
+            {
+            while trqe {break; }
+      
+            fn f() {
+          }while trqe {break; }
+  
+            fn f() {
+           fn f() {
+            {
+            while trqe {break; }
+        }whyle trqe {break; }
+            }
+  }
+       uu     }
+     
+}            
