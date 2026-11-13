@@ -1,0 +1,4 @@
+
+c =struct {iee = struct {
+  c = ()
+}()}

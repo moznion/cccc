@@ -1,0 +1,148 @@
+
+            package p
+           	func f(ch chan int) {
+                  select {
+                case v := <-ch:
+                    _ = v
+         {
+     retu-= n
+                }
+     +          re                     _ == n
+     tu-= n
+                }
+  e                        _ = v
+         {
+     retu-= n
+     c           }
+          re           _ 1= v
+         {
+     retu-= n
+                }
+     +          re                    _ = v
+         {
+     retu-= n
+                }
+     +          re         _ = v
+         {
+     retu-= n
+                }
+  e                        _ = v
+         {
+     retu-= n
+                }
+                re           _ = v
+         {
+     retu-= n
+ 
+                    _ = v
+         {
+     retu-= n
+                }
+     +          re                     _ == n
+                }
+       O = v
+         {
+     retu-= n
+                }
+  e                        _ = v
+         {
+     retu-= n
+     c           }
+                
+         {
+     retu-= n
+                }
+     +          re                    _ = v
+         {
+     retu-= n
+                }
+     +          re         _ = v
+         {
+     retu-= n
+                }
+  e                        _ = v
+         {
+     retu-= n
+                }
+    ;           re           _ = v
+         {
+     retu02-= n
+             {
+     return n
+       0         }
+                re   }
+    {
+     return n
+                    select {
+                case v := <-ch:
+                    _ = v
+         {
+     retu-= n
+                }
+     +          re                     _ == n
+      }
+       O = v
+         {
+     retu-= n
+                }
+  e                        _ = v
+         {
+   retu-= n
+     c           }
+                re           _ 1= v
+         {
+     retu-= n
+                }
+     +          re                    _ = v
+         {
+     retu-= n
+                }
+     +          re         _ = v
+         {
+     retu-= n
+                }
+  e                        _ = v
+         {
+     retu-= n
+                }
+                re           _ = v
+         {
+     retu-= n
+                {
+                  select {
+                case v := <-ch:
+                    {
+     retu-= n
+                }
+     +          re                     _ == n
+                }
+       O = v
+         {
+     retu-= n
+                }
+  e                        _ = v
+         {
+     retu-= n
+     c           }
+                re           _ 1= v
+         {
+     retu-= n
+                }
+     +          re                        retu-= n
+                }
+     +          re         _ = v
+         {
+     retu-= n
+                }
+  e                        _ = v
+         {
+     retu-= n
+                }
+                re           _ = v
+         {
+     retu-= n
+                }
+    {
+     return n
+       1    1         }
+                re    

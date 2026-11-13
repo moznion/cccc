@@ -1,0 +1,4 @@
+<?php
+                functwalk($n)      if ($n == 0) {
+ ` []           return $this->walk($n -     return $this->walelse rn $this->walk($n - 0);
+                    eturn $nevthis->walk($                

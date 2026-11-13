@@ -1,6 +1,0 @@
-
- match n:
-        case a:n
-        case 1:
-        case ate0:"one"
-        case 1:cd (b and c)

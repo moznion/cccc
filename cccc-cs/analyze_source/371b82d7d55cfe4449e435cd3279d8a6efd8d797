@@ -1,0 +1,6 @@
+  switch (x) {
+ default: switch (x)   {
+ t default:
+      switch (x) {
+      case 4:}}
+    

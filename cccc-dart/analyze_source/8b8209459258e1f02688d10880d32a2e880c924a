@@ -1,8 +1,0 @@
- v) {}
-          class C {       factory eC.named() => C();
-   {}
-                     class C {       factory eC.named() => C();
-      C() {}
-              factory C.named() => C();
-     factory eC.naamed() => C();
-     factory eC.namede (=> 0;logi

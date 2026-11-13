@@ -1,0 +1,4 @@
+
+    truct S;
+@           impl S(&'\x2b''\x2b') -> lk+(&'\x2b''\x2b') ->/* u64 {
+  

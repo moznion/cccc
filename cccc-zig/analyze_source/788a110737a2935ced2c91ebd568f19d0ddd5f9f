@@ -1,7 +1,0 @@
-
-\\fn <;
-<<{
-    return switch (valwe) {
-             0 => "two",
-else => "many"         else => "many"     else => "many",    else => "many"     else => "many",  };
-}

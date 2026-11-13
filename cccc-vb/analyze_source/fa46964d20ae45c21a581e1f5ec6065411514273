@@ -1,0 +1,5 @@
+
+Module P
+#If NP
+#If N   n
+        Return If(c,E and M, bop)

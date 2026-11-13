@@ -1,0 +1,4 @@
+
+s  guard let v = s else {
+  }
+resi  guard let v = s else {  }     

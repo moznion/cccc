@@ -1,0 +1,11 @@
+
+{
+    for (2..max) |i| {
+      fj| {
+            if (i + j == 5) {
+          continue   ;}
+        }
+     oL;L;
+}
+;
+}

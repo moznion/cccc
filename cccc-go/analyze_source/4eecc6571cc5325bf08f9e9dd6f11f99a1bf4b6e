@@ -1,0 +1,6 @@
+  package p
+    	func f(ch channi) t {
+           select {
+  case v-ch:
+  case h:
+case v :=h:   

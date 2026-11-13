@@ -1,0 +1,3 @@
+   func fib( {
+ < 2 return fib() + fib( 2)
+   }   

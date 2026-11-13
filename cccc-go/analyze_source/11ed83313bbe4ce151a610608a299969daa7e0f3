@@ -1,7 +1,0 @@
-
-    package p  func f(c t) {
-   select {
- case ch:
-    default: }
-     }
-       

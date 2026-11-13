@@ -1,0 +1,6 @@
+
+package p
+ func hokt() struct{}
+    func hok() struct{}  
+ func hokt() struct{}
+    func hok() struct{}L   

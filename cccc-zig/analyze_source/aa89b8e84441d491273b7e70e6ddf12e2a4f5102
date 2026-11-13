@@ -1,0 +1,6 @@
+
+r() {
+anyframe
+->rr,c!anyframe
+->r!!!t
+}

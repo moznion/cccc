@@ -1,0 +1,6 @@
+
+                abstract class Repository {
+                  Future<vid> save();
+       Strname;
+                  set? name(String value)                }
+            

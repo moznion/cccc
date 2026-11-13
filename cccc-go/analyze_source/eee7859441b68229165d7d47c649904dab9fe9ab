@@ -1,9 +1,0 @@
-
-     package p
-    func f(as []int) {
-             for i = 1;i < 4; i++ {
-                      }
-          for i := 0; i < 3; i++ {
-    for i := 0; i < 3; i++ { _= i
-    }
-   } : 
