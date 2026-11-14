@@ -1,0 +1,6 @@
+
+fn () vo
+ catch errvoid {
+    risky() catch 
+    risky() catch tes| 
+}

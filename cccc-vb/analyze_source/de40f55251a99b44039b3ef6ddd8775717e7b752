@@ -1,0 +1,7 @@
+
+  f A 
+
+#If DE 
+#If DE 
+    If a = 4 Then Foo() Else:Bar()
+=

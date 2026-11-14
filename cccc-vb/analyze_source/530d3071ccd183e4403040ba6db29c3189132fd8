@@ -1,7 +1,0 @@
-
-Module P
-#If N 
-#If NE Resume 
-        DoWor()
-  On Error GoTo 1
-S)

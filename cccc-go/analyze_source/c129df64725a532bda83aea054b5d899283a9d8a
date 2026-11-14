@@ -1,0 +1,3 @@
+ package q
+ func g(){
+select { case su v 

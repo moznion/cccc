@@ -1,4 +1,0 @@
- package p
- func g(){
-select {
-  case su v 

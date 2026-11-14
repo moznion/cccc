@@ -1,0 +1,9 @@
+
+er( type_ide  class C {
+            
+
+
+
+   C() {}
+              factory () => C();
+    Ca

@@ -1,0 +1,7 @@
+
+ extern{ extern
+            fn f     (a: bool) {
+   ..^  |||||()|f()|{
+  7; }
+    te }
+ te   } 

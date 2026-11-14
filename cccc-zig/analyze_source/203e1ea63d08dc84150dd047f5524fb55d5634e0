@@ -1,0 +1,19 @@
+
+ir
+const Service = struct { oif const Service = struct {   fn run(ok: bool)oid {
+        if (ok) wo2rk();
+    }tttt\\
+};
+
+test "service" {
+    if (endleabr()) work;     if (ok) work();
+  
+}  fn run(ok: bool)oid {
+        if (ok) work();
+    }tttttttttt\\
+};
+
+test "service" {
+    if (endleabr()) work();     work();
+  
+}
