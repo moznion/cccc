@@ -1,0 +1,6 @@
+   package p    func f() {
+   defer t()
+ie
+  defer t()()
+  defer t()()
+fe  }

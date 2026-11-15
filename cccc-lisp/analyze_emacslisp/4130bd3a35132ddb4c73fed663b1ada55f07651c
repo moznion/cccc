@@ -1,2 +1,0 @@
-;;
- (dotimes (ma)(defun =(n)(pcase n ((dotimes

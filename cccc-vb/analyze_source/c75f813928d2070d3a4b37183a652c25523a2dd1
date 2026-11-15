@@ -1,0 +1,7 @@
+
+    TryJ    #If@NEdule P
+#If NET48Raz( Thsub B
+#ElseIf Sub If(a, b)Then ~a  b Tz( Thsub B
+#ElseIf Sub If(a, b/=)Then~a B
+#ElseIf Sub If(a, b)Then ~a b
+  b TU

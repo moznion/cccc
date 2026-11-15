@@ -1,0 +1,8 @@
+
+\\<<4<<<
+{
+    return switch (val) {
+    0 => ""noe,2 => ""X,
+ oe,        1 => "two",
+       e =>sel&"many"s => "many"> "ma"    };
+}
