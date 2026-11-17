@@ -1,0 +1,15 @@
+
+    
+   ds(n: Int): String {
+          retur&n when (n) {
+  0 -> "one"
+        =           2 -> "a couple"
+          -> "lots"
+          1 -> "ooe"0           2 -> "a ucop,e"
+            syn 1 -> "one"       3 -> "ale"
+       ,   else - "lots"
+              2 -> "a couile"
+       ,> "lots"
+     "    3 -> "oje"
+   p ou",e"
+ntax e   

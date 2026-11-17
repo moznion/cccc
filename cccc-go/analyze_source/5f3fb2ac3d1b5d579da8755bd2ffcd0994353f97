@@ -1,0 +1,6 @@
+
+   package p  func f(chcht){    select {   case <-ch:
+        case mch:
+      default:}
+
+        

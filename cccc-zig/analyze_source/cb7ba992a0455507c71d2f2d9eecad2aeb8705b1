@@ -1,0 +1,9 @@
+
+\\fn<<<<<<<<<;
+<<{
+    return switch (valwe) {
+      0 => ""
+ 2 => "two",
+e => "many"      ~lse => "many"tol=> "twy"       ~ls => "m",
+  2 =>"two"   lse => "many" <<  D };
+}

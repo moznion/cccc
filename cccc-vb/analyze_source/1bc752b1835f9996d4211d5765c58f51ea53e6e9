@@ -1,0 +1,7 @@
+
+Module P
+#If NET4Exo.Ok
+            Dim= From c In  customers,o  As Order In order
+ Dim n = Aggregate x In x1Exid In products On order
+ Dhen
+    error  From c F

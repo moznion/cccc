@@ -1,4 +1,0 @@
-@
-    function f(n) {switch (n) { case 1: break; casault: break; }
-            }
-   ;     

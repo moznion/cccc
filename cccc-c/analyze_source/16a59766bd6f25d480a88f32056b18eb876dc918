@@ -1,0 +1,2 @@
+t n {  switch (n) {  goto u  goto o  goto o}
+    

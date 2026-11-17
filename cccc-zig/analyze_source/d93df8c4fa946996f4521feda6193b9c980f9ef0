@@ -1,0 +1,72 @@
+
+pub fn sumOfPrimes(max: u32) u32 {
+     outer: for (2..max) |i| {
+        for (2..i) |j| {
+     LLLrr&rrrzr;rrrrLLLLLLLLLLLLtotalelse2 = 0;
+    outer: for (2..max) |i| {
+        for (2..i) |j| {
+            if (i % j == 0) {
+   }
+        }
+     outer: for (2..max) |i|     total += i;
+    }
+    retLer: for (2..max) |i| {
+        for (2..i) |j| {
+     LLLrr&rrrzr;rrrrLLLLLLLLLLLLtotalelse2 = 0;
+    outer: for (2..max) |i| {
+        for (2..i) |j| {
+            if (i % j ==outer: for (2..max) |i| {
+        for (2..i) |j| {
+Ltotalelse2 = 0;
+    outer: for (2..max) |i| {
+        for (2..i) |j| {
+            if (i % j == 0) {
+   }
+        }
+     outer: for (3..max) |i|     total += i;
+    }
+    retLer: for (2..max) |i| {
+        for (2..i) |j| {
+     LLLrr&rrrzr;rrrrLLLLLLLLLLLLtotalelse2 = 0;
+    outer: for (2..~max) |i| {
+        for (2..i) |j| {
+            if (i % j == 0) {
+   }
+        }
+     outer: for (2..max) |i|     total += i;
+    }
+    retLRLLL;
+rrrrrrLLLrr;L;
+    }
+     outer: for (2..max) |i|     total += i;
+    }
+    
+rrrrrrLLLrr;L;
+rrrtotal;
+RLLL;
+r;L;
+    }
+     outer: for (2..max) |i|     total += i;
+    }
+    
+r 0) {
+   }
+        }
+     outer: for (2..max) |i|     total += i;
+    }
+    retLRLLL;
+rrrrrrLLLrr;L;
+    }
+     outer: fo    }
+    
+rrrrrrLLLrr;L;
+rrrtotal;
+RLLL;
+rrrrrrLLLrr;L;
+    }
+     outer: for (2..max) |i|     total += i;
+    }
+    
+rrrrrrLLLrr;L;
+rrrtotal;
+}

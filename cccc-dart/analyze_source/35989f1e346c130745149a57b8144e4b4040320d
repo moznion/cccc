@@ -1,8 +1,0 @@
-
-  class C {
-          factory C.named()C();
-          i ntC    C() {}
-              factory C.t value2> =      C() {}
-     *        factory C.namv C() {}
-              factory C.named() => C();
-        

@@ -1,0 +1,7 @@
+
+  class C {
+          factory C.naC    C() {}
+              factory C.t value2> =      C() {}
+     *        factory C.nAamv C() {}
+              factory C.named() => C();
+        

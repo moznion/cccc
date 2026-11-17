@@ -1,0 +1,5 @@
+  switch (x) {
+ default: switch (x)   {default:
+    switch (x) {
+      case 4:}}
+    
