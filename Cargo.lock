@@ -1445,9 +1445,9 @@ checksum = "d0af592be68c579aa78a16846bd19422978c3c52e438523d45ff5d1bff1f9d4a"
 
 [[package]]
 name = "tree-sitter-python-orchard"
-version = "0.6.0"
+version = "0.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "71bb020b95776c71a7af7dfd62d7bab61b86dbf6c67f988b3f73a58e54e0aee9"
+checksum = "614e40e971558b6ab6beb8a807822d1ab04340451922df53f958a95f9ed05b7e"
 dependencies = [
  "cc",
  "tree-sitter-language",
