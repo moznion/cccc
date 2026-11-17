@@ -37,7 +37,7 @@ jobs:
         run: |
           rustup toolchain install
           rustup component add llvm-tools-preview # required by cargo-llvm-cov
-      - uses: Swatinem/rust-cache@c8037a86dde8214a8310e9f54a8fc61ab362aa31 # v2
+      - uses: Swatinem/rust-cache@eedcf2fb1c22f010a0eb66b92f378c110977f266 # v2
       - uses: taiki-e/install-action@3a3daafd3b7f23b8f65d9f5ba2db203fb59b79e2 # v2.90.2
         with:
           tool: cargo-llvm-cov
@@ -61,7 +61,7 @@ jobs:
       # Installs the toolchain pinned in rust-toolchain.toml.
       - name: Install Rust toolchain
         run: rustup toolchain install
-      - uses: Swatinem/rust-cache@c8037a86dde8214a8310e9f54a8fc61ab362aa31 # v2
+      - uses: Swatinem/rust-cache@eedcf2fb1c22f010a0eb66b92f378c110977f266 # v2
       # cccc-rb builds Ruby's Prism from vendored C via bindgen, which needs libclang.
       - name: Install libclang (for the ruby-prism / bindgen build)
         run: sudo apt-get update && sudo apt-get install -y libclang-dev
@@ -78,7 +78,7 @@ jobs:
       # Installs the toolchain pinned in rust-toolchain.toml.
       - name: Install Rust toolchain
         run: rustup toolchain install
-      - uses: Swatinem/rust-cache@c8037a86dde8214a8310e9f54a8fc61ab362aa31 # v2
+      - uses: Swatinem/rust-cache@eedcf2fb1c22f010a0eb66b92f378c110977f266 # v2
       # cccc-rb builds Ruby's Prism from vendored C via bindgen, which needs libclang.
       - name: Install libclang (for the ruby-prism / bindgen build)
         run: sudo apt-get update && sudo apt-get install -y libclang-dev
