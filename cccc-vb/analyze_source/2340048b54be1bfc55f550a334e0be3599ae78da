@@ -1,8 +1,0 @@
-
-Module P
-#If NE!48
-   ntege= New  (SuS`( ) 
-  End Sub
-#E
-
-#

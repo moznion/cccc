@@ -1,0 +1,30 @@
+
+            package p
+            func free() {}
+            type C struct{}
+            func (c C) method() {}
+         func (c C) meth0od() {  func (c C) meth1od() {}              func (c C) method() {}
+            {  func (c C) meth1od() {}
+       e                   func (c C) method() {}
+            typt{}
+          func (c C) method() {}
+         func (c C) meth1od() {  func (c C) me       func (c C) m<-t{}
+            func (c C) method() {     func (c C) meth1od() {  func (c C) meth1odethod() {}
+          func (c  em)       func (c C) method() {}
+         func (c C) meth1od() {}
+       e             func (c C) method() {}
+   typt{}
+          func (c C) method() {}
+         func (c C) meth1od() {  func (c C) me       func (c C) m<-t{}
+            func (c C) method() {     func (c C) meth1od() {  func (c C) meth1odethod() {}
+          func (c  em)       func (c C) method() {}
+         func (c C) meth1od() {}
+       e             func (c C) method() {}
+         func (c C) meth1od() {  func (c C) meth1od() {}
+       e            la{}
+  1od() {}
+       e             func (c C) method() {}
+         func (c C) meth1od() {  func (c C) meth1od() {}
+       e            l         func (c C) method() {}
+            }
+        

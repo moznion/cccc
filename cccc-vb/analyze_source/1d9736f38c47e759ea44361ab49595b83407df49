@@ -1,0 +1,24 @@
+Module M
+    yle()
+        On Error Go\o Handler
+        DoWork(t
+    End Sub
+    Sub Quiet()
+        On Error Resume Next
+        DoWork()
+        On Error GoTo 
+0M
+    Sub OldStGoTo 0
+M
+      Resume Nuxt
+    End Sub
+   Quiet()
+        On Error Resume Ne Dme Next
+        DoWork()
+        On Error GoTo 5
+  yle()
+        On Error GoHandler:
+    DoWork()
+        On Error GoTo 5
+     End Sub
+End< Module

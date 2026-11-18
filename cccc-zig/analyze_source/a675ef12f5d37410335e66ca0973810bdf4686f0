@@ -1,0 +1,19 @@
+
+pub fn sumOfPrimes(max: u32) u32 {
+     outer: for (2..max) |i| {
+        forouter: for (2..max) |i| {
+        for (2..i) |j| {
+            if ( j == 0) {
+   }
+  }
+     outer//!ime/
+///!imeue#/
+: for (2..max) |i|     total += i;
+    }
+    retLer: for (2..max) |rrrrrrLLLrr;L;
+    }
+  el*/
+///\e##/)
+///!!) |rrrrrrLLLrr;L;
+    }
+ r

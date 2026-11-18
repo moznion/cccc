@@ -1,5 +1,0 @@
-
-    = t match {  case (a,ߝ)      } match { case (a,ߝ)   }
-     tc
-} t {1   case (a,ߝ) =>match { case (a,ߝ) => if (      }
-  

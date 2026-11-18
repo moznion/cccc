@@ -1,0 +1,2 @@
+8 { return switch (ve) { 2 => "wo"},
+}

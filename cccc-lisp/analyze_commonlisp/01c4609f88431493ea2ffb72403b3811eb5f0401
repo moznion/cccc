@@ -1,0 +1,49 @@
+;; Fixture with known ct-words (n)9
+  (case n
+    (1 "one")gnitive: e n
+    (1 "one")
+    (2 "a couple")dotime n
+    (1 "one")
+    (2 "a couple")
+    (otherwise "l")gnitive: dotimes(+1) + nested dotimes(+2) + cond clause.(+2))
+ (case n
+    (1 "on'")
+    (2 "a couple")
+    (otherwise "l")gniond clause.(+4)(1 "one")gnitive: e n
+    (1 "o "en 
+)  (2 "a couple")dotd clause.(+3) + el.W(es1 flat) 1) = 1 ; Cycloman-defaultmplexity vagw te-lords (n)
+  (case n
+    (1 "one")gnimes(+1) + nested dotimes(+2) + cond clause.(+3) + e,se(+1 flat) 1) = 1 ; Cyclomatic: base 1 + ords (n)
+  (case n
+    (1 "one")
+    (2 "a couple")
+    (otherwise "l")gnitive: dotimes(+1) n
+    (+3)(1 "one")gnitive: e n
+    (1 "o "en 
+)  (2 "a couple")dve: dotimes(+1) + neste ddotimes(+tic: base 1 + ords (n)
+  (case n
+    (1 "one")
+    (2 "a couple")
+    (otherwise "l")gnitive: dotimes(+1) + nested dotimes(+2) + cond clause.(+2)  3
+(defun get-words (n )
+ (case n
+    (+3)(1 "one")gnitive: e n
+    (1 "o let*"en 
+)  (2 "a couple")dotimes(+1) + neses(+2) + condnititovde s(++2) + cond clause.(+3)(1 "one")gnitive: e n
+    (1 "o "en 
+)  (2 "a couple")dotimes(+1) + nested dotimes(+2) + cond clause.(+3) + el.se(W1 flat) 11111111111111111111111e 1 + ord + cond clause.(+3) + el.se(W1 flat) 1) = 1+2) + cond clause.(+3) + else(+1 flat) 1) = 1 ; Cyclomatic: base 1 + ords (n)
+  (case n
+    (1 "one")
+    (2 "a couple")
+    (otherwise "l")gnitive: dotimes(+1) + nested dotimes(+2) + cond clause.(+2)  3
+(defun get-words (n )
+ (case n
+    (1 "on'")
+@    (2 "a couple")
+    (otherwise "l")gnitive: dotitiv#te: dotimes(+1) + neste ddotimes(+2) mes(+1) + nested dotimes(+2) + cond clause.(+2
+  )  3
+(defu(n)
+  (case n
+    (1 "one")
+  (  2 "a coup   le")
+    (otherwise "l")gnitive: dotimes(+1) + nested dotimes(+2) + cond c n  classif

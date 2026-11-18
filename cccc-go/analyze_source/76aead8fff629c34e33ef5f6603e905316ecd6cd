@@ -1,0 +1,4 @@
+  package p func hQ() {
+defer t()
+defer t()
+  defer t()()

@@ -1,5 +1,0 @@
- switch (x) {
-        case 0:
-   .  case 1:      case 2:
-`          case 1:   case A:
-          case 3:     
