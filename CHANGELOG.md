@@ -1,5 +1,15 @@
 # Changelog
 
+## [v1.9.2](https://github.com/moznion/cccc/compare/v1.9.1...v1.9.2) - 2026-11-18
+
+- build(deps): bump Swatinem/rust-cache from c8037a86dde8214a8310e9f54a8fc61ab362aa31 to eedcf2fb1c22f010a0eb66b92f378c110977f266 by @dependabot[bot] in https://github.com/moznion/cccc/pull/217
+- build(deps): bump taiki-e/install-action from 2.90.2 to 2.90.4 by @dependabot[bot] in https://github.com/moznion/cccc/pull/218
+- build(deps): bump rust-toolchain from 1.99.1 to 1.100.0 by @dependabot[bot] in https://github.com/moznion/cccc/pull/219
+- build(deps): bump the oxc group with 6 updates by @dependabot[bot] in https://github.com/moznion/cccc/pull/220
+- build(deps): bump the php-parser group with 2 updates by @dependabot[bot] in https://github.com/moznion/cccc/pull/221
+- build(deps): bump tree-sitter-python-orchard from 0.6.0 to 0.6.1 by @dependabot[bot] in https://github.com/moznion/cccc/pull/222
+- build(deps): bump tree-sitter from 0.27.1 to 0.27.2 by @dependabot[bot] in https://github.com/moznion/cccc/pull/223
+
 ## [v1.9.1](https://github.com/moznion/cccc/compare/v1.9.0...v1.9.1) - 2026-11-11
 
 - build(deps): bump taiki-e/install-action from 2.88.1 to 2.90.2 by @dependabot[bot] in https://github.com/moznion/cccc/pull/208
