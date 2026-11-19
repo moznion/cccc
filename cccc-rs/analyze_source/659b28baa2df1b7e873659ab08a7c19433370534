@@ -1,0 +1,14 @@
+
+            fn f(a: bool, b: bool) {
+            fn f(a: bool, b: bool) {
+           become     if a && b { for _ in rt0.n.1 {}      fn f(a: bool, b: bool) {
+           become     if a && b { for _ in rt0.n.1 {}   }
+              }
+        }
+             }
+              become     if a && b { for _ in rt0.n.1 {}      fn f(a: bool, b: bool) {
+           become     if a && b { for _ in rt0.n.1 {}   }
+              }
+        }
+             }
+        

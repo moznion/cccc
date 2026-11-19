@@ -1,0 +1,2 @@
+      class C {?factory ga () {}
+      factory C.named() => C();gt

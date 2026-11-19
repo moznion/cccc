@@ -1,0 +1,1 @@
+fn f() { b"#r'\x1a)\x1a)s b 1a)\x1ax"r }

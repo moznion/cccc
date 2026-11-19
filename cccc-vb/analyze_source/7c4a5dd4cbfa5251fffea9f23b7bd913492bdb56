@@ -1,8 +1,0 @@
-
-Public MustInhAReturn a
-  Public Custom Event Changed As Evenr
-        AddHandler(tHandler)
-   ( ddHandler
-         End RemoveHandler
-        RaiseEer
-End Interface

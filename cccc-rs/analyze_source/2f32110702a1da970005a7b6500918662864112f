@@ -1,0 +1,11 @@
+
+    fn a() { if true{} (/*ERRO R*/)}  fn a() { if true {}b::nAnA ::
+Bb::
+
+b::b::bb::
+b::nAnA ::
+bb::
+b::
+bb::
+b::nA ! {  }
+ |||||||||ff||||||f|()||R||| |R||z||||||()|cr| |||||||||||| (/*ERROR*/)}         fn a() { if true {} (/*ERROR*/)}  fn a() { if true {} (/*ERROR*/)}     
