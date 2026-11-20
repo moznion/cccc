@@ -1,0 +1,4 @@
+ {  if ((comptime {
+ ! if(end()) nr(eg);
+}))e();
+}

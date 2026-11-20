@@ -1,4 +1,0 @@
-<?php
- match ($x
-   ){                       default => "c",            default =~ "c",                default => "c",               default => "c",
-            

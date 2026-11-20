@@ -1,0 +1,4 @@
+ = 0
+    Public Property Widt      Get
+         Return _w
+ Private Set(valueriM

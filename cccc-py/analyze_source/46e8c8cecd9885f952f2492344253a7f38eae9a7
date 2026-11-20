@@ -1,0 +1,4 @@
+F match n:
+  case 0 _:
+  case _:
+ 

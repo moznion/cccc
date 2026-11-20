@@ -1,6 +1,0 @@
-
-  package p     func f( ct) {
-   select {
-     case v := <-i:
-    select {     case v : select {
-   case v  

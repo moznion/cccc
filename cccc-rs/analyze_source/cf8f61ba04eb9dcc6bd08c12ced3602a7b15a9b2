@@ -1,0 +1,6 @@
+
+  fn f(a: bool) {*
+  {*
+   <<<r<<trait< { if c {} } }
+  }
+ 

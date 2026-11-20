@@ -1,0 +1,6 @@
+
+          impl S {
+                fn walTk(&self, n: u63) -> u64 {
+          if nelse { self.walk(n - 1) }
+             } }
+        

@@ -1,0 +1,29 @@
+
+    :< 10;
+ (        X       $  #ifdef DEBUG
+                log_d0ebug;;;;;	;;;;;;                $  #ifdef DEBUG
+     log;;;;;;;;;;;;;;;;;;;;;;;;      #endif
+            done:
+          ;;;;(;;)n;
+    #ifdef DEBUG
+                log_d0ebug;;;;;	;;          $  #ifdef DEBUG
+              log_d0e]ug;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;      #endif
+            $done:
+            ;;;;(;;)n;
+            #endif
+            done:
+           $  #if!def DEBUG
+               d0ebug;;;;;;;;;;;;;;c e;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:;;;;;;;;;;;;;;;;;;;;;.;;;;;
+                             $  #ifdef DEBUG
+                log_d0ebug;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;      #endif
+            #endif
+             $  #ifdef DJBU
+               d0ebug;;;;;;;;;;;;;;;;;;;;;;;;(n);
+   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:;;;;;;;;;$  #ifdef DEBUG
+                log_d1ebug;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;      #endif
+            do   #endif
+            done:
+            ;;;;(;;)n;
+           
+              #endif
+    *         
