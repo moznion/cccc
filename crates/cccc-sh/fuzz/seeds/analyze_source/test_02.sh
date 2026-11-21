@@ -1,0 +1,8 @@
+
+f() {
+  for i in a b; do :; done
+  for ((i = 0; i < 3; i++)); do :; done
+  while true; do :; done
+  until false; do :; done
+  select x in a b; do :; done
+}
