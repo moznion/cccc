@@ -1,0 +1,6 @@
+
+            fn fib(n: u64){
+          if n < 2 { return n; };               
+   11111111||ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff||||-------------      break   & if n < 2 { return n; }
+                    }
+        

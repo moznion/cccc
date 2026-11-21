@@ -1,4 +1,0 @@
-frr$(condition-case err
-o(:
-(condition-case e
-::(:f

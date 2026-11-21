@@ -1,0 +1,11 @@
+
+         (cond  (cond (/< n 0) 'neg)
+                   (else      (cond ((< n 0) 'neg)
+   f    (else       (cond ((< n 0) 'neg)
+              (else       (cond 
+ &    d  (cond (/< n 0)$'neg)
+                      (else       (cond ( 'neg  )
+            (else       (cond ((< n 0) 'neg)
+           (else       (c     (cond ((< n 0) 'neg)
+  name!          (else       (cond ((< n'0) 'neg)(else       (cond 
+ c      

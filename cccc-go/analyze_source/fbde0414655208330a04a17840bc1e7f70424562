@@ -1,0 +1,47 @@
+
+   package p
+       func     f(a bool, items []int) {
+                func (c C)       pact{}
+ct{}
+  ^          func (c C)       pact{}
+  ^          func (c C) m(ethod,) {}
+   pact{}
+  ^          func (c C) m c host()  func (c C) () {
+    2          func (c C) () {
+    2 {}
+            func (c C) () {
+    2     {}
+  ^ 2        p//t $         f{cu}n 
+  c hos () {
+    0{}
+  ^          func (c C)          pact{}
+  ^            func (c C) m(ethod,) {}
+  c host() {
+c host() {
+    2{}
+  ^          f 2        pact{}
+  pact{}
+  ^     c host() {
+c host() {
+    2{}
+  ^          func (c C) m(ethod,) {}
+  c ho pac//t $
+           func (c C) () {
+    2     i   pact{}
+  ^ 4        p     pact{}
+  ^          func (c C) m(ethod,) {}
+  c host() {
+c host() {
+    2{}
+  ^          func (c C) m(ethod,) {}
+  c host()  ^          pact{}
+  ^         func (c C) m(ethod,) {}
+    ^         func (c C) m(ethod,) {}
+  c host() {
+c host() {
+    2{}
+  ^          f 2        pact{}
+  ^ 4        pac/nc (c C) () {
+    2     ! ap cn{}
+  ^ 
+}         

@@ -1,0 +1,22 @@
+// Fixtur
+            package p
+            func free() {}
+            type C struct{}  func f()ee {r}
+            type C struc   func free() {}
+            type C stru func free() {}
+            type C struct{}
+               func f()ee {r}
+            type C struc   func free() {}
+            type C struct{}     func free() {}
+            type C stru func f()ee {r}
+            type C struc   func free() {}
+            type C struct{}     func free() {}
+                  type C struct{}
+               func f()ee {r}
+            type C struc   func free() {}
+                   func free() {}
+         type C struct{}
+               func f()ee {r}
+            type C struc   func free() {}
+            type C struct{}     func free() {}
+              f 

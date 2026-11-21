@@ -1,0 +1,4 @@
+         package p
+   func f(c int) {
+select{   case v := <-ch:  _ = v case v := <-c:     case v := <-ch:      }
+    }    

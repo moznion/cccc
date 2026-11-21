@@ -1,0 +1,5 @@
+
+       mclasg F(object o) => o switch {
+ l" nul => "null",
+  s $     _ =>th,   go _ =>her    }
+ 

@@ -1,0 +1,3 @@
+( #ifdef B 6 &&1 goto do%;
+
+0 &&v;;

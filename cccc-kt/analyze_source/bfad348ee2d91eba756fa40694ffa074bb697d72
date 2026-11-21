@@ -1,15 +1,0 @@
-
-    
-   ds(n: Int): Stng {
-          retur&n when (n) {
-  0 -> "one"
-   "one"       3 -> "ale"
-    ;  ,   else - "lots"
- -> "a couile"
-       ,> "lot
-  s"   syn 1 -> "one"       3 -> "ale"
-    ;  ,   else - "lots"
-              2 -> "a le"
-       ,> "lots"
-     "    3 -> "oje"p ou",e"
-ntax e   

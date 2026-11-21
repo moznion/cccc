@@ -1,0 +1,1 @@
+fn f(a: fn  (fn (bool) ) A )

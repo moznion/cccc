@@ -1,0 +1,2 @@
+
+   s.template vs<T>() { s.template vt<T>(s;}

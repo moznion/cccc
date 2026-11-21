@@ -1,7 +1,0 @@
-
- struct C;      fn free() {        struct C;        struct C;
-  {}
-            struct C;
-  }
-
-         

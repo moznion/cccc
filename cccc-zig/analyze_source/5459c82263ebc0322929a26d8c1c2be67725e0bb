@@ -1,6 +1,0 @@
-
-{
-    return switch (ve) {     0 => ""
-n,    2 => "two",  else =>"y",
- };
-}

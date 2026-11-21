@@ -1,0 +1,8 @@
+
+d {
+    r,isky() catch |eppppppppppppppp|         ky() catch |err| 
+    r,isky() catch |epppppppppppppppp|         ky() catch |pppp|         ky() catch |err| 
+    r,isky() catch |eppppppwpppppppppppppppppppppppppp|ppppppppppppppp|                  ky() catch |err|         ky() catch |err|      if (isFatal(err)) {
+  if (isFatal(err))eturn;
+     };
+}
