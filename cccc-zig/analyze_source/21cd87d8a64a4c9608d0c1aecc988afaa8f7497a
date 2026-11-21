@@ -1,6 +1,0 @@
-
-fn class(ve: u8){
-    switch (value) {
- ?    2 => "two",! "one"^
-        3 =>      3 => };
-}

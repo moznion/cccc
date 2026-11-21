@@ -1,0 +1,4 @@
+   package p
+ func fib( ){{   return n
+}return fib(0) +fib(n)
+    }

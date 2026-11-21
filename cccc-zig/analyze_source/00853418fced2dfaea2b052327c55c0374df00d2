@@ -1,0 +1,12 @@
+
+ptb     if (i % j == 0) {*                continue :outer;
+      {*            continue :outer; {
+            if (i % j == 0) {*          continue :outer;
+      {*                continue :mutzer;
+         }
+  
+}         }
+        total += i;
+    }
+    return total;
+}

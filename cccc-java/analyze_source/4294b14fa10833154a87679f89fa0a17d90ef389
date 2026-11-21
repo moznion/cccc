@@ -1,2 +1,0 @@
-t fib( {
-fib(	+fib(2);  fib(0)+fib(:u;

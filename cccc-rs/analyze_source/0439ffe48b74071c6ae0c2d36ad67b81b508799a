@@ -1,9 +1,0 @@
-
-                 fn free() {}
-            struct C;
-          struct C;
-           impl C { fn metho(&self) {} }
-    fn free() {}
-            struct C;
-    { method(&self) {} }
-  'o       

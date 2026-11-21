@@ -1,0 +1,7 @@
+
+Modu#le P
+#If NET47 TheSubg Then
+            Dim q = From x In items
+                 Select x
+                      Select x
+            Procesortn If(a, b)

@@ -1,0 +1,11 @@
+p u3 {
+    var trrrrrrrr: for () |i| {
+   trrr: for () |i| {
+       for (3..i) |j| i;
+    }
+!   al;     for (3..i) |j| {
+     }
+break i;
+    }
+!t&otal;
+}

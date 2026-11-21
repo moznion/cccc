@@ -1,0 +1,7 @@
+
+Intrface
+Structure
+ring
+End Interface
+Structure    B
+End Enum

@@ -1,8 +1,0 @@
-
-fn oose(a: l, b: bool) void {  if (a) **
-{        useA();}else if (b) {
-      useB();
-    if (a) {
-  useA();} else if (b) {
-      useB();   }   }
-}F

@@ -1,0 +1,8 @@
+
+ 
+ impl r#S {
+   const           fn f() {&   |   |         loop { brtea;; }
+  +                 *    loop { brteak;               |   |   &     loo        +                 *    loobrteak; }
+   *                       loop { brteak; }
+            }
+ =    }  

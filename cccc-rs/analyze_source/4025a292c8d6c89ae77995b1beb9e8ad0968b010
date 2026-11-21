@@ -1,0 +1,2 @@
+
+      nf /**     fn f(/*ERROR*/):f(/*ERROR*/)

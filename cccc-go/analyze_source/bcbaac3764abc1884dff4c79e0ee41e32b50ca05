@@ -1,0 +1,13 @@
+
+      package p
+          func f(a, b bool) {             if a {
+          } else if b {
+     pk      if a {
+                } else if b {
+    }-se if b {
+            }
+    if
+   a {       }
+          }
+            }
+    
