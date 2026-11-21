@@ -1,0 +1,19 @@
+[package]
+name = "cccc-sh"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Shell (Bash / POSIX sh / Bats, tree-sitter) adapter that lowers source into the cccc-core complexity IR"
+
+[dependencies]
+cccc-core = { workspace = true }
+tree-sitter = "0.27"
+# The Bats grammar extends the official tree-sitter-bash grammar with Bats
+# test blocks. It parses plain Bash/sh into the same trees as tree-sitter-bash
+# (and recovers from a few constructs that one rejects), so it serves `.sh`,
+# `.bash` and `.bats` alike with one parser. Like `cccc-py`, the grammar's C
+# source is compiled by `cc`, so there is no `libclang`/bindgen requirement.
+tree-sitter-bats = "0.2"
