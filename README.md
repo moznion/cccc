@@ -185,6 +185,9 @@ a single run. Restrict the languages with `--lang` (e.g. `--lang go,rust`).
 
 Output is **JSON by default** — compact, on one line, ready to pipe into `jq`
 or an artifact store; `--pretty` prints the same document indented.
+`--format table` prints a human-readable per-file table instead, and
+`--format simple` one `path:line:` line per function (see [Simple output and
+`--violations`](#simple-output-and---violations)).
 
 ### Options
 
@@ -194,12 +197,14 @@ or an artifact store; `--pretty` prints the same document indented.
 | `--exclude-lang LIST` | Exclude these languages (comma-separated). The inverse of `--lang`; applied to all languages, or to `--lang`'s set when both are given |
 | `--config PATH` | Use this config file instead of discovering one (must exist) |
 | `--no-config` | Do not look for or load a `cccc.toml` config file |
-| `--table` | Human-readable table instead of JSON |
+| `--format FORMAT` | Output format: `json` (default), `table`, or `simple` (one `path:line:` line per function; see [Simple output and `--violations`](#simple-output-and---violations)) |
+| `--table` | **Deprecated** — use `--format table`. Still works, with a warning on stderr |
 | `--ext EXTS \| LANG=EXTS` | Extensions to analyze. Global form `--ext ts,tsx` filters across all languages; per-language form `--ext es=ts,tsx` overrides that language's extensions and routes them to it. Repeatable |
 | `--exclude GLOB` | Exclude files matching a glob (repeatable) |
 | `--max-cognitive N` | Exit non-zero if any function's cognitive complexity exceeds N |
 | `--max-cyclomatic N` | Exit non-zero if any function's cyclomatic complexity exceeds N |
-| `--min N` | Only report functions with complexity >= N (with `--table`, files left with no functions are omitted; JSON keeps them) |
+| `--min N` | Only report functions with complexity >= N (with `--format table`, files left with no functions are omitted; JSON keeps them) |
+| `--violations` | Only report functions over `--max-cognitive` / `--max-cyclomatic`, in any format; files without one are omitted. Needs a threshold; not combinable with `--min` / `--top-*` |
 | `--top-cognitive N` | Show only the N most cognitively-complex functions, as a flat cross-file ranking |
 | `--top-cyclomatic N` | Show only the N most cyclomatically-complex functions, as a flat cross-file ranking |
 | `--no-ignore` | Do not respect `.gitignore` when walking directories |
@@ -225,10 +230,12 @@ passed on the command line always wins. Supported keys (all optional):
 languages         = ["es", "go"]        # same as --lang
 exclude-languages = ["php"]             # same as --exclude-lang
 exclude           = ["dist/**", "**/*.test.ts"]
-table         = false
+format        = "json"              # json | table | simple (wins over `table`)
+# table       = true                # deprecated: use format = "table"
 max-cognitive = 15
 max-cyclomatic = 10
-min           = 1
+min           = 1                   # ignored when `violations` is on
+violations    = false               # same as --violations
 no-ignore     = false
 jobs          = 8
 pretty        = false               # indented JSON instead of the compact default
@@ -254,7 +261,9 @@ alongside the global filter form `--ext ext,ext`.
 `--top-cognitive` and `--top-cyclomatic` are mutually exclusive. In top mode the
 output is a ranking (`{ "metric", "top": [...], "summary" }`) instead of the
 per-file `files` array; each entry carries its own `path` and `line`. The
-`summary` still reflects the full population.
+`summary` still reflects the full population. `--format table` renders the
+ranking as a single table, and `--format simple` as one `path:line:` line per
+entry in ranking order. Top mode cannot be combined with `--violations`.
 
 `--exclude` takes a glob pattern and may be given multiple times. Each pattern is
 matched both against a file's path relative to the directory you passed (so
@@ -345,7 +354,7 @@ exits.
 cccc src/app.ts
 
 # Pretty table for a directory (any mix of supported languages)
-cccc --table src/
+cccc --format table src/
 
 # Only Go and Rust files under a mixed tree
 cccc --lang go,rust .
@@ -359,6 +368,9 @@ cccc --ext es=ts,tsx src/
 # CI gate: fail if any function exceeds cognitive complexity 15
 cccc --max-cognitive 15 src/
 
+# CI / agents: list only the offending functions, one line each (silent when clean)
+cccc --format simple --violations --max-cognitive 15 src/
+
 # The 10 most cognitively-complex functions across the project
 cccc --top-cognitive 10 src/
 
@@ -371,6 +383,37 @@ cccc -j 4 src/
 # Recurring runs: reuse results for files unchanged since the last run
 cccc --cache src/
 ```
+
+### Simple output and `--violations`
+
+`--format simple` prints one `path:line:` line per function, which editors and
+CI problem matchers can jump to. Nested functions are listed individually, in
+line order within each file:
+
+```console
+$ cccc --format simple src/
+src/app.ts:10: handleRequest (function) cognitive 7, cyclomatic 4
+src/app.ts:14: <closure> (arrow) cognitive 2, cyclomatic 2
+```
+
+`--violations` narrows any format to the functions over `--max-cognitive` /
+`--max-cyclomatic` (strictly greater, the same test the exit code uses) and
+omits files without one; in `json` and `table` the parents of a nested
+offender stay for context, and `summary` still covers all code. With `simple`,
+each exceeded metric is marked `(max N)`, a count goes to stderr, and nothing
+at all is printed when every function is within the limits — compact output
+for CI logs and LLM agents:
+
+```console
+$ cccc --format simple --violations --max-cognitive 40 --max-cyclomatic 40 .
+e2e/rights_test.go:22: eachBinaryRunsAloneWithItsRights (function) cognitive 51 (max 40), cyclomatic 18
+internal/api/api_test.go:234: TestEc2InstanceGathersItsGraph (function) cognitive 12, cyclomatic 64 (max 40)
+cccc: 2 functions over the limits in 2 files
+```
+
+The exit code is the usual `1` when anything is over. `--violations` requires
+at least one threshold (flag or config), and `--min` / `--top-*` cannot be
+combined with it (exit `2`); a `min` set in `cccc.toml` is ignored.
 
 Files are analyzed in parallel. The worker count defaults to the number of
 logical CPUs and can be capped with `-j/--jobs`; the output is identical
@@ -391,6 +434,18 @@ Like thresholds, caching is driven by the config: when `cccc.toml` sets
 `cache = true`, the action persists the [results cache](#results-cache)
 across runs on its own (via `actions/cache` — no workflow wiring needed).
 
+The output format comes from the config too. To keep CI logs short and point
+straight at the functions that fail the gate (and print nothing when all
+pass), use the simple violations view:
+
+```toml
+# cccc.toml
+max-cognitive  = 15
+max-cyclomatic = 10
+format         = "simple"
+violations     = true
+```
+
 An example GitHub Actions workflow for continuously measuring complexity with [k1LoW/octocov](https://github.com/k1LoW/octocov) is available at [.github/workflows/complexity.yml](./.github/workflows/complexity.yml).
 
 ## Output shape (JSON)
@@ -403,7 +458,15 @@ module-level code.
 The `summary` is computed over every function in every file (all nesting
 depths). Because complexity is right-skewed, it reports the distribution
 (`sum`/`max`/`median`/`p90`/`p95`) rather than a mean — the percentiles describe
-the tail where refactoring candidates live. It is unaffected by `--min`.
+the tail where refactoring candidates live. It is unaffected by `--min` and
+`--violations`.
+
+`--min` and `--violations` narrow each file's `functions`; a function that
+doesn't qualify itself is kept when it has a nested function that does, so the
+tree still shows where that one lives. With `--min` every file stays in
+`files` (possibly with an empty `functions`), so the array remains a complete
+inventory; with `--violations` files without an offender are omitted, and the
+document is `{"files": [], …}` when everything is within the limits.
 
 ```json
 {
@@ -463,12 +526,12 @@ mode where per-file entries aren't emitted at all:
 }
 ```
 
-In `--table` mode the aggregate count is printed in the summary block, and a
+In `--format table` mode the aggregate count is printed in the summary block, and a
 warning listing each affected file (with its error count) goes to stderr so it
-isn't lost in a long table:
+isn't lost in a long table (`--format simple` prints the same warning):
 
 ```console
-$ cccc --table src/ >/dev/null
+$ cccc --format table src/ >/dev/null
 cccc: warning: 1 parse error(s) in 1 file(s); results for those files may be incomplete:
 cccc:   src/broken.py (1)
 ```

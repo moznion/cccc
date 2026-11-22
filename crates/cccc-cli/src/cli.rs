@@ -4,6 +4,8 @@ use std::path::PathBuf;
 
 use clap::Parser;
 
+use crate::config::Format;
+
 /// Measure Cognitive Complexity and Cyclomatic Complexity of source code.
 ///
 /// One binary analyzes every bundled language; each file is dispatched to the
@@ -35,8 +37,14 @@ pub struct Cli {
     #[arg(long)]
     pub no_config: bool,
 
-    /// Print a human-readable table instead of JSON.
-    #[arg(long)]
+    /// Output format: `json` (default), `table`, or `simple` — one
+    /// `path:line:` line per function, compact for CI logs and agents.
+    #[arg(long, value_enum, value_name = "FORMAT")]
+    pub format: Option<Format>,
+
+    /// [deprecated: use `--format table`] Print a human-readable table
+    /// instead of JSON.
+    #[arg(long, conflicts_with = "format")]
     pub table: bool,
 
     /// File extensions to analyze. Two forms, and repeatable: a global
@@ -62,6 +70,13 @@ pub struct Cli {
     /// Exit non-zero if any function's cyclomatic complexity exceeds this value.
     #[arg(long, value_name = "N")]
     pub max_cyclomatic: Option<u32>,
+
+    /// Only report the functions over `--max-cognitive` / `--max-cyclomatic`
+    /// (the ones that fail the gate), in any `--format`. Files without one are
+    /// omitted. Requires at least one threshold; cannot be combined with
+    /// `--min` or `--top-*`.
+    #[arg(long)]
+    pub violations: bool,
 
     /// Only report functions whose cognitive or cyclomatic complexity is >= N.
     #[arg(long, value_name = "N")]

@@ -18,6 +18,18 @@ use std::path::{Path, PathBuf};
 
 use serde::Deserialize;
 
+/// How the report is rendered on stdout.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Deserialize, clap::ValueEnum)]
+#[serde(rename_all = "kebab-case")]
+pub enum Format {
+    /// The full report as JSON (the default).
+    Json,
+    /// A human-readable per-file table.
+    Table,
+    /// One `path:line:` line per function, for grepping, editors and CI logs.
+    Simple,
+}
+
 /// File names searched for during upward discovery, in priority order.
 const CONFIG_NAMES: &[&str] = &["cccc.toml", ".cccc.toml"];
 
@@ -27,7 +39,11 @@ const CONFIG_NAMES: &[&str] = &["cccc.toml", ".cccc.toml"];
 #[derive(Debug, Default, Deserialize)]
 #[serde(rename_all = "kebab-case", deny_unknown_fields)]
 pub struct Config {
-    /// Print a human-readable table instead of JSON.
+    /// Output format (`json`, `table` or `simple`). Takes precedence over
+    /// `table` when both are set.
+    pub format: Option<Format>,
+    /// Deprecated: use `format = "table"`. Print a human-readable table
+    /// instead of JSON.
     pub table: Option<bool>,
     /// Per-language file-extension overrides, e.g. `[ext]` with `es = ["ts"]`.
     /// Each entry replaces that language's default extensions (and so also
@@ -46,6 +62,8 @@ pub struct Config {
     pub max_cyclomatic: Option<u32>,
     /// Only report functions whose complexity is >= this.
     pub min: Option<u32>,
+    /// Only report functions over `max-cognitive` / `max-cyclomatic`.
+    pub violations: Option<bool>,
     /// Do not respect .gitignore / ignore files.
     pub no_ignore: Option<bool>,
     /// Number of files to analyze in parallel.
@@ -147,6 +165,14 @@ mod tests {
         );
         assert_eq!(cfg.max_cognitive, Some(15));
         assert_eq!(cfg.jobs, Some(8));
+    }
+
+    #[test]
+    fn parses_format() {
+        let cfg: Config = toml::from_str("format = \"simple\"\nviolations = true").unwrap();
+        assert_eq!(cfg.format, Some(Format::Simple));
+        assert_eq!(cfg.violations, Some(true));
+        assert!(toml::from_str::<Config>(r#"format = "xml""#).is_err());
     }
 
     #[test]

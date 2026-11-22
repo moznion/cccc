@@ -8,9 +8,10 @@
 //!
 //! Everything common to the languages lives here: argument parsing, config
 //! resolution, file discovery, the results cache (see [`cache`]), parallel
-//! analysis, the threshold/`--min`/`--top` logic, and output rendering. Each
-//! language supplies only how to analyze one file and its default extensions,
-//! via the [`lang::LANGUAGES`] registry.
+//! analysis, the threshold/`--min`/`--violations`/`--top` logic, and output
+//! rendering (JSON / table / simple). Each language supplies only how to
+//! analyze one file and its default extensions, via the [`lang::LANGUAGES`]
+//! registry.
 //!
 //! ## Exit codes
 //!
@@ -39,7 +40,7 @@ use rayon::prelude::*;
 
 use cccc_core::report::{self, FileReport, FunctionReport, Metric, Report};
 use cli::Cli;
-use config::Config;
+use config::{Config, Format};
 
 /// Below this many files, sequential analysis beats paying for a rayon pool.
 const PARALLEL_THRESHOLD: usize = 16;
@@ -94,11 +95,31 @@ fn run_on_current_thread() -> i32 {
     // default. `was_set` distinguishes a flag the user actually passed from one
     // sitting at its clap default (needed for the boolean flags).
     let was_set = |id: &str| matches.value_source(id) == Some(ValueSource::CommandLine);
-    let table = if was_set("table") {
-        cli.table
+    // `--table` / `table` predate `--format` and are kept (deprecated) as
+    // aliases for `format = table`; nudge users towards the replacement.
+    if cli.table {
+        output::warn("cccc: warning: --table is deprecated; use --format table");
+    }
+    if config.table.is_some() {
+        output::warn(
+            "cccc: warning: `table` in the config file is deprecated; use `format = \"table\"`",
+        );
+    }
+    // `--format` and `--table` are mutually exclusive on the command line
+    // (clap). Either one beats the config file, where `format` in turn beats
+    // the `table` shorthand.
+    let format = if let Some(format) = cli.format {
+        format
+    } else if cli.table {
+        Format::Table
+    } else if let Some(format) = config.format {
+        format
+    } else if config.table.unwrap_or(false) {
+        Format::Table
     } else {
-        config.table.unwrap_or(false)
+        Format::Json
     };
+    let table = format == Format::Table;
     let no_ignore = if was_set("no_ignore") {
         cli.no_ignore
     } else {
@@ -148,6 +169,33 @@ fn run_on_current_thread() -> i32 {
     let max_cognitive = cli.max_cognitive.or(config.max_cognitive);
     let max_cyclomatic = cli.max_cyclomatic.or(config.max_cyclomatic);
     let min = cli.min.or(config.min);
+    let violations = if was_set("violations") {
+        cli.violations
+    } else {
+        config.violations.unwrap_or(false)
+    };
+    // `--violations` is defined by the thresholds alone: without one it would
+    // report nothing and look like a pass, and `--min` / `--top-*` would only
+    // blur which functions it reports. A `min` from the config file is ignored
+    // rather than rejected, so a project can keep one for its other runs.
+    if violations {
+        if max_cognitive.is_none() && max_cyclomatic.is_none() {
+            eprintln!(
+                "cccc: --violations needs --max-cognitive and/or --max-cyclomatic (or `max-cognitive` / `max-cyclomatic` in cccc.toml)"
+            );
+            return 2;
+        }
+        for flag in ["min", "top_cognitive", "top_cyclomatic"] {
+            if was_set(flag) {
+                eprintln!(
+                    "cccc: --{} cannot be used with --violations",
+                    flag.replace('_', "-")
+                );
+                return 2;
+            }
+        }
+    }
+    let min = if violations { None } else { min };
     let jobs_opt = cli.jobs.or(config.jobs);
     let lang_filter = cli.lang.clone().or_else(|| config.languages.clone());
     let exclude_lang_filter = cli
@@ -366,7 +414,7 @@ fn run_on_current_thread() -> i32 {
     // Parse errors mean the scores may be computed from a partial parse. JSON
     // consumers see this in `summary`; for the human-readable views, warn on
     // stderr — with the affected paths — so it isn't lost in a long table.
-    if table && summary.parse_error_count > 0 {
+    if format != Format::Json && summary.parse_error_count > 0 {
         output::warn(&format!(
             "cccc: warning: {} parse error(s) in {} file(s); results for those files may be incomplete:",
             summary.parse_error_count, summary.parse_error_file_count
@@ -385,25 +433,51 @@ fn run_on_current_thread() -> i32 {
     };
     if let Some((metric, n)) = top_request {
         let top = report::build_top_report(&reports, summary, metric, n);
-        if table {
-            output::print_top_table(&top);
-        } else {
-            output::print_json(&top, pretty);
+        match format {
+            Format::Json => output::print_json(&top, pretty),
+            Format::Table => output::print_top_table(&top),
+            Format::Simple => output::print_top_simple(&top),
         }
         return i32::from(fail);
     }
 
-    if let Some(min) = min {
+    // Which functions are reported in their own right. `--violations` and
+    // `--min` are mutually exclusive (checked above).
+    let selected = |f: &FunctionReport| {
+        if violations {
+            over_limit(f, max_cognitive, max_cyclomatic)
+        } else {
+            min.is_none_or(|m| f.cognitive >= m || f.cyclomatic >= m)
+        }
+    };
+    if violations || min.is_some() {
         for r in &mut reports {
-            r.functions = filter_min(std::mem::take(&mut r.functions), min);
+            r.functions = filter_tree(std::mem::take(&mut r.functions), &selected);
         }
-        // In the table, a file left with no functions is an empty block that
-        // only buries the hot spots, so drop it. JSON keeps every file so its
-        // `files` array stays a complete inventory. Parse errors are already
-        // listed on stderr above, so nothing is lost for those files.
-        if table {
-            reports.retain(|r| !r.functions.is_empty());
+    }
+    // `--violations` asks for the offenders only, so a file without one is
+    // noise in every format. With `--min`, a file left with no functions is an
+    // empty block in the table that only buries the hot spots, so drop it
+    // there too; JSON keeps every file so its `files` array stays a complete
+    // inventory. Parse errors are already listed on stderr above, so nothing
+    // is lost for those files.
+    if violations || (table && min.is_some()) {
+        reports.retain(|r| !r.functions.is_empty());
+    }
+
+    if format == Format::Simple {
+        // The tree keeps the ancestors of selected functions for context; a
+        // flat list has no use for them, so print the selected ones only.
+        let limits = violations.then_some((max_cognitive, max_cyclomatic));
+        let (fns, files) = output::print_simple(&reports, &selected, limits);
+        if violations && fns > 0 {
+            eprintln!(
+                "cccc: {fns} function{} over the limits in {files} file{}",
+                if fns == 1 { "" } else { "s" },
+                if files == 1 { "" } else { "s" }
+            );
         }
+        return i32::from(fail);
     }
 
     let report = Report {
@@ -520,21 +594,25 @@ fn check_cached<'a>(
 
 /// True if any function (at any depth) exceeds either threshold.
 fn exceeds(fns: &[FunctionReport], max_cog: Option<u32>, max_cyc: Option<u32>) -> bool {
-    fns.iter().any(|f| {
-        max_cog.is_some_and(|m| f.cognitive > m)
-            || max_cyc.is_some_and(|m| f.cyclomatic > m)
-            || exceeds(&f.children, max_cog, max_cyc)
-    })
+    fns.iter()
+        .any(|f| over_limit(f, max_cog, max_cyc) || exceeds(&f.children, max_cog, max_cyc))
 }
 
-/// Keep functions whose own complexity meets `min`, or that have a kept
-/// descendant.
-fn filter_min(fns: Vec<FunctionReport>, min: u32) -> Vec<FunctionReport> {
+/// True if `f` itself (not counting its children) exceeds either threshold.
+fn over_limit(f: &FunctionReport, max_cog: Option<u32>, max_cyc: Option<u32>) -> bool {
+    max_cog.is_some_and(|m| f.cognitive > m) || max_cyc.is_some_and(|m| f.cyclomatic > m)
+}
+
+/// Keep functions that satisfy `keep`, or that have a kept descendant (so the
+/// tree still shows where a nested function lives).
+fn filter_tree(
+    fns: Vec<FunctionReport>,
+    keep: &impl Fn(&FunctionReport) -> bool,
+) -> Vec<FunctionReport> {
     fns.into_iter()
         .filter_map(|mut f| {
-            f.children = filter_min(std::mem::take(&mut f.children), min);
-            let keep = f.cognitive >= min || f.cyclomatic >= min || !f.children.is_empty();
-            if keep { Some(f) } else { None }
+            f.children = filter_tree(std::mem::take(&mut f.children), keep);
+            (keep(&f) || !f.children.is_empty()).then_some(f)
         })
         .collect()
 }

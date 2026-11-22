@@ -1,10 +1,10 @@
-//! Output rendering: JSON (default) and the human-readable table / ranking
-//! views. The report *data* and aggregation live in `cccc_core::report`; this
+//! Output rendering: JSON (default), the human-readable table / ranking
+//! views, and the one-line-per-function simple view. The report *data* and aggregation live in `cccc_core::report`; this
 //! module only formats them.
 
 use std::io::{IsTerminal, Write};
 
-use cccc_core::report::{FunctionReport, MetricSummary, Report, Summary, TopReport};
+use cccc_core::report::{FileReport, FunctionReport, MetricSummary, Report, Summary, TopReport};
 use serde::Serialize;
 
 /// True when ANSI color should be used on `stream`: it is a real terminal and
@@ -106,6 +106,108 @@ pub fn print_top_table(report: &TopReport) {
         writeln!(out, "  {}", "-".repeat(48))?;
         write_summary(out, &report.summary, color)
     });
+}
+
+/// Print one line per `selected` function (at any nesting depth), in
+/// `path:line:` form so editors and CI problem matchers can jump to it:
+///
+/// ```text
+/// src/a.ts:12: parse (function) cognitive 51 (max 40), cyclomatic 12
+/// ```
+///
+/// With `limits` (`--violations`), each metric over its threshold is marked
+/// `(max N)`. Files come in report (path) order and functions in line order
+/// within a file. Returns the number of printed functions and of files
+/// containing them.
+pub fn print_simple(
+    reports: &[FileReport],
+    selected: &dyn Fn(&FunctionReport) -> bool,
+    limits: Option<(Option<u32>, Option<u32>)>,
+) -> (usize, usize) {
+    let limits = limits.unwrap_or_default();
+    let mut fn_count = 0;
+    let mut file_count = 0;
+    with_stdout(|out| {
+        for file in reports {
+            let mut hits: Vec<&FunctionReport> = Vec::new();
+            collect_selected(&file.functions, selected, &mut hits);
+            if hits.is_empty() {
+                continue;
+            }
+            // Stable, so functions sharing a line keep parent-before-child order.
+            hits.sort_by_key(|f| f.line);
+            file_count += 1;
+            fn_count += hits.len();
+            for f in hits {
+                let line = simple_line(
+                    &file.path,
+                    f.line,
+                    &f.name,
+                    &f.kind,
+                    f.cognitive,
+                    f.cyclomatic,
+                    limits,
+                );
+                writeln!(out, "{line}")?;
+            }
+        }
+        Ok(())
+    });
+    (fn_count, file_count)
+}
+
+/// Print a flat ranking in the simple one-line form, in ranking order.
+pub fn print_top_simple(report: &TopReport) {
+    with_stdout(|out| {
+        for e in &report.top {
+            let line = simple_line(
+                &e.path,
+                e.line,
+                &e.name,
+                &e.kind,
+                e.cognitive,
+                e.cyclomatic,
+                (None, None),
+            );
+            writeln!(out, "{line}")?;
+        }
+        Ok(())
+    });
+}
+
+fn collect_selected<'a>(
+    fns: &'a [FunctionReport],
+    selected: &dyn Fn(&FunctionReport) -> bool,
+    acc: &mut Vec<&'a FunctionReport>,
+) {
+    for f in fns {
+        if selected(f) {
+            acc.push(f);
+        }
+        collect_selected(&f.children, selected, acc);
+    }
+}
+
+/// `path:line: name (kind) cognitive C, cyclomatic Y`, with ` (max N)` after a
+/// metric that exceeds its given threshold.
+fn simple_line(
+    path: &str,
+    line: u32,
+    name: &str,
+    kind: &str,
+    cognitive: u32,
+    cyclomatic: u32,
+    (max_cog, max_cyc): (Option<u32>, Option<u32>),
+) -> String {
+    let mark = |value: u32, max: Option<u32>| match max {
+        Some(m) if value > m => format!(" (max {m})"),
+        _ => String::new(),
+    };
+    format!(
+        "{path}:{line}: {name} ({kind}) cognitive {cognitive}{}, cyclomatic {cyclomatic}{}",
+        mark(cognitive, max_cog),
+        mark(cyclomatic, max_cyc)
+    )
 }
 
 /// Run `body` against a buffered, locked stdout writer and report any I/O error
