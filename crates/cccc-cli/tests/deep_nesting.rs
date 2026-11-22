@@ -190,10 +190,10 @@ fn cli_survives_deep_files_on_every_path() {
         let cache = cache.to_str().unwrap();
         for args in [
             vec![],
-            vec!["--table"],
+            vec!["--format", "table"],
             vec!["-j", "1"],
             vec!["--cache", "--cache-file", cache],
-            vec!["--cache", "--cache-file", cache, "--table"],
+            vec!["--cache", "--cache-file", cache, "--format", "table"],
         ] {
             let out = Command::cargo_bin("cccc")
                 .unwrap()

@@ -94,9 +94,9 @@ jobs:
         shell: bash
         run: |
           bin="target/${{ matrix.target }}/release/cccc"
-          "$bin" --lang ruby --table crates/cccc-cli/tests/fixtures/sample.rb
+          "$bin" --lang ruby --format table crates/cccc-cli/tests/fixtures/sample.rb
 
       - name: Smoke-test the native binary (Windows)
         if: matrix.target == 'x86_64-pc-windows-msvc'
         run: |
-          & "target/${{ matrix.target }}/release/cccc.exe" --lang ruby --table crates/cccc-cli/tests/fixtures/sample.rb
+          & "target/${{ matrix.target }}/release/cccc.exe" --lang ruby --format table crates/cccc-cli/tests/fixtures/sample.rb

@@ -189,7 +189,7 @@ or an artifact store; `--pretty` prints the same document indented.
 | `--config PATH` | Use this config file instead of discovering one (must exist) |
 | `--no-config` | Do not look for or load a `cccc.toml` config file |
 | `--format FORMAT` | Output format: `json` (default), `table`, or `simple` (one `path:line:` line per function; see [Simple output and `--violations`](#simple-output-and---violations)) |
-| `--table` | Human-readable table instead of JSON (same as `--format table`) |
+| `--table` | **Deprecated** — use `--format table`. Still works, with a warning on stderr |
 | `--ext EXTS \| LANG=EXTS` | Extensions to analyze. Global form `--ext ts,tsx` filters across all languages; per-language form `--ext es=ts,tsx` overrides that language's extensions and routes them to it. Repeatable |
 | `--exclude GLOB` | Exclude files matching a glob (repeatable) |
 | `--max-cognitive N` | Exit non-zero if any function's cognitive complexity exceeds N |
@@ -222,7 +222,7 @@ languages         = ["es", "go"]        # same as --lang
 exclude-languages = ["php"]             # same as --exclude-lang
 exclude           = ["dist/**", "**/*.test.ts"]
 format        = "json"              # json | table | simple (wins over `table`)
-table         = false               # shorthand for format = "table"
+# table       = true                # deprecated: use format = "table"
 max-cognitive = 15
 max-cyclomatic = 10
 min           = 1                   # ignored when `violations` is on
@@ -343,7 +343,7 @@ exits.
 cccc src/app.ts
 
 # Pretty table for a directory (any mix of supported languages)
-cccc --table src/
+cccc --format table src/
 
 # Only Go and Rust files under a mixed tree
 cccc --lang go,rust .
@@ -495,12 +495,12 @@ mode where per-file entries aren't emitted at all:
 }
 ```
 
-In `--table` mode the aggregate count is printed in the summary block, and a
+In `--format table` mode the aggregate count is printed in the summary block, and a
 warning listing each affected file (with its error count) goes to stderr so it
 isn't lost in a long table (`--format simple` prints the same warning):
 
 ```console
-$ cccc --table src/ >/dev/null
+$ cccc --format table src/ >/dev/null
 cccc: warning: 1 parse error(s) in 1 file(s); results for those files may be incomplete:
 cccc:   src/broken.py (1)
 ```

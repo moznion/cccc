@@ -42,8 +42,8 @@ pub struct Config {
     /// Output format (`json`, `table` or `simple`). Takes precedence over
     /// `table` when both are set.
     pub format: Option<Format>,
-    /// Print a human-readable table instead of JSON. Shorthand for
-    /// `format = "table"`.
+    /// Deprecated: use `format = "table"`. Print a human-readable table
+    /// instead of JSON.
     pub table: Option<bool>,
     /// Per-language file-extension overrides, e.g. `[ext]` with `es = ["ts"]`.
     /// Each entry replaces that language's default extensions (and so also

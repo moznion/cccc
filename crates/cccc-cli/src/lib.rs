@@ -94,6 +94,16 @@ fn run_on_current_thread() -> i32 {
     // default. `was_set` distinguishes a flag the user actually passed from one
     // sitting at its clap default (needed for the boolean flags).
     let was_set = |id: &str| matches.value_source(id) == Some(ValueSource::CommandLine);
+    // `--table` / `table` predate `--format` and are kept (deprecated) as
+    // aliases for `format = table`; nudge users towards the replacement.
+    if cli.table {
+        output::warn("cccc: warning: --table is deprecated; use --format table");
+    }
+    if config.table.is_some() {
+        output::warn(
+            "cccc: warning: `table` in the config file is deprecated; use `format = \"table\"`",
+        );
+    }
     // `--format` and `--table` are mutually exclusive on the command line
     // (clap). Either one beats the config file, where `format` in turn beats
     // the `table` shorthand.

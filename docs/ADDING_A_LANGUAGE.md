@@ -103,7 +103,7 @@ per error, e.g. `"syntax error at line 42"`. If your parser is fault-tolerant
 the error locations alongside; the engine attaches them to the file's
 `parse_errors` and the CLI aggregates them into the summary
 (`parse_error_count` / `parse_error_file_count` / `parse_error_files`) and
-warns on stderr — listing the affected files — in `--table` mode, so partial
+warns on stderr — listing the affected files — in `--format table` mode, so partial
 parses are surfaced without any adapter-side work.
 
 ## Step 2 — lower the AST to IR
@@ -205,7 +205,7 @@ cccc-py = { workspace = true }
 That's it — the `cccc` binary now discovers `.py`/`.pyi` files, routes them to
 your adapter, and accepts `--lang python`. The shared CLI already provides, for
 free and identically across languages: argument parsing (`--lang`, `--config`,
-`--format`/`--table`, `--ext`, `--max-*`, `--min`, `--violations`, `--top-*`, `--no-ignore`, `-j/--jobs`),
+`--format`, `--ext`, `--max-*`, `--min`, `--violations`, `--top-*`, `--no-ignore`, `-j/--jobs`),
 config-file handling, `.gitignore`-aware file discovery, parallel analysis,
 summary / ranking, JSON / table / simple rendering, and the exit-code convention
 (`0` ok / `1` threshold exceeded / `2` cannot proceed).
@@ -275,7 +275,7 @@ Then:
 cargo build
 cargo clippy --all-targets   # expect zero warnings
 cargo test                   # core + your adapter + cli tests
-cargo run -p cccc-cli -- --lang python --table path/to/some/code
+cargo run -p cccc-cli -- --lang python --format table path/to/some/code
 ```
 
 ## The IR contract (reference)

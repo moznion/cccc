@@ -260,7 +260,7 @@ fn max_cognitive_threshold_passes_when_under() {
 fn table_output_renders() {
     Command::cargo_bin("cccc")
         .unwrap()
-        .args(["--table", "tests/fixtures/sample.ts"])
+        .args(["--format", "table", "tests/fixtures/sample.ts"])
         .assert()
         .success()
         .stdout(predicates::str::contains("sumOfPrimes"))
@@ -313,7 +313,7 @@ fn table_mode_warns_about_parse_errors_on_stderr() {
     let (dir, path) = write_broken_py("cccc_parse_error_table_test");
     Command::cargo_bin("cccc")
         .unwrap()
-        .args(["--table", path.to_str().unwrap()])
+        .args(["--format", "table", path.to_str().unwrap()])
         .assert()
         .success()
         .stderr(predicates::str::contains("cccc: warning:"))
@@ -1286,7 +1286,14 @@ fn table_violations_omits_clean_files() {
     let dir = simple_project("cccc_table_violations");
     let out = run_in(
         &dir,
-        &["--table", "--violations", "--max-cognitive", "2", "."],
+        &[
+            "--format",
+            "table",
+            "--violations",
+            "--max-cognitive",
+            "2",
+            ".",
+        ],
     )
     .failure()
     .code(1);
@@ -1341,6 +1348,12 @@ fn format_table_matches_table_flag() {
     let a = run_in(&dir, &["--format", "table", "."]).success();
     let b = run_in(&dir, &["--table", "."]).success();
     assert_eq!(a.get_output().stdout, b.get_output().stdout);
+    // The deprecated alias still works but says what to use instead.
+    assert_eq!(
+        String::from_utf8(b.get_output().stderr.clone()).unwrap(),
+        "cccc: warning: --table is deprecated; use --format table\n"
+    );
+    assert!(a.get_output().stderr.is_empty());
     let _ = std::fs::remove_dir_all(&dir);
 }
 
@@ -1374,6 +1387,12 @@ fn config_format_beats_config_table() {
         .assert()
         .success();
     serde_json::from_str::<serde_json::Value>(&stdout_of(&out)).expect("valid JSON");
+    assert!(
+        String::from_utf8(out.get_output().stderr.clone())
+            .unwrap()
+            .contains("`table` in the config file is deprecated"),
+        "the deprecated config key is reported"
+    );
     let _ = std::fs::remove_dir_all(&dir);
 }
 

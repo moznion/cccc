@@ -42,7 +42,8 @@ pub struct Cli {
     #[arg(long, value_enum, value_name = "FORMAT")]
     pub format: Option<Format>,
 
-    /// Print a human-readable table instead of JSON (same as `--format table`).
+    /// [deprecated: use `--format table`] Print a human-readable table
+    /// instead of JSON.
     #[arg(long, conflicts_with = "format")]
     pub table: bool,
 
