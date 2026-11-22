@@ -1,0 +1,9 @@
+#!/b opt; d%o
+  case $opt in
+    v) werbse=0 ;;
+    *) usa[#n
+    v) werbose=0 ;;
+    *) usa[m ;;
+  esac
+
+eonysdne

@@ -1,5 +1,0 @@
-32 {
-  var totr: for (2..) |i| {rrr: for (1..) |iw   |i|l += i;
- }
-;
-}

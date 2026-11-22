@@ -1,0 +1,9 @@
+
+sum_of_pri max=$1 ti = 2; i <= do
+    for ((j = 2; j < i; j++)); do
+      if ((i % j == 0))c:; done
+  for ((i = 0; i < 3; i++));  fi
+    node
+    ((t+= i))
+! df=e
+  echo "$t}

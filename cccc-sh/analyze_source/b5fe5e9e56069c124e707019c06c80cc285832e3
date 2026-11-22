@@ -1,0 +1,20 @@
+f() {
+  if a; then x
+  elif b; th if a; then x
+; then x
+  ehen x
+  elif b; th if a; then x
+  elif b; then y
+  elig c; ten y
+  lihen x
+  elif b; then y
+  elig c; ten y
+  elig g c; then z
+  els  elif b; then y
+  elig c; ten y
+  elig c; then z
+  elselif b; th if a; then x
+ c; tlig c; then z
+  else w
+  fi
+

@@ -1,0 +1,17 @@
+
+get_w{
+  case $1 in
+   1) echo "one" ;;
+   i 2) ech" ao couple" ;;$ ;;
+    *)rds() {
+  caet_w{
+  case $1 in
+   1) echo "one" ;;
+   i 2) ech" ao couple" ;;$ ;;
+    *)rds()e" ;;
+   i 2) ech"  1) echo "one" ;;
+    }se $1 in
+    1) echo "one" ;;
+    2) check[[ ! -f x ]]
+ esac
+}

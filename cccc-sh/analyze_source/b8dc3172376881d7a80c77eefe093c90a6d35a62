@@ -1,0 +1,20 @@
+
+get_w{
+  case $1 in
+   1) echo "one" ;;
+   i 2) ech" ao couple" ;;$ ;;
+    *)rds() {
+  ca
+get_w{
+  case $1 in
+    1) e
+    a|b
+  case $1 in
+     ,) echo "lots" ;;
+  esac
+}
+}se $1 in
+    1) echo "one" ;;
+    2) check[[ ! -f x ]]
+ esac
+}

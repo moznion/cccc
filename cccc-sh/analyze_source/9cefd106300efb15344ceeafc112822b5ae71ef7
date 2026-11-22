@@ -1,0 +1,12 @@
+
+get 
+  case $1 i in
+    a|b|b|c) x ;;
+    i) y ;;c) x ;;
+    i)
+  a|c}sc) x ;;
+    i) y ;;
+  esac
+{
+ 
+  ) echoecho "lots"  ca;

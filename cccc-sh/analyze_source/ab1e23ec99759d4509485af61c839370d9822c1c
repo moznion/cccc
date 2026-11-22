@@ -1,0 +1,6 @@
+f() if t && c; then y
+  f x
+  elif b && c; 
+  elif b && c; then y elif b && c; then y
+  fi
+}

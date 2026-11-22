@@ -1,0 +1,11 @@
+#!/b opt; do
+  case $opt in
+    v) werbose=0 ;;
+    *)  case $opt in
+    v) e=0 ;;
+    *) usa[e ;
+    v) werbose=0 ;;
+    *) usa[e ;;
+  esac
+done
+[ -n] && echo verberbose

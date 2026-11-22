@@ -1,0 +1,11 @@
+f() {
+  if a; then x
+  elif b; then
+x
+  elif b;* th;en
+ then x
+  elif b; then
+x
+  elif bth;then y; fi
+ i
+}

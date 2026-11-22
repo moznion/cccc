@@ -1,0 +1,13 @@
+
+      package p
+       func f(a t) {
+            ;{
+     for i := range its {
+        for i := range items {
+for i := range items {
+       _ = i
+        }
+   }
+     }
+   }    f or i := rang}
+   

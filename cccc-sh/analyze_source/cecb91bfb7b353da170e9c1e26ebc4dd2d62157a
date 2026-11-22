@@ -1,0 +1,6 @@
+
+) {
+  for i in a b; do :; done
+    for a b; do :; }dofor ((i = 0; i < 3; i++)); do :; donin a b; do :o :; done
+    for i in a b; do :;; done
+}

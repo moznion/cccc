@@ -1,0 +1,9 @@
+f()if a; then x
+  elif b; then
+x
+  elif b; th;en
+    fc;then y; fi
+  fi
+}
+ i
+}

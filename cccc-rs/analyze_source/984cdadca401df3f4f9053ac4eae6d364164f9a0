@@ -1,0 +1,7 @@
+            fn f() {&    ||                   ||                (/*ERROR*/)        *    loop { brteak; }
+    *                       loop { brteak; }
+    *              ||                           loop { brteak; }
+    * Self         ||                        *    loop { brteak; }
+    * continue                    *              ||                        *    loop { brteak; }
+              }
+        

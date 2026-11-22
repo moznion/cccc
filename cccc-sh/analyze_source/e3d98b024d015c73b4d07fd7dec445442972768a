@@ -1,0 +1,9 @@
+f() {
+  if b; then
+x
+  elif b
+ then
+    if c; then y; fi
+  fi
+}
+    if c; then 

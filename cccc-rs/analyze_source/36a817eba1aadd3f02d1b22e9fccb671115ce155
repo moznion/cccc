@@ -1,0 +1,19 @@
+         fn f() {    fn f() {
+   ||||||||||||||||f()|||| ||||||||||||||||||f|()||R||| x    |||||||||||||||||b|||||||||||||||f()|||| ||||||||||||||||||f|()||R||| x    |||||||||||||||||break|N|()||R|||||f|N|()||R|||| x    ||||||f||||| |||||||||||||||||break|N|()||R|||||f|N|()||R|||| x    ||||||f||||||f()|||| ||||||yyy||||||||||||||break|N|()|yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy||||||||||||||yyyyyyyyyyyyyyyyyyyy||||||||f|()||R||| x    |||||||||||||||||break|N|()||R|||||f|N|()||R|||| x    ||||||f||||| |||||||||||||||||break|N|()||R|||||f|N|()||R|||| x    ||||||f||||||f()|||| ||||||yyy||||||||||||||break|N|()|yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy||||||||||||||yyyyyyyyyyyy|(f())||(f())||R|yyyyyyyy||| |||||yyyyyyyy  ||||||f||||||f()|||| ||||||||||||f()|||| |||||||||||||||||||||||||||f()||f()|||| ||||||||||||||||||f|()||R|    !  
+/// Li      ||||||||||f|()||R|    !  
+/// Li      
+     auto {}||||||f()|||| ||||||||||||||||||f|()||R||| x    |||||||||||||||||break|N|()||R|yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy||||||||||||||yyyyyyyyyyyyyyyyyyyy||| |||||yyyyyyyyyyyyyyyyyyyyyyyyy||||||||||||||||||||f()|||| |||||||||||||||||||||||||||f()||f()|||| ||||||||||||||||||f|()||R|    !  
+/// Li      ||||||||||f|()||R| reak|N|()||R|||||f|N|()||R|||| x    ||||||f||||| |||||||||||||||||break|N|()||R|||||f|N|()||R|||| x    ||||||f||||||f()|||| ||||||yyy||||||||||||||break|N|()|yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy||||||||||||||yyyyyyyyyyyyyyyyyyyy||||||||f|()||R||| x    |||||||||||||||||break|N|()||R|||||f|N|()||R|||| x    ||||||f||||| |||||||||||||||||break|N|()||R|||||f|N|()||R|||| x    ||||||f||||||f()|||| ||||||yyy||||||||||||||break|N|()|yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy||||||||||||||yyyyyyyyyyyyyyyyyyyy||| |||||yyyyyyyy  ||||||f||||||f()|||| ||||||||||||f()|||| |||||||||||||||||||||||||||f()||f()|||| ||||||||||||||||||f|()||R|    !  
+/// Li      ||||||||||f|()||R|    !  
+/// Li      
+     auto {}||||||f()|||| ||||||||||||||||||f|()||R||| x    |||||||||||||||||break|N|()||R|yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy||||||||||||||yyyyyyyyyyyyyyyyyyyy||| |||||yyyyyyyyyyyyyyyyyyyyyyyyy||||||||||||||||||||f()|||| |||||||||||||||||||||||||||f()||f()|||| ||||||||||||||||||f|()||R|    !  
+/// Li      ||||||||||f|()||R|   !  
+/// Li      
+     auto {}||||||f()|||| ||||||||||||||||||f|()||R||| x    |||||||||||||||||break|N|()||R|||||f|N|()||R|||| x    ||||||f||||||f()|||| ||||||||||||f()|||| |||||||||||||||||||f()||f()|||| ||||||||||||||||||f|()||R|    !  
+/// Li      ||||||||||f|()||R|    !  
+///yyyyyyyyyyyyyyyyyyyyyyyyyyyyyy/ Li      ||||||||||f|()||R|    !  
+///yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy||||||||||||||||||||f()|||| ||||||||||||||||
+   (n - 0)
+      }
+}
+           

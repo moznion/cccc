@@ -1,0 +1,8 @@
+
+get_{
+ case $1 in
+ ) echo "one" ;;
+  " ;;
+   " ;;
+    esac
+}

@@ -1,0 +1,6 @@
+#commandtes!
+}
+
+@test 'singleedot' q { :; }
+
+@test quoted name { :; }

@@ -1,6 +1,0 @@
-<?php
-       return match ($x) {3 => "b",
-                    }
-    dfaust => "c",
-  return match ($x      }
-        

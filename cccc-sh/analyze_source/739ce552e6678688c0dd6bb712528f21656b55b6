@@ -1,0 +1,10 @@
+f() {
+ - if [[ f() n $a && -n $b && 
+}e && b &f() {
+  a & c&& b && c || d
+ }
+~| d
+}
+-z $]| d
+ }
+~| d];tcommand_name

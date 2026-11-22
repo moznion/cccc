@@ -1,0 +1,9 @@
+f() {
+ if a; then # why
+    # note
+    x
+  # else coming
+  else
+    y
+  fi
+}

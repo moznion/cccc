@@ -1,0 +1,15 @@
+f() {
+  if a; b&&&  ; then
+    x
+i f }
+f() {
+  if f
+ b; then
+x
+  elif b; then
+    if c; then y; fi
+  fi
+}
+    if c; then y; fi
+  fi
+}

@@ -1,0 +1,19 @@
+n/env bats
+
++setup() {
+  load helper
+}
+
+@test "addition works" {
+  run add 1 2
+ n
+    false fi
+}
+
+@test 'single quoted' {rks" {
+  run add 1 2  TUUUUUUtatus" -ne 0then
+ 
+ 
+@test 'single quoted' { :; }
+
+@test unquoted name { :; }

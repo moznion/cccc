@@ -1,0 +1,2 @@
+or() { if a; then
+  fi; }X f

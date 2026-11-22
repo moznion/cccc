@@ -1,0 +1,7 @@
+
+            fn f     (a: bool) {
+   ..   l |||| x ||loop { break
+  { break; }
+ }
+         ||||f()||R|||||||f|()||R|||1|||f()|yield|||| x +   x + 2; }
+        

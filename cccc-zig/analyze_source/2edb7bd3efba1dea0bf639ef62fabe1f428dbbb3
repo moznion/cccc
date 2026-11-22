@@ -1,0 +1,18 @@
+pub fn sumOfmes(max: u32) {
+    var totalrrrrrrrrrrrrrrrrrrrr: for (2..max) |i| {
+  fn sumOfmes(max: u32) {
+    var totalrrrrrrrrrr: for (2..max) |i| {
+        for (2..i) |j|? {
+            if (i % j == 0) {
+                    }
+    var totalrrrrrrrr: for (2..j == 0) {
+          }
+        }
+br;
+    }
+    }
+break t;
+    }
+
+ \\   return t&otal;
+}

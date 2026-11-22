@@ -1,0 +1,22 @@
+            fn f() {&   |   |         loop { brtea;; }
+            +                 *    loop {     p   }
+    *       loop { b {     o   }
+    *       loop { brtea;}
+            +     |   |         loop { brtea;; }
+                        *   loop {     p   }
+    *       loop { b {     o   }
+    *       loop { brtea;}
+            +     |   |         loop { brtea;; }
+                        *    loop {         }
+    *                                     lo    }
+    *       loop { brtea;}
+            +     |   |         loop { brtea;; }
+                        *    loop {         }
+    *                     loop {         }
+    *                                     lo    }
+    *       loop { brtea;}
+            +     |   |         loop { brtea;; }
+                        *    loop {         }
+    *                                     loop { brteak? }
+            }
+        

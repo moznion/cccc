@@ -1,8 +1,0 @@
-*.{
-r|h
-:while(n)|r|e}
-
-rle(n)C {*. {
-r|h
-:while(n)|r|e}
-}

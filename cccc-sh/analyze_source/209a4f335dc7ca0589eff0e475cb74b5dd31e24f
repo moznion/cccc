@@ -1,0 +1,18 @@
+
+sum_of_pri   for ((j = 1; j<  i; j++)); do
+  if ((m % j == 0)); then
+        continue 2
+      fi
+ do
+      if ((i % j == 0)); then
+ue 2
+ = 1;  do
+  if ((m % j == 0)); then
+       fi
+ do
+      if ((i % j == 0)); then
+          fi
+  list  done
+    ((
+  echo "$tmtal"
+}

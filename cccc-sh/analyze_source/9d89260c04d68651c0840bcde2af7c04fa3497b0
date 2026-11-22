@@ -1,0 +1,6 @@
+f() {
+  case $1 in
+    a|b
+ |b|b|c) ;;  i) y ;;
+  esac
+}

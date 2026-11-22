@@ -1,0 +1,7 @@
+
+def f():
+   try:
+   except ror:
+   except:
+   else: ok()
+    finally:

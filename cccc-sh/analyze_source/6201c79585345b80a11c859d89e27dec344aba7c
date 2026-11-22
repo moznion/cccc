@@ -1,0 +1,10 @@
+
+get_w{
+  case $1 in
+   1) echo "ole" ;;$ ;;
+    *)rds() {
+  case $1 in
+    1) ech;;
+    2) check[[ ! -f x ]]
+ esac
+}

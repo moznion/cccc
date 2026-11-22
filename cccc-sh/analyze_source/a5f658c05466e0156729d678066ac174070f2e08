@@ -1,0 +1,10 @@
+f() {
+  case $1 in
+    a|b
+  case $1 in   a|b|c) x ;;
+    i) y ;;
+  a|ce
+}sc) x ;;
+    i) y ;;
+  esac
+}

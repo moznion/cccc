@@ -1,0 +1,12 @@
+f&&
+    break
+   o
+    break
+    continue 1
+  done
+}
+do
+    break  break
+  break
+  continue
+  d

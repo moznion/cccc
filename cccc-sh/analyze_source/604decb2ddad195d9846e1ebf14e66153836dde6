@@ -1,0 +1,17 @@
+{
+  for i in a b; do :; done
+$ fdone
+ true; d:; done
+  until false; do :break b; do :; done
+$ fdone
+{
+  for i in a b;do :; dooe
+$ fdone
+  while true; do :; done
+  until rror at line 47hile true; do :; done
+  until false; do ee:; done
+  select x in a b; do :; done
+}  wsyntax error at l done
+  until false; do ee:; done
+  select x in a b; do :; done
+}

@@ -1,0 +1,29 @@
+condi
+  if a; then x
+ n x
+  elif b; then
+  f b; then
+    ic  case $5 in
+ z  x
+  elifb; then
+  f0 ]; then
+   f  a|*) x ;;
+e  b; then
+    ic  case $5 in
+ z  a|*) x ;;
+}
+-ne 0 ]; then
+   f  a|*) x ;;
+e 0 ]; tha|*) x ;;lif b; then
+  f b; then
+    ic  case $5 in
+ :z  a|*) x ;;
+}
+@-ne 0 ]; then
+   f  a|*) x ;;
+e 0 ]; 
+}
+-ne 0 ]; then
+ f  a|*) x ;;
+e 0 ]; then
+   f c;
