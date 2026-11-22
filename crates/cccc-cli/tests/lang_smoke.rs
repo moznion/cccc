@@ -135,3 +135,8 @@ fn csharp_fixture_dispatches() {
 fn vbnet_fixture_dispatches() {
     assert_sum_of_primes("sample.vb", "sumOfPrimes");
 }
+
+#[test]
+fn shell_fixture_dispatches() {
+    assert_sum_of_primes("sample.sh", "sum_of_primes");
+}

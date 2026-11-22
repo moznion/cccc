@@ -74,6 +74,7 @@ fn nested_ifs(lang: &str, n: usize) -> (&'static str, String) {
                 "\nEnd Sub\nEnd Module\n",
             ),
         ),
+        "shell" => ("a.sh", wrap("f() {\n", "if x; then\n", "\nfi", "\n}\n")),
         other => panic!("no nested-if template for language {other:?}; add one"),
     }
 }
