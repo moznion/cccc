@@ -65,6 +65,11 @@
     `.csx`.
   - **Visual Basic .NET** (`--lang vbnet`), via a purpose-built pure-Rust
     parser (no usable VB.NET grammar exists). Analyzes `.vb`.
+  - **Shell** (`--lang shell`, aliases `sh`/`bash`/`bats`) — Bash, POSIX sh,
+    and [Bats](https://github.com/bats-core/bats-core) test files — via the
+    [nertzy/tree-sitter-bats](https://github.com/nertzy/tree-sitter-bats)
+    grammar (an extension of the official tree-sitter-bash grammar). Analyzes
+    `.sh`, `.bash`, `.bats`.
 - A Rust library for calculating cognitive and cyclomatic complexity in a language-agnostic way
 
 ## Workspace layout
@@ -99,6 +104,7 @@ library and extended to other languages:
 | [`cccc-scala`](crates/cccc-scala) | Scala adapter **library**: lowers the official [tree-sitter-scala](https://github.com/tree-sitter/tree-sitter-scala) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the Scala grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 | [`cccc-cs`](crates/cccc-cs) | C# adapter **library**: lowers the [WillBooster/tree-sitter-c-sharp](https://github.com/WillBooster/tree-sitter-c-sharp) CST into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the C# grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 | [`cccc-vb`](crates/cccc-vb) | Visual Basic .NET adapter **library**: lowers source into `cccc-core`'s IR with its own pure-Rust lexer and recursive-descent parser (the available tree-sitter VB grammars fail on most real-world files). Depends only on `cccc-core` — **no CLI dependencies or C toolchain**. |
+| [`cccc-sh`](crates/cccc-sh) | Shell (Bash / POSIX sh / Bats) adapter **library**: lowers the [nertzy/tree-sitter-bats](https://github.com/nertzy/tree-sitter-bats) CST (a superset of the official tree-sitter-bash grammar) into `cccc-core`'s IR. Depends only on `cccc-core` + tree-sitter + the grammar — **no CLI dependencies**. Like `cccc-kt`/`cccc-py`, the grammar's C source is compiled by `cc`, so building needs a C compiler (no libclang). |
 
 Each adapter is a standalone library so that a consumer who only wants the
 metrics pulls in just that adapter (+ `cccc-core` + its parser), never clap /
@@ -111,7 +117,7 @@ it with one entry in `cccc-cli`'s `lang::LANGUAGES` (and add the dependency) —
 no new binary, and no reimplementing the metrics or the CLI. `cccc-es` (oxc),
 `cccc-rs` (syn), `cccc-go` (gosyn), `cccc-php` (php-rs-parser), `cccc-rb`
 (ruby-prism), `cccc-kt` / `cccc-py` / `cccc-pl` (tree-sitter), `cccc-swift` (tree-sitter), `cccc-c` / `cccc-cpp` (tree-sitter),
-`cccc-java` (tree-sitter), `cccc-dart` (tree-sitter), `cccc-scala` (tree-sitter), `cccc-cs` (tree-sitter), `cccc-vb` (hand-written parser), `cccc-scheme` (lispexp), `cccc-clojure` (lispexp), `cccc-lisp` (lispexp, Common Lisp / Emacs Lisp / …),
+`cccc-java` (tree-sitter), `cccc-dart` (tree-sitter), `cccc-scala` (tree-sitter), `cccc-cs` (tree-sitter), `cccc-vb` (hand-written parser), `cccc-sh` (tree-sitter), `cccc-scheme` (lispexp), `cccc-clojure` (lispexp), `cccc-lisp` (lispexp, Common Lisp / Emacs Lisp / …),
 and `cccc-zig` (zigsyn) are the reference adapters: same shape, different parser.
 The Lisp-family adapters share their lowering skeleton via `cccc-lisp-kit`;
 `cccc-c` and `cccc-cpp` share theirs via `cccc-clike`.
@@ -194,7 +200,7 @@ or an artifact store; `--pretty` prints the same document indented.
 | `--exclude GLOB` | Exclude files matching a glob (repeatable) |
 | `--max-cognitive N` | Exit non-zero if any function's cognitive complexity exceeds N |
 | `--max-cyclomatic N` | Exit non-zero if any function's cyclomatic complexity exceeds N |
-| `--min N` | Only report functions with complexity >= N |
+| `--min N` | Only report functions with complexity >= N (with `--format table`, files left with no functions are omitted; JSON keeps them) |
 | `--violations` | Only report functions over `--max-cognitive` / `--max-cyclomatic`, in any format; files without one are omitted. Needs a threshold; not combinable with `--min` / `--top-*` |
 | `--top-cognitive N` | Show only the N most cognitively-complex functions, as a flat cross-file ranking |
 | `--top-cyclomatic N` | Show only the N most cyclomatically-complex functions, as a flat cross-file ranking |
@@ -840,3 +846,31 @@ its language onto the same IR, with the per-language differences below.
   `MyBase.M()` is not recursion.
 - XML literals are opaque: code inside `<%= … %>` embedded expressions does
   not contribute to the score. Interpolated-string holes (`$"{…}"`) do.
+
+### Shell (`--lang shell`)
+- **Scope:** Bash and POSIX sh (`.sh`, `.bash`) and Bats test files
+  (`.bats`), all parsed by one grammar — Bats' grammar extends Bash's and
+  yields the same trees for plain scripts. zsh-only syntax is not supported.
+  Files are routed by extension, so an extensionless script (dispatched by
+  its shebang) is not picked up; map its extension via `[ext]` / `--ext` if it
+  has one.
+- **Function-like units:** `name() { … }` / `function name { … }` (also with a
+  subshell body). A Bats `@test "…" { … }` block — and a function opened with
+  Bats' `# @test` marker comment — is a `test` unit, named after the test.
+- **Maps to the shared nodes:** `if`/`elif`/`else` (`elif` chains flat),
+  `for`/`for ((…))`/`select`/`while`/`until`, `case` (one decision per item —
+  `a|b)` is one — and an item whose only pattern is an unquoted `*` is the
+  non-decision arm), the arithmetic ternary `?:`, and `&&`/`||` — both between
+  commands (`cmd1 && cmd2 || cmd3`) and inside `[[ … ]]` / `(( … ))`.
+- `break N` / `continue N` (a level other than 1) leaves several loops at once
+  and adds one flat cognitive point, like a labelled jump; plain
+  `break`/`continue` add nothing.
+- The guard idiom `cmd || return` is a logical sequence like any other (+1).
+  `!` adds nothing, and neither do pipelines, subshells, or `${var:-default}`
+  expansions (routine unset-variable handling, not a hand-written decision).
+  The deprecated `[ a -a b ]` / `[ a -o b ]` test operators are not scored.
+- Code inside command substitutions (`$(…)`) and other expansions is scored
+  where it appears. Commands at the top level of a script count toward the
+  file total, as module-level code does in every language, but are not
+  reported as a function.
+- Recursion is a command running the enclosing function's name.

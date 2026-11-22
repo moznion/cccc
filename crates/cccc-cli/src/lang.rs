@@ -161,6 +161,12 @@ pub const LANGUAGES: &[Language] = &[
         exts: cccc_vb::DEFAULT_EXTS,
         analyze: cccc_vb::analyze_source,
     },
+    Language {
+        name: "shell",
+        aliases: &["sh", "bash", "bats"],
+        exts: cccc_sh::DEFAULT_EXTS,
+        analyze: cccc_sh::analyze_source,
+    },
 ];
 
 /// Resolve the active languages from an `include` (`--lang`) and an `exclude`
@@ -331,6 +337,7 @@ mod tests {
                 "scala".to_string(),
                 "csharp".to_string(),
                 "vbnet".to_string(),
+                "shell".to_string(),
             ]),
         )
         .unwrap();

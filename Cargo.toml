@@ -24,6 +24,7 @@ members = [
     "crates/cccc-scala",
     "crates/cccc-cs",
     "crates/cccc-vb",
+    "crates/cccc-sh",
 ]
 resolver = "2"
 
@@ -59,6 +60,7 @@ cccc-dart = { path = "crates/cccc-dart", version = "1.9.2" }
 cccc-scala = { path = "crates/cccc-scala", version = "1.9.2" }
 cccc-cs = { path = "crates/cccc-cs", version = "1.9.2" }
 cccc-vb = { path = "crates/cccc-vb", version = "1.9.2" }
+cccc-sh = { path = "crates/cccc-sh", version = "1.9.2" }
 serde = { version = "1", features = ["derive"] }
 
 [profile.release]

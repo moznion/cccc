@@ -3,6 +3,7 @@
 //! multi-language dispatch, `--lang` filtering, and `cccc.toml` config features.
 
 use assert_cmd::Command;
+use predicates::prelude::PredicateBooleanExt;
 
 fn json(args: &[&str]) -> serde_json::Value {
     let out = Command::cargo_bin("cccc")
@@ -268,6 +269,65 @@ fn table_output_renders() {
         .stdout(predicates::str::contains("summary"));
 }
 
+/// Two files: `hot.ts` has a function with cognitive 3, `cold.ts` only trivial ones.
+fn write_hot_and_cold(dir_name: &str) -> std::path::PathBuf {
+    let dir = std::env::temp_dir().join(dir_name);
+    let _ = std::fs::remove_dir_all(&dir);
+    std::fs::create_dir_all(&dir).unwrap();
+    std::fs::write(
+        dir.join("hot.ts"),
+        "function hot(a, b) {\n  if (a) {\n    if (b) {\n      return 1;\n    }\n  }\n  return 0;\n}\n",
+    )
+    .unwrap();
+    std::fs::write(dir.join("cold.ts"), "function cold() {\n  return 0;\n}\n").unwrap();
+    dir
+}
+
+#[test]
+fn table_min_skips_files_with_no_remaining_functions() {
+    let dir = write_hot_and_cold("cccc_table_min_skip_test");
+    Command::cargo_bin("cccc")
+        .unwrap()
+        .args(["--format", "table", "--min", "3"])
+        .arg(&dir)
+        .assert()
+        .success()
+        .stdout(predicates::str::contains("hot.ts"))
+        .stdout(predicates::str::contains("cold.ts").not())
+        .stdout(predicates::str::contains("(no functions)").not())
+        // The summary still counts every analyzed file.
+        .stdout(predicates::str::contains("summary (2 files"));
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
+fn table_without_min_still_lists_every_file() {
+    let dir = write_hot_and_cold("cccc_table_no_min_test");
+    Command::cargo_bin("cccc")
+        .unwrap()
+        .args(["--format", "table"])
+        .arg(&dir)
+        .assert()
+        .success()
+        .stdout(predicates::str::contains("hot.ts"))
+        .stdout(predicates::str::contains("cold.ts"));
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
+fn json_min_keeps_files_with_no_remaining_functions() {
+    let dir = write_hot_and_cold("cccc_json_min_keep_test");
+    let v = json(&["--min", "3", dir.to_str().unwrap()]);
+    let files = v["files"].as_array().unwrap();
+    assert_eq!(files.len(), 2);
+    let cold = files
+        .iter()
+        .find(|f| f["path"].as_str().unwrap().ends_with("cold.ts"))
+        .unwrap();
+    assert!(cold["functions"].as_array().unwrap().is_empty());
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
 // ----- parse-error reporting --------------------------------------------------
 
 /// Create `broken.py` (one valid function, one syntax error) in a fresh temp
@@ -351,7 +411,7 @@ fn analyzes_all_languages_in_one_run() {
     // The fixtures dir holds one file per language; a single run dispatches each
     // by extension and reports them all together.
     let v = json(&["tests/fixtures"]);
-    let expected_files = if cfg!(feature = "kotlin") { 21 } else { 20 };
+    let expected_files = if cfg!(feature = "kotlin") { 22 } else { 21 };
     assert_eq!(v["summary"]["file_count"], expected_files);
     let paths: Vec<String> = v["files"]
         .as_array()
@@ -380,6 +440,7 @@ fn analyzes_all_languages_in_one_run() {
         "sample.scala",
         "sample.cs",
         "sample.vb",
+        "sample.sh",
     ];
     if cfg!(feature = "kotlin") {
         samples.push("sample.kt");
@@ -418,7 +479,7 @@ fn unknown_lang_is_an_error() {
 fn exclude_lang_drops_a_language() {
     // Excluding every language except ES and Rust leaves the .ts and .rs fixtures.
     let excluded = format!(
-        "go,php,ruby,scheme,commonlisp,emacslisp,clojure{KOTLIN},python,perl,zig,c,cpp,swift,java,dart,scala,csharp,vbnet"
+        "go,php,ruby,scheme,commonlisp,emacslisp,clojure{KOTLIN},python,perl,zig,c,cpp,swift,java,dart,scala,csharp,vbnet,shell"
     );
     let v = json(&["--exclude-lang", &excluded, "tests/fixtures"]);
     let mut exts: Vec<String> = v["files"]
@@ -465,7 +526,7 @@ fn excluding_every_language_is_an_error() {
         .args([
             "--exclude-lang",
             &format!(
-                "es,rust,go,php,ruby,scheme,commonlisp,emacslisp,clojure{KOTLIN},python,perl,zig,c,cpp,swift,java,dart,scala,csharp,vbnet"
+                "es,rust,go,php,ruby,scheme,commonlisp,emacslisp,clojure{KOTLIN},python,perl,zig,c,cpp,swift,java,dart,scala,csharp,vbnet,shell"
             ),
             "tests/fixtures",
         ])

@@ -455,8 +455,12 @@ fn run_on_current_thread() -> i32 {
         }
     }
     // `--violations` asks for the offenders only, so a file without one is
-    // noise in every format.
-    if violations {
+    // noise in every format. With `--min`, a file left with no functions is an
+    // empty block in the table that only buries the hot spots, so drop it
+    // there too; JSON keeps every file so its `files` array stays a complete
+    // inventory. Parse errors are already listed on stderr above, so nothing
+    // is lost for those files.
+    if violations || (table && min.is_some()) {
         reports.retain(|r| !r.functions.is_empty());
     }
 
