@@ -39,7 +39,7 @@ use rayon::prelude::*;
 
 use cccc_core::report::{self, FileReport, FunctionReport, Metric, Report};
 use cli::Cli;
-use config::Config;
+use config::{Config, Format};
 
 /// Below this many files, sequential analysis beats paying for a rayon pool.
 const PARALLEL_THRESHOLD: usize = 16;
@@ -94,11 +94,21 @@ fn run_on_current_thread() -> i32 {
     // default. `was_set` distinguishes a flag the user actually passed from one
     // sitting at its clap default (needed for the boolean flags).
     let was_set = |id: &str| matches.value_source(id) == Some(ValueSource::CommandLine);
-    let table = if was_set("table") {
-        cli.table
+    // `--format` and `--table` are mutually exclusive on the command line
+    // (clap). Either one beats the config file, where `format` in turn beats
+    // the `table` shorthand.
+    let format = if let Some(format) = cli.format {
+        format
+    } else if cli.table {
+        Format::Table
+    } else if let Some(format) = config.format {
+        format
+    } else if config.table.unwrap_or(false) {
+        Format::Table
     } else {
-        config.table.unwrap_or(false)
+        Format::Json
     };
+    let table = format == Format::Table;
     let no_ignore = if was_set("no_ignore") {
         cli.no_ignore
     } else {
@@ -148,6 +158,32 @@ fn run_on_current_thread() -> i32 {
     let max_cognitive = cli.max_cognitive.or(config.max_cognitive);
     let max_cyclomatic = cli.max_cyclomatic.or(config.max_cyclomatic);
     let min = cli.min.or(config.min);
+    // The violations view is defined by the thresholds alone: without one it
+    // would print nothing and look like a pass, and `--min` / `--top-*` would
+    // only blur which functions it reports. A `min` from the config file is
+    // ignored rather than rejected, so a project can keep one for its table.
+    if format == Format::Violations {
+        if max_cognitive.is_none() && max_cyclomatic.is_none() {
+            eprintln!(
+                "cccc: --format violations needs --max-cognitive and/or --max-cyclomatic (or `max-cognitive` / `max-cyclomatic` in cccc.toml)"
+            );
+            return 2;
+        }
+        for flag in ["min", "top_cognitive", "top_cyclomatic"] {
+            if was_set(flag) {
+                eprintln!(
+                    "cccc: --{} cannot be used with --format violations",
+                    flag.replace('_', "-")
+                );
+                return 2;
+            }
+        }
+    }
+    let min = if format == Format::Violations {
+        None
+    } else {
+        min
+    };
     let jobs_opt = cli.jobs.or(config.jobs);
     let lang_filter = cli.lang.clone().or_else(|| config.languages.clone());
     let exclude_lang_filter = cli
@@ -366,7 +402,7 @@ fn run_on_current_thread() -> i32 {
     // Parse errors mean the scores may be computed from a partial parse. JSON
     // consumers see this in `summary`; for the human-readable views, warn on
     // stderr — with the affected paths — so it isn't lost in a long table.
-    if table && summary.parse_error_count > 0 {
+    if format != Format::Json && summary.parse_error_count > 0 {
         output::warn(&format!(
             "cccc: warning: {} parse error(s) in {} file(s); results for those files may be incomplete:",
             summary.parse_error_count, summary.parse_error_file_count
@@ -374,6 +410,18 @@ fn run_on_current_thread() -> i32 {
         for r in reports.iter().filter(|r| !r.parse_errors.is_empty()) {
             output::warn(&format!("cccc:   {} ({})", r.path, r.parse_errors.len()));
         }
+    }
+
+    if format == Format::Violations {
+        let (fns, files) = output::print_violations(&reports, max_cognitive, max_cyclomatic);
+        if fns > 0 {
+            eprintln!(
+                "cccc: {fns} function{} over the limits in {files} file{}",
+                if fns == 1 { "" } else { "s" },
+                if files == 1 { "" } else { "s" }
+            );
+        }
+        return i32::from(fail);
     }
 
     // `--top-*` is a distinct, flat ranking view that replaces the per-file

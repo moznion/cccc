@@ -188,7 +188,8 @@ or an artifact store; `--pretty` prints the same document indented.
 | `--exclude-lang LIST` | Exclude these languages (comma-separated). The inverse of `--lang`; applied to all languages, or to `--lang`'s set when both are given |
 | `--config PATH` | Use this config file instead of discovering one (must exist) |
 | `--no-config` | Do not look for or load a `cccc.toml` config file |
-| `--table` | Human-readable table instead of JSON |
+| `--format FORMAT` | Output format: `json` (default), `table`, or `violations` (one line per function over the limits; see [Violations output](#violations-output)) |
+| `--table` | Human-readable table instead of JSON (same as `--format table`) |
 | `--ext EXTS \| LANG=EXTS` | Extensions to analyze. Global form `--ext ts,tsx` filters across all languages; per-language form `--ext es=ts,tsx` overrides that language's extensions and routes them to it. Repeatable |
 | `--exclude GLOB` | Exclude files matching a glob (repeatable) |
 | `--max-cognitive N` | Exit non-zero if any function's cognitive complexity exceeds N |
@@ -219,7 +220,8 @@ passed on the command line always wins. Supported keys (all optional):
 languages         = ["es", "go"]        # same as --lang
 exclude-languages = ["php"]             # same as --exclude-lang
 exclude           = ["dist/**", "**/*.test.ts"]
-table         = false
+format        = "json"              # json | table | violations (wins over `table`)
+table         = false               # shorthand for format = "table"
 max-cognitive = 15
 max-cyclomatic = 10
 min           = 1
@@ -353,6 +355,9 @@ cccc --ext es=ts,tsx src/
 # CI gate: fail if any function exceeds cognitive complexity 15
 cccc --max-cognitive 15 src/
 
+# CI / agents: list only the offending functions, one line each (silent when clean)
+cccc --format violations --max-cognitive 15 src/
+
 # The 10 most cognitively-complex functions across the project
 cccc --top-cognitive 10 src/
 
@@ -365,6 +370,28 @@ cccc -j 4 src/
 # Recurring runs: reuse results for files unchanged since the last run
 cccc --cache src/
 ```
+
+### Violations output
+
+`--format violations` prints only the functions over `--max-cognitive` /
+`--max-cyclomatic` (strictly greater, the same test the exit code uses), one
+`path:line:` line each so editors and CI problem matchers can jump to them.
+Nested functions are listed individually, in line order within each file. A
+count goes to stderr, and nothing is printed at all when every function is
+within the limits:
+
+```console
+$ cccc --format violations --max-cognitive 40 --max-cyclomatic 40 .
+e2e/rights_test.go:22: eachBinaryRunsAloneWithItsRights (function) cognitive 51 (max 40)
+internal/api/api_test.go:234: TestEc2InstanceGathersItsGraph (function) cyclomatic 64 (max 40)
+web/src/Canvas.tsx:211: retarget (arrow) cognitive 41 (max 40), cyclomatic 45 (max 40)
+cccc: 3 functions over the limits in 3 files
+```
+
+The exit code is the usual `1` when anything is over. At least one threshold
+(flag or config) is required, and `--min` / `--top-*` cannot be combined with
+this format (exit `2`); a `min` set in `cccc.toml` is ignored. Parse-error
+warnings go to stderr as in `--table` mode.
 
 Files are analyzed in parallel. The worker count defaults to the number of
 logical CPUs and can be capped with `-j/--jobs`; the output is identical
@@ -459,7 +486,7 @@ mode where per-file entries aren't emitted at all:
 
 In `--table` mode the aggregate count is printed in the summary block, and a
 warning listing each affected file (with its error count) goes to stderr so it
-isn't lost in a long table:
+isn't lost in a long table (`--format violations` prints the same warning):
 
 ```console
 $ cccc --table src/ >/dev/null

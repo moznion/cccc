@@ -18,6 +18,19 @@ use std::path::{Path, PathBuf};
 
 use serde::Deserialize;
 
+/// How the report is rendered on stdout.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Deserialize, clap::ValueEnum)]
+#[serde(rename_all = "kebab-case")]
+pub enum Format {
+    /// The full report as JSON (the default).
+    Json,
+    /// A human-readable per-file table.
+    Table,
+    /// One `path:line:` line per function over `--max-cognitive` /
+    /// `--max-cyclomatic`, and nothing when every function is within them.
+    Violations,
+}
+
 /// File names searched for during upward discovery, in priority order.
 const CONFIG_NAMES: &[&str] = &["cccc.toml", ".cccc.toml"];
 
@@ -27,7 +40,11 @@ const CONFIG_NAMES: &[&str] = &["cccc.toml", ".cccc.toml"];
 #[derive(Debug, Default, Deserialize)]
 #[serde(rename_all = "kebab-case", deny_unknown_fields)]
 pub struct Config {
-    /// Print a human-readable table instead of JSON.
+    /// Output format (`json`, `table` or `violations`). Takes precedence over
+    /// `table` when both are set.
+    pub format: Option<Format>,
+    /// Print a human-readable table instead of JSON. Shorthand for
+    /// `format = "table"`.
     pub table: Option<bool>,
     /// Per-language file-extension overrides, e.g. `[ext]` with `es = ["ts"]`.
     /// Each entry replaces that language's default extensions (and so also
@@ -147,6 +164,13 @@ mod tests {
         );
         assert_eq!(cfg.max_cognitive, Some(15));
         assert_eq!(cfg.jobs, Some(8));
+    }
+
+    #[test]
+    fn parses_format() {
+        let cfg: Config = toml::from_str(r#"format = "violations""#).unwrap();
+        assert_eq!(cfg.format, Some(Format::Violations));
+        assert!(toml::from_str::<Config>(r#"format = "xml""#).is_err());
     }
 
     #[test]

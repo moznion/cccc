@@ -4,6 +4,8 @@ use std::path::PathBuf;
 
 use clap::Parser;
 
+use crate::config::Format;
+
 /// Measure Cognitive Complexity and Cyclomatic Complexity of source code.
 ///
 /// One binary analyzes every bundled language; each file is dispatched to the
@@ -35,8 +37,14 @@ pub struct Cli {
     #[arg(long)]
     pub no_config: bool,
 
-    /// Print a human-readable table instead of JSON.
-    #[arg(long)]
+    /// Output format. `violations` prints one `path:line:` line per function
+    /// over `--max-cognitive` / `--max-cyclomatic` (and nothing when all pass),
+    /// with a count on stderr — compact output for CI logs and agents.
+    #[arg(long, value_enum, value_name = "FORMAT")]
+    pub format: Option<Format>,
+
+    /// Print a human-readable table instead of JSON (same as `--format table`).
+    #[arg(long, conflicts_with = "format")]
     pub table: bool,
 
     /// File extensions to analyze. Two forms, and repeatable: a global

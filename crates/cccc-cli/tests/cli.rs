@@ -489,7 +489,7 @@ fn unknown_exclude_lang_is_an_error() {
 // ----- cccc.toml config ------------------------------------------------------
 
 /// Create a temp project dir containing `cccc.toml` and a high-complexity
-/// `sample.ts` (sumOfPrimes, cognitive 7).
+/// `sample.ts` (sumOfPrimes, cognitive 6).
 fn config_project(name: &str, toml: &str) -> std::path::PathBuf {
     let dir = std::env::temp_dir().join(name);
     let _ = std::fs::remove_dir_all(&dir);
@@ -1137,4 +1137,181 @@ fn default_json_is_compact_and_pretty_expands_it() {
     let a: serde_json::Value = serde_json::from_str(&compact).expect("valid JSON");
     let b: serde_json::Value = serde_json::from_str(&pretty).expect("valid JSON");
     assert_eq!(a, b, "--pretty must not change the content");
+}
+
+// ----- --format / violations view --------------------------------------------
+
+/// A temp dir with `a.ts` (`outer`, cognitive 1, holding the nested arrow
+/// `inner`, cognitive 3) and `b.ts` (`cold`, cognitive 0).
+fn violations_project(name: &str) -> std::path::PathBuf {
+    let dir = std::env::temp_dir().join(name);
+    let _ = std::fs::remove_dir_all(&dir);
+    std::fs::create_dir_all(&dir).unwrap();
+    std::fs::write(
+        dir.join("a.ts"),
+        "function outer(a) {\n  const inner = (b) => {\n    if (b) { if (a) { return 1; } }\n    return 0;\n  };\n  if (a) { return inner(a); }\n  return 0;\n}\n",
+    )
+    .unwrap();
+    std::fs::write(dir.join("b.ts"), "function cold() {\n  return 0;\n}\n").unwrap();
+    dir
+}
+
+fn run_in(dir: &std::path::Path, args: &[&str]) -> assert_cmd::assert::Assert {
+    Command::cargo_bin("cccc")
+        .unwrap()
+        .current_dir(dir)
+        .arg("--no-config")
+        .args(args)
+        .assert()
+}
+
+#[test]
+fn violations_lists_each_offender_on_one_line() {
+    let dir = violations_project("cccc_violations_list");
+    let out = run_in(
+        &dir,
+        &["--format", "violations", "--max-cognitive", "0", "."],
+    )
+    .failure()
+    .code(1);
+    let stdout = String::from_utf8(out.get_output().stdout.clone()).unwrap();
+    let stderr = String::from_utf8(out.get_output().stderr.clone()).unwrap();
+    // Nested functions are flattened, in line order; within-limit ones are absent.
+    assert_eq!(
+        stdout,
+        "./a.ts:1: outer (function) cognitive 1 (max 0)\n\
+         ./a.ts:2: inner (arrow) cognitive 3 (max 0)\n"
+    );
+    assert_eq!(stderr, "cccc: 2 functions over the limits in 1 file\n");
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
+fn violations_reports_both_metrics_and_uses_strict_threshold() {
+    let dir = violations_project("cccc_violations_both");
+    // inner: cognitive 3 > 2 and cyclomatic 3 > 2; outer (1 / 2) is not over.
+    run_in(
+        &dir,
+        &[
+            "--format",
+            "violations",
+            "--max-cognitive",
+            "2",
+            "--max-cyclomatic",
+            "2",
+            ".",
+        ],
+    )
+    .failure()
+    .code(1)
+    .stdout("./a.ts:2: inner (arrow) cognitive 3 (max 2), cyclomatic 3 (max 2)\n");
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
+fn violations_is_silent_when_clean() {
+    let dir = violations_project("cccc_violations_clean");
+    run_in(
+        &dir,
+        &["--format", "violations", "--max-cognitive", "3", "."],
+    )
+    .success()
+    .stdout("")
+    .stderr("");
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
+fn violations_requires_a_threshold() {
+    let dir = violations_project("cccc_violations_no_limit");
+    run_in(&dir, &["--format", "violations", "."])
+        .failure()
+        .code(2)
+        .stderr(predicates::str::contains("--max-cognitive"));
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
+fn violations_rejects_min_and_top() {
+    let dir = violations_project("cccc_violations_conflicts");
+    for extra in [
+        ["--min", "1"],
+        ["--top-cognitive", "1"],
+        ["--top-cyclomatic", "1"],
+    ] {
+        let mut args = vec!["--format", "violations", "--max-cognitive", "0"];
+        args.extend(extra);
+        args.push(".");
+        run_in(&dir, &args)
+            .failure()
+            .code(2)
+            .stderr(predicates::str::contains(extra[0]));
+    }
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
+fn format_and_table_flags_conflict() {
+    let dir = violations_project("cccc_format_table_conflict");
+    run_in(&dir, &["--format", "json", "--table", "."])
+        .failure()
+        .code(2);
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
+fn format_table_matches_table_flag() {
+    let dir = violations_project("cccc_format_table_alias");
+    let a = run_in(&dir, &["--format", "table", "."]).success();
+    let b = run_in(&dir, &["--table", "."]).success();
+    assert_eq!(a.get_output().stdout, b.get_output().stdout);
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
+fn config_format_violations_applies_and_ignores_config_min() {
+    let dir = config_project(
+        "cccc_cfg_format_violations",
+        "format = \"violations\"\nmax-cognitive = 5\nmin = 100\n",
+    );
+    Command::cargo_bin("cccc")
+        .unwrap()
+        .current_dir(&dir)
+        .arg("sample.ts")
+        .assert()
+        .failure()
+        .code(1)
+        .stdout("sample.ts:1: sumOfPrimes (function) cognitive 6 (max 5)\n");
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
+fn config_format_beats_config_table() {
+    let dir = config_project(
+        "cccc_cfg_format_vs_table",
+        "table = true\nformat = \"json\"\n",
+    );
+    let out = Command::cargo_bin("cccc")
+        .unwrap()
+        .current_dir(&dir)
+        .arg("sample.ts")
+        .assert()
+        .success();
+    let stdout = String::from_utf8(out.get_output().stdout.clone()).unwrap();
+    serde_json::from_str::<serde_json::Value>(&stdout).expect("valid JSON");
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
+fn format_json_flag_overrides_config_table() {
+    let dir = config_project("cccc_cfg_table_override", "table = true\n");
+    let out = Command::cargo_bin("cccc")
+        .unwrap()
+        .current_dir(&dir)
+        .args(["--format", "json", "sample.ts"])
+        .assert()
+        .success();
+    let stdout = String::from_utf8(out.get_output().stdout.clone()).unwrap();
+    serde_json::from_str::<serde_json::Value>(&stdout).expect("valid JSON");
+    let _ = std::fs::remove_dir_all(&dir);
 }

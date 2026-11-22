@@ -1,10 +1,12 @@
-//! Output rendering: JSON (default) and the human-readable table / ranking
-//! views. The report *data* and aggregation live in `cccc_core::report`; this
+//! Output rendering: JSON (default), the human-readable table / ranking
+//! views, and the one-line-per-offender violations view. The report *data* and aggregation live in `cccc_core::report`; this
 //! module only formats them.
 
 use std::io::{IsTerminal, Write};
 
-use cccc_core::report::{FunctionReport, MetricSummary, Report, Summary, TopReport};
+use cccc_core::report::{
+    self, FileReport, FunctionReport, MetricSummary, Report, Summary, TopReport,
+};
 use serde::Serialize;
 
 /// True when ANSI color should be used on `stream`: it is a real terminal and
@@ -106,6 +108,58 @@ pub fn print_top_table(report: &TopReport) {
         writeln!(out, "  {}", "-".repeat(48))?;
         write_summary(out, &report.summary, color)
     });
+}
+
+/// Print one line per function (at any nesting depth) over either threshold,
+/// in `path:line:` form so editors and CI problem matchers can jump to it:
+///
+/// ```text
+/// src/a.ts:12: parse (function) cognitive 51 (max 40), cyclomatic 44 (max 40)
+/// ```
+///
+/// Files come in report (path) order and functions in line order within a
+/// file. Nothing is printed when every function is within the limits. Returns
+/// the number of offending functions and of files containing them.
+pub fn print_violations(
+    reports: &[FileReport],
+    max_cog: Option<u32>,
+    max_cyc: Option<u32>,
+) -> (usize, usize) {
+    let mut fn_count = 0;
+    let mut file_count = 0;
+    with_stdout(|out| {
+        for file in reports {
+            // (line, rendered message) for each offender in this file.
+            let mut hits: Vec<(u32, String)> = Vec::new();
+            report::for_each_function(&file.functions, &mut |f| {
+                let mut over = Vec::with_capacity(2);
+                if let Some(m) = max_cog.filter(|&m| f.cognitive > m) {
+                    over.push(format!("cognitive {} (max {m})", f.cognitive));
+                }
+                if let Some(m) = max_cyc.filter(|&m| f.cyclomatic > m) {
+                    over.push(format!("cyclomatic {} (max {m})", f.cyclomatic));
+                }
+                if !over.is_empty() {
+                    hits.push((
+                        f.line,
+                        format!("{} ({}) {}", f.name, f.kind, over.join(", ")),
+                    ));
+                }
+            });
+            if hits.is_empty() {
+                continue;
+            }
+            // Stable, so functions sharing a line keep parent-before-child order.
+            hits.sort_by_key(|(line, _)| *line);
+            file_count += 1;
+            fn_count += hits.len();
+            for (line, msg) in hits {
+                writeln!(out, "{}:{line}: {msg}", file.path)?;
+            }
+        }
+        Ok(())
+    });
+    (fn_count, file_count)
 }
 
 /// Run `body` against a buffered, locked stdout writer and report any I/O error
