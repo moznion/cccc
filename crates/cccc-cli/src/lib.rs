@@ -397,6 +397,13 @@ fn run_on_current_thread() -> i32 {
         for r in &mut reports {
             r.functions = filter_min(std::mem::take(&mut r.functions), min);
         }
+        // In the table, a file left with no functions is an empty block that
+        // only buries the hot spots, so drop it. JSON keeps every file so its
+        // `files` array stays a complete inventory. Parse errors are already
+        // listed on stderr above, so nothing is lost for those files.
+        if table {
+            reports.retain(|r| !r.functions.is_empty());
+        }
     }
 
     let report = Report {
