@@ -185,6 +185,9 @@ a single run. Restrict the languages with `--lang` (e.g. `--lang go,rust`).
 
 Output is **JSON by default** — compact, on one line, ready to pipe into `jq`
 or an artifact store; `--pretty` prints the same document indented.
+`--format table` prints a human-readable per-file table instead, and
+`--format simple` one `path:line:` line per function (see [Simple output and
+`--violations`](#simple-output-and---violations)).
 
 ### Options
 
@@ -258,7 +261,9 @@ alongside the global filter form `--ext ext,ext`.
 `--top-cognitive` and `--top-cyclomatic` are mutually exclusive. In top mode the
 output is a ranking (`{ "metric", "top": [...], "summary" }`) instead of the
 per-file `files` array; each entry carries its own `path` and `line`. The
-`summary` still reflects the full population.
+`summary` still reflects the full population. `--format table` renders the
+ranking as a single table, and `--format simple` as one `path:line:` line per
+entry in ranking order. Top mode cannot be combined with `--violations`.
 
 `--exclude` takes a glob pattern and may be given multiple times. Each pattern is
 matched both against a file's path relative to the directory you passed (so
@@ -429,6 +434,18 @@ Like thresholds, caching is driven by the config: when `cccc.toml` sets
 `cache = true`, the action persists the [results cache](#results-cache)
 across runs on its own (via `actions/cache` — no workflow wiring needed).
 
+The output format comes from the config too. To keep CI logs short and point
+straight at the functions that fail the gate (and print nothing when all
+pass), use the simple violations view:
+
+```toml
+# cccc.toml
+max-cognitive  = 15
+max-cyclomatic = 10
+format         = "simple"
+violations     = true
+```
+
 An example GitHub Actions workflow for continuously measuring complexity with [k1LoW/octocov](https://github.com/k1LoW/octocov) is available at [.github/workflows/complexity.yml](./.github/workflows/complexity.yml).
 
 ## Output shape (JSON)
@@ -441,7 +458,15 @@ module-level code.
 The `summary` is computed over every function in every file (all nesting
 depths). Because complexity is right-skewed, it reports the distribution
 (`sum`/`max`/`median`/`p90`/`p95`) rather than a mean — the percentiles describe
-the tail where refactoring candidates live. It is unaffected by `--min`.
+the tail where refactoring candidates live. It is unaffected by `--min` and
+`--violations`.
+
+`--min` and `--violations` narrow each file's `functions`; a function that
+doesn't qualify itself is kept when it has a nested function that does, so the
+tree still shows where that one lives. With `--min` every file stays in
+`files` (possibly with an empty `functions`), so the array remains a complete
+inventory; with `--violations` files without an offender are omitted, and the
+document is `{"files": [], …}` when everything is within the limits.
 
 ```json
 {

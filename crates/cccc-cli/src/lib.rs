@@ -8,9 +8,10 @@
 //!
 //! Everything common to the languages lives here: argument parsing, config
 //! resolution, file discovery, the results cache (see [`cache`]), parallel
-//! analysis, the threshold/`--min`/`--top` logic, and output rendering. Each
-//! language supplies only how to analyze one file and its default extensions,
-//! via the [`lang::LANGUAGES`] registry.
+//! analysis, the threshold/`--min`/`--violations`/`--top` logic, and output
+//! rendering (JSON / table / simple). Each language supplies only how to
+//! analyze one file and its default extensions, via the [`lang::LANGUAGES`]
+//! registry.
 //!
 //! ## Exit codes
 //!
