@@ -1,5 +1,11 @@
 # Changelog
 
+## [v1.10.0](https://github.com/moznion/cccc/compare/v1.9.2...v1.10.0) - 2026-11-22
+
+- fix(cli): omit files with no remaining functions in --table --min output by @moznion in https://github.com/moznion/cccc/pull/229
+- feat: shell adapter for Bash / POSIX sh / Bats (cccc-sh) by @moznion in https://github.com/moznion/cccc/pull/228
+- feat(cli): add --format simple and --violations; deprecate --table by @moznion in https://github.com/moznion/cccc/pull/230
+
 ## [v1.9.2](https://github.com/moznion/cccc/compare/v1.9.1...v1.9.2) - 2026-11-18
 
 - build(deps): bump Swatinem/rust-cache from c8037a86dde8214a8310e9f54a8fc61ab362aa31 to eedcf2fb1c22f010a0eb66b92f378c110977f266 by @dependabot[bot] in https://github.com/moznion/cccc/pull/217
