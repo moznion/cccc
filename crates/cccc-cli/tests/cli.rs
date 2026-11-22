@@ -1139,11 +1139,11 @@ fn default_json_is_compact_and_pretty_expands_it() {
     assert_eq!(a, b, "--pretty must not change the content");
 }
 
-// ----- --format / violations view --------------------------------------------
+// ----- --format / --violations ----------------------------------------------
 
-/// A temp dir with `a.ts` (`outer`, cognitive 1, holding the nested arrow
-/// `inner`, cognitive 3) and `b.ts` (`cold`, cognitive 0).
-fn violations_project(name: &str) -> std::path::PathBuf {
+/// A temp dir with `a.ts` (`outer`: cognitive 1 / cyclomatic 2, holding the
+/// nested arrow `inner`: 3 / 3) and `b.ts` (`cold`: 0 / 1).
+fn simple_project(name: &str) -> std::path::PathBuf {
     let dir = std::env::temp_dir().join(name);
     let _ = std::fs::remove_dir_all(&dir);
     std::fs::create_dir_all(&dir).unwrap();
@@ -1165,55 +1165,88 @@ fn run_in(dir: &std::path::Path, args: &[&str]) -> assert_cmd::assert::Assert {
         .assert()
 }
 
+fn stdout_of(a: &assert_cmd::assert::Assert) -> String {
+    String::from_utf8(a.get_output().stdout.clone()).unwrap()
+}
+
 #[test]
-fn violations_lists_each_offender_on_one_line() {
-    let dir = violations_project("cccc_violations_list");
-    let out = run_in(
-        &dir,
-        &["--format", "violations", "--max-cognitive", "0", "."],
-    )
-    .failure()
-    .code(1);
-    let stdout = String::from_utf8(out.get_output().stdout.clone()).unwrap();
-    let stderr = String::from_utf8(out.get_output().stderr.clone()).unwrap();
-    // Nested functions are flattened, in line order; within-limit ones are absent.
-    assert_eq!(
-        stdout,
-        "./a.ts:1: outer (function) cognitive 1 (max 0)\n\
-         ./a.ts:2: inner (arrow) cognitive 3 (max 0)\n"
+fn simple_lists_every_function_on_one_line() {
+    let dir = simple_project("cccc_simple_all");
+    run_in(&dir, &["--format", "simple", "."]).success().stdout(
+        "./a.ts:1: outer (function) cognitive 1, cyclomatic 2\n\
+         ./a.ts:2: inner (arrow) cognitive 3, cyclomatic 3\n\
+         ./b.ts:1: cold (function) cognitive 0, cyclomatic 1\n",
     );
-    assert_eq!(stderr, "cccc: 2 functions over the limits in 1 file\n");
     let _ = std::fs::remove_dir_all(&dir);
 }
 
 #[test]
-fn violations_reports_both_metrics_and_uses_strict_threshold() {
-    let dir = violations_project("cccc_violations_both");
-    // inner: cognitive 3 > 2 and cyclomatic 3 > 2; outer (1 / 2) is not over.
-    run_in(
+fn simple_with_min_prints_only_selected_functions() {
+    let dir = simple_project("cccc_simple_min");
+    // `outer` is kept in the tree as `inner`'s ancestor but is below --min.
+    run_in(&dir, &["--format", "simple", "--min", "3", "."])
+        .success()
+        .stdout("./a.ts:2: inner (arrow) cognitive 3, cyclomatic 3\n");
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
+fn simple_with_top_prints_the_ranking() {
+    let dir = simple_project("cccc_simple_top");
+    run_in(&dir, &["--format", "simple", "--top-cognitive", "2", "."])
+        .success()
+        .stdout(
+            "./a.ts:2: inner (arrow) cognitive 3, cyclomatic 3\n\
+             ./a.ts:1: outer (function) cognitive 1, cyclomatic 2\n",
+        );
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
+fn simple_violations_marks_exceeded_metrics() {
+    let dir = simple_project("cccc_simple_violations");
+    let out = run_in(
         &dir,
         &[
             "--format",
-            "violations",
+            "simple",
+            "--violations",
             "--max-cognitive",
-            "2",
+            "0",
             "--max-cyclomatic",
             "2",
             ".",
         ],
     )
     .failure()
-    .code(1)
-    .stdout("./a.ts:2: inner (arrow) cognitive 3 (max 2), cyclomatic 3 (max 2)\n");
+    .code(1);
+    // Nested functions are flattened in line order; within-limit ones are
+    // absent; only the exceeded metric gets `(max N)` (strictly greater).
+    assert_eq!(
+        stdout_of(&out),
+        "./a.ts:1: outer (function) cognitive 1 (max 0), cyclomatic 2\n\
+         ./a.ts:2: inner (arrow) cognitive 3 (max 0), cyclomatic 3 (max 2)\n"
+    );
+    assert_eq!(
+        String::from_utf8(out.get_output().stderr.clone()).unwrap(),
+        "cccc: 2 functions over the limits in 1 file\n"
+    );
     let _ = std::fs::remove_dir_all(&dir);
 }
 
 #[test]
-fn violations_is_silent_when_clean() {
-    let dir = violations_project("cccc_violations_clean");
+fn simple_violations_is_silent_when_clean() {
+    let dir = simple_project("cccc_simple_violations_clean");
     run_in(
         &dir,
-        &["--format", "violations", "--max-cognitive", "3", "."],
+        &[
+            "--format",
+            "simple",
+            "--violations",
+            "--max-cognitive",
+            "3",
+            ".",
+        ],
     )
     .success()
     .stdout("")
@@ -1222,9 +1255,52 @@ fn violations_is_silent_when_clean() {
 }
 
 #[test]
+fn json_violations_keeps_offenders_and_drops_clean_files() {
+    let dir = simple_project("cccc_json_violations");
+    let out = run_in(&dir, &["--violations", "--max-cognitive", "2", "."])
+        .failure()
+        .code(1);
+    let v: serde_json::Value = serde_json::from_str(&stdout_of(&out)).unwrap();
+    let files = v["files"].as_array().unwrap();
+    assert_eq!(files.len(), 1, "b.ts has no offender");
+    // `outer` stays as the parent of the offending `inner`.
+    let outer = &files[0]["functions"][0];
+    assert_eq!(outer["name"], "outer");
+    assert_eq!(outer["children"][0]["name"], "inner");
+    // The summary still covers every function.
+    assert_eq!(v["summary"]["function_count"], 3);
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
+fn json_violations_when_clean_is_an_empty_report() {
+    let dir = simple_project("cccc_json_violations_clean");
+    let out = run_in(&dir, &["--violations", "--max-cognitive", "3", "."]).success();
+    let v: serde_json::Value = serde_json::from_str(&stdout_of(&out)).unwrap();
+    assert!(v["files"].as_array().unwrap().is_empty());
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
+fn table_violations_omits_clean_files() {
+    let dir = simple_project("cccc_table_violations");
+    let out = run_in(
+        &dir,
+        &["--table", "--violations", "--max-cognitive", "2", "."],
+    )
+    .failure()
+    .code(1);
+    let stdout = stdout_of(&out);
+    assert!(stdout.contains("inner [arrow]"));
+    assert!(!stdout.contains("b.ts"));
+    assert!(stdout.contains("summary (2 files"));
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
 fn violations_requires_a_threshold() {
-    let dir = violations_project("cccc_violations_no_limit");
-    run_in(&dir, &["--format", "violations", "."])
+    let dir = simple_project("cccc_violations_no_limit");
+    run_in(&dir, &["--violations", "."])
         .failure()
         .code(2)
         .stderr(predicates::str::contains("--max-cognitive"));
@@ -1233,13 +1309,13 @@ fn violations_requires_a_threshold() {
 
 #[test]
 fn violations_rejects_min_and_top() {
-    let dir = violations_project("cccc_violations_conflicts");
+    let dir = simple_project("cccc_violations_conflicts");
     for extra in [
         ["--min", "1"],
         ["--top-cognitive", "1"],
         ["--top-cyclomatic", "1"],
     ] {
-        let mut args = vec!["--format", "violations", "--max-cognitive", "0"];
+        let mut args = vec!["--violations", "--max-cognitive", "0"];
         args.extend(extra);
         args.push(".");
         run_in(&dir, &args)
@@ -1252,7 +1328,7 @@ fn violations_rejects_min_and_top() {
 
 #[test]
 fn format_and_table_flags_conflict() {
-    let dir = violations_project("cccc_format_table_conflict");
+    let dir = simple_project("cccc_format_table_conflict");
     run_in(&dir, &["--format", "json", "--table", "."])
         .failure()
         .code(2);
@@ -1261,7 +1337,7 @@ fn format_and_table_flags_conflict() {
 
 #[test]
 fn format_table_matches_table_flag() {
-    let dir = violations_project("cccc_format_table_alias");
+    let dir = simple_project("cccc_format_table_alias");
     let a = run_in(&dir, &["--format", "table", "."]).success();
     let b = run_in(&dir, &["--table", "."]).success();
     assert_eq!(a.get_output().stdout, b.get_output().stdout);
@@ -1269,10 +1345,10 @@ fn format_table_matches_table_flag() {
 }
 
 #[test]
-fn config_format_violations_applies_and_ignores_config_min() {
+fn config_simple_violations_applies_and_ignores_config_min() {
     let dir = config_project(
-        "cccc_cfg_format_violations",
-        "format = \"violations\"\nmax-cognitive = 5\nmin = 100\n",
+        "cccc_cfg_simple_violations",
+        "format = \"simple\"\nviolations = true\nmax-cognitive = 5\nmin = 100\n",
     );
     Command::cargo_bin("cccc")
         .unwrap()
@@ -1281,7 +1357,7 @@ fn config_format_violations_applies_and_ignores_config_min() {
         .assert()
         .failure()
         .code(1)
-        .stdout("sample.ts:1: sumOfPrimes (function) cognitive 6 (max 5)\n");
+        .stdout("sample.ts:1: sumOfPrimes (function) cognitive 6 (max 5), cyclomatic 4\n");
     let _ = std::fs::remove_dir_all(&dir);
 }
 
@@ -1297,8 +1373,7 @@ fn config_format_beats_config_table() {
         .arg("sample.ts")
         .assert()
         .success();
-    let stdout = String::from_utf8(out.get_output().stdout.clone()).unwrap();
-    serde_json::from_str::<serde_json::Value>(&stdout).expect("valid JSON");
+    serde_json::from_str::<serde_json::Value>(&stdout_of(&out)).expect("valid JSON");
     let _ = std::fs::remove_dir_all(&dir);
 }
 
@@ -1311,7 +1386,6 @@ fn format_json_flag_overrides_config_table() {
         .args(["--format", "json", "sample.ts"])
         .assert()
         .success();
-    let stdout = String::from_utf8(out.get_output().stdout.clone()).unwrap();
-    serde_json::from_str::<serde_json::Value>(&stdout).expect("valid JSON");
+    serde_json::from_str::<serde_json::Value>(&stdout_of(&out)).expect("valid JSON");
     let _ = std::fs::remove_dir_all(&dir);
 }

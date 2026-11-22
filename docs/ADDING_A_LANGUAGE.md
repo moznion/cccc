@@ -205,9 +205,9 @@ cccc-py = { workspace = true }
 That's it — the `cccc` binary now discovers `.py`/`.pyi` files, routes them to
 your adapter, and accepts `--lang python`. The shared CLI already provides, for
 free and identically across languages: argument parsing (`--lang`, `--config`,
-`--format`/`--table`, `--ext`, `--max-*`, `--min`, `--top-*`, `--no-ignore`, `-j/--jobs`),
+`--format`/`--table`, `--ext`, `--max-*`, `--min`, `--violations`, `--top-*`, `--no-ignore`, `-j/--jobs`),
 config-file handling, `.gitignore`-aware file discovery, parallel analysis,
-summary / ranking, JSON / table / violations rendering, and the exit-code convention
+summary / ranking, JSON / table / simple rendering, and the exit-code convention
 (`0` ok / `1` threshold exceeded / `2` cannot proceed).
 
 > Extensions must be **disjoint** across languages, since dispatch is by

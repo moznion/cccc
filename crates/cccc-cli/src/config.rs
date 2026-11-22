@@ -26,9 +26,8 @@ pub enum Format {
     Json,
     /// A human-readable per-file table.
     Table,
-    /// One `path:line:` line per function over `--max-cognitive` /
-    /// `--max-cyclomatic`, and nothing when every function is within them.
-    Violations,
+    /// One `path:line:` line per function, for grepping, editors and CI logs.
+    Simple,
 }
 
 /// File names searched for during upward discovery, in priority order.
@@ -40,7 +39,7 @@ const CONFIG_NAMES: &[&str] = &["cccc.toml", ".cccc.toml"];
 #[derive(Debug, Default, Deserialize)]
 #[serde(rename_all = "kebab-case", deny_unknown_fields)]
 pub struct Config {
-    /// Output format (`json`, `table` or `violations`). Takes precedence over
+    /// Output format (`json`, `table` or `simple`). Takes precedence over
     /// `table` when both are set.
     pub format: Option<Format>,
     /// Print a human-readable table instead of JSON. Shorthand for
@@ -63,6 +62,8 @@ pub struct Config {
     pub max_cyclomatic: Option<u32>,
     /// Only report functions whose complexity is >= this.
     pub min: Option<u32>,
+    /// Only report functions over `max-cognitive` / `max-cyclomatic`.
+    pub violations: Option<bool>,
     /// Do not respect .gitignore / ignore files.
     pub no_ignore: Option<bool>,
     /// Number of files to analyze in parallel.
@@ -168,8 +169,9 @@ mod tests {
 
     #[test]
     fn parses_format() {
-        let cfg: Config = toml::from_str(r#"format = "violations""#).unwrap();
-        assert_eq!(cfg.format, Some(Format::Violations));
+        let cfg: Config = toml::from_str("format = \"simple\"\nviolations = true").unwrap();
+        assert_eq!(cfg.format, Some(Format::Simple));
+        assert_eq!(cfg.violations, Some(true));
         assert!(toml::from_str::<Config>(r#"format = "xml""#).is_err());
     }
 

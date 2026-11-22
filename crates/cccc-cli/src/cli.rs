@@ -37,9 +37,8 @@ pub struct Cli {
     #[arg(long)]
     pub no_config: bool,
 
-    /// Output format. `violations` prints one `path:line:` line per function
-    /// over `--max-cognitive` / `--max-cyclomatic` (and nothing when all pass),
-    /// with a count on stderr — compact output for CI logs and agents.
+    /// Output format: `json` (default), `table`, or `simple` — one
+    /// `path:line:` line per function, compact for CI logs and agents.
     #[arg(long, value_enum, value_name = "FORMAT")]
     pub format: Option<Format>,
 
@@ -70,6 +69,13 @@ pub struct Cli {
     /// Exit non-zero if any function's cyclomatic complexity exceeds this value.
     #[arg(long, value_name = "N")]
     pub max_cyclomatic: Option<u32>,
+
+    /// Only report the functions over `--max-cognitive` / `--max-cyclomatic`
+    /// (the ones that fail the gate), in any `--format`. Files without one are
+    /// omitted. Requires at least one threshold; cannot be combined with
+    /// `--min` or `--top-*`.
+    #[arg(long)]
+    pub violations: bool,
 
     /// Only report functions whose cognitive or cyclomatic complexity is >= N.
     #[arg(long, value_name = "N")]

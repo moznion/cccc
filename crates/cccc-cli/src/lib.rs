@@ -158,32 +158,33 @@ fn run_on_current_thread() -> i32 {
     let max_cognitive = cli.max_cognitive.or(config.max_cognitive);
     let max_cyclomatic = cli.max_cyclomatic.or(config.max_cyclomatic);
     let min = cli.min.or(config.min);
-    // The violations view is defined by the thresholds alone: without one it
-    // would print nothing and look like a pass, and `--min` / `--top-*` would
-    // only blur which functions it reports. A `min` from the config file is
-    // ignored rather than rejected, so a project can keep one for its table.
-    if format == Format::Violations {
+    let violations = if was_set("violations") {
+        cli.violations
+    } else {
+        config.violations.unwrap_or(false)
+    };
+    // `--violations` is defined by the thresholds alone: without one it would
+    // report nothing and look like a pass, and `--min` / `--top-*` would only
+    // blur which functions it reports. A `min` from the config file is ignored
+    // rather than rejected, so a project can keep one for its other runs.
+    if violations {
         if max_cognitive.is_none() && max_cyclomatic.is_none() {
             eprintln!(
-                "cccc: --format violations needs --max-cognitive and/or --max-cyclomatic (or `max-cognitive` / `max-cyclomatic` in cccc.toml)"
+                "cccc: --violations needs --max-cognitive and/or --max-cyclomatic (or `max-cognitive` / `max-cyclomatic` in cccc.toml)"
             );
             return 2;
         }
         for flag in ["min", "top_cognitive", "top_cyclomatic"] {
             if was_set(flag) {
                 eprintln!(
-                    "cccc: --{} cannot be used with --format violations",
+                    "cccc: --{} cannot be used with --violations",
                     flag.replace('_', "-")
                 );
                 return 2;
             }
         }
     }
-    let min = if format == Format::Violations {
-        None
-    } else {
-        min
-    };
+    let min = if violations { None } else { min };
     let jobs_opt = cli.jobs.or(config.jobs);
     let lang_filter = cli.lang.clone().or_else(|| config.languages.clone());
     let exclude_lang_filter = cli
@@ -412,18 +413,6 @@ fn run_on_current_thread() -> i32 {
         }
     }
 
-    if format == Format::Violations {
-        let (fns, files) = output::print_violations(&reports, max_cognitive, max_cyclomatic);
-        if fns > 0 {
-            eprintln!(
-                "cccc: {fns} function{} over the limits in {files} file{}",
-                if fns == 1 { "" } else { "s" },
-                if files == 1 { "" } else { "s" }
-            );
-        }
-        return i32::from(fail);
-    }
-
     // `--top-*` is a distinct, flat ranking view that replaces the per-file
     // output. The two top flags are mutually exclusive (enforced by clap).
     let top_request = match (cli.top_cognitive, cli.top_cyclomatic) {
@@ -433,18 +422,47 @@ fn run_on_current_thread() -> i32 {
     };
     if let Some((metric, n)) = top_request {
         let top = report::build_top_report(&reports, summary, metric, n);
-        if table {
-            output::print_top_table(&top);
-        } else {
-            output::print_json(&top, pretty);
+        match format {
+            Format::Json => output::print_json(&top, pretty),
+            Format::Table => output::print_top_table(&top),
+            Format::Simple => output::print_top_simple(&top),
         }
         return i32::from(fail);
     }
 
-    if let Some(min) = min {
-        for r in &mut reports {
-            r.functions = filter_min(std::mem::take(&mut r.functions), min);
+    // Which functions are reported in their own right. `--violations` and
+    // `--min` are mutually exclusive (checked above).
+    let selected = |f: &FunctionReport| {
+        if violations {
+            over_limit(f, max_cognitive, max_cyclomatic)
+        } else {
+            min.is_none_or(|m| f.cognitive >= m || f.cyclomatic >= m)
         }
+    };
+    if violations || min.is_some() {
+        for r in &mut reports {
+            r.functions = filter_tree(std::mem::take(&mut r.functions), &selected);
+        }
+    }
+    // `--violations` asks for the offenders only, so a file without one is
+    // noise in every format.
+    if violations {
+        reports.retain(|r| !r.functions.is_empty());
+    }
+
+    if format == Format::Simple {
+        // The tree keeps the ancestors of selected functions for context; a
+        // flat list has no use for them, so print the selected ones only.
+        let limits = violations.then_some((max_cognitive, max_cyclomatic));
+        let (fns, files) = output::print_simple(&reports, &selected, limits);
+        if violations && fns > 0 {
+            eprintln!(
+                "cccc: {fns} function{} over the limits in {files} file{}",
+                if fns == 1 { "" } else { "s" },
+                if files == 1 { "" } else { "s" }
+            );
+        }
+        return i32::from(fail);
     }
 
     let report = Report {
@@ -561,21 +579,25 @@ fn check_cached<'a>(
 
 /// True if any function (at any depth) exceeds either threshold.
 fn exceeds(fns: &[FunctionReport], max_cog: Option<u32>, max_cyc: Option<u32>) -> bool {
-    fns.iter().any(|f| {
-        max_cog.is_some_and(|m| f.cognitive > m)
-            || max_cyc.is_some_and(|m| f.cyclomatic > m)
-            || exceeds(&f.children, max_cog, max_cyc)
-    })
+    fns.iter()
+        .any(|f| over_limit(f, max_cog, max_cyc) || exceeds(&f.children, max_cog, max_cyc))
 }
 
-/// Keep functions whose own complexity meets `min`, or that have a kept
-/// descendant.
-fn filter_min(fns: Vec<FunctionReport>, min: u32) -> Vec<FunctionReport> {
+/// True if `f` itself (not counting its children) exceeds either threshold.
+fn over_limit(f: &FunctionReport, max_cog: Option<u32>, max_cyc: Option<u32>) -> bool {
+    max_cog.is_some_and(|m| f.cognitive > m) || max_cyc.is_some_and(|m| f.cyclomatic > m)
+}
+
+/// Keep functions that satisfy `keep`, or that have a kept descendant (so the
+/// tree still shows where a nested function lives).
+fn filter_tree(
+    fns: Vec<FunctionReport>,
+    keep: &impl Fn(&FunctionReport) -> bool,
+) -> Vec<FunctionReport> {
     fns.into_iter()
         .filter_map(|mut f| {
-            f.children = filter_min(std::mem::take(&mut f.children), min);
-            let keep = f.cognitive >= min || f.cyclomatic >= min || !f.children.is_empty();
-            if keep { Some(f) } else { None }
+            f.children = filter_tree(std::mem::take(&mut f.children), keep);
+            (keep(&f) || !f.children.is_empty()).then_some(f)
         })
         .collect()
 }
