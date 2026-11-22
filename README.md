@@ -193,7 +193,7 @@ or an artifact store; `--pretty` prints the same document indented.
 | `--exclude GLOB` | Exclude files matching a glob (repeatable) |
 | `--max-cognitive N` | Exit non-zero if any function's cognitive complexity exceeds N |
 | `--max-cyclomatic N` | Exit non-zero if any function's cyclomatic complexity exceeds N |
-| `--min N` | Only report functions with complexity >= N |
+| `--min N` | Only report functions with complexity >= N (with `--table`, files left with no functions are omitted; JSON keeps them) |
 | `--top-cognitive N` | Show only the N most cognitively-complex functions, as a flat cross-file ranking |
 | `--top-cyclomatic N` | Show only the N most cyclomatically-complex functions, as a flat cross-file ranking |
 | `--no-ignore` | Do not respect `.gitignore` when walking directories |
