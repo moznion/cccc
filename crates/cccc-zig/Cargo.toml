@@ -10,4 +10,4 @@ description = "Zig (zigsyn) adapter that lowers source into the cccc-core comple
 
 [dependencies]
 cccc-core = { workspace = true }
-zigsyn = "0.1"
+zigsyn = "0.2"
