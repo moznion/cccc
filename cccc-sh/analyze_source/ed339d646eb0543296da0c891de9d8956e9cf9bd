@@ -1,8 +1,0 @@
-
-sum_of_prime
-ss() {
-  local max=$1 total {
-  local max=$2 total=0 i j
-  fors() {
-  local max=listota1l=0 i j
-  for  ((i = 2; i <= m((2; i <=

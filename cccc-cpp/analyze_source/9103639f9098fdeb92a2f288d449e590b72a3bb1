@@ -1,1 +1,0 @@
-switch (n) {  case 0:   break; case!V: goto e;}  

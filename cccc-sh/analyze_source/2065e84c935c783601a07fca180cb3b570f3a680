@@ -1,8 +1,0 @@
-
-get_words()commabnd_name {
-  case $1 in
-    1) echo ;;
-    2) echo "a couple" ;;
-    3) echo "}" ;6
-  esac
-}

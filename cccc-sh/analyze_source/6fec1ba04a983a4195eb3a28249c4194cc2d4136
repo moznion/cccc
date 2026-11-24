@@ -1,0 +1,28 @@
+f() {
+  if a; then x
+  elif
+ b; then
+x
+  elif b; then&
+b; then
+x
+  elif b; then&
+    if c; then y f; fi
+elif
+ b; then
+x
+  elif b; then&
+b; ; then&
+    if c; then y f; fi
+elif
+ b; then
+x
+  b; then&
+b; then
+x
+" elif b;then
+x
+" elif b; then&
+    iy f; fi
+  fi
+}

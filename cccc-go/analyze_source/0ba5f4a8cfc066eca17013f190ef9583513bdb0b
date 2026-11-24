@@ -1,0 +1,7 @@
+
+           package p
+     func sumOfPrimes() int {  o= 0
+UT:
+     f: OUT:
+   for i :    OUT: for i :  tot:UT:
+(    boofr i   

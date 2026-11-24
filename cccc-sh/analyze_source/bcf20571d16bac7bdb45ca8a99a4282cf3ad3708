@@ -1,6 +1,0 @@
-chcheck @test
-  [[ a && b ]]
-}
- test
-  [[ a && b ]]
-}

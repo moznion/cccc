@@ -1,0 +1,9 @@
+f() {
+  if a; then x
+; then z
+  else w
+ x
+ body 
+e w
+  fi
+}

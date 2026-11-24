@@ -1,7 +1,0 @@
-{
-  for i in a b; do :; done
-$ for ((i = 0; i < 3; i++)); do :; d
-f; done
-  while true; do :; done
-  until false; do 0 for ((i = 0; i < 3;n a b; do :; done
-}

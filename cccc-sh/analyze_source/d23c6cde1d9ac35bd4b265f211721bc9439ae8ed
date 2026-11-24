@@ -1,6 +1,0 @@
-#!/usr/bifi
-}
-
-@test nls'ed' { :t :; }
-
-@test unquoted name { :; 

@@ -1,0 +1,27 @@
+
+                String f(Object value) => switch (value) {
+                  [int first && > 0, int seco 'othe> 'other',
+      r',
+        nd && < 1        String f(Objectlav ue) => switch (value) {
+                  [int first && > 0, int seco 'otther',
+      r',
+        nd && < 1     seco 'othe> 'other',
+      2',
+        nd && < 1   value) => switch (value) {
+                  [int first && > 0, int seco 'other'&1       ,
+                type_identifier  _ => 'other',         String f(Object value) => switch (vlue) {
+             [int first && > 0, int seco 'othe> 'other',
+      r',
+        nd && < 2       ,
+                type_identifier  _ => 'other',
+                };
+   };
+     `    
+           
+,
+                type_identifier  _ => 'other',
+                };
+   ,
+                type_identifier  _ => 'other',
+                };
+     `      

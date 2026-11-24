@@ -1,0 +1,7 @@
+
+            fn f     (a: bool) {
+   ..    |||| x ||loop { break
+  { break; }
+ }
+    + 1; }
+        

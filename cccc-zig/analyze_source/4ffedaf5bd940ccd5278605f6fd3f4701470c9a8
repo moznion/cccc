@@ -1,0 +1,5 @@
+p u3 {
+    var trrrr: for () |i| {
+    break i;
+    }
+}

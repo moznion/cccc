@@ -1,0 +1,7 @@
+f( {
+ case
+  $1 in
+  ;;
+(z *) y
+esac
+}

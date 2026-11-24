@@ -1,0 +1,17 @@
+f() {
+  case $1 in
+    a|b
+  cas ;;
+   : i) y ;;
+  a i) y ;;
+  a|c}sc) x ;;
+    i) y ;;
+  es       a|b|b|c) x ;;
+    i) y ;;
+  a|c}sc) x ;;
+  i) y ;;
+  a|c}sc) x ;;
+    i) y ;;
+  es    i) y ;;
+  esac
+}

@@ -1,7 +1,0 @@
-f() {  if a; then x
-  elif b; then
-x
-  elif b; then
-      ifc;then y; fi
-  f   i fi
-}

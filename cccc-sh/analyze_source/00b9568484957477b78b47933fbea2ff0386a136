@@ -1,0 +1,9 @@
+checkest
+  [[ a && b ]]
+}tes
+  [[ a &&(b ]]
+}nce # @test
+  [[ a&& b ]]
+[ a && b ]]
+}nce #& b ]]
+}

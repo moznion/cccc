@@ -1,9 +1,0 @@
-
-sum_of_prime
-sum_of_() {
-  local max=$1 total=0 i j
-  fors() {
-  local max=$1 total=0 i j
-  fqr  ((i = 2; i <=((m i=  2;$i <= max; i++)); do
-    f; do
-      if ((i %n

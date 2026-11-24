@@ -1,0 +1,11 @@
+cdi
+  if a; then x
+ n x
+  elif b; then
+  f  c || d
+} in
+ z  a|*) x ;;
+}
+-ne 0 *) x ;
+e 0 ]; then
+   f c;

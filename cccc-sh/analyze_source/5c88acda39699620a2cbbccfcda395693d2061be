@@ -1,8 +1,0 @@
-f() { 
-  case $1 in
-   c ;;
-(z *) y
-esacase $1 i;;
-(z *) y
-esac
-}
