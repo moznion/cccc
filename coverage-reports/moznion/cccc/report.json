@@ -1,7 +1,7 @@
 {
   "repository": "moznion/cccc",
   "ref": "refs/heads/main",
-  "commit": "488a45c3640f1a14a59afcd927655ef1ad11ce02",
+  "commit": "a958f78b8086e594551dbcb5a6af9f611d249d97",
   "base_ref": "refs/heads/main",
   "coverage": {
     "type": "loc",
@@ -2353,15 +2353,15 @@
             "type": "loc",
             "start_line": 177,
             "end_line": 177,
-            "count": 6,
-            "count_u64": 6
+            "count": 7,
+            "count_u64": 7
           },
           {
             "type": "loc",
             "start_line": 178,
             "end_line": 178,
-            "count": 6,
-            "count_u64": 6
+            "count": 7,
+            "count_u64": 7
           },
           {
             "type": "loc",
@@ -2528,64 +2528,64 @@
             "type": "loc",
             "start_line": 214,
             "end_line": 214,
-            "count": 26,
-            "count_u64": 26
+            "count": 27,
+            "count_u64": 27
           },
           {
             "type": "loc",
             "start_line": 215,
             "end_line": 215,
-            "count": 26,
-            "count_u64": 26
+            "count": 27,
+            "count_u64": 27
           },
           {
             "type": "loc",
             "start_line": 216,
             "end_line": 216,
-            "count": 26,
-            "count_u64": 26
+            "count": 27,
+            "count_u64": 27
           },
           {
             "type": "loc",
             "start_line": 217,
             "end_line": 217,
-            "count": 26,
-            "count_u64": 26
+            "count": 27,
+            "count_u64": 27
           },
           {
             "type": "loc",
             "start_line": 218,
             "end_line": 218,
-            "count": 26,
-            "count_u64": 26
+            "count": 27,
+            "count_u64": 27
           },
           {
             "type": "loc",
             "start_line": 219,
             "end_line": 219,
-            "count": 26,
-            "count_u64": 26
+            "count": 27,
+            "count_u64": 27
           },
           {
             "type": "loc",
             "start_line": 220,
             "end_line": 220,
-            "count": 26,
-            "count_u64": 26
+            "count": 27,
+            "count_u64": 27
           },
           {
             "type": "loc",
             "start_line": 221,
             "end_line": 221,
-            "count": 26,
-            "count_u64": 26
+            "count": 27,
+            "count_u64": 27
           },
           {
             "type": "loc",
             "start_line": 222,
             "end_line": 222,
-            "count": 26,
-            "count_u64": 26
+            "count": 27,
+            "count_u64": 27
           },
           {
             "type": "loc",
@@ -2598,22 +2598,22 @@
             "type": "loc",
             "start_line": 224,
             "end_line": 224,
-            "count": 18,
-            "count_u64": 18
+            "count": 19,
+            "count_u64": 19
           },
           {
             "type": "loc",
             "start_line": 225,
             "end_line": 225,
-            "count": 18,
-            "count_u64": 18
+            "count": 19,
+            "count_u64": 19
           },
           {
             "type": "loc",
             "start_line": 226,
             "end_line": 226,
-            "count": 26,
-            "count_u64": 26
+            "count": 27,
+            "count_u64": 27
           },
           {
             "type": "loc",
@@ -8645,8 +8645,8 @@
             "type": "loc",
             "start_line": 401,
             "end_line": 401,
-            "count": 737,
-            "count_u64": 737
+            "count": 736,
+            "count_u64": 736
           },
           {
             "type": "loc",
@@ -10961,8 +10961,8 @@
             "type": "loc",
             "start_line": 13,
             "end_line": 13,
-            "count": 10781,
-            "count_u64": 10781
+            "count": 11020,
+            "count_u64": 11020
           },
           {
             "type": "loc",
@@ -119351,6 +119351,6 @@
       }
     ]
   },
-  "test_execution_time": 11000000000,
-  "timestamp": "2026-11-25T15:01:48.050258069Z"
+  "test_execution_time": 7000000000,
+  "timestamp": "2026-11-25T15:38:08.36725455Z"
 }
