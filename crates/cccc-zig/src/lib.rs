@@ -17,8 +17,6 @@
 //! Adding a node variant therefore produces a compile error until the adapter
 //! decides how to traverse it. A collector stack assembles nested IR bodies.
 
-mod duplication;
-
 use std::path::Path;
 
 use cccc_core::guard;
@@ -39,14 +37,7 @@ pub fn analyze_source(path: &Path, source: &str) -> FileReport {
 ///
 /// zigsyn parses a whole file at once and does not recover from syntax errors,
 /// so a parse failure yields an empty node list and one parser error string.
-/// Input whose AST zigsyn would build exponentially large is refused the same
-/// way, before parsing.
 pub fn to_ir(_path: &Path, source: &str) -> (Vec<Node>, Vec<String>) {
-    if duplication::exceeds_budget(source) {
-        let msg = "anonymous initializers or declaration types nested too deeply \
-                   for the Zig parser; file skipped";
-        return (Vec::new(), vec![msg.to_string()]);
-    }
     match zigsyn::parse_source(source) {
         Ok(file) => {
             let mut builder = Builder::new(file.line_info.clone());
@@ -157,7 +148,7 @@ impl Builder {
         self.visit_optional_expression(function.addrspace.as_ref());
         self.visit_optional_expression(function.linksection.as_ref());
         self.visit_optional_expression(function.callconv.as_ref());
-        self.visit_optional_expression(function.ret.as_deref());
+        self.visit_expression(&function.ret);
     }
 
     fn visit_var_decl(&mut self, var: &VarDecl) {
@@ -167,8 +158,6 @@ impl Builder {
                 VarProtoOrExpr::Expr(expr) => self.visit_expression(expr),
             }
         }
-        // `ty` is a clone of the first prototype's type (or `None`), already
-        // visited above.
         self.visit_optional_expression(var.align.as_ref());
         self.visit_optional_expression(var.addrspace.as_ref());
         self.visit_optional_expression(var.linksection.as_ref());
@@ -269,14 +258,12 @@ impl Builder {
             | Expression::Unreachable(_) => {}
             Expression::BuiltinCall(call) => self.visit_expressions(&call.args),
             Expression::AnonInit(init) => {
-                // `fields` clones the entries' values; walking both would
-                // count everything inside the initializer twice.
                 for entry in &init.entries {
                     self.visit_init_entry(entry);
                 }
             }
-            Expression::Grouped(inner)
-            | Expression::Comptime(inner)
+            Expression::Grouped { expr: inner, .. }
+            | Expression::Comptime { expr: inner, .. }
             | Expression::Nosuspend(inner)
             | Expression::Resume(inner) => self.visit_expression(inner),
             Expression::AnyframeType(anyframe) => {
@@ -380,10 +367,8 @@ impl Builder {
     // ---- control flow -----------------------------------------------------
 
     fn lower_if_expression(&mut self, if_: &IfExpr) -> Node {
-        let test =
-            self.collect(|builder| builder.visit_optional_expression(if_.condition.as_deref()));
-        let then =
-            self.collect(|builder| builder.visit_optional_expression(if_.then_branch.as_deref()));
+        let test = self.collect(|builder| builder.visit_expression(&if_.condition));
+        let then = self.collect(|builder| builder.visit_expression(&if_.then_branch));
         let alternate = if_.else_branch.as_deref().map(|branch| {
             Box::new(match branch {
                 Expression::If(else_if) => self.lower_if_expression(else_if),
@@ -447,7 +432,7 @@ impl Builder {
         op: LogicalOp,
         out: &mut Vec<Node>,
     ) {
-        if let Expression::Grouped(inner) = expression {
+        if let Expression::Grouped { expr: inner, .. } = expression {
             self.collect_logical_side(inner, op, out);
             return;
         }
@@ -549,7 +534,7 @@ fn callee_name(expression: &Expression) -> Option<String> {
     match expression {
         Expression::Ident(ident) => Some(ident.name.clone()),
         Expression::FieldAccess(field) => Some(field.field.name.clone()),
-        Expression::Grouped(inner) => callee_name(inner),
+        Expression::Grouped { expr: inner, .. } => callee_name(inner),
         _ => None,
     }
 }
@@ -783,13 +768,17 @@ fn f(a: bool) void {
     }
 
     #[test]
-    fn exponential_duplication_is_refused() {
-        // zigsyn stores anonymous-initializer entries twice, so each nesting
-        // level doubled the AST; this blew past 2 GB (found by fuzzing).
-        let source = format!("const x = {}1{};", ".{".repeat(30), "}".repeat(30));
+    fn deeply_nested_anonymous_initializers_parse() {
+        // zigsyn 0.1 stored anonymous-initializer entries twice, so each
+        // nesting level doubled the AST (over 2 GB, found by fuzzing). 0.2
+        // stores them once; this must now parse quickly and without error.
+        let source = format!(
+            "fn f() void {{ _ = {}1{}; }}",
+            ".{".repeat(30),
+            "}".repeat(30)
+        );
         let (nodes, errors) = to_ir(Path::new("deep.zig"), &source);
-        assert!(nodes.is_empty());
-        assert_eq!(errors.len(), 1);
-        assert!(errors[0].contains("file skipped"), "{errors:?}");
+        assert!(errors.is_empty(), "{errors:?}");
+        assert_eq!(nodes.len(), 1);
     }
 }

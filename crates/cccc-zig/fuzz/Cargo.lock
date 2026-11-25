@@ -3,12 +3,6 @@
 version = 4
 
 [[package]]
-name = "anyhow"
-version = "1.0.104"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "330a5ed07fa54e4702c9d6c4174f74427fc0ef6e214bbd677ae50a5099946470"
-
-[[package]]
 name = "ar_archive_writer"
 version = "0.5.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -37,7 +31,7 @@ dependencies = [
 
 [[package]]
 name = "cccc-core"
-version = "1.8.0"
+version = "1.10.0"
 dependencies = [
  "serde",
  "stacker",
@@ -45,7 +39,7 @@ dependencies = [
 
 [[package]]
 name = "cccc-zig"
-version = "1.8.0"
+version = "1.10.0"
 dependencies = [
  "cccc-core",
  "zigsyn",
@@ -256,26 +250,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "thiserror"
-version = "2.0.21"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "09e52cb86a36cede5cb101bf8908837b3e4c6e5e59fe7fd85c23fb56200d189e"
-dependencies = [
- "thiserror-impl",
-]
-
-[[package]]
-name = "thiserror-impl"
-version = "2.0.21"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fe5197923287db20a58125f0bc85c062f7f2c892de97b18c356f9efb14b28524"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 3.0.9",
-]
-
-[[package]]
 name = "unicode-ident"
 version = "1.0.27"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -298,11 +272,9 @@ dependencies = [
 
 [[package]]
 name = "zigsyn"
-version = "0.1.0"
+version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "18c2e53e0acf479814aa8b9e94ccfe0cce54151f1354df4537b318a344d38bcb"
+checksum = "40bf2a1f8079c64c3982e434a8ae9d6e5642bb55dc3b3ce2c111b3923b57d667"
 dependencies = [
- "anyhow",
  "strum",
- "thiserror",
 ]
