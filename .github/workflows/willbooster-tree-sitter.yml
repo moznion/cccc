@@ -1,0 +1,104 @@
+name: Update cccc-willbooster-tree-sitter
+
+# vendor/willbooster-tree-sitter (the `cccc-willbooster-tree-sitter` crate) is
+# a repackaged copy of the `willbooster-tree-sitter` runtime fork, so Dependabot
+# cannot see new releases of it. This workflow does that job instead: when
+# crates.io has a newer stable `willbooster-tree-sitter`, it re-vendors it with
+# .github/scripts/vendor-willbooster-tree-sitter.sh (which bumps the crate's
+# version, cccc-cs's pin on it and the lockfiles together) and opens a pull
+# request, or updates the one already open.
+#
+# The pull request is created with GITHUB_TOKEN, which does not trigger
+# `on: pull_request` workflows, so the C# tests run here and their outcome is
+# reported in the pull request body. To get the full CI on it, close and reopen
+# the pull request.
+
+on:
+  schedule:
+    # Weekly, like Dependabot (.github/dependabot.yml).
+    - cron: "0 3 * * 1"
+  workflow_dispatch:
+
+concurrency:
+  group: willbooster-tree-sitter
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Compare the vendored version with crates.io
+        id: version
+        run: |
+          current=$(perl -ne 'print $1 if /^version = "([^"]+)"/' vendor/willbooster-tree-sitter/Cargo.toml)
+          latest=$(curl -fsSL -A "cccc-vendor (https://github.com/moznion/cccc)" \
+            https://crates.io/api/v1/crates/willbooster-tree-sitter |
+            python3 -c 'import json, sys; print(json.load(sys.stdin)["crate"]["max_stable_version"])')
+          echo "current=$current latest=$latest"
+          newer=$(python3 -c 'import sys; v = lambda s: tuple(int(x) for x in s.split("."));
+          print("true" if v(sys.argv[2]) > v(sys.argv[1]) else "false")' "$current" "$latest")
+          {
+            echo "current=$current"
+            echo "latest=$latest"
+            echo "newer=$newer"
+          } >>"$GITHUB_OUTPUT"
+
+      # Installs the toolchain pinned in rust-toolchain.toml.
+      - name: Install Rust toolchain
+        if: steps.version.outputs.newer == 'true'
+        run: rustup toolchain install
+
+      - name: Re-vendor willbooster-tree-sitter
+        if: steps.version.outputs.newer == 'true'
+        run: .github/scripts/vendor-willbooster-tree-sitter.sh "${{ steps.version.outputs.latest }}"
+
+      # cccc-cli's deep_nesting test runs every language, so it checks that the
+      # new runtime still links next to upstream tree-sitter and loads the
+      # pinned C# grammar. cccc-rb builds Ruby's Prism via bindgen (libclang).
+      - name: Run the C# tests
+        id: test
+        if: steps.version.outputs.newer == 'true'
+        continue-on-error: true
+        run: |
+          sudo apt-get update && sudo apt-get install -y libclang-dev
+          cargo test -p cccc-willbooster-tree-sitter -p cccc-cs
+          cargo test -p cccc-cli --test deep_nesting
+
+      - name: Open or update the pull request
+        if: steps.version.outputs.newer == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CURRENT: ${{ steps.version.outputs.current }}
+          LATEST: ${{ steps.version.outputs.latest }}
+          TEST_OUTCOME: ${{ steps.test.outcome }}
+        run: |
+          branch="vendor/willbooster-tree-sitter-$LATEST"
+          title="build(vendor): bump cccc-willbooster-tree-sitter from $CURRENT to $LATEST"
+          if [ "$TEST_OUTCOME" = success ]; then
+            result="The C# tests (\`cccc-willbooster-tree-sitter\`, \`cccc-cs\`, cccc-cli's \`deep_nesting\`) passed."
+          else
+            result="**The C# tests failed** ([run log]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID)). If the pinned \`willbooster-tree-sitter-c-sharp\` no longer loads, bump it in this pull request too."
+          fi
+          body="Re-vendors [willbooster-tree-sitter $LATEST](https://crates.io/crates/willbooster-tree-sitter/$LATEST) with \`.github/scripts/vendor-willbooster-tree-sitter.sh\`, bumping \`cccc-willbooster-tree-sitter\`, cccc-cs's pin on it and the lockfiles to $LATEST.
+
+          $result
+
+          Opened by \`.github/workflows/willbooster-tree-sitter.yml\` with GITHUB_TOKEN, so CI does not start by itself: close and reopen this pull request to run it."
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add -A vendor/willbooster-tree-sitter crates/cccc-cs/Cargo.toml Cargo.lock crates/cccc-cs/fuzz/Cargo.lock
+          git commit -m "$title"
+          git push --force origin "$branch"
+
+          if [ -n "$(gh pr list --head "$branch" --state open --json number --jq '.[].number')" ]; then
+            gh pr edit "$branch" --title "$title" --body "$body"
+          else
+            gh pr create --base main --head "$branch" --title "$title" --body "$body"
+          fi

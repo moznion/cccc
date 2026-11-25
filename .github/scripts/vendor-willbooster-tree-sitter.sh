@@ -21,10 +21,14 @@
 # The grammar crate itself references no runtime symbols, so it is used from
 # crates.io unchanged.
 #
-# Needs: curl, tar, perl, python3, a C compiler (`cc`) and `nm`.
-# After running it, bump `version` of the cccc-cs dependency on this crate to
-# the same version and run the C# tests (crates/cccc-cs and cccc-cli's
-# deep_nesting test exercise both runtimes in one binary).
+# The crate's version is the fork's, and the script also moves cccc-cs's `=`
+# pin on it and the lockfiles (the workspace's and cccc-cs's fuzz crate's) to
+# that version, so one run is the whole bump. Afterwards, run the C# tests
+# (crates/cccc-cs and cccc-cli's deep_nesting test exercise both runtimes in
+# one binary). .github/workflows/willbooster-tree-sitter.yml runs this weekly
+# for the newest release and opens a pull request.
+#
+# Needs: curl, tar, perl, python3, cargo, a C compiler (`cc`) and `nm`.
 set -eu
 
 if [ $# -ne 1 ]; then
@@ -220,5 +224,15 @@ cccc repository. It is not meant for use outside cccc.
 
 Licensed under MIT, as upstream (see \`LICENSE\`).
 EOF
+
+# Point cccc-cs at the new version and refresh the lockfiles.
+cs_manifest=crates/cccc-cs/Cargo.toml
+perl -pi -e 's/^(tree-sitter = \{ package = "cccc-willbooster-tree-sitter", .*version = "=)[^"]+(")/${1}'"$version"'${2}/' "$cs_manifest"
+if ! grep -q "package = \"cccc-willbooster-tree-sitter\".*version = \"=$version\"" "$cs_manifest"; then
+    echo "error: could not update the cccc-willbooster-tree-sitter pin in $cs_manifest" >&2
+    exit 1
+fi
+cargo update --quiet --workspace
+cargo update --quiet --manifest-path crates/cccc-cs/fuzz/Cargo.toml -p cccc-willbooster-tree-sitter
 
 echo "vendored willbooster-tree-sitter $version into $dest ($(wc -l <"$work/symbols.txt" | tr -d ' ') symbols prefixed)"
