@@ -25,6 +25,8 @@ members = [
     "crates/cccc-cs",
     "crates/cccc-vb",
     "crates/cccc-sh",
+    # Repackaged tree-sitter runtime fork for cccc-cs; see its README.md.
+    "vendor/willbooster-tree-sitter",
 ]
 resolver = "2"
 
