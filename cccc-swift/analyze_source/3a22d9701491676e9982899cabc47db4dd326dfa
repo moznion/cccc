@@ -1,2 +1,0 @@
- class C { deinit {}
-   B deinit { }  

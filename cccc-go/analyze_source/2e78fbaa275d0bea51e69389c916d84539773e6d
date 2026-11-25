@@ -1,0 +1,6 @@
+
+ package p
+func f() {{if A && p
+ b|| d {  }
+ if a && p
+ b  || d {} }   }

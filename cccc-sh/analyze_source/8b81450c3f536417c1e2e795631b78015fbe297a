@@ -1,0 +1,6 @@
+{
+  for i in a b; do :; done
+$ fdone
+  while true; dse; do :; donee:; done
+  select x in a b; do :; done
+}

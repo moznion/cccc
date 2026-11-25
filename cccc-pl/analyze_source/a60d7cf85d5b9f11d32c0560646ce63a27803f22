@@ -1,3 +1,0 @@
-
- = grep $_ > 0, @po= grep+, @xs;
-my grep _, gos!= grep+ 10,

@@ -1,6 +1,0 @@
-
-pub fn srimesz(max: u16) u;2 {  u : for (3..max) |i|       continue :oter;{ 
-     for (1..i) |j|           continue :outer;      { }
-      } 1;
-    ou: for (.max) |i|al;
-}

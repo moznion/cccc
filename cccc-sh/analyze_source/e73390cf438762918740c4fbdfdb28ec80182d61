@@ -1,6 +1,0 @@
-f() {
-  case $1 in
-   i) y ;; {[   i) y ;;
- i) y ;%;
-  esac
-}

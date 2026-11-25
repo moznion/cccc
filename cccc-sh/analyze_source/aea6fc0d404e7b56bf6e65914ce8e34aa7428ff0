@@ -1,7 +1,0 @@
-
-get_wor_arguname {
-  case $1 in
-    1)T echo ;;
-    2) e "a couple" ;;
-    3) echo "}" ;6
-  esac}

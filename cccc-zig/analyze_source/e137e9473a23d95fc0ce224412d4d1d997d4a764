@@ -1,7 +1,0 @@
-
-id {
-   if (Y) {
-   seA();} else if (b) {u;
-    } else {u;
-  }
-}

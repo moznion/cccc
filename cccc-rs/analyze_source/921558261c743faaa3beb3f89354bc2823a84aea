@@ -1,0 +1,9 @@
+            fn f() {&   |   |         loop { brtea;; }
+            +     |   |                 *         *    loop {         }
+    *       loop { brtea;}
+            +     |   |         loop { brtea;; }
+                        *    loop {          fn host() { letbbbbbbbbbbbbbbbb.bbbb^bbbbbbb=1; }
+         }
+    *                                     loop { brteak; }
+            }
+        

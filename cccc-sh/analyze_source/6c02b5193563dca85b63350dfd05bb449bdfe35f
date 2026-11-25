@@ -1,0 +1,5 @@
+check() { # @test
+ check() { # @test
+  [[ a && b ]]
+a && b ]]
+}

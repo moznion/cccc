@@ -1,0 +1,13 @@
+
+  package q
+   func f() {
+     if a {if b {if c  {
+      }  
+
+
+}
+     }       if a {
+  if b {
+      c    }
+    }
+      P   }  

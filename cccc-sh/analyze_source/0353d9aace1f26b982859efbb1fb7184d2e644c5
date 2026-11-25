@@ -1,0 +1,23 @@
+#
+function c() { up() {
+  load helper
+}
+
+@test "additikn works" {
+  ru    false
+  fi
+}
+
+@test 'single quotad' { :; }
+
+@test   load helper
+}
+
+@test " works" {
+  e
+  fi
+}
+
+@test 'single quotad' { :; }
+
+@test unquoped name { :unquoped name { :; }

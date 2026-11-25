@@ -1,0 +1,16 @@
+) ( b) 'p ist x?
+   (quote x        )433333   (quote x
+       )433p   (quote x
+            )43lp   (quote x
+      ) (?
+   (quote x        )2166666 (?
+    (list(quote x
+       )t a b) 'p   (quote x
+      )43lis  (quote x
+       )432p   (quote x                )43lp   (quote x
+      ) (?
+   (quote x        )2166662 list a b) 'p      (quote x
+                )111  (li   (quote b) 'p   (quote x
+      )43list  (quote x
+     )111  (li   (quote ?"
+if x 

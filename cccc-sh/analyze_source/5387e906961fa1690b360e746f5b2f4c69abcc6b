@@ -1,7 +1,0 @@
-f() {
- if a; then # why
- # note
-    x
-  #ing
-  e y
-  fi}

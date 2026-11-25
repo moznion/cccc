@@ -1,5 +1,0 @@
-f() {
-  if a;b &&  ; then
-  x
-  fi
-}

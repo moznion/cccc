@@ -1,0 +1,2 @@
+ q = From c In , o In orders
+  Aggregate x In
