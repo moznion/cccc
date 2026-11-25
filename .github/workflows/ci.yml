@@ -38,7 +38,7 @@ jobs:
           rustup toolchain install
           rustup component add llvm-tools-preview # required by cargo-llvm-cov
       - uses: Swatinem/rust-cache@eedcf2fb1c22f010a0eb66b92f378c110977f266 # v2
-      - uses: taiki-e/install-action@4a76afe23f9e08d2d9550fb56e556444e8611d21 # v2.90.4
+      - uses: taiki-e/install-action@25f51f6b1bf4e18876107cece836f4f77ac17c8c # v2.90.7
         with:
           tool: cargo-llvm-cov
       # cccc-rb builds Ruby's Prism from vendored C via bindgen, which needs libclang.
