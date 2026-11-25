@@ -45,8 +45,10 @@ jobs:
       - name: Install libclang (for the ruby-prism / bindgen build)
         run: sudo apt-get update && sudo apt-get install -y libclang-dev
       # Runs the workspace tests and emits an LCOV report for octocov in one pass.
+      # vendor/ holds third-party code (a repackaged tree-sitter runtime), so it
+      # is left out of the coverage figures.
       - name: Run tests & measure coverage (cargo-llvm-cov -> LCOV)
-        run: cargo llvm-cov --workspace --all-targets --all-features --lcov --output-path coverage.lcov
+        run: cargo llvm-cov --workspace --all-targets --all-features --ignore-filename-regex '/vendor/' --lcov --output-path coverage.lcov
       # Passes the LCOV report to octocov so it can comment on pull requests and
       # store the coverage report in the octocov-reports datastore branch.
       - name: Run octocov

@@ -10,5 +10,10 @@ description = "C# (tree-sitter) adapter that lowers source into the cccc-core co
 
 [dependencies]
 cccc-core = { workspace = true }
-tree-sitter = "0.27"
-willbooster-tree-sitter-c-sharp = "=2.0.2"
+# The C# grammar from 3.0.0 on emits WillBooster's own ABI, which only
+# WillBooster's runtime fork loads, so this crate uses that fork (repackaged to
+# link next to the upstream `tree-sitter` of the other adapters; see
+# vendor/willbooster-tree-sitter/README.md) under the usual `tree-sitter` name.
+# Bump the two together: each grammar release names the runtime it needs.
+tree-sitter = { package = "cccc-willbooster-tree-sitter", path = "../../vendor/willbooster-tree-sitter", version = "=23.1.0" }
+willbooster-tree-sitter-c-sharp = "=22.0.4"
