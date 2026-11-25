@@ -1602,9 +1602,9 @@ dependencies = [
 
 [[package]]
 name = "willbooster-tree-sitter-c-sharp"
-version = "2.0.2"
+version = "22.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b30569abbe78a25c2a17dac16e9719b08c29d9dbfb6a8f8c646d60f3254704f9"
+checksum = "435361589f154377bf5bc9fa07d9c2ff041794f925b1c40f59aeb6d38e9fd446"
 dependencies = [
  "cc",
  "tree-sitter-language",
