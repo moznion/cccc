@@ -5,9 +5,14 @@
 //! C# 14 extension members, file-based app directives, …) and lowers the
 //! concrete syntax tree into the language-agnostic [`cccc_core::ir`].
 //!
-//! This is a pure library — it depends only on `cccc-core`, `tree-sitter`, and
-//! the C# grammar (whose C source is compiled by `cc`, so there is no
-//! `libclang`/bindgen requirement), with no CLI machinery. The unified `cccc`
+//! This is a pure library — it depends only on `cccc-core`, the C# grammar, and
+//! the tree-sitter runtime that grammar needs (whose C source is compiled by
+//! `cc`, so there is no `libclang`/bindgen requirement), with no CLI machinery.
+//! The grammar emits WillBooster's own ABI, which upstream `tree-sitter`
+//! rejects, so the runtime is WillBooster's fork, repackaged as
+//! `cccc-willbooster-tree-sitter` with prefixed C symbols so that it links into
+//! the same binary as the upstream `tree-sitter` of the other adapters. It is
+//! imported under the usual `tree_sitter` name. The unified `cccc`
 //! binary (the `cccc-cli` crate) registers this adapter's
 //! [`analyze_source`]/[`DEFAULT_EXTS`] and dispatches `.cs`/`.csx` files to it.
 //!
@@ -95,7 +100,7 @@ pub fn to_ir(path: &Path, source: &str) -> (Vec<Node>, Vec<String>) {
     } else {
         Cow::Borrowed(source)
     };
-    let Some(tree) = parser.parse(source.as_ref(), None) else {
+    let Some(tree) = parser.parse(source.as_ref()) else {
         return (Vec::new(), vec!["failed to parse C# source".to_string()]);
     };
 
