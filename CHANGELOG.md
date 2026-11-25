@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.10.1](https://github.com/moznion/cccc/compare/v1.10.0...v1.10.1) - 2026-11-25
+
+- build(deps): bump taiki-e/install-action from 2.90.4 to 2.90.7 by @dependabot[bot] in https://github.com/moznion/cccc/pull/232
+- build(deps): bump taiki-e/upload-rust-binary-action from 635c9808bd4cc93075dc35fde34fee68a5945670 to 6a121d0da97db8dea9d4a7eb71116bd508c170c7 by @dependabot[bot] in https://github.com/moznion/cccc/pull/233
+- build(deps): bump the oxc group with 6 updates by @dependabot[bot] in https://github.com/moznion/cccc/pull/234
+- build(deps): bump tree-sitter-scala from 0.26.3 to 0.26.13 by @dependabot[bot] in https://github.com/moznion/cccc/pull/235
+- build(deps): bump toml from 1.2.1+spec-1.1.0 to 1.2.2+spec-1.1.0 by @dependabot[bot] in https://github.com/moznion/cccc/pull/237
+- build(deps): bump zigsyn from 0.1.0 to 0.2.0 by @dependabot[bot] in https://github.com/moznion/cccc/pull/238
+
 ## [v1.10.0](https://github.com/moznion/cccc/compare/v1.9.2...v1.10.0) - 2026-11-22
 
 - fix(cli): omit files with no remaining functions in --table --min output by @moznion in https://github.com/moznion/cccc/pull/229
