@@ -1,7 +1,7 @@
 {
   "repository": "moznion/cccc",
   "ref": "refs/heads/main",
-  "commit": "c050c1db04fe2663926e77bbaa612e9a6289e34f",
+  "commit": "978cc6143c8303be6af500589611d71af1931366",
   "base_ref": "refs/heads/main",
   "coverage": {
     "type": "loc",
@@ -8645,8 +8645,8 @@
             "type": "loc",
             "start_line": 401,
             "end_line": 401,
-            "count": 754,
-            "count_u64": 754
+            "count": 784,
+            "count_u64": 784
           },
           {
             "type": "loc",
@@ -10961,8 +10961,8 @@
             "type": "loc",
             "start_line": 13,
             "end_line": 13,
-            "count": 11749,
-            "count_u64": 11749
+            "count": 11718,
+            "count_u64": 11718
           },
           {
             "type": "loc",
@@ -120193,6 +120193,6 @@
       }
     ]
   },
-  "test_execution_time": 10000000000,
-  "timestamp": "2026-11-25T03:47:04.286230436Z"
+  "test_execution_time": 18000000000,
+  "timestamp": "2026-11-25T03:49:30.219280563Z"
 }
