@@ -1,0 +1,9 @@
+
+     package p
+          func f(cnt) {      select {
+     case v :
+case v :       case v :   case ch:  _       case vuuu<-ch:
+      case v := <-ch:
+    }
+        }
+        

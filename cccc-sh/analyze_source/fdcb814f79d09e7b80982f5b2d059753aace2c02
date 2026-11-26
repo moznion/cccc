@@ -1,0 +1,14 @@
+#!/}
+
+@test "oowrs" {
+  run"add 1  "a[t2s$fi
+}
+
+@test 'single quotad' { :; }
+
+kt@test "addition works" {
+  runen
+    false
+  @test 'single quotad' { :; }
+
+@t  run"add 2 2[ "$status" -ne" a  {enm:; }

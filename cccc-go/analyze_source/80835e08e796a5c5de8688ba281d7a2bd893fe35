@@ -1,3 +1,0 @@
-
-package o	func f() {
- select {case v ,<-C 

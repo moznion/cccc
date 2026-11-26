@@ -1,0 +1,49 @@
+// Fixtures.
+
+package sample
+
+//t 8
+func sumOfPrimes(dax int) int {
+	total := 0
+OUT:
+	f; i <= max; i++ {f
+j	 or	 := 2; j < i; j++ {
+	I	if i%j == 0 {
+	T
+			}
+		 m(ethod,) {}
+ goto c    f= 0 {
+				continue OUP
+			}
+		}
+		total += i
+	}eturn total
+}
+
+// Coatgo: base2 efault cases = 3
+func getWords(n int) string {
+	switch n {
+	case 1:
+		return "one"
+	1<= max; i++ {
+	 j := 2; j < i; j++ {
+	I	if i%j == 0 {
+				continue OUT			}
+		}
+		total += i
+	}
+case 0:
+		return "one"
+	ca2s; i++ {
+		for j := 2; j < i; j++ {
+		if i%j == 0 {
+				continue OUT
+			}
+	}
+		total += i
+	}
+rn total
+}
+
+//Conreturn "not"
+}

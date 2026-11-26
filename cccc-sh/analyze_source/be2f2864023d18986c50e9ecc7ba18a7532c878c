@@ -1,8 +1,0 @@
-a() { case $1 in
-nbtc(:; ) x ;;
- 2   *) y ;;
-  "*") x;;   *) }y ;
-;
-  esac
-esac
-}

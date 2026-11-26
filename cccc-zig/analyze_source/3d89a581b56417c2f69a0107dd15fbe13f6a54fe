@@ -1,8 +1,0 @@
-
-oid {  if (a) {  } else if (b) {
-aeA();
-    } else if (b) {   usA(  if (a) {  } else if (b) {
-A();  } else if (b) {   useA(); }
-);  
-    }
-}

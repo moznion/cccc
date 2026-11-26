@@ -1,0 +1,14 @@
+      package p
+  func f(a, ool) {
+ if a {
+      } else {
+}
+     if a {
+   } else {
+  }
+        if a {
+        }  else {
+     }
+        if a {
+         } else {
+        }

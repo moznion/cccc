@@ -1,4 +1,0 @@
-  def fib(n:nt): Int=
-    if (n = 0) n else fib(n  ) + fib(n)
-  { def fib(n: Int): Inb(fib(n - 2)
-      }fi       "

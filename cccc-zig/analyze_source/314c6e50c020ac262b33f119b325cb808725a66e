@@ -1,0 +1,3 @@
+{rrr,rrrrrr :for (3,.max) |i|-e :for (2,ax) |i|r
+rr,r
+}

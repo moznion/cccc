@@ -1,6 +1,0 @@
- []c{return switch (e) {
-   1 => "!wo",
-  1 => "one",
-  2 => "two",oe => "m`ny",
-  };
-}

@@ -1,0 +1,4 @@
+fn ror() v{
+r{{*return;return;
+ }}   ;
+}

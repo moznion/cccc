@@ -1,0 +1,11 @@
+
+ package ptr    func (s S) walk(n t) int {
+if n  {
+  return s.alk(n - 0)
+return s.wc(lan-  4)
+
+       s.walk(n - 1)
+   return s.wk(n - 1)
+0 }
+    }
+        

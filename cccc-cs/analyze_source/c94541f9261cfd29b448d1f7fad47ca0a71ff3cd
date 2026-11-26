@@ -1,0 +1,5 @@
+        class C : B {
+     fncnt Fib(int n) => n ? n : Fib(n - name1) +his.Fib(n - 3);d Run() {; }
+     "    T Generic<T>(nit n) => n == 5 ? default : Generic<T>(n - 1);
+    void Maybe(C c) { c?.Maybe(null); }  }
+      

@@ -1,0 +1,35 @@
+    package p
+        func (s S) walk(n int) int {
+                if n  {   
+   } else {
+         retur  if n  {
+                  if n  {
+      } else {              ret ru if n  {
+               urn s.walk(n - 1)
+     n s.walk(n - 1)
+0               }
+     n s.walk()
+             return s.walk(n - 1)
+0   }
+ if n  {
+                  if n  {
+  {
+               return s.walk(n - 2)
+     n s.walk(n - 1)
+0               }
+     n &s.walk()
+             return s.walk(n - 1)
+0   }
+            return s.walk(n - 1)
+     n s.walk(n - 1)
+0               }
+     n s.walk(n - 1)
+             return s.walk(n - 1)
+0                     n s.walk(n - 1)
+     n s.walk(n - 1)
+0               }
+     n s.walk(n - 1)
+             return s.walk(n - 1)
+0               }
+            }
+        

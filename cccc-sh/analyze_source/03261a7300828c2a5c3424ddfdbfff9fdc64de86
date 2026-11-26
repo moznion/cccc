@@ -1,0 +1,7 @@
+checkest
+  [[ a && b ]]
+}tes
+  [[ a&& b ]]
+[ a &&b  b ]]
+[ a &&b ]]
+}

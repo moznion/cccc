@@ -1,0 +1,15 @@
+            fn f() {&   |   |         loop { brtea;; }
+            +     |   |         loop { brtea;; }
+            +                 *    loop {         }
+    *       loop { brtea;}
+            +     |   |         loop { brtea;; }
+                        *    loop {          fn host() { let ladbda = |x: u32| x + bbbbbbbbbbbbbbbbbb.bbbbbbb=1; }
+         }
+    *                                              *    loop {         }
+    *       loop { brtea;}
+            +     |   |         loop { brtea;; }
+                        *    loop {          fn host() { letbbbbbbbbbbbbbbbb.bbbb^bbbbbbbbbbbbbbbb=2; }
+         }
+    *                                     loop { brteak; }
+            }
+        

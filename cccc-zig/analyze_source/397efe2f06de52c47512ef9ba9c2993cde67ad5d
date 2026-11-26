@@ -1,3 +1,0 @@
-{
-if (ax) |i| { A();   } else if (ax) |i| (ax){
- } }

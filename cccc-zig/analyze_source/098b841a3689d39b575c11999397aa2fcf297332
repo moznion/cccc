@@ -1,2 +1,0 @@
-{switch (valwe) {   0 => "one",2=> "t",else => "m"};
-}

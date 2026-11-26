@@ -1,0 +1,6 @@
+i() { case $1 in
+nbtc(:; ) x ;;
+ 2   *) y ;;
+  "*") x;;   *) }y ;esac
+c
+}

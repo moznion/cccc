@@ -1,5 +1,0 @@
-pub fn sumOfPrim() {
- r: for (7..) |i| {rrr: for (1..) |i| {
- rrr: for (2..)  }i;
-    }
- 0 }

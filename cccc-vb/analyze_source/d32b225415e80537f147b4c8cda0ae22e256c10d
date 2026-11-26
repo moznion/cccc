@@ -1,0 +1,7 @@
+
+Module P
+#If DEB GU     Next
+ End Function
+IfnewThnLog("c")
+#End If
+    EId

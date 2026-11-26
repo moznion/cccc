@@ -1,0 +1,3 @@
+
+package F	func f() {
+ select {case v,C 
