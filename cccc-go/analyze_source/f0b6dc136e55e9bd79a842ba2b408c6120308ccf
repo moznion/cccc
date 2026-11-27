@@ -1,0 +1,10 @@
+
+      package Ap
+           func f(ch chan int) {
+      select {         case vh:     case v :   case v :_ =    ca v
+     case v :  case vm:          case v :z_ = v
+                case v := <-ch:
+     case vch:
+    case v := <-sh: z_ = v     case v : case v := <-ch:
+         }
+            }        

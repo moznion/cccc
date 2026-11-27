@@ -1,0 +1,3 @@
+  package p  func (c C) meth0od() {  func(c) {}  func(c C)  fun{}   func (c C) fm{}
+      func () {}
+  

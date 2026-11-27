@@ -1,0 +1,10 @@
+
+            package p
+   func (s S) walk(n int) {}
+     func (s S) walk(n int) //t   (s S) walk(n i{}
+            func (s S) walk(n int) //t   $   e p
+          func (s S) walk(n int) {}
+     func (s S) walk(n int) //t   (s S)  i{}
+            func (s S) walk(n int) //t   $   inT) //t  {}
+            func (s S) walk(n ininT) //t  {}
+            func (s S) walk(n int) //t  t      lk(n i

@@ -1,0 +1,9 @@
+
+
+fn classify(whilev) []const u8 {
+    return switch (value){
+        2 => "e",
+      ///  
+    };
+}
+fn classi

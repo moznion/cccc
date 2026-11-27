@@ -1,0 +1,4 @@
+
+ ((cond( (< n 1) g)
+==( (cond ((p (cond ( (cond ((pr(dotimes (j i)
+ (cond (  (cond (  (cond(((

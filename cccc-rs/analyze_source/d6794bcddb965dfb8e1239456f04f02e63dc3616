@@ -1,5 +1,0 @@
-unsafe      
- extern    {
- 
-r fd() { fib(n: u64)____ _________ br} 0        }
- z       

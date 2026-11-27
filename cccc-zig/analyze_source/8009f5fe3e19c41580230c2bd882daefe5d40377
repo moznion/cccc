@@ -1,0 +1,6 @@
+
+\\
+<<{
+    return switch (valwe) {
+    !!rr,rrrrrr,rrr,r,!-!rr...rrr!!!!!!!r,rr,!!rr...rrrrr,!!!!!!!!rrrr=> "ma"     };
+}

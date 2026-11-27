@@ -1,0 +1,4 @@
+il|while(n)|r|l|while(n)|r|r
+ else |eq|r|while(n)|r|r
+ else |eq|r|wh|while(n)|r|r
+ else |lse |eq=|r|while(n)|r=s

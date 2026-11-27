@@ -1,6 +1,0 @@
-      class C {     #if NET
-  { { 
-          #if NET
-   tby orin(int x) => { } }          #endif
-   ntax errorin(int x)    #endif
-    }       

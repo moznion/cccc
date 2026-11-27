@@ -1,0 +1,9 @@
+ {
+    return switch (vaue) {
+        1 => "one",
+        1 => "two",
+      3 => "one",
+      2 => "two",
+        hooe => "ma",
+!    };
+}

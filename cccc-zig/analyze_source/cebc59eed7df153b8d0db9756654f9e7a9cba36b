@@ -1,0 +1,9 @@
+  enum (m) {{
+  enum(i) {    }
+ ,   enum (i) {!  enum (m) {{
+  enum(i) {    }
+ ,   enum (i) {!
+}}
+/}
+}}
+/}c

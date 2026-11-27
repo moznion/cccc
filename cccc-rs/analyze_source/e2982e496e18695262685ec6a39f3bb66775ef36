@@ -1,5 +1,0 @@
-
-       fn f(a: boobool, c: bool, d: bool) {
-                if a && b && c || d {}
-      }
-        

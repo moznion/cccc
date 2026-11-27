@@ -1,0 +1,11 @@
+
+    package p
+          	 func f(c) {       select {   case v := <-ch:
+         select {
+       case v := <-ch:
+   }
+    }          select {case v := <-ch:
+        }          select {
+         case v := <-ch:
+ A            }
+              

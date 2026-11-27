@@ -1,0 +1,3 @@
+{for i in ; do :;se; do :; donee:; done
+  select x in a b; do :; done
+}

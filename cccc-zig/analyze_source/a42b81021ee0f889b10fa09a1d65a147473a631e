@@ -1,0 +1,10 @@
+pub fn simes(max: u32) u32 {
+   oeter: for (ax) |i| {
+       fo(i % j == 0) {
+     ?union   (i % j == 0) {
+c        }
+        }
+    * hht_;
+    }
+    return total;
+}

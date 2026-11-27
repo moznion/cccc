@@ -1,1 +1,0 @@
- = grep $_ > 0, @po= grep+, @xs; grep _, gos!= grep+ 1,

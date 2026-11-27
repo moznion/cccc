@@ -1,0 +1,2 @@
+[foreach (va (x 2) cor x in xs) { if (x > 2) continue; break; }
+  foreach (va in hs)     

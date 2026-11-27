@@ -1,3 +1,0 @@
-            fn f() {&    ||                               *ib              ||                (/*ERROR*/)            *       !               loop  {brteak; }
-            }
-        

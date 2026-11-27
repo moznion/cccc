@@ -1,0 +1,8 @@
+f(if a; then x
+  ehen x
+  elif b; th if a; then x
+ ten y
+  elig c; then z
+  elselif b; th; f b; th if a; then x
+ t fi
+}

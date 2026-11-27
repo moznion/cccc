@@ -1,0 +1,4 @@
+  def fib(n:nt): Int=
+    fib(n  ) + fib(n)
+  { def fib(n: Int): Inb(fib(n -    }fi  )
+   n  }fi       "

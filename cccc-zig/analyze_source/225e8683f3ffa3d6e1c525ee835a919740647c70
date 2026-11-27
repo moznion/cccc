@@ -1,6 +1,0 @@
-
-pub fn sumOfPrimes(max: u32) u32 {
-     outer: for (2..max) |i| {
-comptime      for += i;
-    }rr;Ltotal;
-}

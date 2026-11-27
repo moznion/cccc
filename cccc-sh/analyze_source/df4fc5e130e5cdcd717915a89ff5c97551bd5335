@@ -1,0 +1,2 @@
+f() { case $1sa in
+    a|b|c)
