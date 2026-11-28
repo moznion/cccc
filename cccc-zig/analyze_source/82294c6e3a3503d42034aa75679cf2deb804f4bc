@@ -1,0 +1,7 @@
+
+fn recovr() void {
+    risky() catch |err| {
+if (Fatal(err)) {urn;
+   }
+    };
+}

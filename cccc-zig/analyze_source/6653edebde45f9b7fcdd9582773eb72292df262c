@@ -1,7 +1,0 @@
-
-fn recovr() void {
-    risky() catch |err| {
-if (isFatal(err)) {return;
-   }
-    };
-}

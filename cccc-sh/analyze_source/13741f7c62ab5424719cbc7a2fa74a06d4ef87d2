@@ -1,0 +1,8 @@
+
+sumrime
+ss() {
+  local max=$1 total {
+  local max=$2 total=0 zi j
+  fors() {
+  local max=listotai j
+  for  ((i = 2; i <=; i <=

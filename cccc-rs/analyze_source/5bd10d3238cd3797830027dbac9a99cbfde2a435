@@ -1,0 +1,43 @@
+
+            fn fib(n: u64){
+  b::
+b::nAnA ::
+Bb::
+b::nAnAnA ::
+Bb::
+
+b::b::bb::
+b::nAnA ::
+bb::
+b::
+bb::
+b::nA ! {  }
+
+bb::
+b::n::nAnA ::
+Bb::
+b::nAnAnA ::
+Bb::
+
+b::b::bb::
+b::nAnA ::
+bb::
+b::
+bb::
+b::nAb::nA ! {  }
+
+bb::
+b::nAnA ::
+Bb::
+
+b::b::bb::
+b::nAnAA ! {  }
+
+bb::
+b::nAnA ::
+Bb::
+
+b::b::bb::
+bffffffffffffffffffffffffff||||-------------      break   & if n < 2 { return n; }
+     }
+        

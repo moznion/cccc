@@ -1,0 +1,4 @@
+f() { if a; then   if b; then
+fi
+  fi
+}

@@ -1,0 +1,4 @@
+fn () v{
+r{{*return;return;
+}} ,
+}

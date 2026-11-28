@@ -1,0 +1,4 @@
+
+package n
+func f(h) {select { case chan<-h: } }
+ 

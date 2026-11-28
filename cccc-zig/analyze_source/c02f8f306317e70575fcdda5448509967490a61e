@@ -1,0 +1,6 @@
+
+fn classify(vau8) []const u8 {
+    return switch (value) {
+     1 => "one",
+    };
+}

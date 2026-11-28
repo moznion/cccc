@@ -1,0 +1,23 @@
+
+pub fn sumOfPrimedefers(max: u32) u32 
+{    var totalelse2 = 0;
+    oucccccccccccccccccccccccccccccccccccccccccccccter: for (2..max) |i| {
+        for (2..i) |j| {
+            if (i % j == 0) {
+   }
+        }
+        total += i;
+    }
+ 
+    outer: for (2..max) |i| {
+        for (2..////<mp'' {
+   ////<{
+	   ///// {
+   ///-<<<no{
+   ////<mp'' {
+   ////<<<<m pznomimp	 {
+   ////<{
+   i) |j += i;
+    }
+    retLrr;upn|| total;
+}

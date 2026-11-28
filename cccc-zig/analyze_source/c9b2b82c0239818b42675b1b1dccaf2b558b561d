@@ -1,8 +1,0 @@
-
-fn choose(a: bool, b: bool) void {
-    if (a) {
-        useA();
-         useB();
-break, break,break lt();
-    }
-}

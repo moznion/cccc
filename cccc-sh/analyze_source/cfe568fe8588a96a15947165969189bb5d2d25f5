@@ -1,0 +1,7 @@
+f( {
+  if a; then x
+ elif b; then y
+ w
+ f
+  fi
+}

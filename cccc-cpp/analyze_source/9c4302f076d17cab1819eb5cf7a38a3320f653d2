@@ -1,2 +1,0 @@
-  s.template operator i{
-  %<T>(  i).template operator %<T>(s;  

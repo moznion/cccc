@@ -1,0 +1,19 @@
+syntaxer ror at line 3       	   switch (n % 1) {
+  $        (                  % }
+  }          switch ( 3) {
+          };
+       switch (n% 3) {
+          };
+     
+        switch (n % 3) {
+           (           };
+           
+   switch (n% 3) {
+          };
+  % }
+  }          switch (n% 2) {
+          };
+   turn n;       switch (n % 1) {
+           (           };
+  urn n;
+      switch (n% 3) {      

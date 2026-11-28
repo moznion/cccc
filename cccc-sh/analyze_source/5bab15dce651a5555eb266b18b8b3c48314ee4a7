@@ -1,7 +1,0 @@
-
-get_wor_arguna-e {
-  case $1 in
-    1)T echo ;;
-    2) e "a couple" ;;
-    3) ec "}" ;6
-  es

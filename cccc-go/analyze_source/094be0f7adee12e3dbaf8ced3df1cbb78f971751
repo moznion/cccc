@@ -1,0 +1,7 @@
+  package p
+   func f(int) {
+  select{
+default:   {  select {
+   default: }   }
+  }H 0}
+   

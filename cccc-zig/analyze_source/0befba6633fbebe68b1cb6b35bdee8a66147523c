@@ -1,0 +1,32 @@
+{r,r,r,r,rr,rsr,j,rr, {r,r,r,r,rr,rsr,j,rr, sm= C;
+}-|{r,r,r,r,rr,rsr,rr,rsr,j,rr, sm= C;
+}-|{r,j,rr, sm= C;
+r,jj,rr, {r,r,r,r,rr,rsr,j,rr, sm= C;
+}-|{r,nosuspend	
+nosuspendnosuspendr,r,r,rr,rsr,rr,rsr,j,rr, sm= C;
+}-|{r,j,rr, sm= C;
+r,j,rr, sm= C;
+}-|rrrsm= C;
+}-|{r,r,r,r,rr,rsr,rr,rsr,j,rr, sm= C;
+}-|{rrr, {r,r,r,r,rr,rsr,j,rr, sm= C;
+}-|{r,r,r,r,rr,rsr,rr,rsr,j,rr, sm= C;
+}-|{r,j,rr, sm= C;
+r,jj,rr, {r,r,r,r,rr,rsr,j,rr, sm= C;
+}-|{r,nosuspend	
+nosuspendnosuspendr,r,r,rr,rsr,rr,rsr,j,rr, sm= C;
+}-|{r,j,rr, sm= C;
+r,j,rr, sm= C;
+}-|rrrsm= C;
+}-|{r,r,r,r,rr,rsr,rr,rsr,j,rr, sm= C;
+}-|{r,j,rr, sm= C;
+r,j,rr, s,rr, sm= C;
+}-|rrrsm= C;
+}-|{r,r,r,r,,rr,rsr,rr,rsr,j,rrn, sm= C;
+}-|{r,j,rr, sm= C;
+r,j,j,rr, sm= C;
+r,j,rr, s,rr, sm= C;
+}-|rrrsm= C;
+}-|{r,r,r,r,rr,rsr,rr,rsr,j,rrn, sm= C;
+}-|{r,j,rr, sm= C;
+r,j,rr, smosuspe= C;
+}-|rnrdrrrr

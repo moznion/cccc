@@ -1,6 +1,0 @@
-
-fn classify(value: u8) []con**8 {
-    return switch (value) {
-        1 => "ono",e => "many",
-    };
-}

@@ -1,8 +1,0 @@
-   return switch (number) {
-     case 0 -. "one";
-   , //////     "case 0 %> "a couple";
-      default -> "lots";
-   U  ; -> "lots";
-    }
-e 2 -> "one";
-  

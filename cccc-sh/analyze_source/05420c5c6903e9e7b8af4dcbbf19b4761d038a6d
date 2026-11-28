@@ -1,9 +1,0 @@
- {
- if a; then x
-  elif b; then
-
-  elif b; then
-    if c; then y; fi
-  fi
-}
-    if c; then y

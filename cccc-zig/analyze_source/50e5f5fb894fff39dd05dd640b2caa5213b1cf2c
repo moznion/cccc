@@ -1,0 +1,4 @@
+pub fn umOfPrim() {
+ r: for (7..) |i| {rrr: for (1..)i*i;
+  }
+ 0 }
